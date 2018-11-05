@@ -1,0 +1,1131 @@
+$blue: #24ACFF;
+$dark: #546e7a;
+$grey: #989898;
+$green: #14ad0d;
+$orange: #ffb236;
+$red: #ff3636;
+$white: #fff;
+$light: #F2F5F7;
+$borderRadius: 5px;
+$boxShadow: 0px 2px 4px 0 rgba($color: $dark, $alpha: 0.05);
+$off-blue: rgba($blue, 0.2);
+$off-white: rgba($white, 0.2);
+
+$zindexHeader: 100;
+$zindexSidebar: 101;
+
+@mixin btnFocus($color) {
+    &:focus {
+        outline: none;
+        box-shadow: 0px 0px 10px rgba($color: $color, $alpha: 1);
+    }
+}
+
+@mixin bgLighting($color) { background: rgba($color: $color, $alpha: 0.2) }
+@mixin sidebarCollapseTransition { transition: 0.2s ease-in-out; }
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    color: $dark;
+    font-weight: 500;
+    background: $light;
+
+    // ============================ INPUT STYLE ================================
+    input, select, area {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 1rem;
+        color: $dark;
+        font-weight: 500;
+    }
+    // ============================ End INPUT STYLE ============================
+
+    // ============================ LIST STYLE ================================
+    ul {
+       list-style-type: none;
+        margin: 0px;
+        padding: 0px;
+    }
+    // ============================ End LIST STYLE ============================
+
+    // ============================ TYPEGRAPHY STYLE ================================
+    small {
+        display: inline-block;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    .text-danger { color: $red; }
+    .text-warning { color: $orange; }
+    .text-white { color: $white; }
+    .text-success { color: $green; }
+    // ============================ End TYPEGRAPHY STYLE ============================
+
+    // ============================ DIGITAL NUMBER REPORTS STYLE ================================
+    #digital-number-reports {
+        .digital-number-item {
+            background: $white;
+            border-radius: $borderRadius;
+            box-shadow: $boxShadow;
+            padding: 15px;
+
+            .number {
+                font-weight: 300;
+                font-size: 2.14rem;
+
+                small.measurement {
+                    margin-left: -5px;
+                }
+            }
+
+            .percent-text {
+                color: $grey;
+                margin-top: 5px;
+                font-size: 0.8rem;
+            }
+
+            p {
+                margin: 0px;
+                margin-bottom: 15px;
+                font-size: 0.9rem;
+            }
+
+            .process-bar {
+                position: relative;
+                width: 100%;
+                height: 5px;
+                border-radius: 300px;
+                background: $light;
+
+                &.style-1 {
+                    .percent {
+                        background: linear-gradient(to right, #DD5D89, #F6BA97, #DD5D89);
+                        background-size: 400% 400%;
+                        animation: backgroundGradientAnimate 9s ease infinite;
+                    }
+                }
+
+                &.style-2 {
+                    .percent {
+                        background: linear-gradient(to right, #9CE89C, #23ACFF, #9CE89C);
+                        background-size: 400% 400%;
+                        animation: backgroundGradientAnimate 9s ease infinite;
+                    }
+                }
+
+                &.style-3 {
+                    .percent {
+                        background: linear-gradient(to right, #A890D3, #EDBAE6, #A890D3);
+                        background-size: 400% 400%;
+                        animation: backgroundGradientAnimate 9s ease infinite;
+                    }
+                }
+
+                &.style-4 {
+                    .percent {
+                        background: linear-gradient(to right, #23ACFF, #00FFFF, #23ACFF);
+                        background-size: 400% 400%;
+                        animation: backgroundGradientAnimate 9s ease infinite;
+                    }
+                }
+
+                .percent {
+                    height: 100%;
+                    top: 0px;
+                    left: 0px;
+                    border-radius: 300px; 
+                }
+
+                @keyframes backgroundGradientAnimate { 
+                    0%{background-position:0% 78%}
+                    50%{background-position:100% 23%}
+                    100%{background-position:0% 78%}
+                }
+            }
+        }
+    }
+    // ============================ End DIGITAL NUMBER REPORTS STYLE ============================
+
+    // ============================ SIDEBAR COLLAPSE STYLE ================================
+    &.sidebar-collapse-active {
+        .sidebar {
+            width: 60px;
+            @include sidebarCollapseTransition;
+            .side-bar-logo { display: none; }
+            .side-bar-user-info {  
+                h4, p { display: none; }
+                .avatar {
+                    width: 40px;
+                    height: 40px;
+                    @include sidebarCollapseTransition;
+
+                    #button-change-user-info {
+                        height: 15px;
+                        width: 15px;
+                        bottom: -5px;
+                        right: -1px;
+                        @include sidebarCollapseTransition;
+                    }
+                }
+            }
+
+            ul.sidebar-menu {
+                li {
+                    span { display: none; }
+                }
+            }
+
+            .side-bar-user-info {
+                padding: 0px;
+                margin-bottom: 15px;
+            }
+        }
+
+        header {
+            padding-left: 60px;
+            @include sidebarCollapseTransition;
+
+            #toggle-extend-sidebar {
+                svg {
+                    &:first-child {
+                        display: none;
+                    }
+
+                    &:last-child {
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+
+        .components-wraper {
+            padding-left: 85px;
+        }
+    }
+    // ============================ End SIDEBAR COLLAPSE STYLE ============================
+
+    // ============================ COMPONENTS WRAPER STYLE ================================
+    .components-wraper {
+        padding-top: 70px;
+        padding-left: 245px;
+        padding-right: 25px;
+        @include sidebarCollapseTransition;
+
+        .cpn-head {
+            margin-bottom: 15px;
+
+            .cpn-title {
+                font-size: 1.142rem;
+                font-weight: 600;
+    
+                svg {
+                    height: 16px;
+                    transform: translateY(2px);
+                    margin-right: 5px;
+                }
+            }
+    
+            .cpn-tools-list {
+                text-align: right;
+            }
+        }   
+        
+        ul.cpn-sub-menu {
+            border-bottom: 1px solid rgba($color: $grey, $alpha: 0.2);
+            margin-bottom: 30px;
+            padding: 0px 15px;
+
+            li {
+                display: inline-block;
+                padding: 10px 15px;
+                margin-right: 10px;
+                cursor: pointer;
+
+                &.active {
+                    border-bottom: 3px solid $blue;
+                    cursor: default;
+
+                    &:hover {
+                        border-radius: 0px;
+                        background: none;
+                    }
+                }
+
+                &:hover {
+                    border-radius: 300px;
+                    @include bgLighting($grey);
+                }
+            }
+        }
+
+        .cpn-table-tools {
+            margin-bottom: 30px;
+            padding: 0px 15px;
+
+            div { 
+                display: inline-block; 
+                margin-right: 7px;
+            }
+
+            .tool-search {
+                position: relative;
+
+                input {
+                    padding: 10px 15px;
+                    border: 0px;
+                    border-radius: 300px;
+                    padding-right: 25px;
+                    
+                    @include btnFocus($blue);
+                }
+
+                svg {
+                    position: absolute;
+                    height: 12px;
+                    width: 12px;
+                    top: 50%; transform: translateY(-50%);
+                    right: 10px;
+                }
+            }
+
+            .tool-select {
+                background: $white;
+                border-radius: 300px;
+                padding: 10px 15px;
+
+                select {
+                    height: 100%;
+                    border: 0px;
+                    background: none;
+                    min-width: 140px;
+
+                    &:focus { outline: none; }
+                }
+            }
+
+            .tool-reset {
+                padding: 10px 15px;
+                background: $dark;
+                text-align: center;
+                border-radius: 300px;
+                color: $white;
+                font-weight: 500;
+                cursor: pointer;
+
+                &:hover {
+                    box-shadow: 0px 0px 10px rgba($color: $dark, $alpha: 1);
+                }
+            }
+        }
+    }
+    // ============================ End COMPONENTS WRAPER STYLE ============================
+
+    // ============================ CPN FORM STYLE ================================
+    .cpn-form {
+        background: $white;
+        box-shadow: $boxShadow;
+        border-radius: $borderRadius;
+        padding: 15px 0px;
+
+        button {
+            margin-right: 5px;
+        }
+
+        form {
+            margin-top: 10px;
+        }
+
+        .cpn-form-title {
+            color: $blue;
+            font-weight: 600;
+
+            svg {
+                transform: translateY(2px);
+                margin-right: 5px;
+            }
+        }
+
+        .cpn-form-close {
+            position: relative;
+            cursor: pointer;
+            width: 35px;
+            height: 35px;
+            display: inline-block;
+            padding: 5px;
+            border-radius: 50%;
+
+            svg {
+                position: absolute;
+                top: 50%; left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            &:hover, &:focus {
+                @include bgLighting($grey);
+            }
+        }
+    }
+    // ============================ End CPN FORM STYLE ============================
+
+    // ============================ SIDEBAR STYLE ================================
+    .sidebar {
+        position: fixed;
+        z-index: $zindexSidebar;
+        box-shadow: $boxShadow;
+        box-shadow: 1px 0 20px 0 rgba(0,0,0,0.05);
+        top: 0px;
+        left: 0px;
+        width: 220px;
+        height: 100vh;
+        overflow: auto;
+        background: $white;
+        padding-top: 20px;
+
+        .side-bar-logo {
+            position: relative;
+            width: 100%;
+            text-align: center;
+            img {
+                width: 130px;
+                display: inline-block;
+            }
+        }
+
+        .side-bar-user-info {
+            width: 100%;
+            text-align: center;
+            padding: 30px 0px;
+
+            .avatar {
+                position: relative;
+                display: inline-block;
+                height: 70px;
+                width: 70px;
+                border-radius: 50%;
+                margin-bottom: 10px;
+                cursor: pointer;
+                background-size: cover !important;
+
+                #button-change-user-info {
+                    position: absolute;
+                    height: 20px;
+                    width: 20px;
+                    bottom: 4px;
+                    right: 4px;
+                }
+
+                &:hover {
+                    box-shadow: 0px 0px 10px rgba($color: $grey, $alpha: 0.5);
+                }
+            }
+
+            h4 { font-size: 1.14rem; margin: 0px; font-weight: 600; }
+            p { font-size: 0.86rem; margin: 0px; margin-top: 5px; font-weight: 400; }
+        }
+
+        ul.sidebar-menu {
+            margin: 0px; padding: 0px;
+            list-style-type: none;
+
+            a {
+                text-decoration: none;
+                color: inherit;
+
+                &.active li {
+                    position: relative;
+                    cursor: default;
+                    color: $blue;
+
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        width: 4px;
+                        height: 100%;
+                        top: 0px; left: 0px;
+                        background: $blue;
+                    }
+                    // border-left: 4px solid $blue;
+                    &:hover { background: none; }
+                    svg { polygon, circle, path { fill: $blue; } }
+                }
+            }
+
+            li {
+                padding: 15px 20px;
+                margin-bottom: 10px;
+                font-weight: 500;
+                cursor: pointer;
+
+                &:hover {
+                    background: $light;
+                }
+                
+                svg {
+                    width: 16px;
+                    margin-right: 5px;
+                    svg { polygon, circle, path { fill: $dark !important; } }
+                }
+            }
+        }
+    }
+    // ============================ End SIDEBAR STYLE ============================
+
+    // ============================ HEADER STYLE ================================
+    header {
+        position: fixed;
+        z-index: $zindexHeader;
+        width: 100vw;
+        background: $white;
+        padding-left: 220px;
+
+        #toggle-extend-sidebar {
+            display: inline-block;
+            padding: 12px;
+            cursor: pointer;
+
+            svg {
+                height: 16px;
+                transform: translateY(2px);
+
+                &:first-child {
+                    display: inline-block;
+                }
+
+                &:last-child {
+                    display: none;
+                }
+            }
+        }
+
+        ul {
+            display: inline-block;
+            list-style-type: none;
+            padding: 0px;
+            margin: 0px;
+            li {
+                display: inline-block;
+                padding: 12px;
+                font-size: 1rem;
+
+                svg { 
+                    height: 16px; 
+                    transform: translateY(2px);  
+                    margin-right: 5px;
+                }
+
+                &#button-change-current-branch {
+                    select {
+                        background: none;
+                        border: 0px;
+                        padding: 12px;
+                        font-size: 1rem;
+                        color: $dark;
+
+                        &:focus { outline: none; }
+                    }
+                }
+            }
+
+            &.header-list-tools {
+                li {
+                    cursor: pointer;
+
+                    &#toggle-show-notifications {
+                        position: relative;
+
+                        span#total-notifications {
+                            position: absolute;
+                            top: 7px;
+                            right: 7px;
+                            background: $red;
+                            text-align: center;
+                            width: 18px; height: 18px;
+                            line-height: 18px;
+                            border-radius: 50%;
+                            color: $white;
+                            font-size: 9px;
+                            font-weight: 600;
+                            animation: totalNotificationsAnimate 1s ease-in-out infinite;
+                            box-shadow: 0px 0px 10px $red;
+                        }
+
+                        @keyframes totalNotificationsAnimate {
+                            0% { box-shadow: 0px 0px 0px $red; }
+                            50% { box-shadow: 0px 0px 10px $red; }
+                            100% { box-shadow: 0px 0px 0px $red; }
+                        }
+                    }
+                }
+            }
+
+            &.list-app-status {
+                li {
+                    position: relative;
+
+                    &:after {
+                        content: "";
+                        position: absolute;
+                        height: 30%;
+                        width: 1px;
+                        background: $dark;
+                        top: 50%; right: 0px ;transform: translateY(-50%); 
+                        opacity: 0.2;
+                    }
+
+                    &:last-child {
+                        &:after { display: none; }
+                    }
+                }
+            }
+        }
+    }
+    // ============================ End HEADER STYLE ============================
+
+    // ============================ LOADING BAR STYLE ================================
+    .loading-bar {
+        width: 100%;
+        height: 5px;
+        border-radius: 100px;
+        display: block;
+        position: relative;
+        background: rgba($color: $white, $alpha: 0.5);
+        overflow: hidden;
+
+        .percent {
+            position: absolute;
+            background: $white;
+            height: 5px;
+            top: 0px;
+            left: 0px;
+            animation: loadingBarAnimate ease-in-out 5s forwards;
+        }
+
+        @keyframes loadingBarAnimate {
+            0% { width: 0%; }
+            50% { width: 60%; }
+            70% { width: 90%; }
+            100% { width: 98%; }
+        }
+    }
+    // ============================ End LOADING BAR STYLE ============================
+
+    // ============================ LAYOUT STYLE ================================
+    .mt-1 { margin-top: 1rem; }
+    .mt-2 { margin-top: 2rem; }
+    .mt-3 { margin-top: 3rem; }
+    .mt-4 { margin-top: 4rem; }
+    .mt-5 { margin-top: 5rem; }
+    .mb-1 { margin-bottom: 1rem; }
+    .mb-2 { margin-bottom: 2rem; }
+    .mb-3 { margin-bottom: 3rem; }
+    .mb-4 { margin-bottom: 4rem; }
+    .mb-5 { margin-bottom: 5rem; }
+    .text-left { text-align: left; }
+    .text-right { text-align: right; }
+    .text-center { text-align: center; }
+    // ============================ End LAYOUT STYLE ============================
+
+    // ============================ EXTENDS STYLE ================================
+    .height-100vh {
+        height: 100vh;
+    }
+    // ============================ End EXTENDS STYLE ============================
+
+    // ============================ style ================================
+    .btn {
+        position: relative;
+        border-radius: 5px;
+        padding: 0px 25px;
+        height: 35px;
+        cursor: pointer;
+        font-weight: 500;
+        font-size: 1rem;
+
+        svg {
+            transform: translateY(3px);
+            margin-right: 5px;
+        }
+
+        &.w-100 {
+            width: 100%;
+        }
+        
+        &.white {
+            background: $white;
+            color: $blue;
+            @include btnFocus($white);
+
+            .loading-icon {
+                border: .20rem solid $off-blue;
+                border-top-color: $blue;
+            }
+        }
+
+        &.blue {
+            background: $blue;
+            color: $white;
+            @include btnFocus($blue);
+        }
+
+        &.success {
+            background: $green;
+            color: $white;
+            @include btnFocus($green);
+        }
+
+        &.warning {
+            background: $orange;
+            color: $white;
+            @include btnFocus($orange);
+        }
+
+        &.danger {
+            background: $red;
+            color: $white;
+            @include btnFocus($red);
+        }
+
+        &.outline-grey {
+            opacity: 0.5;
+            background: none;
+            border: 1px solid $grey;
+            color: $grey;
+            @include btnFocus($grey);
+        }
+    }
+    // ============================ End style ============================
+
+    // ============================ LOADING ICON STYLE ================================
+    $base-line-height: 20px;
+    $spin-duration: 1s;
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .loading-icon {
+        display: inline-block;
+        border-radius: 50%;
+        width: $base-line-height;
+        height: $base-line-height;
+        border: .20rem solid $off-white;
+        border-top-color: $white;
+        animation: spin $spin-duration infinite linear;
+    }
+    // ============================ End LOADING ICON STYLE ============================
+
+    // ============================ FORM STYLE ================================
+    form {
+        width: 100%;
+
+        &.form-white {
+            .form-group {
+                color: $white;
+
+                input {
+                    color: $white;
+                    border-color: $white;
+
+                    &::placeholder {
+                        color: $white;
+                        font-weight: 400;
+                        opacity: 0.7;
+                    }
+
+                    &:focus {
+                        outline: none;
+                        border-color: $white;
+                        color: $white;
+                        box-shadow: 0px 2px 4px rgba($color: $white, $alpha: 0.3);
+                    }
+                }
+            }
+        }
+
+        .form-group {
+            width: 100%;
+            position: relative;
+            margin-bottom: 15px;
+
+            &.icon input {
+                padding-right: 40px;
+            }
+
+            &.no-label {
+                svg {
+                    top: 50%;
+                }
+            }
+
+            svg {
+                position: absolute;
+                height: 16px;
+                top: 70%;
+                transform: translateY(-50%);
+                right: 15px;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: 400;
+            }
+
+            @mixin inputStyle() {
+                width: 100%;
+                background: none;
+                border-radius: $borderRadius;
+                border: 1px solid rgba($color: $dark, $alpha: 0.3);
+                height: 35px;
+                font-size: 1rem;
+                font-weight: 500;
+                padding: 0px 15px;
+                // padding-right: 45px;
+                color: $dark;
+            }
+
+            input {
+                @include inputStyle();
+                &:focus {
+                    outline: none;
+                    border-color: $blue;
+                    color: $blue;
+                    box-shadow: 0px 2px 4px rgba($color: $blue, $alpha: 0.3);
+                }
+            }
+
+            .select {
+                @include inputStyle();
+                padding: 0px 8px;
+
+                select {
+                    width: 100%;
+                    height: 100%;
+                    background: none;
+                    border: none;
+                    font-size: 1rem;
+                    font-weight: 500;
+                    color: $dark;
+                    font-family: 'Montserrat', sans-serif;
+
+                    &:focus { outline: none; }
+                    option { color: $dark; font-family: 'Montserrat', sans-serif; font-weight: 500; }
+                }
+            }
+
+            .error-message {
+                display: none;
+                color: $red;
+                font-weight: 400;
+                font-size: 0.9rem;
+                margin-top: 5px;
+            }
+
+            &.error {
+                .error-message {
+                    display: block;
+                }
+
+                label, input, select, .select { 
+                    color: $red; 
+                    border-color: $red; 
+                }
+            }
+        }
+
+        .form-sub-link {
+            text-align: center;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            color: $white;
+        }
+    }
+    // ============================ End FORM STYLE ============================
+
+    // ============================ PAGING STYLE ================================
+    .paging {
+        margin: 15px 0px;
+        width: 100%;
+        text-align: center;
+
+        ul {
+            list-style-type: none;
+            padding: 0px;
+
+            li {
+                cursor: pointer;
+                display: inline-block;
+                border-radius: $borderRadius;
+                width: 35px;
+                height: 35px;
+                line-height: 35px;
+                text-align: center;
+                margin: 0px 5px;
+
+                &:hover {
+                    @include bgLighting($dark);
+                }
+
+                &.active {
+                    cursor: default;
+                    color: $white;
+                    background: $dark;
+                }
+            }
+        }
+    }
+    // ============================ End PAGING STYLE ============================
+
+    // ============================ BUTTON STYLE ================================
+    button {
+        text-align: center;
+        outline-color: none;
+        border: 0px;
+        &:focus {
+            outline: none;
+        }
+    }
+    // ============================ End BUTTON STYLE ============================
+
+    // ============================ LINK STYLE ================================
+    .link {
+        color: inherit;
+        font-weight: 600;
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    // ============================ End LINK STYLE ============================
+
+    // ============================ STATUS STYLE ================================
+    .status {
+        border-radius: 100px;
+        padding: 5px 20px;
+        width: max-content;
+        display: inline-block;
+        font-weight: 600;
+        cursor: default;
+
+        &.success {
+            @include bgLighting($green);
+            color: $green;
+        }
+        &.warning {
+            @include bgLighting($orange);
+            color: $orange;
+        }
+        &.danger {
+            @include bgLighting($red);
+            color: $red;
+        }
+    }
+    // ============================ End STATUS STYLE ============================
+    
+   // ============================ TABLE STYLE ================================
+   table {
+        width: 100%;
+        text-align: left;
+        border-collapse: collapse;
+
+        th, td {
+            padding: 15px;
+            position: relative;
+
+            .row-side {
+                position: absolute;
+                height: 100%;
+                width: 5px;
+                background: $white;
+                top: 0px;
+            }
+
+            .left-row-side {
+                @extend .row-side;
+                left: -$borderRadius;
+                border-radius: $borderRadius 0px 0px $borderRadius;
+            }
+
+            .right-row-side {
+                @extend .row-side;
+                right: -$borderRadius;
+                border-radius: 0px $borderRadius $borderRadius 0px;
+            }
+        }
+
+        thead {
+            tr {
+                th {
+                    color: $grey;
+                    font-weight: 500;
+                }
+            }
+        }
+
+        tbody {
+            tr td {
+                background: $white;
+                box-shadow: $boxShadow;
+
+                &.list-tools {
+                    button {
+                        margin-right: 5px;
+                    }
+                }
+
+                .row-toggle-list-tools {
+                    display: inline-block;
+                    position: relative;
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    @include bgLighting($green);
+
+                    svg {
+                        position: absolute;
+                        width: 10px;
+                        top: 50%; left: 50%;
+                        transform: translate(-50%,-50%);
+                    }
+                    @include btnFocus($green);
+                   
+                }
+
+                .row-btn-remove {
+                    display: inline-block;
+                    position: relative;
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    @include bgLighting($red);
+
+                    svg {
+                        position: absolute;
+                        width: 10px;
+                        top: 50%; left: 50%;
+                        transform: translate(-50%,-50%);
+                    }
+                    @include btnFocus($red);
+                }
+            }
+
+            tr.empty {
+                height: 10px;
+            }
+        }
+    }
+   // ============================ End TABLE STYLE ============================
+
+   // ============================ SCREEN ACCOUNT RELATED STYLE ================================
+   #screen-login, #screen-select-branch, #screen-fetching-data {
+        width: 100vw;
+        position: relative;
+
+        .background {
+            position: absolute;
+            z-index: 1;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100vh;
+            background-size: cover !important;
+        }
+
+        .filter {
+            position: absolute;
+            z-index: 2;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100vh;
+            background: rgba($color: $blue, $alpha: 0.9);
+        }
+
+        .container-fluid {
+            z-index: 5;
+            position: relative;
+        }
+
+        .col-sm-1 {
+            height: 100vh;
+        }
+
+        form {
+            position: relative;
+            z-index: 3;
+
+            input {
+                color: $white;
+            }
+
+            input:-webkit-autofill,
+            input:-webkit-autofill:hover, 
+            input:-webkit-autofill:focus,
+            textarea:-webkit-autofill,
+            textarea:-webkit-autofill:hover
+            textarea:-webkit-autofill:focus,
+            select:-webkit-autofill,
+            select:-webkit-autofill:hover,
+            select:-webkit-autofill:focus {
+                -webkit-text-fill-color: $white !important;
+                transition: background-color 5000s ease-in-out 0s;
+            }
+
+            .logo {
+                text-align: center;
+                margin-bottom: 50px;
+            }
+        }
+   }
+   // ============================ End SCREEN ACCOUNT RELATED STYLE ============================
+}
+
+/* Change Autocomplete styles in Chrome*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    -webkit-text-fill-color: inherit !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+input::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: $white; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba($color: $grey, $alpha: 0.5); 
+    border-radius: 200px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: $dark; 
+}
