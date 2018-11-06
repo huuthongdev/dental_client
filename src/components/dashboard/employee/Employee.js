@@ -1,62 +1,42 @@
 import React, { Component } from 'react';
-import { Dashboard, TitleApp, Svg, BranchCreate, BranchRow, BranchDetail } from '../../../refs';
+import { Svg, Dashboard, TitleApp, EmployeeRow, EmployeeCreate } from '../../../refs';
 import { connect } from 'react-redux';
 
-class Branch extends Component {
+class Employee extends Component {
     state = {
-        createForm: false,
-        branchDetail: null
+        create: false,
+        detail: null
     }
 
-    onCreateForm() { 
-        this.setState({ 
-            createForm: true, 
-            branchDetail: null 
-        }); 
+    showList() {
+        let { employee } = this.props;
+        return employee.map((v, i) => <EmployeeRow onDetail={() => this.onDetail(v)} item={v} key={i} />)
     }
 
-    onDetail(data) {
-        this.setState({
-            createForm: false,
-            branchDetail: data
-        });
-    }
-
-    returnMain() {
-        this.setState({
-            createForm: false,
-            branchDetail: null
-        });
-    }
-    
-    showListBranch() {
-        let { branch } = this.props;
-        return branch.map((v, i) => <BranchRow onDetail={() => this.onDetail(v)} item={v} key={i} />)
-    }
+    onCreate() { this.setState({ create: true, detail: null }); }
+    onDetail(data) { this.setState({ create: false, detail: data }); }
+    returnMain() { this.setState({ create: false, detail: null }) }
 
     render() {
-        const { createForm, branchDetail } = this.state;
-
-        if (branchDetail) return <Dashboard> <TitleApp sub={`Chi nhánh ${branchDetail.name}`}/> <BranchDetail onCreateForm={() => this.onCreateForm()}  close={() => this.returnMain()} item={branchDetail} /> </Dashboard>
-        if (createForm) return <Dashboard> <TitleApp sub="Tạo chi nhánh" /> <BranchCreate closeForm={() => this.returnMain()} /> </Dashboard>
+        if (this.state.create) return <Dashboard> <EmployeeCreate returnMain={() => this.returnMain()}/> </Dashboard>
         return (
             <Dashboard>
-                <TitleApp sub="Chi nhánh" />
+                <TitleApp sub="Nhân sự" />
                 {/* START COMPONENT TITLE */}
                 <div className="container-fluid cpn-head">
                     <div className="row align-items-center">
                         <div className="col-sm-6">
                             <div className="cpn-title">
-                                <Svg name="BRANCH" />
-                                Quản lí chi nhánh
-                                 </div>
+                                <Svg name="EMPLOYEE" />
+                                Quản lí nhân sự
+                             </div>
                         </div>
                         <div className="col-sm-6">
                             <div className="cpn-tools-list">
-                                <button onClick={() => this.onCreateForm()} className="btn blue">
+                                <button onClick={() => this.onCreate()} className="btn blue">
                                     <Svg name="CREATE" />
-                                    Tạo chi nhánh
-                                    </button>
+                                    Tạo nhân sự
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -65,8 +45,8 @@ class Branch extends Component {
                 {/* START SUBMENU */}
                 <ul className="cpn-sub-menu">
                     <li className="active">
-                        Chi nhánh (18)
-                    </li>
+                        Nhân sự (18)
+                </li>
                 </ul>
                 {/* END SUBMENU */}
                 {/* START TABLE TOOLS */}
@@ -84,7 +64,7 @@ class Branch extends Component {
                     </div>
                     <div className="tool-reset">
                         Reset
-                    </div>
+                </div>
                 </div>
                 {/* END TABLE TOOLS */}
                 {/* START BRANCH TABLE */}
@@ -95,16 +75,16 @@ class Branch extends Component {
                                 <thead>
                                     <tr>
                                         <th className="sid">ID</th>
-                                        <th>Tên chi nhánh</th>
-                                        <th>Số - Tên đường</th>
-                                        <th>Quận/Xã</th>
-                                        <th>Thành phố</th>
-                                        <th>Điện thoại</th>
+                                        <th>Họ & Tên</th>
+                                        <th>Số điện thoại</th>
+                                        <th>Email</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Chi nhánh - Chức vụ</th>
                                         <th>Thao tác</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {this.showListBranch()}
+                                    {this.showList()}
                                 </tbody>
                             </table>
 
@@ -128,7 +108,7 @@ class Branch extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        branch: state.branch
+        employee: state.employee
     };
 }
-export default connect(mapStateToProps, null)(Branch);
+export default connect(mapStateToProps, null)(Employee);

@@ -1,5 +1,5 @@
 import { LOG_OUT } from "../actions/user.actions";
-import { SET_BRANCH, ADD_BRANCH } from "../actions/branch.actions";
+import { SET_BRANCH, ADD_BRANCH, UPDATE_BRANCH } from "../actions/branch.actions";
 
 const defaultState = []
 export const branchReducer = (state = defaultState, action) => {
@@ -8,6 +8,8 @@ export const branchReducer = (state = defaultState, action) => {
             return action.result;
         case ADD_BRANCH:
             return [action.result, ...state];
+        case UPDATE_BRANCH:
+            return state.map(v => v._id === action.result._id ? action.result : v);
         case LOG_OUT:
             return defaultState;
         default:

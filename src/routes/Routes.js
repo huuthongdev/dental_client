@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Route, BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
 // Import
-import { Login, NotMatch404, Authentication, Branch, Main } from '../refs';
+import { Login, NotMatch404, Authentication, Branch, Main, Employee } from '../refs';
 import { connect } from 'react-redux';
 
 class Routes extends Component {
@@ -14,6 +14,7 @@ class Routes extends Component {
                     <Switch>
                         <MustBeUser user={user} path="/" exact component={Main} />
                         <MustBeUser user={user} path="/branch" exact component={Branch} />
+                        <MustBeUser user={user} path="/employee" exact component={Employee} />
                         <Route path="/login" component={Login} />
                         <Route path="/authentication" component={Authentication} />
                         <Route component={NotMatch404} />

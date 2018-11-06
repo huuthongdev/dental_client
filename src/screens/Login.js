@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { Svg, Logo, Background, RequestService, TitleApp, setUserInfo } from '../refs';
+import { Svg, Logo, Background, RequestService, TitleApp, setUserInfo, createAlert } from '../refs';
 
 class Login extends Component {
     state = {
@@ -11,20 +11,21 @@ class Login extends Component {
         userInfo: null
     }
 
-    async handleSubmit(e) {
+    handleSubmit(e) {
         e.preventDefault();
         this.setState({ loading: true });
         const loginInfo = this.refs.loginInfo.value;
         const password = this.refs.password.value;
         const { dispatch } = this.props;
-        await RequestService.post('/user/log-in', { loginInfo, password })
-        .then(result => {
-            dispatch(setUserInfo(result));
-            this.setState({ loading: false, success: true, userInfo: result });
-        })
-        .catch((error) => {
-            this.setState({ loading: false, error: error.message });
-        });
+        RequestService.post('/user/log-in', { loginInfo, password })
+            .then(result => {
+                this.setState({ loading: false, success: true, userInfo: result });
+                dispatch(setUserInfo(result));
+                dispatch(createAlert('SUCCESS', 'Đăng nhập thành công'));
+            })
+            .catch((error) => {
+                this.setState({ loading: false, error: error.message });
+            });
     }
 
     showLoadingButton() {
@@ -43,7 +44,7 @@ class Login extends Component {
 
     onRedirectToDashboard() {
         const { user } = this.props;
-        if (user._id) return <Redirect to="/"/>
+        if (user._id) return <Redirect to="/" />
     }
 
     onRedirectToSelectBranch() {
@@ -52,7 +53,7 @@ class Login extends Component {
     render() {
         return (
             <Fragment>
-                <TitleApp sub="Login"/>
+                <TitleApp sub="Login" />
                 <div id="screen-login">
                     <div className="background" style={{ background: `url("${Background}") no-repeat center center` }} />
                     <div className="filter" />

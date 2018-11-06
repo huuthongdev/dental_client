@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { effect } from '../assets/js/effect';
-import { Header, Sidebar, Alert, FadeAnimate } from '../refs';
+import { Header, Sidebar, Alert, FadeAnimate, setEmployee } from '../refs';
 import { connect } from 'react-redux';
 import { setBranch } from '../actions/branch.actions';
 
@@ -16,6 +16,7 @@ class Dashboard extends Component {
         const { user } = this.props;
         if (user._id) {
             dispatch(setBranch());
+            dispatch(setEmployee());
         }
     }
 

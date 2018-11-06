@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Svg, RequestService, addBranch, createAlert, FadeAnimate } from '../../../refs';
+import { Svg, createBranch, FadeAnimate } from '../../../refs';
 import { connect } from 'react-redux';
 
 class BranchCreate extends Component {
@@ -7,7 +7,7 @@ class BranchCreate extends Component {
         loading: false
     }
 
-    async handleSubmit(e) {
+    handleSubmit(e) {
         e.preventDefault();
         this.setState({ loading: true });
         const { dispatch } = this.props;
@@ -18,15 +18,8 @@ class BranchCreate extends Component {
         city = city.value;
         district = district.value;
         address = address.value;
-        await RequestService.post('/branch', { name, email, phone, city, district, address })
-            .then(result => {
-                this.setState({ loading: false });
-                dispatch(addBranch(result));
-                dispatch(createAlert('SUCCESS', `Tạo thành công chi nhánh ${result.name}`));
-                this.props.closeForm();
-            })
-            .catch(error => {
-                dispatch(createAlert('ERROR', error.message));
+        dispatch(createBranch({ name, email, phone, city, district, address }, this.props.closeForm))
+            .then(() => {
                 this.setState({ loading: false });
             });
     }

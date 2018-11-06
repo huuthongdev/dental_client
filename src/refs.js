@@ -16,6 +16,9 @@ import BranchRow from './components/dashboard/branch/BranchRow';
 import Main from './components/dashboard/main/Main';
 import Alert from './components/alert/Alert';
 import AlertItem from './components/alert/AlertItem';
+import Employee from './components/dashboard/employee/Employee';
+import EmployeeRow from './components/dashboard/employee/EmployeeRow';
+import EmployeeCreate from './components/dashboard/employee/EmployeeCreate';
 // Screens
 import Login from "./screens/Login";
 import Dashboard from './screens/Dashboard';
@@ -29,16 +32,20 @@ import { AllReducers } from "./reducers/index";
 import { isDev } from './setting';
 // Utils
 import { RequestService } from './utils/request-service';
+import Roles from './utils/roles';
+import GetRoleName from './utils/get-role-name';
 // Actions
 import { setUserInfo, logOut } from './actions/user.actions';
-import { setBranch, addBranch } from './actions/branch.actions';
+import { setBranch, createBranch, updateBranch } from './actions/branch.actions';
 import { createAlert, removeAlert } from './actions/alert.actions';
+import { setEmployee, createEmployee } from './actions/employee.actions';
 
 // ===================== EXPORT =====================
 // Images
 export { Logo, LogoBlue, AvatarDemo, Background }
 // Components
-export { FadeAnimate, Alert, AlertItem, Svg, TitleApp, Main, Header, Sidebar, Branch, BranchCreate, BranchRow, BranchDetail }
+export { FadeAnimate, Alert, AlertItem, Svg, TitleApp, Main, Header, Sidebar, Branch, BranchCreate, BranchRow, BranchDetail, Employee, EmployeeRow }
+export { EmployeeCreate }
 // Screens
 export { NotMatch404, Dashboard, Login, Authentication }
 // Route
@@ -48,8 +55,9 @@ export { AllReducers }
 // Extension
 export { isDev }
 // Utils
-export { RequestService }
+export { RequestService, Roles, GetRoleName }
 // Actions
 export { setUserInfo, logOut }
-export { setBranch, addBranch }
+export { setBranch, createBranch, updateBranch }
 export { createAlert, removeAlert }
+export { setEmployee, createEmployee }
