@@ -11,6 +11,7 @@ import Header from './components/dashboard/Header';
 import Sidebar from './components/dashboard/Sidebar';
 import Branch from './components/dashboard/branch/Branch';
 import BranchCreate from './components/dashboard/branch/BranchCreate';
+import BranchDetail from './components/dashboard/branch/BranchDetail';
 import BranchRow from './components/dashboard/branch/BranchRow';
 import Main from './components/dashboard/main/Main';
 import Alert from './components/alert/Alert';
@@ -37,7 +38,7 @@ import { createAlert, removeAlert } from './actions/alert.actions';
 // Images
 export { Logo, LogoBlue, AvatarDemo, Background }
 // Components
-export { FadeAnimate, Alert, AlertItem, Svg, TitleApp, Main, Header, Sidebar, Branch, BranchCreate, BranchRow, }
+export { FadeAnimate, Alert, AlertItem, Svg, TitleApp, Main, Header, Sidebar, Branch, BranchCreate, BranchRow, BranchDetail }
 // Screens
 export { NotMatch404, Dashboard, Login, Authentication }
 // Route

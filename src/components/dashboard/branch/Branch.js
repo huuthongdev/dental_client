@@ -1,22 +1,44 @@
 import React, { Component } from 'react';
-import { Dashboard, TitleApp, Svg, BranchCreate, BranchRow } from '../../../refs';
+import { Dashboard, TitleApp, Svg, BranchCreate, BranchRow, BranchDetail } from '../../../refs';
 import { connect } from 'react-redux';
 
 class Branch extends Component {
     state = {
-        createForm: false
+        createForm: false,
+        branchDetail: null
     }
 
-    onCreateForm() { this.setState({ createForm: true }); }
+    onCreateForm() { 
+        this.setState({ 
+            createForm: true, 
+            branchDetail: null 
+        }); 
+    }
+
+    onDetail(data) {
+        this.setState({
+            createForm: false,
+            branchDetail: data
+        });
+    }
+
+    returnMain() {
+        this.setState({
+            createForm: false,
+            branchDetail: null
+        });
+    }
+    
     showListBranch() {
         let { branch } = this.props;
-        return branch.map((v, i) => <BranchRow item={v} key={i} />)
+        return branch.map((v, i) => <BranchRow onDetail={() => this.onDetail(v)} item={v} key={i} />)
     }
 
     render() {
-        const { createForm } = this.state;
+        const { createForm, branchDetail } = this.state;
 
-        if (createForm) return <Dashboard> <TitleApp sub="Create Branch" /> <BranchCreate closeForm={() => this.setState({ createForm: false })} /> </Dashboard>
+        if (branchDetail) return <Dashboard> <TitleApp sub={`Chi nhánh ${branchDetail.name}`}/> <BranchDetail onCreateForm={() => this.onCreateForm()}  close={() => this.returnMain()} item={branchDetail} /> </Dashboard>
+        if (createForm) return <Dashboard> <TitleApp sub="Create Branch" /> <BranchCreate closeForm={() => this.returnMain()} /> </Dashboard>
         return (
             <Dashboard>
                 <TitleApp sub="Branch" />
@@ -44,10 +66,7 @@ class Branch extends Component {
                 <ul className="cpn-sub-menu">
                     <li className="active">
                         Chi nhánh (18)
-                        </li>
-                    <li>
-                        Nhân sự
-                        </li>
+                    </li>
                 </ul>
                 {/* END SUBMENU */}
                 {/* START TABLE TOOLS */}
