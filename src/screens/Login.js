@@ -19,8 +19,8 @@ class Login extends Component {
         const { dispatch } = this.props;
         await RequestService.post('/user/log-in', { loginInfo, password })
         .then(result => {
-            this.setState({ loading: false, success: true, userInfo: result });
             dispatch(setUserInfo(result));
+            this.setState({ loading: false, success: true, userInfo: result });
         })
         .catch((error) => {
             this.setState({ loading: false, error: error.message });

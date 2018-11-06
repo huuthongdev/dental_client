@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { effect } from '../assets/js/effect';
-import { Header, Sidebar } from '../refs';
+import { Header, Sidebar, Alert, FadeAnimate } from '../refs';
 import { connect } from 'react-redux';
 import { setBranch } from '../actions/branch.actions';
 
@@ -24,9 +24,12 @@ class Dashboard extends Component {
             <Fragment>
                 <Header />
                 <Sidebar />
-                <div className="components-wraper">
-                    {this.props.children}
-                </div>
+                <Alert />
+                <FadeAnimate>
+                    <div className="components-wraper">
+                        {this.props.children}
+                    </div>
+                </FadeAnimate>
             </Fragment>
         );
     }

@@ -13,6 +13,7 @@ $off-white: rgba($white, 0.2);
 
 $zindexHeader: 100;
 $zindexSidebar: 101;
+$zindexAlertsList: 101;
 
 @mixin btnFocus($color) {
     &:focus {
@@ -32,6 +33,55 @@ html, body {
     color: $dark;
     font-weight: 500;
     background: $light;
+
+    // ============================ LIST ALERTS STYLE ================================
+    ul.alert-list {
+        position: fixed;
+        z-index: $zindexAlertsList;
+        bottom: 15px;
+        right: 15px;
+
+        li {
+            display: block;
+            padding: 10px;
+            border-radius: $borderRadius;
+            color: $white;
+            margin-bottom: 10px;
+
+            svg { 
+                display: inline-block; 
+                margin-right: 8px;
+                transform: translateY(2px);
+            }
+
+            svg.svg-remove {
+                cursor: pointer;
+                opacity: 0.5;
+                margin-left: 30px;
+                display: inline-block;
+                polygon, path, circle { fill: $white; }
+                margin-right: 0px;
+                transform: translateY(0px);
+
+                &:hover { opacity: 1; }
+            }
+            
+            p { 
+                display: inline-block; 
+                padding: 0px; 
+                margin: 0px;
+            }
+
+            &.success {
+                background: $green;
+            }
+
+            &.error {
+                background: $red;
+            }
+        }
+    }
+    // ============================ End LIST ALERTS STYLE ============================
 
     // ============================ INPUT STYLE ================================
     input, select, area {
@@ -343,6 +393,7 @@ html, body {
             svg {
                 transform: translateY(2px);
                 margin-right: 5px;
+                polygon, circle, path { fill: $blue; }
             }
         }
 
@@ -1128,4 +1179,27 @@ input::-webkit-calendar-picker-indicator {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: $dark; 
+}
+
+
+.alert-animate-appear {
+    opacity: 0;
+    transform: translateX(50px);
+
+    &.alert-animate-appear-active {
+        opacity: 1;
+        transform: translateX(0px);
+        transition: 0.1s ease-in;
+    }
+}
+
+.fade-animate-appear {
+    opacity: 0;
+    transform: translateY(-50px);
+
+    &.fade-animate-appear-active {
+        opacity: 1;
+        transform: translateY(0px);
+        transition: 0.3s ease-in-out;
+    }
 }

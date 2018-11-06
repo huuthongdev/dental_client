@@ -6,3 +6,11 @@ export const setBranch = () => dispath => {
     .then(result => dispath({ type: SET_BRANCH, result }))
     .catch(error => console.log(error));
 }
+
+export const ADD_BRANCH = 'ADD_BRANCH';
+export const addBranch = (result) => {
+    return {
+        type: ADD_BRANCH,
+        result
+    }
+}

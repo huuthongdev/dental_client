@@ -5,11 +5,16 @@ import Background from './assets/images/bg.jpg';
 import AvatarDemo from './assets/images/avatar.png';
 // Components
 import Svg from "./components/Svg";
+import FadeAnimate from "./components/FadeAnimate";
 import TitleApp from './components/TitleApp';
 import Header from './components/dashboard/Header';
 import Sidebar from './components/dashboard/Sidebar';
 import Branch from './components/dashboard/branch/Branch';
+import BranchCreate from './components/dashboard/branch/BranchCreate';
+import BranchRow from './components/dashboard/branch/BranchRow';
 import Main from './components/dashboard/main/Main';
+import Alert from './components/alert/Alert';
+import AlertItem from './components/alert/AlertItem';
 // Screens
 import Login from "./screens/Login";
 import Dashboard from './screens/Dashboard';
@@ -25,12 +30,14 @@ import { isDev } from './setting';
 import { RequestService } from './utils/request-service';
 // Actions
 import { setUserInfo, logOut } from './actions/user.actions';
+import { setBranch, addBranch } from './actions/branch.actions';
+import { createAlert, removeAlert } from './actions/alert.actions';
 
 // ===================== EXPORT =====================
 // Images
 export { Logo, LogoBlue, AvatarDemo, Background }
 // Components
-export { Svg, TitleApp, Header, Sidebar, Branch, Main }
+export { FadeAnimate, Alert, AlertItem, Svg, TitleApp, Main, Header, Sidebar, Branch, BranchCreate, BranchRow, }
 // Screens
 export { NotMatch404, Dashboard, Login, Authentication }
 // Route
@@ -43,3 +50,5 @@ export { isDev }
 export { RequestService }
 // Actions
 export { setUserInfo, logOut }
+export { setBranch, addBranch }
+export { createAlert, removeAlert }
