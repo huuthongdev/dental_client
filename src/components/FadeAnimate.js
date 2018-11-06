@@ -8,7 +8,7 @@ class FadeAnimate extends Component {
                 <ReactCSSTransitionGroup
                     transitionName="fade-animate"
                     transitionAppear={true}
-                    transitionAppearTimeout={300}
+                    transitionAppearTimeout={200}
                     transitionEnter={false}
                     transitionLeave={false}
                 >

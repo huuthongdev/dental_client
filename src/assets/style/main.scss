@@ -1194,12 +1194,12 @@ input::-webkit-calendar-picker-indicator {
 }
 
 .fade-animate-appear {
-    opacity: 0;
-    transform: translateY(-50px);
+    opacity: 0.5;
+    transform: translateY(-30px);
 
     &.fade-animate-appear-active {
         opacity: 1;
         transform: translateY(0px);
-        transition: 0.3s ease-in-out;
+        transition: 0.2s ease;
     }
 }
