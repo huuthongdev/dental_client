@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { FadeAnimate, Svg, RequestService, BranchUpdate, BranchDetailEmployees, FetchingData } from '../../../refs';
 import { connect } from 'react-redux';
 
@@ -59,9 +59,11 @@ class BranchDetail extends Component {
                             </ul>
                             {/* END SUBMENU */}
 
-                            {fetchDataStatus ? null : <FetchingData />}
-                            
-                            {subMenuActive === 'EMPLOYEES' && fetchDataStatus ? <BranchDetailEmployees items={employees} /> : null}
+                            {!fetchDataStatus ? <FetchingData /> : <Fragment>
+
+                                {subMenuActive === 'EMPLOYEES' && fetchDataStatus ? <BranchDetailEmployees items={employees} /> : null}
+
+                            </Fragment>}
 
 
                         </div>

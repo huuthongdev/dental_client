@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Dashboard, TitleApp, Svg, BranchCreate, BranchRow, BranchDetail } from '../../../refs';
+import React, { Component, Fragment } from 'react';
+import { Dashboard, TitleApp, Svg, BranchCreate, BranchRow, BranchDetail, FetchingData } from '../../../refs';
 import { connect } from 'react-redux';
 
 class Branch extends Component {
@@ -8,11 +8,11 @@ class Branch extends Component {
         branchDetail: null
     }
 
-    onCreateForm() { 
-        this.setState({ 
-            createForm: true, 
-            branchDetail: null 
-        }); 
+    onCreateForm() {
+        this.setState({
+            createForm: true,
+            branchDetail: null
+        });
     }
 
     onDetail(data) {
@@ -28,7 +28,7 @@ class Branch extends Component {
             branchDetail: null
         });
     }
-    
+
     showListBranch() {
         let { branch } = this.props;
         return branch.map((v, i) => <BranchRow onDetail={() => this.onDetail(v)} item={v} key={i} />)
@@ -36,8 +36,9 @@ class Branch extends Component {
 
     render() {
         const { createForm, branchDetail } = this.state;
+        const { fetchDataStatus } = this.props;
 
-        if (branchDetail) return <Dashboard> <TitleApp sub={`Chi nhánh ${branchDetail.name}`}/> <BranchDetail onCreateForm={() => this.onCreateForm()}  close={() => this.returnMain()} item={branchDetail} /> </Dashboard>
+        if (branchDetail) return <Dashboard> <TitleApp sub={`Chi nhánh ${branchDetail.name}`} /> <BranchDetail onCreateForm={() => this.onCreateForm()} close={() => this.returnMain()} item={branchDetail} /> </Dashboard>
         if (createForm) return <Dashboard> <TitleApp sub="Tạo chi nhánh" /> <BranchCreate closeForm={() => this.returnMain()} /> </Dashboard>
         return (
             <Dashboard>
@@ -69,58 +70,57 @@ class Branch extends Component {
                     </li>
                 </ul>
                 {/* END SUBMENU */}
-                {/* START TABLE TOOLS */}
-                <div className="cpn-table-tools">
-                    <div className="tool-search">
-                        <input type="text" placeholder="Tìm kiếm" />
-                        <Svg name="SEARCH" />
-                    </div>
-                    <div className="tool-select">
-                        <select>
-                            <option value={1}>Tất cả</option>
-                            <option value={1}>A - Z</option>
-                            <option value={1}>Z - A</option>
-                        </select>
-                    </div>
-                    <div className="tool-reset">
-                        Reset
-                    </div>
-                </div>
-                {/* END TABLE TOOLS */}
-                {/* START BRANCH TABLE */}
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-sm-12">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th className="sid">ID</th>
-                                        <th>Tên chi nhánh</th>
-                                        <th>Số - Tên đường</th>
-                                        <th>Quận/Xã</th>
-                                        <th>Thành phố</th>
-                                        <th>Điện thoại</th>
-                                        <th>Thao tác</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.showListBranch()}
-                                </tbody>
-                            </table>
 
-                            <div className="paging">
-                                <ul>
-                                    <li className="active">1</li>
-                                    <li>2</li>
-                                    <li>3</li>
-                                    <li>4</li>
-                                    <li>5</li>
-                                </ul>
+                {!fetchDataStatus.branch ? <FetchingData /> : <Fragment >
+                    <div className="cpn-table-tools">
+                        <div className="tool-search">
+                            <input type="text" placeholder="Tìm kiếm" />
+                            <Svg name="SEARCH" />
+                        </div>
+                        <div className="tool-select">
+                            <select>
+                                <option value={1}>Tất cả</option>
+                                <option value={1}>A - Z</option>
+                                <option value={1}>Z - A</option>
+                            </select>
+                        </div>
+                        <div className="tool-reset">
+                            Reset
+                    </div>
+                    </div>
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col-sm-12">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th className="sid">ID</th>
+                                            <th>Tên chi nhánh</th>
+                                            <th>Số - Tên đường</th>
+                                            <th>Quận/Xã</th>
+                                            <th>Thành phố</th>
+                                            <th>Điện thoại</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {this.showListBranch()}
+                                    </tbody>
+                                </table>
+
+                                <div className="paging">
+                                    <ul>
+                                        <li className="active">1</li>
+                                        <li>2</li>
+                                        <li>3</li>
+                                        <li>4</li>
+                                        <li>5</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                {/* END BRANCH TABLE */}
+                </Fragment>}
             </Dashboard>
         );
     }
@@ -128,7 +128,8 @@ class Branch extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        branch: state.branch
+        branch: state.branch,
+        fetchDataStatus: state.fetchDataStatus
     };
 }
 export default connect(mapStateToProps, null)(Branch);

@@ -18,10 +18,7 @@ class BranchCreate extends Component {
         city = city.value;
         district = district.value;
         address = address.value;
-        dispatch(createBranch({ name, email, phone, city, district, address }, this.props.closeForm))
-            .then(() => {
-                this.setState({ loading: false });
-            });
+        dispatch(createBranch({ name, email, phone, city, district, address }, this.props.closeForm));
     }
 
     showLoadingButton() {

@@ -11,8 +11,11 @@ class Dashboard extends Component {
     }
 
     fetchData() {
-        const { dispatch, user } = this.props;
-        loadData(dispatch, user);
+        const { dispatch, user, fetchDataStatus } = this.props;
+        if (!fetchDataStatus.branch) {
+            this.setState({ fetchStatus: false });
+            return loadData(dispatch, user);
+        }
     }
 
     render() {
@@ -33,7 +36,8 @@ class Dashboard extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user
+        user: state.user,
+        fetchDataStatus: state.fetchDataStatus
     };
 }
 export default connect(mapStateToProps, null)(Dashboard);
