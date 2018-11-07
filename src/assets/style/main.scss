@@ -10,6 +10,7 @@ $borderRadius: 5px;
 $boxShadow: 0px 2px 4px 0 rgba($color: $dark, $alpha: 0.05);
 $off-blue: rgba($blue, 0.2);
 $off-white: rgba($white, 0.2);
+$off-dark: rgba($dark, 0.2);
 
 $zindexHeader: 100;
 $zindexSidebar: 101;
@@ -33,6 +34,21 @@ html, body {
     color: $dark;
     font-weight: 500;
     background: $light;
+
+    // ============================ LOADING FETCHING DATA STYLE ================================
+    .loading-fetching-data {
+        width: 100%;
+        margin: 20px 0px;
+        text-align: center;
+
+        .loading-icon {
+            border: .20rem solid $off-dark;
+            border-top-color: $dark;
+            margin-right: 8px;
+            margin-bottom: -5px;
+        }
+    }
+    // ============================ End LOADING FETCHING DATA STYLE ============================
 
     // ============================ LIST ALERTS STYLE ================================
     ul.alert-list {

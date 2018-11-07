@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FadeAnimate, Svg, RequestService, BranchUpdate, BranchDetailEmployees } from '../../../refs';
+import { FadeAnimate, Svg, RequestService, BranchUpdate, BranchDetailEmployees, FetchingData } from '../../../refs';
 import { connect } from 'react-redux';
 
 class BranchDetail extends Component {
@@ -24,7 +24,7 @@ class BranchDetail extends Component {
 
     render() {
         const { close, onCreateForm, item } = this.props;
-        const { subMenuActive, dataDetail } = this.state;
+        const { subMenuActive, dataDetail, fetchDataStatus } = this.state;
         const employees = dataDetail && dataDetail.employees ? dataDetail.employees : [];
         // const clients = dataDetail && dataDetail.clients ? dataDetail.clients : [];
 
@@ -59,7 +59,9 @@ class BranchDetail extends Component {
                             </ul>
                             {/* END SUBMENU */}
 
-                            {subMenuActive === 'EMPLOYEES' ? <BranchDetailEmployees items={employees} /> : null}
+                            {fetchDataStatus ? null : <FetchingData />}
+                            
+                            {subMenuActive === 'EMPLOYEES' && fetchDataStatus ? <BranchDetailEmployees items={employees} /> : null}
 
 
                         </div>

@@ -5,6 +5,7 @@ import Background from './assets/images/bg.jpg';
 import AvatarDemo from './assets/images/avatar.png';
 // Components
 import Svg from "./components/Svg";
+import FetchingData from "./components/FetchingData";
 import FadeAnimate from "./components/FadeAnimate";
 import TitleApp from './components/TitleApp';
 import Header from './components/dashboard/Header';
@@ -48,7 +49,7 @@ import { loadData } from './actions/main.actions';
 // Images
 export { Logo, LogoBlue, AvatarDemo, Background }
 // Components
-export { FadeAnimate, Alert, AlertItem, Svg, TitleApp, Main, Header, Sidebar, Branch, BranchCreate, BranchRow, BranchDetail, Employee, EmployeeRow }
+export { FetchingData, FadeAnimate, Alert, AlertItem, Svg, TitleApp, Main, Header, Sidebar, Branch, BranchCreate, BranchRow, BranchDetail, Employee, EmployeeRow }
 export { EmployeeCreate, BranchUpdate, BranchDetailEmployees }
 // Screens
 export { NotMatch404, Dashboard, Login, Authentication, SelectBranch }
