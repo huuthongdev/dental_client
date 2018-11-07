@@ -42,17 +42,18 @@ class Login extends Component {
         if (error) return <p className="text-center text-white">Lỗi: {errorMessage}</p>
     }
 
-    onRedirectToDashboard() {
+    handleRedirect() {
         const { user } = this.props;
-        if (user._id) return <Redirect to="/" />
-    }
-
-    onRedirectToSelectBranch() {
+        const currentBranch = localStorage.getItem("BRANCH");
+        const token = localStorage.getItem("TOKEN");
+        if (user._id && currentBranch && token) return <Redirect to="/" />
+        if (user._id && !currentBranch && token) return <Redirect to="/select-branch" />
     }
 
     render() {
         return (
             <Fragment>
+                {this.handleRedirect()}
                 <TitleApp sub="Login" />
                 <div id="screen-login">
                     <div className="background" style={{ background: `url("${Background}") no-repeat center center` }} />
@@ -78,7 +79,6 @@ class Login extends Component {
 
                                     {this.showErrorMessage()}
                                     {this.showLoadingButton()}
-                                    {this.onRedirectToDashboard()}
 
                                     <div className="form-sub-link">
                                         <div className="link">Quên mật khẩu!</div>

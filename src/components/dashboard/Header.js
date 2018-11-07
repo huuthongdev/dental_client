@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { logOut, Svg } from '../../refs';
+import { logOut, Svg, loadData } from '../../refs';
 
 class Header extends Component {
 
@@ -9,7 +9,24 @@ class Header extends Component {
         return dispatch(logOut());
     }
 
+    showListBranch() {
+        const { user } = this.props;
+        if (!user) return;
+        return user.roleInBranchs.map((v, i) => <Fragment key={i}>
+            <option value={v.branch._id}>{v.branch.isMaster ? 'Trụ sở' : v.branch.name}</option>
+        </Fragment>)
+    }
+
+    changeCurrentBranch(e) {
+        e.preventDefault();
+        const { dispatch, user } = this.props;
+        localStorage.setItem("BRANCH", e.target.value);
+        return loadData(dispatch, user);
+    }
+
     render() {
+        const currentBranch = localStorage.getItem("BRANCH");
+
         return (
             <Fragment>
                 <header>
@@ -35,9 +52,8 @@ class Header extends Component {
                                     </li>
                                     <li id="button-change-current-branch">
                                         <Svg name="BRANCH" />
-                                        <select>
-                                            <option value={1}>CN Gò Vấp</option>
-                                            <option value={1}>CN Tân Bình</option>
+                                        <select defaultValue={currentBranch} onChange={(e) => this.changeCurrentBranch(e)}>
+                                            {this.showListBranch()}
                                         </select>
                                     </li>
                                 </ul>
@@ -69,7 +85,7 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        main: state.main
+        user: state.user
     };
 }
 export default connect(mapStateToProps, null)(Header);

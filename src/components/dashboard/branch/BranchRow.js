@@ -11,7 +11,7 @@ class BranchRow extends Component {
                         <div className="left-row-side" />
                         {item.sid}
                     </td>
-                    <td onClick={() => onDetail()} className="link"> {item.name} </td>
+                    <td onClick={() => onDetail()} className="link"> {item.name} {item.isMaster ? '(Trụ sở)' : ''}</td>
                     <td> {item.address ? item.address : '--'} </td>
                     <td>{item.district ? item.district : '--'}</td>
                     <td>{item.city ? item.city : '--'}</td>

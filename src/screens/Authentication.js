@@ -5,11 +5,11 @@ import { Redirect } from 'react-router-dom';
 
 class Authentication extends Component {
     state = {
-        error: false,
+        error: false
     }
 
-    componentDidMount() {
-        RequestService.get('/user/check')
+    async componentDidMount() {
+        await RequestService.get('/user/check')
             .then(result => {
                 const { dispatch } = this.props;
                 dispatch(setUserInfo(result));
@@ -21,21 +21,19 @@ class Authentication extends Component {
             });
     }
 
-    onRedirectToLogin() {
+    handleRedirect() {
         const { error } = this.state;
-        if (error) return <Redirect to="/login" />
-    }
-
-    onRedirectToCurrentNav() {
         const { user } = this.props;
-        if (user._id) return <Redirect to={this.props.location.state.from.pathname} />
+        const currentBranch = localStorage.getItem("BRANCH");
+        if (error) return <Redirect to="/login" />
+        if (user._id && currentBranch) return <Redirect to={this.props.location.state.from.pathname} />
+        if (user._id && !currentBranch) return <Redirect to="/select-branch" />
     }
 
     render() {
         return (
             <Fragment>
-                {this.onRedirectToLogin()}
-                {this.onRedirectToCurrentNav()}
+                {this.handleRedirect()}
                 <TitleApp sub="Authentication" />
                 <div id="screen-fetching-data">
                     <div className="background" style={{ background: `url("${Background}") no-repeat center center` }} />

@@ -24,6 +24,7 @@ import Login from "./screens/Login";
 import Dashboard from './screens/Dashboard';
 import NotMatch404 from './screens/NotMatch404';
 import Authentication from './screens/Authentication';
+import SelectBranch from './screens/SelectBranch';
 // Route
 import Routes from "./routes/Routes";
 // All Reducers
@@ -39,6 +40,7 @@ import { setUserInfo, logOut } from './actions/user.actions';
 import { setBranch, createBranch, updateBranch } from './actions/branch.actions';
 import { createAlert, removeAlert } from './actions/alert.actions';
 import { setEmployee, createEmployee } from './actions/employee.actions';
+import { loadData } from './actions/main.actions';
 
 // ===================== EXPORT =====================
 // Images
@@ -47,7 +49,7 @@ export { Logo, LogoBlue, AvatarDemo, Background }
 export { FadeAnimate, Alert, AlertItem, Svg, TitleApp, Main, Header, Sidebar, Branch, BranchCreate, BranchRow, BranchDetail, Employee, EmployeeRow }
 export { EmployeeCreate }
 // Screens
-export { NotMatch404, Dashboard, Login, Authentication }
+export { NotMatch404, Dashboard, Login, Authentication, SelectBranch }
 // Route
 export { Routes }
 // All Reducers
@@ -61,3 +63,4 @@ export { setUserInfo, logOut }
 export { setBranch, createBranch, updateBranch }
 export { createAlert, removeAlert }
 export { setEmployee, createEmployee }
+export { loadData }
