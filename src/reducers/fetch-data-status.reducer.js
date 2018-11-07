@@ -1,6 +1,7 @@
 import { SET_BRANCH } from "../actions/branch.actions";
 import { SET_EMPLOYEE } from "../actions/employee.actions";
 import { LOG_OUT } from "../actions/user.actions";
+import { SET_SERVICE } from "../actions/service.actions";
 
 const defaultState = {
     branch: false,

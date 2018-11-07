@@ -1,7 +1,7 @@
 import { LOG_OUT } from "../actions/user.actions";
 
-const serviceReducerInitialState = [];
-export const serviceReducer = (state = serviceReducerInitialState, action) => {
+const defaultState = [];
+export const serviceReducer = (state = defaultState, action) => {
     switch (action.type) {
         // case SET_EMPLOYEE:
         //     return action.result;

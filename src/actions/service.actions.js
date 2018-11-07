@@ -1,4 +1,4 @@
-import { RequestService } from "../refs";
+import { RequestService, createAlert } from "../refs";
 
 export const SET_SERVICE = 'SET_SERVICE';
 export const setService = () => dispatch => {
