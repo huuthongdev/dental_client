@@ -5,6 +5,7 @@ import { branchReducer } from "./branch.reducer";
 import { alertReducer } from "./alert.reducer";
 import { fetchDataStatusReducer } from "./fetch-data-status.reducer";
 import { employeeReducer } from "./employee.reducer";
+import { serviceReducer } from "./service.reducer";
 
 export const AllReducers = combineReducers({
     main: mainReducer,
@@ -12,5 +13,6 @@ export const AllReducers = combineReducers({
     branch: branchReducer,
     alert: alertReducer,
     fetchDataStatus: fetchDataStatusReducer,
-    employee: employeeReducer
+    employee: employeeReducer,
+    service: serviceReducer
 });
