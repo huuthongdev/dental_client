@@ -12,6 +12,8 @@ import Sidebar from './components/dashboard/Sidebar';
 import Branch from './components/dashboard/branch/Branch';
 import BranchCreate from './components/dashboard/branch/BranchCreate';
 import BranchDetail from './components/dashboard/branch/BranchDetail';
+import BranchUpdate from './components/dashboard/branch/BranchUpdate';
+import BranchDetailEmployees from './components/dashboard/branch/BranchDetailEmployees';
 import BranchRow from './components/dashboard/branch/BranchRow';
 import Main from './components/dashboard/main/Main';
 import Alert from './components/alert/Alert';
@@ -47,7 +49,7 @@ import { loadData } from './actions/main.actions';
 export { Logo, LogoBlue, AvatarDemo, Background }
 // Components
 export { FadeAnimate, Alert, AlertItem, Svg, TitleApp, Main, Header, Sidebar, Branch, BranchCreate, BranchRow, BranchDetail, Employee, EmployeeRow }
-export { EmployeeCreate }
+export { EmployeeCreate, BranchUpdate, BranchDetailEmployees }
 // Screens
 export { NotMatch404, Dashboard, Login, Authentication, SelectBranch }
 // Route
