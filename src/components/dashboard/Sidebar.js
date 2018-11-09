@@ -55,10 +55,13 @@ class Sidebar extends Component {
                             </li>
                         </NavLink>
 
-                        <li>
-                            <Svg name="SERVICE" />
-                            <span>Dịch vụ</span>
-                        </li>
+                        <NavLink exact to="/service">
+                            <li>
+                                <Svg name="SERVICE" />
+                                <span>Dịch vụ</span>
+                            </li>
+                        </NavLink>
+
                         <li>
                             <Svg name="PRODUCT" />
                             <span>Sản phẩm</span>

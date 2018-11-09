@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Svg, Dashboard, TitleApp, EmployeeRow, EmployeeCreate } from '../../../refs';
+import { Svg, Dashboard, TitleApp, EmployeeRow, EmployeeCreate, EmployeeDetail } from '../../../refs';
 import { connect } from 'react-redux';
 
 class Employee extends Component {
@@ -18,7 +18,9 @@ class Employee extends Component {
     returnMain() { this.setState({ create: false, detail: null }) }
 
     render() {
-        if (this.state.create) return <Dashboard> <EmployeeCreate returnMain={() => this.returnMain()}/> </Dashboard>
+        const { create, detail } = this.state;
+        if (create) return <Dashboard> <EmployeeCreate returnMain={() => this.returnMain()}/> </Dashboard>
+        if (detail) return <Dashboard> <EmployeeDetail onCreate={() => this.onCreate()} returnMain={() => this.returnMain()} item={detail}></EmployeeDetail> </Dashboard>
         return (
             <Dashboard>
                 <TitleApp sub="Nhân sự" />

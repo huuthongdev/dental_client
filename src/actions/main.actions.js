@@ -1,4 +1,4 @@
-import { setBranch, setEmployee } from '../refs';
+import { setBranch, setEmployee, setService } from '../refs';
 
 export function loadData(dispatch, user) {
     const token = localStorage.getItem("TOKEN");
@@ -7,4 +7,5 @@ export function loadData(dispatch, user) {
     if (!user._id) return;
     dispatch(setBranch());
     dispatch(setEmployee());
+    dispatch(setService());
 }

@@ -19,7 +19,7 @@ class EmployeeRow extends Component {
     }
 
     render() {
-        const { item } = this.props;
+        const { item, onDetail } = this.props;
         return (
             <Fragment>
                 <tr>
@@ -27,9 +27,9 @@ class EmployeeRow extends Component {
                         <div className="left-row-side" />
                         {item.sid}
                     </td>
-                    <td className="link">{item.name}</td>
+                    <td onClick={() => onDetail()} className="link">{item.name}</td>
                     <td>{item.phone}</td>
-                    <td>{item.phone}</td>
+                    <td>{item.email}</td>
                     <td>{item.address}</td>
                     <td>{this.showRolesInBranch()}</td>
                     <td className="list-tools">

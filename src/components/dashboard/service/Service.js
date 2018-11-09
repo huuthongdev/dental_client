@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Dashboard, TitleApp, Svg, FetchingData } from '../../../refs';
+import { Dashboard, TitleApp, Svg, FetchingData, ServiceCreate, ServiceRow, ServiceUpdate } from '../../../refs';
 import { connect } from 'react-redux';
 
 class Service extends Component {
@@ -29,7 +29,17 @@ class Service extends Component {
         });
     }
 
+    showList() {
+        let { service } = this.props;
+        return service.map((v, i) => <ServiceRow onDetail={() => this.onDetail(v)} item={v} key={i} />)
+    }
+
     render() {
+        const { fetchDataStatus } = this.props;
+        const { createForm, detail } = this.state;
+
+        if (createForm) return <Dashboard> <TitleApp sub="Tạo dịch vụ" /> <ServiceCreate returnMain={() => this.returnMain()} /> </Dashboard>
+        if (detail) return <Dashboard> <TitleApp sub={`Dịch vụ ${detail.name}`} /> <ServiceUpdate item={detail} returnMain={() => this.returnMain()} /> </Dashboard>
         return (
             <Dashboard>
                 <TitleApp sub="Dịch vụ" />
@@ -61,7 +71,7 @@ class Service extends Component {
                 </ul>
                 {/* END SUBMENU */}
 
-                {!fetchDataStatus.branch ? <FetchingData /> : <Fragment >
+                {!fetchDataStatus.service ? <FetchingData /> : <Fragment >
                     <div className="cpn-table-tools">
                         <div className="tool-search">
                             <input type="text" placeholder="Tìm kiếm" />
@@ -93,7 +103,7 @@ class Service extends Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-
+                                        {this.showList()}
                                     </tbody>
                                 </table>
 

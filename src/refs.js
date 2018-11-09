@@ -22,6 +22,12 @@ import AlertItem from './components/alert/AlertItem';
 import Employee from './components/dashboard/employee/Employee';
 import EmployeeRow from './components/dashboard/employee/EmployeeRow';
 import EmployeeCreate from './components/dashboard/employee/EmployeeCreate';
+import EmployeeDetail from './components/dashboard/employee/EmployeeDetail';
+import EmployeeUpdate from './components/dashboard/employee/EmployeeUpdate';
+import Service from './components/dashboard/service/Service';
+import ServiceCreate from './components/dashboard/service/ServiceCreate';
+import ServiceRow from './components/dashboard/service/ServiceRow';
+import ServiceUpdate from './components/dashboard/service/ServiceUpdate';
 // Screens
 import Login from "./screens/Login";
 import Dashboard from './screens/Dashboard';
@@ -39,6 +45,7 @@ import { RequestService } from './utils/request-service';
 import Roles from './utils/roles';
 import GetRoleName from './utils/get-role-name';
 // Actions
+import { setService, createService, updateService } from './actions/service.actions';
 import { setUserInfo, logOut } from './actions/user.actions';
 import { setBranch, createBranch, updateBranch } from './actions/branch.actions';
 import { createAlert, removeAlert } from './actions/alert.actions';
@@ -50,7 +57,7 @@ import { loadData } from './actions/main.actions';
 export { Logo, LogoBlue, AvatarDemo, Background }
 // Components
 export { FetchingData, FadeAnimate, Alert, AlertItem, Svg, TitleApp, Main, Header, Sidebar, Branch, BranchCreate, BranchRow, BranchDetail, Employee, EmployeeRow }
-export { EmployeeCreate, BranchUpdate, BranchDetailEmployees }
+export { EmployeeUpdate, EmployeeDetail, EmployeeCreate, BranchUpdate, BranchDetailEmployees, Service, ServiceCreate, ServiceRow, ServiceUpdate }
 // Screens
 export { NotMatch404, Dashboard, Login, Authentication, SelectBranch }
 // Route
@@ -66,4 +73,5 @@ export { setUserInfo, logOut }
 export { setBranch, createBranch, updateBranch }
 export { createAlert, removeAlert }
 export { setEmployee, createEmployee }
+export { setService, createService, updateService }
 export { loadData }

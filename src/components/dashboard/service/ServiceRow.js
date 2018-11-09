@@ -2,6 +2,13 @@ import React, { Component, Fragment } from 'react';
 import { Svg } from '../../../refs';
 
 class ServiceRow extends Component {
+
+    formatPriceInCurrentBranch() {
+        // TODO:   
+        return this.props.item.suggestedRetailerPrice.toLocaleString('en-GB');
+    }
+
+
     render() {
         const { item, onDetail } = this.props;
 
@@ -13,9 +20,9 @@ class ServiceRow extends Component {
                         {item.sid}
                     </td>
                     <td onClick={() => onDetail()} className="link"> {item.name}</td>
-                    <td>{item.suggestedRetailerPrice}</td>
-                    <td>--</td>
-                    <td>--</td>
+                    <td>{item.suggestedRetailerPrice.toLocaleString('en-GB')}đ</td>
+                    <td>{this.formatPriceInCurrentBranch()}</td>
+                    <td>{item.unit}</td>
                     <td className="list-tools">
                         <button className="row-toggle-list-tools">
                             <Svg name="ARROW_DOWN" />

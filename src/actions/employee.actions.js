@@ -8,12 +8,15 @@ export const setEmployee = () => dispatch => {
 }
 
 export const ADD_EMPLOYEE = 'ADD_EMPLOYEE';
-export const createEmployee = (dataSend, returnMain) => dispatch => {
+export const createEmployee = (dataSend, returnMain, loaded) => dispatch => {
     return RequestService.post('/user', dataSend)
     .then(result => {
         dispatch({ type: ADD_EMPLOYEE, result });
         dispatch(createAlert('SUCCESS', `Tạo thành công nhân sự: ${result.name}`));
         returnMain();
     })
-    .catch(error => dispatch(createAlert('ERROR', error.message)));
+    .catch(error => {
+        dispatch(createAlert('ERROR', error.message));
+        loaded();
+    });
 }

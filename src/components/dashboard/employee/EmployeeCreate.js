@@ -50,10 +50,8 @@ class EmployeeCreate extends Component {
         const dataSend = { name, email, password, birthday, city, district, address, branchWorkId, branchRole, phone };
         this.setState({ loading: true });
         const { dispatch } = this.props;
-        dispatch(createEmployee(dataSend, this.props.returnMain))
-        .then(() => {
-            this.setState({ loading: false });
-        });
+        const loaded = () => this.setState({ loading: false });
+        dispatch(createEmployee(dataSend, this.props.returnMain, loaded));
     }
 
     render() {
@@ -96,7 +94,7 @@ class EmployeeCreate extends Component {
                                 </div>
                                 <div className="col-sm-6">
                                     <div className="form-group">
-                                        <label>Điện thoại chính:</label>
+                                        <label>Điện thoại:</label>
                                         <input ref="phone" type="text" />
                                     </div>
                                 </div>
