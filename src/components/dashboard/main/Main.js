@@ -5,7 +5,7 @@ class Main extends Component {
     render() {
         return (
             <Dashboard>
-                <TitleApp sub="Main" />
+                <TitleApp sub="Thông tin chung" />
                 {/* COMPONENT TITLE */}
                 <div className="container-fluid cpn-head">
                     <div className="row">

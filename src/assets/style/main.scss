@@ -15,6 +15,7 @@ $off-dark: rgba($dark, 0.2);
 $zindexHeader: 100;
 $zindexSidebar: 101;
 $zindexAlertsList: 101;
+$zindexConfirm: 102;
 
 @mixin btnFocus($color) {
     &:focus {
@@ -34,6 +35,60 @@ html, body {
     color: $dark;
     font-weight: 500;
     background: $light;
+
+    // ============================ CONFIRM STYLE ================================
+    .confirm-wraper {
+        position: fixed;
+        top: 0; left: 0;
+        z-index: $zindexConfirm;
+        width: 100vw;
+        min-height: 100vh;
+        .filter {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: $zindexConfirm + 1;
+            top: 0; left: 0;
+            background: rgba($color: $dark, $alpha: 0.5);
+        }
+        .confirm-box {
+            max-width: 100%;
+            width: 500px;
+            background: $white;
+            position: relative;
+            top: 10px;
+            z-index: $zindexConfirm + 2;
+            left: 50%; transform: translateX(-50%);
+            box-shadow: $boxShadow;
+            border-radius: $borderRadius;
+            // padding: 10px;
+
+            .head {
+                padding-top: 10px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid rgba($color: $dark, $alpha: 0.2);
+                color: $orange;
+                font-weight: 800;
+            }
+
+            .name-related-confirm {
+                display: inline-block;
+                border: 1px solid $blue;
+                border-radius: $borderRadius;
+                background: $off-blue;
+                padding: 2px 4px;
+            }
+
+            .confirm-submit-box {
+                border-top: 1px solid rgba($color: $dark, $alpha: 0.2);
+                padding: 10px 0px;
+                button {
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+    // ============================ End CONFIRM STYLE ============================
 
     // ============================ LOADING FETCHING DATA STYLE ================================
     .loading-fetching-data {
@@ -392,6 +447,39 @@ html, body {
     // ============================ End COMPONENTS WRAPER STYLE ============================
 
     // ============================ CPN FORM STYLE ================================
+
+    .cpn-form-title {
+        color: $blue;
+        font-weight: 600;
+
+        svg {
+            transform: translateY(2px);
+            margin-right: 5px;
+            polygon, circle, path { fill: $blue; }
+        }
+    }
+
+    .cpn-form-close {
+        position: relative;
+        cursor: pointer;
+        width: 35px;
+        height: 35px;
+        display: inline-block;
+        padding: 5px;
+        border-radius: 50%;
+        margin-right: 0px;
+
+        svg {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        &:hover, &:focus {
+            @include bgLighting($grey);
+        }
+    }
+
     .cpn-form {
         background: $white;
         box-shadow: $boxShadow;
@@ -403,41 +491,10 @@ html, body {
         }
 
         form {
-            margin-top: 10px;
+            margin-top: 20px;
 
             button {
                 margin-top: 10px;
-            }
-        }
-
-        .cpn-form-title {
-            color: $blue;
-            font-weight: 600;
-
-            svg {
-                transform: translateY(2px);
-                margin-right: 5px;
-                polygon, circle, path { fill: $blue; }
-            }
-        }
-
-        .cpn-form-close {
-            position: relative;
-            cursor: pointer;
-            width: 35px;
-            height: 35px;
-            display: inline-block;
-            padding: 5px;
-            border-radius: 50%;
-
-            svg {
-                position: absolute;
-                top: 50%; left: 50%;
-                transform: translate(-50%, -50%);
-            }
-
-            &:hover, &:focus {
-                @include bgLighting($grey);
             }
         }
     }
@@ -1073,6 +1130,7 @@ html, body {
                 box-shadow: $boxShadow;
 
                 &.list-tools {
+                    min-width: 100px;
                     button {
                         margin-right: 5px;
                     }

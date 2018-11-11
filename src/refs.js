@@ -5,6 +5,7 @@ import Background from './assets/images/bg.jpg';
 import AvatarDemo from './assets/images/avatar.png';
 // Components
 import Svg from "./components/Svg";
+import ConfirmRemove from "./components/ConfirmRemove";
 import FetchingData from "./components/FetchingData";
 import FadeAnimate from "./components/FadeAnimate";
 import TitleApp from './components/TitleApp';
@@ -28,6 +29,11 @@ import Service from './components/dashboard/service/Service';
 import ServiceCreate from './components/dashboard/service/ServiceCreate';
 import ServiceRow from './components/dashboard/service/ServiceRow';
 import ServiceUpdate from './components/dashboard/service/ServiceUpdate';
+import Product from './components/dashboard/product/Product';
+import ProductRow from './components/dashboard/product/ProductRow';
+import ProductCreate from './components/dashboard/product/ProductCreate';
+import ProductUpdate from './components/dashboard/product/ProductUpdate';
+import Client from './components/dashboard/client/Client';
 // Screens
 import Login from "./screens/Login";
 import Dashboard from './screens/Dashboard';
@@ -45,19 +51,21 @@ import { RequestService } from './utils/request-service';
 import Roles from './utils/roles';
 import GetRoleName from './utils/get-role-name';
 // Actions
-import { setService, createService, updateService } from './actions/service.actions';
+import { setService, createService, updateService, removeService } from './actions/service.actions';
 import { setUserInfo, logOut } from './actions/user.actions';
-import { setBranch, createBranch, updateBranch } from './actions/branch.actions';
+import { setBranch, createBranch, updateBranch, removeBranch } from './actions/branch.actions';
 import { createAlert, removeAlert } from './actions/alert.actions';
 import { setEmployee, createEmployee } from './actions/employee.actions';
-import { loadData } from './actions/main.actions';
+import { setProduct, updateProduct, createProduct, removeProduct } from './actions/product.actions';
+import { loadData, fetchTemp } from './actions/main.actions';
 
 // ===================== EXPORT =====================
 // Images
 export { Logo, LogoBlue, AvatarDemo, Background }
 // Components
-export { FetchingData, FadeAnimate, Alert, AlertItem, Svg, TitleApp, Main, Header, Sidebar, Branch, BranchCreate, BranchRow, BranchDetail, Employee, EmployeeRow }
+export { Client, FetchingData, FadeAnimate, Alert, AlertItem, Svg, TitleApp, Main, Header, Sidebar, Branch, BranchCreate, BranchRow, BranchDetail, Employee, EmployeeRow }
 export { EmployeeUpdate, EmployeeDetail, EmployeeCreate, BranchUpdate, BranchDetailEmployees, Service, ServiceCreate, ServiceRow, ServiceUpdate }
+export { ConfirmRemove, Product, ProductRow, ProductCreate, ProductUpdate }
 // Screens
 export { NotMatch404, Dashboard, Login, Authentication, SelectBranch }
 // Route
@@ -70,8 +78,9 @@ export { isDev }
 export { RequestService, Roles, GetRoleName }
 // Actions
 export { setUserInfo, logOut }
-export { setBranch, createBranch, updateBranch }
+export { setBranch, createBranch, updateBranch, removeBranch }
 export { createAlert, removeAlert }
 export { setEmployee, createEmployee }
-export { setService, createService, updateService }
-export { loadData }
+export { setService, createService, updateService, removeService }
+export { setProduct, updateProduct, createProduct, removeProduct }
+export { loadData, fetchTemp }

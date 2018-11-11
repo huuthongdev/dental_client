@@ -2,11 +2,14 @@ import { SET_BRANCH } from "../actions/branch.actions";
 import { SET_EMPLOYEE } from "../actions/employee.actions";
 import { LOG_OUT } from "../actions/user.actions";
 import { SET_SERVICE } from "../actions/service.actions";
+import { SET_PRODUCT } from "../actions/product.actions";
 
 const defaultState = {
     branch: false,
     employee: false,
-    service: false
+    service: false,
+    product: false,
+    client: false
 }
 
 export const fetchDataStatusReducer = (state = defaultState, action) => {
@@ -17,6 +20,8 @@ export const fetchDataStatusReducer = (state = defaultState, action) => {
             return { ...state, employee: true }
         case SET_SERVICE:
             return { ...state, service: true }
+        case SET_PRODUCT:
+            return { ...state, product: true }
         case LOG_OUT:
             return defaultState;
         default:

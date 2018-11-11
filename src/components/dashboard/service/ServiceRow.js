@@ -10,7 +10,7 @@ class ServiceRow extends Component {
 
 
     render() {
-        const { item, onDetail } = this.props;
+        const { item, onDetail, onRemove } = this.props;
 
         return (
             <Fragment>
@@ -23,12 +23,12 @@ class ServiceRow extends Component {
                     <td>{item.suggestedRetailerPrice.toLocaleString('en-GB')}đ</td>
                     <td>{this.formatPriceInCurrentBranch()}</td>
                     <td>{item.unit}</td>
-                    <td className="list-tools">
+                    <td className="list-tools"> 
                         <button className="row-toggle-list-tools">
                             <Svg name="ARROW_DOWN" />
                         </button>
 
-                        <button className="row-btn-remove">
+                        <button onClick={() => onRemove()} className="row-btn-remove">
                             <Svg name="REMOVE" />
                         </button>
 

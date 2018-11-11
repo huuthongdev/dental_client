@@ -27,7 +27,7 @@ class ServiceUpdate extends Component {
         const dataSend = { name, suggestedRetailerPrice, unit };
         const { dispatch, item, returnMain } = this.props;
         dispatch(updateService(item._id, dataSend, returnMain))
-            .then(() => this.setState({ loading: false }));
+            .then(() => this.setState({ loading: false, same: true }));
     }
 
     render() {

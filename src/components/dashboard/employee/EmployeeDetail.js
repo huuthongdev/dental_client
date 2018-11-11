@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { FadeAnimate, EmployeeUpdate, Svg } from '../../../refs';
+import { FadeAnimate, EmployeeUpdate, Svg, TitleApp } from '../../../refs';
 
 class EmployeeDetail extends Component {
     render() {
@@ -7,6 +7,7 @@ class EmployeeDetail extends Component {
 
         return (
             <Fragment>
+                <TitleApp sub={`${item.name}`} />
                 <FadeAnimate>
                 {/* START COMPONENT TITLE */}
                 <div className="container-fluid cpn-head">

@@ -1,48 +1,91 @@
 import React, { Component, Fragment } from 'react';
-import { Dashboard, TitleApp, Svg, BranchCreate, BranchRow, BranchDetail, FetchingData } from '../../../refs';
+import { Dashboard, TitleApp, Svg, BranchCreate, BranchRow, BranchDetail, FetchingData, ConfirmRemove, removeBranch } from '../../../refs';
 import { connect } from 'react-redux';
 
 class Branch extends Component {
     state = {
         createForm: false,
-        branchDetail: null
+        detail: null,
+        remove: null
     }
 
     onCreateForm() {
         this.setState({
             createForm: true,
-            branchDetail: null
+            detail: null
         });
     }
 
     onDetail(data) {
         this.setState({
             createForm: false,
-            branchDetail: data
+            detail: data
         });
+    }
+
+    onRemove(data) {
+        this.setState({
+            createForm: false,
+            detail: null,
+            remove: data
+        });
+    }
+
+    handleRemove() {
+        const { dispatch } = this.props;
+        const { remove } = this.state;
+        const loaded = () => this.returnMain();
+        return dispatch(removeBranch(remove._id, loaded));
     }
 
     returnMain() {
         this.setState({
             createForm: false,
-            branchDetail: null
+            detail: null,
+            remove: null
         });
     }
 
     showListBranch() {
         let { branch } = this.props;
-        return branch.map((v, i) => <BranchRow onDetail={() => this.onDetail(v)} item={v} key={i} />)
+        return branch.map((v, i) => <BranchRow onRemove={() => this.onRemove(v)} onDetail={() => this.onDetail(v)} item={v} key={i} />)
     }
 
     render() {
-        const { createForm, branchDetail } = this.state;
+        const { createForm, detail, remove } = this.state;
         const { fetchDataStatus } = this.props;
 
-        if (branchDetail) return <Dashboard> <TitleApp sub={`Chi nhánh ${branchDetail.name}`} /> <BranchDetail onCreateForm={() => this.onCreateForm()} close={() => this.returnMain()} item={branchDetail} /> </Dashboard>
-        if (createForm) return <Dashboard> <TitleApp sub="Tạo chi nhánh" /> <BranchCreate closeForm={() => this.returnMain()} /> </Dashboard>
+        // Show Detail
+        if (detail) return <Dashboard>
+            <TitleApp sub={`Chi nhánh ${detail.name}`} />
+            <BranchDetail
+                onCreateForm={() => this.onCreateForm()}
+                close={() => this.returnMain()}
+                item={detail} />
+        </Dashboard>
+
+        // Show Create Form
+        if (createForm) return <Dashboard>
+            <TitleApp sub="Tạo chi nhánh" />
+            <BranchCreate
+                closeForm={() => this.returnMain()}
+            />
+        </Dashboard>
+
+        // Show Branch Cpn
         return (
             <Dashboard>
                 <TitleApp sub="Chi nhánh" />
+
+                {/* Confirm Remove */}
+                {this.state.remove ? <ConfirmRemove
+                    nameRelated={remove.name}
+                    onCancel={() => this.returnMain()}
+                    content="Xoá chi nhánh có thể ảnh hưởng đến dữ liệu của chi nhánh bao gồm: Nhân sự, Khách hàng, Phiếu điều trị, KPI"
+                    objectType="chi nhánh"
+                    onNext={() => this.handleRemove()}
+                /> : null}
+
                 {/* START COMPONENT TITLE */}
                 <div className="container-fluid cpn-head">
                     <div className="row align-items-center">
@@ -66,7 +109,7 @@ class Branch extends Component {
                 {/* START SUBMENU */}
                 <ul className="cpn-sub-menu">
                     <li className="active">
-                        Chi nhánh (18)
+                        Chi nhánh ({this.props.branch.length})
                     </li>
                 </ul>
                 {/* END SUBMENU */}

@@ -1,71 +1,46 @@
 import React, { Component, Fragment } from 'react';
-import { Dashboard, TitleApp, Svg, FetchingData, ServiceCreate, ServiceRow, ServiceUpdate, ConfirmRemove, removeService } from '../../../refs';
 import { connect } from 'react-redux';
+import { TitleApp, Dashboard, Svg, FetchingData, ProductCreate, ProductRow, ProductUpdate, ConfirmRemove, removeProduct } from '../../../refs';
 
-class Service extends Component {
+class Product extends Component {
     state = {
-        createForm: false,
+        create: false,
         detail: null,
         remove: null
-    }
-
-    onCreateForm() {
-        this.setState({
-            createForm: true,
-            detail: null
-        });
-    }
-
-    onRemove(data) {
-        this.setState({
-            createForm: false,
-            branchDetail: null,
-            remove: data
-        });
     }
 
     handleRemove() {
         const { dispatch } = this.props;
         const loaded = () => this.returnMain();
-        dispatch(removeService(this.state.remove._id, loaded));
+        dispatch(removeProduct(this.state.remove._id, loaded));
     }
 
-    onDetail(data) {
-        this.setState({
-            createForm: false,
-            detail: data
-        });
-    }
 
-    returnMain() {
-        this.setState({
-            createForm: false,
-            detail: null,
-            remove: null
-        });
-    }
-
+    onRemove(data) { this.setState({ createForm: false, branchDetail: null, remove: data }); }
+    onCreate() { this.setState({ create: true, detail: null, remove: null }); }
+    onDetail(data) { this.setState({ create: false, detail: data, remove: null }); }
+    returnMain() { this.setState({ create: false, detail: null, remove: null }) }
     showList() {
-        let { service } = this.props;
-        return service.map((v, i) => <ServiceRow onRemove={() => this.onRemove(v)} onDetail={() => this.onDetail(v)} item={v} key={i} />)
+        let { product } = this.props;
+        return product.map((v, i) => <ProductRow onRemove={() => this.onRemove(v)} onDetail={() => this.onDetail(v)} item={v} key={i} />)
     }
 
     render() {
-        const { fetchDataStatus } = this.props;
-        const { createForm, detail, remove } = this.state;
+        const { fetchDataStatus, product } = this.props;
+        const { create, detail, remove } = this.state;
 
-        if (createForm) return <Dashboard> <TitleApp sub="Tạo dịch vụ" /> <ServiceCreate returnMain={() => this.returnMain()} /> </Dashboard>
-        if (detail) return <Dashboard> <TitleApp sub={`Dịch vụ ${detail.name}`} /> <ServiceUpdate item={detail} returnMain={() => this.returnMain()} /> </Dashboard>
+        if (detail) return <Dashboard> <ProductUpdate returnMain={() => this.returnMain()} item={detail} ></ProductUpdate> </Dashboard>
+        if (create) return <Dashboard><ProductCreate returnMain={() => this.returnMain()} /> </Dashboard>
         return (
             <Dashboard>
-                <TitleApp sub="Dịch vụ" />
+                <TitleApp sub="Sản phẩm" />
 
                 {/* Confirm Remove */}
                 {remove ? <ConfirmRemove
                     nameRelated={remove.name}
                     onCancel={() => this.returnMain()}
-                    content="Xoá dịch vụ có thể ảnh hưởng đến dữ liệu của chi nhánh"
-                    objectType="dịch vụ"
+                    content="Xoá sản phẩm có thể ảnh hưởng đến dữ liệu của chi nhánh"
+                    objectType="sản phẩm"
                     onNext={() => this.handleRemove()}
                 /> : null}
 
@@ -75,15 +50,15 @@ class Service extends Component {
                     <div className="row align-items-center">
                         <div className="col-sm-6">
                             <div className="cpn-title">
-                                <Svg name="BRANCH" />
-                                Quản lí dịch vụ
-                                 </div>
+                                <Svg name="PRODUCT" />
+                                Quản lí sản phẩm
+                             </div>
                         </div>
                         <div className="col-sm-6">
                             <div className="cpn-tools-list">
-                                <button onClick={() => this.onCreateForm()} className="btn blue">
+                                <button onClick={() => this.onCreate()} className="btn blue">
                                     <Svg name="CREATE" />
-                                    Tạo dịch vụ
+                                    Tạo sản phẩm
                                 </button>
                             </div>
                         </div>
@@ -93,12 +68,14 @@ class Service extends Component {
                 {/* START SUBMENU */}
                 <ul className="cpn-sub-menu">
                     <li className="active">
-                        Dịch vụ ({this.props.service.length})
+                        Sản phẩm ({product.length})
                     </li>
                 </ul>
                 {/* END SUBMENU */}
 
-                {!fetchDataStatus.service ? <FetchingData /> : <Fragment >
+                {!fetchDataStatus.product ? <FetchingData /> : <Fragment >
+
+                    {/* START TABLE TOOLS */}
                     <div className="cpn-table-tools">
                         <div className="tool-search">
                             <input type="text" placeholder="Tìm kiếm" />
@@ -113,8 +90,10 @@ class Service extends Component {
                         </div>
                         <div className="tool-reset">
                             Reset
+                </div>
                     </div>
-                    </div>
+                    {/* END TABLE TOOLS */}
+                    {/* START BRANCH TABLE */}
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-sm-12">
@@ -122,10 +101,12 @@ class Service extends Component {
                                     <thead>
                                         <tr>
                                             <th className="sid">ID</th>
-                                            <th>Tên dịch vụ</th>
-                                            <th>Giá bán đề xuất</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Giá nhập</th>
+                                            <th>Giá đề xuất</th>
                                             <th>Giá chi nhánh</th>
-                                            <th>Đơn vị tính</th>
+                                            <th>Đơn vị</th>
+                                            <th>Kho tổng</th>
                                             <th>Thao tác</th>
                                         </tr>
                                     </thead>
@@ -138,14 +119,12 @@ class Service extends Component {
                                     <ul>
                                         <li className="active">1</li>
                                         <li>2</li>
-                                        <li>3</li>
-                                        <li>4</li>
-                                        <li>5</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {/* END BRANCH TABLE */}
                 </Fragment>}
             </Dashboard>
         );
@@ -154,8 +133,8 @@ class Service extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        service: state.service,
+        product: state.product,
         fetchDataStatus: state.fetchDataStatus
     };
 }
-export default connect(mapStateToProps, null)(Service);
+export default connect(mapStateToProps, null)(Product);

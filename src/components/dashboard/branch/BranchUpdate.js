@@ -9,6 +9,8 @@ class BranchUpdate extends Component {
         same: true
     }
 
+    resetForm() { document.getElementById('update-branch-form').reset(); }
+
     shouldEnableUpdate() {
         let { name, email, phone, city, district, address } = this.refs;
         name = name.value;
@@ -36,7 +38,7 @@ class BranchUpdate extends Component {
         district = district.value;
         address = address.value;
         dispatch(updateBranch(item._id, { name, email, phone, city, district, address }))
-            .then(() => this.setState({ loading: false, enableUpdate: false }));
+            .then(() => { this.setState({ loading: false, same: true }); this.resetForm(); });
     }
 
     render() {
@@ -54,14 +56,14 @@ class BranchUpdate extends Component {
                                         Chi tiết chi nhánh
                                          </div>
                                 </div>
-                                <div className="col-sm-6 text-right">
+                                {/* <div className="col-sm-6 text-right">
                                     <button className="cpn-form-close">
                                         <Svg name="CLOSE_FORM" />
                                     </button>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
-                        <form onSubmit={(e) => this.handleSubmit(e)} onChange={() => this.shouldEnableUpdate()}>
+                        <form id="update-branch-form" onSubmit={(e) => this.handleSubmit(e)} onChange={() => this.shouldEnableUpdate()}>
                             <div className="container-fluid">
                                 <div className="row">
                                     <div className="col-sm-12">
@@ -111,13 +113,16 @@ class BranchUpdate extends Component {
                                             <input ref="phone" defaultValue={item.phone} type="text" />
                                         </div>
                                     </div>
-                                    <div className="col-sm-12">
-                                        <button disabled={this.state.same} type="submit" className="btn blue">
-                                            {this.state.loading ? <div className="loading-icon"></div> : null}
-                                            {!this.state.loading ? <Fragment><Svg name="EDIT" /> Lưu thay đổi</Fragment> : null}
-                                        </button>
 
-                                    </div>
+                                    {this.state.same ? null : <Fragment>
+                                        <div className="col-sm-12">
+                                            <button disabled={this.state.same} type="submit" className="btn blue">
+                                                {this.state.loading ? <div className="loading-icon"></div> : null}
+                                                {!this.state.loading ? <Fragment><Svg name="EDIT" /> Lưu thay đổi</Fragment> : null}
+                                            </button>
+                                        </div>
+                                    </Fragment>}
+
                                 </div>
                             </div>
                         </form>

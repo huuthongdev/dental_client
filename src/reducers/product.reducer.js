@@ -1,20 +1,20 @@
+import { SET_PRODUCT, ADD_PRODUCT, UPDATE_PRODUCT, REMOVE_PRODUCT } from "../actions/product.actions";
 import { LOG_OUT } from "../actions/user.actions";
-import { SET_BRANCH, ADD_BRANCH, UPDATE_BRANCH, REMOVE_BRANCH } from "../actions/branch.actions";
 
 const defaultState = []
-export const branchReducer = (state = defaultState, action) => {
+export const productReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case SET_BRANCH:
+        case SET_PRODUCT:
             return action.result;
-        case ADD_BRANCH:
+        case ADD_PRODUCT:
             return [action.result, ...state];
-        case UPDATE_BRANCH:
+        case UPDATE_PRODUCT:
             return state.map(v => v._id === action.result._id ? action.result : v);
-        case REMOVE_BRANCH:
+        case REMOVE_PRODUCT:
             return state.filter(v => v._id !== action.result._id);
         case LOG_OUT:
             return defaultState;
         default:
-            return state
+            return state;
     }
 }

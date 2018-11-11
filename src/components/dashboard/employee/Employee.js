@@ -47,7 +47,7 @@ class Employee extends Component {
                 {/* START SUBMENU */}
                 <ul className="cpn-sub-menu">
                     <li className="active">
-                        Nhân sự (18)
+                        Nhân sự ({this.props.employee.length})
                 </li>
                 </ul>
                 {/* END SUBMENU */}

@@ -1,11 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Svg } from '../../../refs';
 
-class BranchRow extends Component {
-    state = {
-        onRemove: false
-    }
-
+class ProductRow extends Component {
     render() {
         const { item, onDetail, onRemove } = this.props;
         return (
@@ -15,21 +11,20 @@ class BranchRow extends Component {
                         <div className="left-row-side" />
                         {item.sid}
                     </td>
-                    <td onClick={() => onDetail()} className="link"> {item.name} {item.isMaster ? '(Trụ sở)' : ''}</td>
-                    <td> {item.address ? item.address : '--'} </td>
-                    <td>{item.district ? item.district : '--'}</td>
-                    <td>{item.city ? item.city : '--'}</td>
-                    <td>{item.phone ? item.phone : '--'}</td>
+                    <td className="link" onClick={() => onDetail()}>{item.name}</td>
+                    <td>{item.cost.toLocaleString('en-GB')}</td>
+                    <td>{item.suggestedRetailerPrice.toLocaleString('en-GB')}</td>
+                    <td>100..</td>
+                    <td>{item.unit}</td>
+                    <td>0..</td>
                     <td className="list-tools">
                         <button className="row-toggle-list-tools">
                             <Svg name="ARROW_DOWN" />
                         </button>
 
-                        { item.isMaster ? null : 
                         <button onClick={() => onRemove()} className="row-btn-remove">
                             <Svg name="REMOVE" />
-                        </button> }
-
+                        </button>
                         <div className="right-row-side" />
                     </td>
                 </tr>
@@ -40,4 +35,4 @@ class BranchRow extends Component {
     }
 }
 
-export default BranchRow;
+export default ProductRow;

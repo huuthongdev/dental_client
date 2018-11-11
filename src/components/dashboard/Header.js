@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { logOut, Svg, loadData } from '../../refs';
 
 class Header extends Component {
-
     handleLogout() {
         const { dispatch } = this.props;
         return dispatch(logOut());
@@ -23,7 +22,7 @@ class Header extends Component {
         localStorage.setItem("BRANCH", e.target.value);
         return loadData(dispatch, user);
     }
-
+ 
     render() {
         const currentBranch = localStorage.getItem("BRANCH");
 
@@ -40,7 +39,7 @@ class Header extends Component {
                                 <ul className="list-app-status">
                                     <li>
                                         <Svg name="CLOUD" />
-                                        17°C
+                                        {this.props.main.temp ? this.props.main.temp : '--'}°C
                                     </li>
                                     <li>
                                         <Svg name="TIME" />
@@ -63,7 +62,7 @@ class Header extends Component {
                                     <li id="toggle-show-notifications">
                                         <Svg name="NOTIFICATION" />
                                         <span id="total-notifications">
-                                            19
+                                            9
                                         </span>
                                     </li>
                                     <li onClick={() => this.handleLogout()}>
@@ -85,7 +84,8 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user
+        user: state.user,
+        main: state.main
     };
 }
 export default connect(mapStateToProps, null)(Header);

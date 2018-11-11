@@ -51,11 +51,11 @@ class EmployeeUpdate extends Component {
                                         Chi tiết nhân sự
                                          </div>
                                 </div>
-                                <div className="col-sm-6 text-right">
+                                {/* <div className="col-sm-6 text-right">
                                     <button className="cpn-form-close">
                                         <Svg name="CLOSE_FORM" />
                                     </button>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         {/* <form onSubmit={(e) => this.handleSubmit(e)} onChange={() => this.shouldEnableUpdate()}> */}

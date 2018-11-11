@@ -62,14 +62,20 @@ class Sidebar extends Component {
                             </li>
                         </NavLink>
 
-                        <li>
-                            <Svg name="PRODUCT" />
-                            <span>Sản phẩm</span>
-                        </li>
-                        <li>
-                            <Svg name="CLIENT" />
-                            <span>Khách hàng</span>
-                        </li>
+                        <NavLink exact to="/product">
+                            <li>
+                                <Svg name="PRODUCT" />
+                                <span>Sản phẩm</span>
+                            </li>
+                        </NavLink>
+
+                        <NavLink exact to="/client">
+                            <li>
+                                <Svg name="CLIENT" />
+                                <span>Khách hàng</span>
+                            </li>
+                        </NavLink>
+                        
                         <li>
                             <Svg name="ACCOUNTANT" />
                             <span>Kế toán</span>
