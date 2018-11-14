@@ -24,7 +24,8 @@ class Authentication extends Component {
     handleRedirect() {
         const { error } = this.state;
         const { user } = this.props;
-        const currentBranch = localStorage.getItem("BRANCH");
+        if (user._id && user.roleInBranchs.length === 1) localStorage.setItem("BRANCH", user.roleInBranchs[0].branch._id);
+        let currentBranch = localStorage.getItem("BRANCH");
         if (error) return <Redirect to="/login" />
         if (user._id && currentBranch) return <Redirect to={this.props.location.state.from.pathname} />
         if (user._id && !currentBranch) return <Redirect to="/select-branch" />
