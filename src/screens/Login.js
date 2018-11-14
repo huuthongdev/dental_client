@@ -46,7 +46,7 @@ class Login extends Component {
         const { user } = this.props;
         const currentBranch = localStorage.getItem("BRANCH");
         const token = localStorage.getItem("TOKEN");
-        if (user._id && currentBranch && token) return <Redirect to="/" />
+        if (user._id && currentBranch && token) return <Redirect to="/dashboard/main" />
         if (user._id && !currentBranch && token) return <Redirect to="/select-branch" />
     }
 

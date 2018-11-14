@@ -19,6 +19,7 @@ class Sidebar extends Component {
 
     render() {
         const { user } = this.props;
+
         return (
             <Fragment>
                 <div className="sidebar">
@@ -34,42 +35,42 @@ class Sidebar extends Component {
                     </div>
                     <ul className="sidebar-menu">
 
-                        <NavLink exact to="/">
+                        <NavLink to="/dashboard/main">
                             <li>
                                 <Svg name="HOME" />
                                 <span>Thông tin chung</span>
                             </li>
                         </NavLink>
 
-                        <NavLink exact to="/branch">
+                        <NavLink to="/dashboard/branch">
                             <li>
                                 <Svg name="BRANCH" />
                                 <span>Chi nhánh</span>
                             </li>
                         </NavLink>
 
-                        <NavLink exact to="/employee">
+                        <NavLink to="/dashboard/employee">
                             <li>
                                 <Svg name="EMPLOYEE" />
                                 <span>Nhân sự</span>
                             </li>
                         </NavLink>
 
-                        <NavLink exact to="/service">
+                        <NavLink to="/dashboard/service">
                             <li>
                                 <Svg name="SERVICE" />
                                 <span>Dịch vụ</span>
                             </li>
                         </NavLink>
 
-                        <NavLink exact to="/product">
+                        <NavLink to="/dashboard/product">
                             <li>
                                 <Svg name="PRODUCT" />
                                 <span>Sản phẩm</span>
                             </li>
                         </NavLink>
 
-                        <NavLink exact to="/client">
+                        <NavLink to="/dashboard/client">
                             <li>
                                 <Svg name="CLIENT" />
                                 <span>Khách hàng</span>

@@ -1,5 +1,5 @@
-import React, { Component, Fragment } from 'react';
-import { FadeAnimate, Svg, RequestService, BranchUpdate, BranchDetailEmployees, FetchingData } from '../../../refs';
+import React, { Component } from 'react';
+import { Svg, RequestService, BranchUpdate, BranchDetailEmployees, FetchingData, TitleApp, CpnWraper } from '../../../refs';
 import { connect } from 'react-redux';
 
 class BranchDetail extends Component {
@@ -8,11 +8,11 @@ class BranchDetail extends Component {
         loading: false,
         fetchDataStatus: false,
         dataDetail: null,
-        subMenuActive: 'EMPLOYEES'
+        subMenuActive: 'INFO'
     }
 
     componentDidMount() {
-        const { item } = this.props;
+        const item = this.props.branch[this.props.indexDetail];
         RequestService.get('/branch/detail/' + item._id)
             .then(result => this.setState({ dataDetail: result, fetchDataStatus: true }))
             .catch(error => console.log(error.message));
@@ -23,54 +23,53 @@ class BranchDetail extends Component {
     }
 
     render() {
-        const { close, onCreateForm, item } = this.props;
+        let { close, indexDetail } = this.props;
+        const item = this.props.branch[indexDetail];
         const { subMenuActive, dataDetail, fetchDataStatus } = this.state;
         const employees = dataDetail && dataDetail.employees ? dataDetail.employees : [];
-        // const clients = dataDetail && dataDetail.clients ? dataDetail.clients : [];
-
         return (
-            <FadeAnimate>
+            <CpnWraper>
+                <TitleApp sub={`Chi nhánh ${item.name}`} />
                 {/* START COMPONENT TITLE */}
                 <div className="container-fluid cpn-head">
                     <div className="row">
 
-                        <BranchUpdate item={item} />
-
-                        <div className="col">
+                        <div className="col-sm-6">
+                            <div className="cpn-title">
+                                <Svg name="BRANCH" />
+                                Chi nhánh: {item.name}
+                            </div>
+                        </div>
+                        <div className="col-sm-6">
                             <div className="cpn-tools-list">
-                                <button onClick={() => onCreateForm()} className="btn blue">
-                                    <Svg name="CREATE" />
-                                    Tạo chi nhánh
-                                </button>
                                 <button onClick={() => close()} className="btn blue">
                                     <Svg name="BACK" />
                                     Trở lại
-                                </button>
+                            </button>
                             </div>
-
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-sm-12">
                             {/* START SUBMENU */}
                             <ul className="cpn-sub-menu">
+                                <li onClick={() => this.changeSubMenu('INFO')} className={subMenuActive === 'INFO' ? 'active' : null}>
+                                    Thông tin chung
+                                </li>
                                 <li onClick={() => this.changeSubMenu('EMPLOYEES')} className={subMenuActive === 'EMPLOYEES' ? 'active' : null}>
                                     Nhân sự
-                                </li>
-                                <li onClick={() => this.changeSubMenu('CLIENTS')} className={subMenuActive === 'CLIENTS' ? 'active' : null}>
-                                    Khách hàng
                                 </li>
                             </ul>
                             {/* END SUBMENU */}
 
-                            {!fetchDataStatus ? <FetchingData /> : <Fragment>
-
-                                {subMenuActive === 'EMPLOYEES' && fetchDataStatus ? <BranchDetailEmployees items={employees} /> : null}
-
-                            </Fragment>}
-
-
+                            {!fetchDataStatus ? <FetchingData /> : null}
+                            {fetchDataStatus && subMenuActive === 'INFO' && fetchDataStatus ? <BranchUpdate item={item} /> : null}
+                            {fetchDataStatus && subMenuActive === 'EMPLOYEES' && fetchDataStatus ? <BranchDetailEmployees items={employees} /> : null}
                         </div>
                     </div>
                 </div>
                 {/* END COMPONENT TITLE */}
-            </FadeAnimate>
+            </CpnWraper>
         );
     }
 }

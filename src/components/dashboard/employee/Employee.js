@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Svg, Dashboard, TitleApp, EmployeeRow, EmployeeCreate, EmployeeDetail } from '../../../refs';
+import { Svg, TitleApp, EmployeeRow, EmployeeCreate, EmployeeDetail, CpnWraper } from '../../../refs';
 import { connect } from 'react-redux';
 
 class Employee extends Component {
@@ -19,10 +19,10 @@ class Employee extends Component {
 
     render() {
         const { create, detail } = this.state;
-        if (create) return <Dashboard> <EmployeeCreate returnMain={() => this.returnMain()}/> </Dashboard>
-        if (detail) return <Dashboard> <EmployeeDetail onCreate={() => this.onCreate()} returnMain={() => this.returnMain()} item={detail}></EmployeeDetail> </Dashboard>
+        if (create) return <EmployeeCreate returnMain={() => this.returnMain()}/>
+        if (detail) return <EmployeeDetail onCreate={() => this.onCreate()} returnMain={() => this.returnMain()} item={detail}></EmployeeDetail>
         return (
-            <Dashboard>
+            <CpnWraper>
                 <TitleApp sub="Nhân sự" />
                 {/* START COMPONENT TITLE */}
                 <div className="container-fluid cpn-head">
@@ -103,7 +103,7 @@ class Employee extends Component {
                     </div>
                 </div>
                 {/* END BRANCH TABLE */}
-            </Dashboard>
+            </CpnWraper>
         );
     }
 }

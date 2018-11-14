@@ -38,41 +38,27 @@ class BranchUpdate extends Component {
         district = district.value;
         address = address.value;
         dispatch(updateBranch(item._id, { name, email, phone, city, district, address }))
-            .then(() => { this.setState({ loading: false, same: true }); this.resetForm(); });
+            .then(() => { this.setState({ loading: false, same: true }); this.resetForm() });
     }
 
     render() {
-        const { item } = this.props;
+        let { item } = this.props;
+        // item = this.props.branch.filter(v => v._id === item._id)[0];
 
         return (
             <Fragment>
-                <div className="col-sm-4">
+                <div className="col-sm-12">
                     <div className="cpn-form">
-                        <div className="container-fluid">
-                            <div className="row align-items-center">
-                                <div className="col-sm-6">
-                                    <div className="cpn-form-title">
-                                        <Svg name="BRANCH" />
-                                        Chi tiết chi nhánh
-                                         </div>
-                                </div>
-                                {/* <div className="col-sm-6 text-right">
-                                    <button className="cpn-form-close">
-                                        <Svg name="CLOSE_FORM" />
-                                    </button>
-                                </div> */}
-                            </div>
-                        </div>
-                        <form id="update-branch-form" onSubmit={(e) => this.handleSubmit(e)} onChange={() => this.shouldEnableUpdate()}>
+                        <form id="update-branch-form" onSubmit={(e) => this.handleSubmit(e)} onChange={() => this.shouldEnableUpdate()} style={{ marginTop: '0px' }}>
                             <div className="container-fluid">
                                 <div className="row">
-                                    <div className="col-sm-12">
+                                    <div className="col-sm-6">
                                         <div className="form-group">
                                             <label>Tên chi nhánh:</label>
                                             <input ref="name" defaultValue={item.name} type="text" />
                                         </div>
                                     </div>
-                                    <div className="col-sm-12">
+                                    <div className="col-sm-6">
                                         <div className="form-group">
                                             <label>Thành phố:</label>
                                             <input ref="city" defaultValue={item.city} type="text" list="city" />
@@ -84,7 +70,7 @@ class BranchUpdate extends Component {
                                             </datalist>
                                         </div>
                                     </div>
-                                    <div className="col-sm-12">
+                                    <div className="col-sm-6">
                                         <div className="form-group">
                                             <label>Quận/huyện:</label>
                                             <input ref="district" defaultValue={item.district} type="text" list="district" />
@@ -95,19 +81,19 @@ class BranchUpdate extends Component {
                                                 </option></datalist>
                                         </div>
                                     </div>
-                                    <div className="col-sm-12">
+                                    <div className="col-sm-6">
                                         <div className="form-group">
                                             <label>Số - Tên đường:</label>
                                             <input ref="address" defaultValue={item.address} type="text" />
                                         </div>
                                     </div>
-                                    <div className="col-sm-12">
+                                    <div className="col-sm-6">
                                         <div className="form-group">
                                             <label>Email:</label>
                                             <input ref="email" defaultValue={item.email} type="text" />
                                         </div>
                                     </div>
-                                    <div className="col-sm-12">
+                                    <div className="col-sm-6">
                                         <div className="form-group">
                                             <label>Điện thoại chính:</label>
                                             <input ref="phone" defaultValue={item.phone} type="text" />

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Dashboard, Svg, TitleApp, FetchingData } from '../../../refs';
+import { Svg, TitleApp, FetchingData, CpnWraper } from '../../../refs';
 
 class Client extends Component {
     state = {
@@ -32,9 +32,9 @@ class Client extends Component {
     }
 
     handleRemove() {
-        const { dispatch } = this.props;
-        const { remove } = this.state;
-        const loaded = () => this.returnMain();
+        // const { dispatch } = this.props;
+        // const { remove } = this.state;
+        // const loaded = () => this.returnMain();
     }
 
     returnMain() {
@@ -49,7 +49,7 @@ class Client extends Component {
         const { fetchDataStatus } = this.props;
 
         return (
-            <Dashboard>
+            <CpnWraper>
                 <TitleApp sub="Khách hàng" />
 
                 {/* START COMPONENT TITLE */}
@@ -130,7 +130,7 @@ class Client extends Component {
                     </div>
                 </Fragment>}
 
-            </Dashboard>
+            </CpnWraper>
         );
     }
 }

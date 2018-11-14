@@ -6,6 +6,12 @@ class BranchRow extends Component {
         onRemove: false
     }
 
+    componentDidMount() {
+        // // TODO: Test
+        // const { item, onDetail } = this.props;
+        // onDetail(item);
+    }
+
     render() {
         const { item, onDetail, onRemove } = this.props;
         return (

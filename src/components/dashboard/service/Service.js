@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Dashboard, TitleApp, Svg, FetchingData, ServiceCreate, ServiceRow, ServiceUpdate, ConfirmRemove, removeService } from '../../../refs';
+import { TitleApp, Svg, FetchingData, ServiceCreate, ServiceRow, ServiceUpdate, ConfirmRemove, removeService, CpnWraper } from '../../../refs';
 import { connect } from 'react-redux';
 
 class Service extends Component {
@@ -54,28 +54,18 @@ class Service extends Component {
         const { fetchDataStatus } = this.props;
         const { createForm, detail, remove } = this.state;
 
-        if (createForm) return <Dashboard> <TitleApp sub="Tạo dịch vụ" /> <ServiceCreate returnMain={() => this.returnMain()} /> </Dashboard>
-        if (detail) return <Dashboard> <TitleApp sub={`Dịch vụ ${detail.name}`} /> <ServiceUpdate item={detail} returnMain={() => this.returnMain()} /> </Dashboard>
+        if (createForm) return <ServiceCreate returnMain={() => this.returnMain()} />
+        if (detail) return <ServiceUpdate item={detail} returnMain={() => this.returnMain()} />
         return (
-            <Dashboard>
+            <CpnWraper>
                 <TitleApp sub="Dịch vụ" />
-
-                {/* Confirm Remove */}
-                {remove ? <ConfirmRemove
-                    nameRelated={remove.name}
-                    onCancel={() => this.returnMain()}
-                    content="Xoá dịch vụ có thể ảnh hưởng đến dữ liệu của chi nhánh"
-                    objectType="dịch vụ"
-                    onNext={() => this.handleRemove()}
-                /> : null}
-
 
                 {/* START COMPONENT TITLE */}
                 <div className="container-fluid cpn-head">
                     <div className="row align-items-center">
                         <div className="col-sm-6">
                             <div className="cpn-title">
-                                <Svg name="BRANCH" />
+                                <Svg name="SERVICE" />
                                 Quản lí dịch vụ
                                  </div>
                         </div>
@@ -147,7 +137,16 @@ class Service extends Component {
                         </div>
                     </div>
                 </Fragment>}
-            </Dashboard>
+
+                {/* Confirm Remove */}
+                {remove ? <ConfirmRemove
+                    nameRelated={remove.name}
+                    onCancel={() => this.returnMain()}
+                    content="Xoá dịch vụ có thể ảnh hưởng đến dữ liệu của chi nhánh"
+                    objectType="dịch vụ"
+                    onNext={() => this.handleRemove()}
+                /> : null}
+            </CpnWraper>
         );
     }
 }

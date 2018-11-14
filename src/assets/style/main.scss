@@ -366,10 +366,22 @@ html, body {
                 padding: 10px 15px;
                 margin-right: 10px;
                 cursor: pointer;
+                opacity: 0.5;
 
                 &.active {
-                    border-bottom: 3px solid $blue;
+                    position: relative;
                     cursor: default;
+                    opacity: 1;
+
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        left: 0; bottom: 0;
+                        height: 3px;
+                        width: 100%;
+                        background: $blue;
+                        border-radius: 100px;
+                    }
 
                     &:hover {
                         border-radius: 0px;
@@ -378,7 +390,9 @@ html, body {
                 }
 
                 &:hover {
-                    border-radius: 300px;
+                    opacity: 1;
+                    border-top-left-radius: $borderRadius;
+                    border-top-right-radius: $borderRadius;
                     @include bgLighting($grey);
                 }
             }

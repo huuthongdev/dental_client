@@ -1,14 +1,13 @@
-import React, { Component, Fragment } from 'react';
-import { FadeAnimate, EmployeeUpdate, Svg, TitleApp } from '../../../refs';
+import React, { Component } from 'react';
+import { EmployeeUpdate, Svg, TitleApp, CpnWraper } from '../../../refs';
 
 class EmployeeDetail extends Component {
     render() {
         const { returnMain, onCreate, item } = this.props;
 
         return (
-            <Fragment>
+            <CpnWraper>
                 <TitleApp sub={`${item.name}`} />
-                <FadeAnimate>
                 {/* START COMPONENT TITLE */}
                 <div className="container-fluid cpn-head">
                     <div className="row">
@@ -46,8 +45,7 @@ class EmployeeDetail extends Component {
                     </div>
                 </div>
                 {/* END COMPONENT TITLE */}
-            </FadeAnimate>
-            </Fragment>
+            </CpnWraper>
         );
     }
 }

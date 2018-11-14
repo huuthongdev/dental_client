@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { FadeAnimate, Svg, TitleApp, Roles, GetRoleName, createEmployee } from '../../../refs';
+import { Svg, TitleApp, Roles, GetRoleName, createEmployee, CpnWraper } from '../../../refs';
 import { connect } from 'react-redux';
 
 class EmployeeCreate extends Component {
@@ -59,7 +59,7 @@ class EmployeeCreate extends Component {
         const { errorMessage } = this.state;
 
         return (
-            <FadeAnimate>
+            <CpnWraper>
                 <TitleApp sub="Tạo nhân sự" />
                 <div className="cpn-form">
                     <div className="container-fluid">
@@ -192,7 +192,7 @@ class EmployeeCreate extends Component {
                         </div>
                     </form>
                 </div>
-            </FadeAnimate>
+            </CpnWraper>
         );
     }
 }

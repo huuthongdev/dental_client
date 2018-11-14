@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Svg, FadeAnimate, updateService } from '../../../refs';
+import { Svg, updateService, CpnWraper, TitleApp } from '../../../refs';
 import isEqual from 'react-fast-compare';
 import { connect } from 'react-redux';
 
@@ -33,7 +33,9 @@ class ServiceUpdate extends Component {
     render() {
         const { item } = this.props;
         return (
-            <FadeAnimate>
+            <CpnWraper>
+
+                <TitleApp sub={`Dịch vụ ${item.name}`} />
                 <div className="cpn-form">
                     <div className="container-fluid">
                         <div className="row align-items-center">
@@ -88,7 +90,7 @@ class ServiceUpdate extends Component {
                         </div>
                     </form>
                 </div>
-            </FadeAnimate>
+            </CpnWraper>
         );
     }
 }

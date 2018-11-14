@@ -4,6 +4,7 @@ import LogoBlue from './assets/images/logo-blue.svg';
 import Background from './assets/images/bg.jpg';
 import AvatarDemo from './assets/images/avatar.png';
 // Components
+import CpnWraper from './components/CpnWraper';
 import Svg from "./components/Svg";
 import ConfirmRemove from "./components/ConfirmRemove";
 import FetchingData from "./components/FetchingData";
@@ -65,7 +66,7 @@ export { Logo, LogoBlue, AvatarDemo, Background }
 // Components
 export { Client, FetchingData, FadeAnimate, Alert, AlertItem, Svg, TitleApp, Main, Header, Sidebar, Branch, BranchCreate, BranchRow, BranchDetail, Employee, EmployeeRow }
 export { EmployeeUpdate, EmployeeDetail, EmployeeCreate, BranchUpdate, BranchDetailEmployees, Service, ServiceCreate, ServiceRow, ServiceUpdate }
-export { ConfirmRemove, Product, ProductRow, ProductCreate, ProductUpdate }
+export { ConfirmRemove, Product, ProductRow, ProductCreate, ProductUpdate, CpnWraper }
 // Screens
 export { NotMatch404, Dashboard, Login, Authentication, SelectBranch }
 // Route

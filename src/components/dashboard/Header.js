@@ -10,10 +10,16 @@ class Header extends Component {
 
     showListBranch() {
         const { user } = this.props;
+        const currentBranch = localStorage.getItem("BRANCH");
         if (!user) return;
-        return user.roleInBranchs.map((v, i) => <Fragment key={i}>
-            <option value={v.branch._id}>{v.branch.isMaster ? 'Trụ sở' : v.branch.name}</option>
-        </Fragment>)
+        if (user.roleInBranchs.length === 1) return <span>{user.roleInBranchs[0].branch.isMaster ? 'Trụ sở' : user.roleInBranchs[0].branch.name}</span>;
+        return (
+            <select defaultValue={currentBranch} onChange={(e) => this.changeCurrentBranch(e)}>
+                {user.roleInBranchs.map((v, i) => <Fragment key={i}>
+                    <option value={v.branch._id}>{v.branch.isMaster ? 'Trụ sở' : v.branch.name}</option>
+                </Fragment>)}
+            </select>
+        );
     }
 
     changeCurrentBranch(e) {
@@ -22,9 +28,8 @@ class Header extends Component {
         localStorage.setItem("BRANCH", e.target.value);
         return loadData(dispatch, user);
     }
- 
+
     render() {
-        const currentBranch = localStorage.getItem("BRANCH");
 
         return (
             <Fragment>
@@ -51,9 +56,7 @@ class Header extends Component {
                                     </li>
                                     <li id="button-change-current-branch">
                                         <Svg name="BRANCH" />
-                                        <select defaultValue={currentBranch} onChange={(e) => this.changeCurrentBranch(e)}>
-                                            {this.showListBranch()}
-                                        </select>
+                                        {this.showListBranch()}
                                     </li>
                                 </ul>
                             </div>

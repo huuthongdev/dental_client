@@ -1,5 +1,5 @@
 const GetRoleName = (role) => {
-    if (role === 'CHAIRMAN') return 'Chủ tịch HĐQT';
+    if (role === 'ADMIN') return 'Quản trị';
     if (role === 'DIRECTOR') return 'Giám đốc chi nhánh';
     if (role === 'CUSTOMER_CARE_MANAGER') return 'Trưởng phòng chăm sóc khách hàng';
     if (role === 'CUSTOMER_CARE') return 'NV Chăm sóc khách hàng';

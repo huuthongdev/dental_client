@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { TitleApp, Dashboard, Svg, FetchingData, ProductCreate, ProductRow, ProductUpdate, ConfirmRemove, removeProduct } from '../../../refs';
+import { TitleApp, Svg, FetchingData, ProductCreate, ProductRow, ProductUpdate, ConfirmRemove, removeProduct, CpnWraper } from '../../../refs';
 
 class Product extends Component {
     state = {
@@ -29,10 +29,10 @@ class Product extends Component {
         const { fetchDataStatus, product } = this.props;
         const { create, detail, remove } = this.state;
 
-        if (detail) return <Dashboard> <ProductUpdate returnMain={() => this.returnMain()} item={detail} ></ProductUpdate> </Dashboard>
-        if (create) return <Dashboard><ProductCreate returnMain={() => this.returnMain()} /> </Dashboard>
+        if (detail) return <ProductUpdate returnMain={() => this.returnMain()} item={detail} />
+        if (create) return <ProductCreate returnMain={() => this.returnMain()} />
         return (
-            <Dashboard>
+            <CpnWraper>
                 <TitleApp sub="Sản phẩm" />
 
                 {/* Confirm Remove */}
@@ -126,7 +126,7 @@ class Product extends Component {
                     </div>
                     {/* END BRANCH TABLE */}
                 </Fragment>}
-            </Dashboard>
+            </CpnWraper>
         );
     }
 }

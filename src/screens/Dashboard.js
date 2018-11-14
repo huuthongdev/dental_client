@@ -1,21 +1,21 @@
 import React, { Component, Fragment } from 'react';
-import { effect } from '../assets/js/effect';
-import { Header, Sidebar, Alert, FadeAnimate, loadData, fetchTemp } from '../refs';
 import { connect } from 'react-redux';
+import { Service, Employee, Branch, Product, Main, Client, Header, Sidebar, Alert } from '../refs';
+import { loadData, fetchTemp } from '../actions/main.actions';
+import { effect } from '../assets/js/effect';
 
 class Dashboard extends Component {
-    state = {
-        temp: null
-    }
+    state = { temp: null }
 
     componentDidMount() {
         effect();
         this.fetchData();
         // Fetch Temp Related
         const { dispatch } = this.props;
+        dispatch(fetchTemp());
         this.fetchTempId = setInterval(() => {
             dispatch(fetchTemp());
-        }, 60*60*1000);
+        }, 60 * 60 * 1000);
     }
 
     componentWillUnmount() {
@@ -23,24 +23,23 @@ class Dashboard extends Component {
     }
 
     fetchData() {
-        const { dispatch, user, fetchDataStatus } = this.props;
-        if (!fetchDataStatus.branch) {
-            this.setState({ fetchStatus: false });
-            loadData(dispatch, user);            
-        }
+        const { dispatch, user } = this.props;
+        loadData(dispatch, user);
     }
 
     render() {
+        const route = this.props.match.params.route;
         return (
             <Fragment>
-                <Header temp={this.state.temp} />
+                <Header />
                 <Sidebar />
                 <Alert />
-                <FadeAnimate>
-                    <div className="components-wraper">
-                        {this.props.children}
-                    </div>
-                </FadeAnimate>
+                {route === 'main' ? <Main /> : null}
+                {route === 'branch' ? <Branch /> : null}
+                {route === 'employee' ? <Employee /> : null}
+                {route === 'service' ? <Service /> : null}
+                {route === 'product' ? <Product /> : null}
+                {route === 'client' ? <Client /> : null}
             </Fragment>
         );
     }

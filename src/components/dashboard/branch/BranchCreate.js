@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Svg, createBranch, FadeAnimate } from '../../../refs';
+import { Svg, createBranch, CpnWraper, TitleApp } from '../../../refs';
 import { connect } from 'react-redux';
 
 class BranchCreate extends Component {
@@ -32,80 +32,81 @@ class BranchCreate extends Component {
 
     render() {
         return (
-            <FadeAnimate>
-                <div className="cpn-form">
-                    <div className="container-fluid">
-                        <div className="row align-items-center">
-                            <div className="col-sm-8">
-                                <div className="cpn-form-title">
-                                    <Svg name="BRANCH" />
-                                    Thêm mới chi nhánh
-                            </div>
-                            </div>
-                            <div className="col-sm-4 text-right">
-                                <button onClick={() => this.props.closeForm()} className="cpn-form-close">
-                                    <Svg name="CLOSE_FORM" />
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <form onSubmit={(e) => this.handleSubmit(e)}>
+            <CpnWraper>
+                    <TitleApp sub="Tạo chi nhánh" />
+                    <div className="cpn-form">
                         <div className="container-fluid">
-                            <div className="row">
-                                <div className="col-sm-6">
-                                    <div className="form-group">
-                                        <label>Tên chi nhánh:</label>
-                                        <input required ref="name" type="text" />
-                                    </div>
+                            <div className="row align-items-center">
+                                <div className="col-sm-8">
+                                    <div className="cpn-form-title">
+                                        <Svg name="BRANCH" />
+                                        Thêm mới chi nhánh
+                            </div>
                                 </div>
-                                <div className="col-sm-6">
-                                    <div className="form-group">
-                                        <label>Thành phố:</label>
-                                        <input ref="city" type="text" list="city" />
-                                        <datalist id="city">
-                                            <option value="HCM">
-                                            </option><option value="Binh Thuan">
-                                            </option><option value="Can Tho">
-                                            </option></datalist>
-                                    </div>
-                                </div>
-                                <div className="col-sm-6">
-                                    <div className="form-group">
-                                        <label>Quận/huyện:</label>
-                                        <input ref="district" type="text" list="district" />
-                                        <datalist id="district">
-                                            <option value="HCM">
-                                            </option><option value="Binh Thuan">
-                                            </option><option value="Can Tho">
-                                            </option></datalist>
-                                    </div>
-                                </div>
-                                <div className="col-sm-6">
-                                    <div className="form-group">
-                                        <label>Số - Tên đường:</label>
-                                        <input ref="address" type="text" />
-                                    </div>
-                                </div>
-                                <div className="col-sm-6">
-                                    <div className="form-group">
-                                        <label>Email:</label>
-                                        <input ref="email" type="text" />
-                                    </div>
-                                </div>
-                                <div className="col-sm-6">
-                                    <div className="form-group">
-                                        <label>Điện thoại chính:</label>
-                                        <input ref="phone" type="text" />
-                                    </div>
-                                </div>
-                                <div className="col-sm-6">
-                                    {this.showLoadingButton()}
+                                <div className="col-sm-4 text-right">
+                                    <button onClick={() => this.props.closeForm()} className="cpn-form-close">
+                                        <Svg name="CLOSE_FORM" />
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
-            </FadeAnimate>
+                        <form onSubmit={(e) => this.handleSubmit(e)}>
+                            <div className="container-fluid">
+                                <div className="row">
+                                    <div className="col-sm-6">
+                                        <div className="form-group">
+                                            <label>Tên chi nhánh:</label>
+                                            <input required ref="name" type="text" />
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-6">
+                                        <div className="form-group">
+                                            <label>Thành phố:</label>
+                                            <input ref="city" type="text" list="city" />
+                                            <datalist id="city">
+                                                <option value="HCM">
+                                                </option><option value="Binh Thuan">
+                                                </option><option value="Can Tho">
+                                                </option></datalist>
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-6">
+                                        <div className="form-group">
+                                            <label>Quận/huyện:</label>
+                                            <input ref="district" type="text" list="district" />
+                                            <datalist id="district">
+                                                <option value="HCM">
+                                                </option><option value="Binh Thuan">
+                                                </option><option value="Can Tho">
+                                                </option></datalist>
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-6">
+                                        <div className="form-group">
+                                            <label>Số - Tên đường:</label>
+                                            <input ref="address" type="text" />
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-6">
+                                        <div className="form-group">
+                                            <label>Email:</label>
+                                            <input ref="email" type="text" />
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-6">
+                                        <div className="form-group">
+                                            <label>Điện thoại chính:</label>
+                                            <input ref="phone" type="text" />
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-6">
+                                        {this.showLoadingButton()}
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+            </CpnWraper>
         );
     }
 }
