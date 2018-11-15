@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import { Svg } from '../refs';
+import { connect } from 'react-redux';
+import { Svg, offConfirmRemove } from '../refs';
 
 class ConfirmRemove extends Component {
     state = {
@@ -26,7 +27,8 @@ class ConfirmRemove extends Component {
 
     onCancel(e) {
         e.preventDefault();
-        return this.props.onCancel();
+        const { dispatch } = this.props;
+        dispatch(offConfirmRemove());
     }
 
     render() {
@@ -89,4 +91,9 @@ class ConfirmRemove extends Component {
     }
 }
 
-export default ConfirmRemove;
+const mapStateToProps = (state) => {
+    return {
+        confirmRemove: state.confirmRemove
+    };
+}
+export default connect(mapStateToProps, null)(ConfirmRemove);

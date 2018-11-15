@@ -1,21 +1,26 @@
 import React, { Component } from 'react';
-import { Svg, RequestService, BranchUpdate, BranchDetailEmployees, FetchingData, TitleApp, CpnWraper } from '../../../refs';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { Svg, BranchUpdate, FetchingData, TitleApp, CpnWraper, RequestService, BranchDetailEmployees } from '../../../refs';
 
 class BranchDetail extends Component {
     state = {
-        enableUpdate: false,
-        loading: false,
-        fetchDataStatus: false,
+        fetchDataDetailStatus: false,
         dataDetail: null,
-        subMenuActive: 'INFO'
+        subMenuActive: 'INFO',
+        onBack: false
     }
 
     componentDidMount() {
-        const item = this.props.branch[this.props.indexDetail];
-        RequestService.get('/branch/detail/' + item._id)
-            .then(result => this.setState({ dataDetail: result, fetchDataStatus: true }))
+        const { _id } = this.props.match.params;
+        RequestService.get('/branch/detail/' + _id)
+            .then(result => this.setState({ dataDetail: result, fetchDataDetailStatus: true }))
             .catch(error => console.log(error.message));
+    }
+
+    onBack() {
+        if (!this.state.onBack) return;
+        return <Redirect to='/branch' />
     }
 
     changeSubMenu(menu) {
@@ -23,26 +28,30 @@ class BranchDetail extends Component {
     }
 
     render() {
-        let { close, indexDetail } = this.props;
-        const item = this.props.branch[indexDetail];
-        const { subMenuActive, dataDetail, fetchDataStatus } = this.state;
-        const employees = dataDetail && dataDetail.employees ? dataDetail.employees : [];
+        const { subMenuActive, dataDetail, fetchDataDetailStatus } = this.state;
+        const { _id } = this.props.match.params;
+        const { fetchDataStatus } = this.props;
+
+        if (!fetchDataStatus.branch) return <CpnWraper><FetchingData /></CpnWraper>
+        const branch = this.props.branch.filter(v => v._id === _id)[0];
+        if (!branch) return <CpnWraper>Không tìm thấy dữ liệu</CpnWraper>
         return (
             <CpnWraper>
-                <TitleApp sub={`Chi nhánh ${item.name}`} />
-                {/* START COMPONENT TITLE */}
+                <TitleApp sub={`Chi nhánh ${branch ? branch.name : null}`} />
+                {this.onBack()}
+
                 <div className="container-fluid cpn-head">
                     <div className="row">
 
                         <div className="col-sm-6">
                             <div className="cpn-title">
                                 <Svg name="BRANCH" />
-                                Chi nhánh: {item.name}
+                                Chi nhánh: {branch ? branch.name : null}
                             </div>
                         </div>
                         <div className="col-sm-6">
                             <div className="cpn-tools-list">
-                                <button onClick={() => close()} className="btn blue">
+                                <button className="btn blue" onClick={() => this.setState({ onBack: true })}>
                                     <Svg name="BACK" />
                                     Trở lại
                             </button>
@@ -51,7 +60,6 @@ class BranchDetail extends Component {
                     </div>
                     <div className="row">
                         <div className="col-sm-12">
-                            {/* START SUBMENU */}
                             <ul className="cpn-sub-menu">
                                 <li onClick={() => this.changeSubMenu('INFO')} className={subMenuActive === 'INFO' ? 'active' : null}>
                                     Thông tin chung
@@ -60,15 +68,13 @@ class BranchDetail extends Component {
                                     Nhân sự
                                 </li>
                             </ul>
-                            {/* END SUBMENU */}
 
-                            {!fetchDataStatus ? <FetchingData /> : null}
-                            {fetchDataStatus && subMenuActive === 'INFO' && fetchDataStatus ? <BranchUpdate item={item} /> : null}
-                            {fetchDataStatus && subMenuActive === 'EMPLOYEES' && fetchDataStatus ? <BranchDetailEmployees items={employees} /> : null}
+                            {!fetchDataDetailStatus ? <FetchingData /> : null}
+                            {fetchDataDetailStatus && subMenuActive === 'INFO' ? <BranchUpdate item={branch} /> : null}
+                            {fetchDataDetailStatus && subMenuActive === 'EMPLOYEES' ? <BranchDetailEmployees items={dataDetail.employees} /> : null}
                         </div>
                     </div>
                 </div>
-                {/* END COMPONENT TITLE */}
             </CpnWraper>
         );
     }
@@ -76,7 +82,8 @@ class BranchDetail extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        branch: state.branch
+        branch: state.branch,
+        fetchDataStatus: state.fetchDataStatus
     };
 }
 export default connect(mapStateToProps, null)(BranchDetail);

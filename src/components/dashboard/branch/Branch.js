@@ -1,26 +1,12 @@
 import React, { Component, Fragment } from 'react';
-import { TitleApp, Svg, BranchCreate, BranchRow, BranchDetail, FetchingData, ConfirmRemove, removeBranch, CpnWraper } from '../../../refs';
+import { TitleApp, Svg,BranchRow, FetchingData, ConfirmRemove, removeBranch, CpnWraper } from '../../../refs';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 class Branch extends Component {
     state = {
         createForm: false,
-        indexDetail: null,
         remove: null
-    }
-
-    onCreateForm() {
-        this.setState({
-            createForm: true,
-            indexDetail: null
-        });
-    }
-
-    onDetail(data) {
-        this.setState({
-            createForm: false,
-            indexDetail: data
-        });
     }
 
     onRemove(data) {
@@ -38,27 +24,17 @@ class Branch extends Component {
         return dispatch(removeBranch(remove._id, loaded));
     }
 
-    returnMain() {
-        this.setState({
-            createForm: false,
-            indexDetail: null,
-            remove: null
-        });
-    }
-
     showListBranch() {
         let { branch } = this.props;
-        return branch.map((v, i) => <BranchRow onRemove={() => this.onRemove(v)} onDetail={() => this.onDetail(i)} item={v} key={i} />)
+        return branch.map((v, i) => <BranchRow onRemove={() => this.onRemove(v)} item={v} key={i} />)
     }
 
     render() {
-        const { createForm, indexDetail, remove } = this.state;
+        const { createForm, remove } = this.state;
         const { fetchDataStatus } = this.props;
 
-        // Show Detail
-        if (indexDetail || indexDetail === 0) return <BranchDetail onCreateForm={() => this.onCreateForm()} close={() => this.returnMain()} indexDetail={indexDetail} />
         // Show Create Form
-        if (createForm) return <BranchCreate closeForm={() => this.returnMain()} />
+        if (createForm) return <Redirect to={{ pathname: '/branch/create', state: { from: this.props.location } }} />
         // Show Branch Cpn
         return <CpnWraper>
             <TitleApp sub="Chi nhánh" />
@@ -73,7 +49,7 @@ class Branch extends Component {
                     </div>
                     <div className="col-sm-6">
                         <div className="cpn-tools-list">
-                            <button onClick={() => this.onCreateForm()} className="btn blue">
+                            <button onClick={() => this.setState({ createForm: true })} className="btn blue">
                                 <Svg name="CREATE" />
                                 Tạo chi nhánh
                                     </button>
@@ -90,7 +66,7 @@ class Branch extends Component {
                     </li>
             </ul>
             {/* END SUBMENU */}
-            
+
             {!fetchDataStatus.branch ? <FetchingData /> : <Fragment >
                 <div className="cpn-table-tools">
                     <div className="tool-search">

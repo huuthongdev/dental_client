@@ -1,19 +1,33 @@
 import React, { Component, Fragment } from 'react';
-import { Svg } from '../../../refs';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Svg, onConfirmRemove } from '../../../refs';
 
 class BranchRow extends Component {
     state = {
-        onRemove: false
+        onRemove: false,
+        onDetail: false
     }
 
-    componentDidMount() {
-        // // TODO: Test
-        // const { item, onDetail } = this.props;
-        // onDetail(item);
+    onDetail() {
+        return this.setState({ onDetail: true });
+    }
+
+    handleRemove() {
+        console.log('On Remove');
+    }
+
+    onRemove() {
+        const { dispatch } = this.props;
+        const { item } = this.props;
+        dispatch(onConfirmRemove(item.name, 'Xoá chi nhánh có thể ảnh hưởng đến dữ liệu của chi nhánh bao gồm: Nhân sự, Khách hàng, Phiếu điều trị, KPI', 'chi nhánh', () => this.handleRemove()))
     }
 
     render() {
-        const { item, onDetail, onRemove } = this.props;
+        const { item } = this.props;
+        const { onDetail } = this.state;
+
+        if (onDetail) return <Redirect to={`/branch/${item._id}`} />
         return (
             <Fragment>
                 <tr>
@@ -21,7 +35,7 @@ class BranchRow extends Component {
                         <div className="left-row-side" />
                         {item.sid}
                     </td>
-                    <td onClick={() => onDetail()} className="link"> {item.name} {item.isMaster ? '(Trụ sở)' : ''}</td>
+                    <td onClick={() => this.onDetail()} className="link"> {item.name} {item.isMaster ? '(Trụ sở)' : ''}</td>
                     <td> {item.address ? item.address : '--'} </td>
                     <td>{item.district ? item.district : '--'}</td>
                     <td>{item.city ? item.city : '--'}</td>
@@ -32,7 +46,7 @@ class BranchRow extends Component {
                         </button>
 
                         { item.isMaster ? null : 
-                        <button onClick={() => onRemove()} className="row-btn-remove">
+                        <button onClick={() => this.onRemove()} className="row-btn-remove">
                             <Svg name="REMOVE" />
                         </button> }
 
@@ -46,4 +60,9 @@ class BranchRow extends Component {
     }
 }
 
-export default BranchRow;
+const mapStateToProps = (state) => {
+    return {
+        branch: state.branch
+    };
+}
+export default connect(mapStateToProps, null)(BranchRow);

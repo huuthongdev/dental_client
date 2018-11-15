@@ -7,6 +7,7 @@ import { fetchDataStatusReducer } from "./fetch-data-status.reducer";
 import { employeeReducer } from "./employee.reducer";
 import { serviceReducer } from "./service.reducer";
 import { productReducer } from "./product.reducer";
+import { confirmRemoveReducer } from "./confirm-remove.reducer";
 
 export const AllReducers = combineReducers({
     main: mainReducer,
@@ -16,5 +17,6 @@ export const AllReducers = combineReducers({
     fetchDataStatus: fetchDataStatusReducer,
     employee: employeeReducer,
     service: serviceReducer,
-    product: productReducer
+    product: productReducer,
+    confirmRemove: confirmRemoveReducer
 });

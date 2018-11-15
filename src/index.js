@@ -11,6 +11,7 @@ import { Provider } from 'react-redux';
 
 import ReduxThunk from "redux-thunk";
 import { Routes, AllReducers, isDev } from './refs';
+
 const middleware = applyMiddleware(ReduxThunk);
 const extension = isDev ? compose(middleware, window.devToolsExtension()) : middleware;
 const Store = createStore( AllReducers, extension );

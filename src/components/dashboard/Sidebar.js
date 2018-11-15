@@ -34,43 +34,43 @@ class Sidebar extends Component {
                         <ul>{this.showRolesCurrentBranch()}</ul>
                     </div>
                     <ul className="sidebar-menu">
-
-                        <NavLink to="/dashboard/main">
+                    
+                        <NavLink exact to="/">
                             <li>
                                 <Svg name="HOME" />
                                 <span>Thông tin chung</span>
                             </li>
                         </NavLink>
 
-                        <NavLink to="/dashboard/branch">
+                        <NavLink to="/branch">
                             <li>
                                 <Svg name="BRANCH" />
                                 <span>Chi nhánh</span>
                             </li>
                         </NavLink>
 
-                        <NavLink to="/dashboard/employee">
+                        <NavLink to="/employee">
                             <li>
                                 <Svg name="EMPLOYEE" />
                                 <span>Nhân sự</span>
                             </li>
                         </NavLink>
 
-                        <NavLink to="/dashboard/service">
+                        <NavLink to="/service">
                             <li>
                                 <Svg name="SERVICE" />
                                 <span>Dịch vụ</span>
                             </li>
                         </NavLink>
 
-                        <NavLink to="/dashboard/product">
+                        <NavLink to="/product">
                             <li>
                                 <Svg name="PRODUCT" />
                                 <span>Sản phẩm</span>
                             </li>
                         </NavLink>
 
-                        <NavLink to="/dashboard/client">
+                        <NavLink to="/client">
                             <li>
                                 <Svg name="CLIENT" />
                                 <span>Khách hàng</span>

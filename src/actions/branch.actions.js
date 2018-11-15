@@ -8,14 +8,17 @@ export const setBranch = () => async dispatch => {
 }
 
 export const ADD_BRANCH = 'ADD_BRANCH';
-export const createBranch = (dataSend, returnMain) => async dispatch => {
+export const createBranch = (dataSend, returnMain, loaded) => async dispatch => {
     return RequestService.post('/branch', dataSend)
         .then(result => {
             dispatch({ type: ADD_BRANCH, result });
             dispatch(createAlert('SUCCESS', `Tạo thành công chi nhánh: ${result.name}`));
             returnMain();
         })
-        .catch(error => dispatch(createAlert('ERROR', error.message)));
+        .catch(error => {
+            dispatch(createAlert('ERROR', error.message));
+            loaded();
+        });
 }
 
 export const UPDATE_BRANCH = 'UPDATE_BRANCH';

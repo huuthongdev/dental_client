@@ -37,14 +37,13 @@ import ProductUpdate from './components/dashboard/product/ProductUpdate';
 import Client from './components/dashboard/client/Client';
 // Screens
 import Login from "./screens/Login";
-import Dashboard from './screens/Dashboard';
 import NotMatch404 from './screens/NotMatch404';
 import Authentication from './screens/Authentication';
 import SelectBranch from './screens/SelectBranch';
 // Route
 import Routes from "./routes/Routes";
 // All Reducers
-import { AllReducers } from "./reducers/index";
+import { AllReducers } from "./reducers/reducers";
 // Extension
 import { isDev } from './setting';
 // Utils
@@ -59,6 +58,7 @@ import { createAlert, removeAlert } from './actions/alert.actions';
 import { setEmployee, createEmployee } from './actions/employee.actions';
 import { setProduct, updateProduct, createProduct, removeProduct } from './actions/product.actions';
 import { loadData, fetchTemp } from './actions/main.actions';
+import { offConfirmRemove, onConfirmRemove } from './actions/confirm-remove.actions';
 
 // ===================== EXPORT =====================
 // Images
@@ -68,7 +68,7 @@ export { Client, FetchingData, FadeAnimate, Alert, AlertItem, Svg, TitleApp, Mai
 export { EmployeeUpdate, EmployeeDetail, EmployeeCreate, BranchUpdate, BranchDetailEmployees, Service, ServiceCreate, ServiceRow, ServiceUpdate }
 export { ConfirmRemove, Product, ProductRow, ProductCreate, ProductUpdate, CpnWraper }
 // Screens
-export { NotMatch404, Dashboard, Login, Authentication, SelectBranch }
+export { NotMatch404, Login, Authentication, SelectBranch }
 // Route
 export { Routes }
 // All Reducers
@@ -85,3 +85,4 @@ export { setEmployee, createEmployee }
 export { setService, createService, updateService, removeService }
 export { setProduct, updateProduct, createProduct, removeProduct }
 export { loadData, fetchTemp }
+export { offConfirmRemove, onConfirmRemove }
