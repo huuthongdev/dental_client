@@ -1,40 +1,19 @@
 import React, { Component, Fragment } from 'react';
-import { TitleApp, Svg,BranchRow, FetchingData, ConfirmRemove, removeBranch, CpnWraper } from '../../../refs';
+import { TitleApp, Svg,BranchRow, FetchingData, CpnWraper } from '../../../refs';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 class Branch extends Component {
     state = {
-        createForm: false,
-        remove: null
-    }
-
-    onRemove(data) {
-        this.setState({
-            createForm: false,
-            indexDetail: null,
-            remove: data
-        });
-    }
-
-    handleRemove() {
-        const { dispatch } = this.props;
-        const { remove } = this.state;
-        const loaded = () => this.returnMain();
-        return dispatch(removeBranch(remove._id, loaded));
-    }
-
-    showListBranch() {
-        let { branch } = this.props;
-        return branch.map((v, i) => <BranchRow onRemove={() => this.onRemove(v)} item={v} key={i} />)
+        createForm: false
     }
 
     render() {
-        const { createForm, remove } = this.state;
-        const { fetchDataStatus } = this.props;
+        const { createForm } = this.state;
+        const { fetchDataStatus, branch } = this.props;
 
         // Show Create Form
-        if (createForm) return <Redirect to={{ pathname: '/branch/create', state: { from: this.props.location } }} />
+        if (createForm) return <Redirect to='/branch/create' />
         // Show Branch Cpn
         return <CpnWraper>
             <TitleApp sub="Chi nhánh" />
@@ -67,7 +46,8 @@ class Branch extends Component {
             </ul>
             {/* END SUBMENU */}
 
-            {!fetchDataStatus.branch ? <FetchingData /> : <Fragment >
+            {!fetchDataStatus.branch ? <FetchingData /> :  null }
+            {fetchDataStatus.branch ? <Fragment >
                 <div className="cpn-table-tools">
                     <div className="tool-search">
                         <input type="text" placeholder="Tìm kiếm" />
@@ -100,7 +80,7 @@ class Branch extends Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {this.showListBranch()}
+                                    {branch.map((v, i) => <BranchRow onRemove={() => this.onRemove(v)} item={v} key={i} />)}
                                 </tbody>
                             </table>
 
@@ -116,16 +96,7 @@ class Branch extends Component {
                         </div>
                     </div>
                 </div>
-            </Fragment>}
-
-            {/* Confirm Remove */}
-            {this.state.remove ? <ConfirmRemove
-                nameRelated={remove.name}
-                onCancel={() => this.returnMain()}
-                content="Xoá chi nhánh có thể ảnh hưởng đến dữ liệu của chi nhánh bao gồm: Nhân sự, Khách hàng, Phiếu điều trị, KPI"
-                objectType="chi nhánh"
-                onNext={() => this.handleRemove()}
-            /> : null}
+            </Fragment> : null}
         </CpnWraper>
     }
 }
