@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Svg, TitleApp, EmployeeRow, EmployeeCreate, EmployeeDetail, CpnWraper } from '../../../refs';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { Svg, TitleApp, EmployeeRow, EmployeeDetail, CpnWraper } from '../../../refs';
 
 class Employee extends Component {
     state = {
@@ -19,7 +20,7 @@ class Employee extends Component {
 
     render() {
         const { create, detail } = this.state;
-        if (create) return <EmployeeCreate returnMain={() => this.returnMain()}/>
+        if (create) return <Redirect to="/employee/create"/>
         if (detail) return <EmployeeDetail onCreate={() => this.onCreate()} returnMain={() => this.returnMain()} item={detail}></EmployeeDetail>
         return (
             <CpnWraper>

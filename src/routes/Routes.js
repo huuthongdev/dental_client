@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Route, BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
 // Import
-import { Login, NotMatch404, Authentication, SelectBranch, Branch, Main, Employee, Service, Product, Client, BranchCreate, BranchDetail } from '../refs';
+import { Login, NotMatch404, Authentication, SelectBranch, Branch, Main, Employee, Service, Product, Client, BranchCreate, BranchDetail, EmployeeCreate, EmployeeDetail } from '../refs';
 import { connect } from 'react-redux';
 
 class Routes extends Component {
@@ -12,14 +12,19 @@ class Routes extends Component {
                 <Fragment>
                     <Switch>
                         <MustBeUser user={user} path="/" exact component={Main} />
+
                         <MustBeUser user={user} path="/branch" exact component={Branch} />
                         <MustBeUser user={user} path="/branch/create" exact component={BranchCreate} />
                         <MustBeUser user={user} path="/branch/:_id" exact component={BranchDetail} />
+
                         <MustBeUser user={user} path="/employee" exact component={Employee} />
+                        <MustBeUser user={user} path="/employee/create" exact component={EmployeeCreate} />
+                        <MustBeUser user={user} path="/employee/:_id" exact component={EmployeeDetail} />
+
                         <MustBeUser user={user} path="/service" exact component={Service} />
                         <MustBeUser user={user} path="/product" exact component={Product} />
                         <MustBeUser user={user} path="/client" exact component={Client} />
-                        
+
                         <Route path="/login" exact component={Login} />
                         <Route path="/authentication" exact component={Authentication} />
                         <Route path="/select-branch" exact component={SelectBranch} />

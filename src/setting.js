@@ -5,8 +5,8 @@ export const ROOT_EMAIL = 'admin@gmail.com';
 
 // URL DEVELOPMENT
 export const URL_CLIENT = 'http://localhost:3000';
-// export const URL_SERVER_API = 'http://localhost:4000';
-export const URL_SERVER_API = 'https://dentalapi.herokuapp.com';
+export const URL_SERVER_API = 'http://localhost:4000';
+// export const URL_SERVER_API = 'https://dentalapi.herokuapp.com';
 
 // URL DEPLOYMENT
 // export const URL_CLIENT = '';

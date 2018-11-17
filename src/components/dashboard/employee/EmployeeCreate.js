@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { Svg, TitleApp, Roles, GetRoleName, createEmployee, CpnWraper } from '../../../refs';
 import { connect } from 'react-redux';
+import { Redirect } from "react-router-dom";
+import { Svg, TitleApp, Roles, GetRoleName, createEmployee, CpnWraper } from '../../../refs';
 
 class EmployeeCreate extends Component {
     state = {
@@ -8,7 +9,9 @@ class EmployeeCreate extends Component {
         checkPassword: false,
         errorMessage: null,
         password: null,
-        confirmPassword: null
+        confirmPassword: null,
+        redirectToEmployeeDetail: null,
+        redirectToEmployeeTable: false,
     }
 
     showLoadingButton() {
@@ -16,7 +19,7 @@ class EmployeeCreate extends Component {
         if (loading) return <button type="submit" className="btn blue"> <div className="loading-icon"></div> </button>
         return <Fragment>
             <button type="submit" className="btn blue"> Xác nhận </button>
-            <button onClick={() => this.props.returnMain()} className="btn outline-grey"> Huỷ </button>
+            <button onClick={() => this.setState({ redirectToEmployees: true })} className="btn outline-grey"> Huỷ </button>
         </Fragment>
     }
 
@@ -51,13 +54,15 @@ class EmployeeCreate extends Component {
         this.setState({ loading: true });
         const { dispatch } = this.props;
         const loaded = () => this.setState({ loading: false });
-        dispatch(createEmployee(dataSend, this.props.returnMain, loaded));
+        const redirectToEmployeeDetail = (_id) => this.setState({ redirectToEmployeeDetail: _id });
+        dispatch(createEmployee(dataSend, loaded, redirectToEmployeeDetail));
     }
 
     render() {
-        const { returnMain } = this.props;
-        const { errorMessage } = this.state;
+        const { errorMessage, redirectToEmployeeDetail, redirectToEmployeeTable } = this.state;
 
+        if (redirectToEmployeeDetail) return <Redirect to={`/employee/${redirectToEmployeeDetail}`}/>
+        if (redirectToEmployeeTable) return <Redirect to="/employee" />
         return (
             <CpnWraper>
                 <TitleApp sub="Tạo nhân sự" />
@@ -71,7 +76,7 @@ class EmployeeCreate extends Component {
                             </div>
                             </div>
                             <div className="col-sm-4 text-right">
-                                <button onClick={() => returnMain()} className="cpn-form-close">
+                                <button onClick={() => this.setState({ redirectToEmployeeTable: true })} className="cpn-form-close">
                                     <Svg name="CLOSE_FORM" />
                                 </button>
                             </div>

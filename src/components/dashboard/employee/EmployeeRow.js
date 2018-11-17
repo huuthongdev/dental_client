@@ -1,7 +1,11 @@
 import React, { Component, Fragment } from 'react';
+import { Redirect } from "react-router-dom";
 import { Svg, GetRoleName } from '../../../refs';
 
 class EmployeeRow extends Component {
+    state = {
+        redirectToEmployeeDetail: null
+    }
 
     showRoles(roles) {
         return roles.map((v, i) => <Fragment key={i}>
@@ -18,8 +22,15 @@ class EmployeeRow extends Component {
         });
     }
 
+    onDetail(_id) {
+        return this.setState({ redirectToEmployeeDetail: _id });
+    }
+
     render() {
-        const { item, onDetail } = this.props;
+        const { item } = this.props;
+        const { redirectToEmployeeDetail } = this.state;
+
+        if(redirectToEmployeeDetail) return <Redirect to={`/employee/${redirectToEmployeeDetail}`} />
         return (
             <Fragment>
                 <tr>
@@ -27,7 +38,7 @@ class EmployeeRow extends Component {
                         <div className="left-row-side" />
                         {item.sid}
                     </td>
-                    <td onClick={() => onDetail()} className="link">{item.name}</td>
+                    <td onClick={() => this.onDetail(item._id)} className="link">{item.name}</td>
                     <td>{item.phone}</td>
                     <td>{item.email}</td>
                     <td>{item.address}</td>

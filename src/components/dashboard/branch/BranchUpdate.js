@@ -42,7 +42,8 @@ class BranchUpdate extends Component {
     }
 
     render() {
-        let { item } = this.props;
+        const item = this.props.branch.filter(v => v._id === this.props.item._id)[0];
+
         return (
             <Fragment>
                 <div className="col-sm-12">

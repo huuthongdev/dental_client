@@ -53,7 +53,7 @@ import GetRoleName from './utils/get-role-name';
 // Actions
 import { setService, createService, updateService, removeService } from './actions/service.actions';
 import { setUserInfo, logOut } from './actions/user.actions';
-import { setBranch, createBranch, updateBranch, removeBranch } from './actions/branch.actions';
+import { setBranch, createBranch, updateBranch, removeBranch, setBranchDetail } from './actions/branch.actions';
 import { createAlert, removeAlert } from './actions/alert.actions';
 import { setEmployee, createEmployee } from './actions/employee.actions';
 import { setProduct, updateProduct, createProduct, removeProduct } from './actions/product.actions';
@@ -79,7 +79,7 @@ export { isDev }
 export { RequestService, Roles, GetRoleName }
 // Actions
 export { setUserInfo, logOut }
-export { setBranch, createBranch, updateBranch, removeBranch }
+export { setBranch, createBranch, updateBranch, removeBranch, setBranchDetail }
 export { createAlert, removeAlert }
 export { setEmployee, createEmployee }
 export { setService, createService, updateService, removeService }
