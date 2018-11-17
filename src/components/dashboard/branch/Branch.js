@@ -10,16 +10,14 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 class Branch extends Component {
-  state = {
-    createForm: false
-  };
+  state = { create: false };
 
   render() {
-    const { createForm } = this.state;
+    const { create } = this.state;
     const { fetchDataStatus, branch } = this.props;
 
     // Show Create Form
-    if (createForm) return <Redirect to="/branch/create" />;
+    if (create) return <Redirect to="/branch/create" />;
 
     // Show Branchs Table
     return (
@@ -36,7 +34,7 @@ class Branch extends Component {
             <div className="col-sm-6">
               <div className="cpn-tools-list">
                 <button
-                  onClick={() => this.setState({ createForm: true })}
+                  onClick={() => this.setState({ create: true })}
                   className="btn blue"
                 >
                   <Svg name="CREATE" />

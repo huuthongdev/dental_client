@@ -7,7 +7,7 @@ export const setBranch = () => async dispatch => {
     .catch(error => dispatch(createAlert("ERROR", error.message)));
 };
 
-export const ADD_BRANCH = "ADD_BRANCH";
+export const CREATE_BRANCH = "CREATE_BRANCH";
 export const createBranch = (
   dataSend,
   loaded,
@@ -15,7 +15,7 @@ export const createBranch = (
 ) => async dispatch => {
   return RequestService.post("/branch", dataSend)
     .then(result => {
-      dispatch({ type: ADD_BRANCH, result });
+      dispatch({ type: CREATE_BRANCH, result });
       dispatch(
         createAlert("SUCCESS", `Tạo thành công chi nhánh: ${result.name}`)
       );

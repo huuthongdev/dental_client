@@ -14,8 +14,8 @@ import {
 class BranchDetail extends Component {
   state = {
     fetchDataDetailStatus: false,
-    subMenuActive: "INFO",
-    onBack: false
+    subMenuActive: "INFO", 
+    goBack: false
   };
 
   changeSubMenu(menu) {
@@ -35,7 +35,7 @@ class BranchDetail extends Component {
   }
 
   render() {
-    const { subMenuActive, fetchDataDetailStatus, onBack } = this.state;
+    const { subMenuActive, fetchDataDetailStatus, goBack } = this.state;
     const { _id } = this.props.match.params;
     const { fetchDataStatus } = this.props;
 
@@ -53,7 +53,7 @@ class BranchDetail extends Component {
     if (!branch) return <CpnWraper>Không tìm thấy dữ liệu!</CpnWraper>;
 
     // Redirect to branch table
-    if (onBack) return <Redirect to="/branch" />;
+    if (goBack) return <Redirect to="/branch" />;
 
     return (
       <CpnWraper>
@@ -71,7 +71,7 @@ class BranchDetail extends Component {
               <div className="cpn-tools-list">
                 <button
                   className="btn blue"
-                  onClick={() => this.setState({ onBack: true })}
+                  onClick={() => this.setState({ goBack: true })}
                 >
                   <Svg name="BACK" />
                   Trở lại

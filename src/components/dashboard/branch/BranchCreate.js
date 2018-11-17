@@ -21,26 +21,20 @@ class BranchCreate extends Component {
     city = city.value;
     district = district.value;
     address = address.value;
-    const redirectToDetail = _id => {
-      this.setState({ redirectToDetail: _id });
-    };
     dispatch(
       createBranch(
         { name, email, phone, city, district, address },
         () => this.setState({ loading: false }),
-        redirectToDetail
+        _id => this.setState({ redirectToDetail: _id })
       )
     );
-  }
-
-  goBack() {
-    return this.setState({ goBack: true });
   }
 
   render() {
     const { goBack, loading, redirectToDetail } = this.state;
     if (goBack) return <Redirect to="/branch" />;
-    if (redirectToDetail) return <Redirect to={`/branch/${redirectToDetail}`} />;
+    if (redirectToDetail)
+      return <Redirect to={`/branch/${redirectToDetail}`} />;
     return (
       <CpnWraper>
         <TitleApp sub="Tạo chi nhánh" />
@@ -115,22 +109,19 @@ class BranchCreate extends Component {
                 <div className="col-sm-6">
                   {loading ? (
                     <button type="submit" className="btn blue">
-                      {" "}
-                      <div className="loading-icon" />{" "}
+                      <div className="loading-icon" />
                     </button>
                   ) : null}
                   {!loading ? (
                     <Fragment>
                       <button type="submit" className="btn blue">
-                        {" "}
-                        Xác nhận{" "}
+                        Xác nhận
                       </button>
                       <button
                         onClick={() => this.goBack()}
                         className="btn outline-grey"
                       >
-                        {" "}
-                        Huỷ{" "}
+                        Huỷ
                       </button>
                     </Fragment>
                   ) : null}
