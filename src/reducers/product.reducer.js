@@ -1,4 +1,4 @@
-import { SET_PRODUCT, ADD_PRODUCT, UPDATE_PRODUCT, REMOVE_PRODUCT } from "../actions/product.actions";
+import { SET_PRODUCT, CREATE_PRODUCT, UPDATE_PRODUCT, REMOVE_PRODUCT } from "../actions/product.actions";
 import { LOG_OUT } from "../actions/user.actions";
 
 const defaultState = []
@@ -6,7 +6,7 @@ export const productReducer = (state = defaultState, action) => {
     switch (action.type) {
         case SET_PRODUCT:
             return action.result;
-        case ADD_PRODUCT:
+        case CREATE_PRODUCT:
             return [action.result, ...state];
         case UPDATE_PRODUCT:
             return state.map(v => v._id === action.result._id ? action.result : v);

@@ -1,66 +1,20 @@
 import React, { Component, Fragment } from 'react';
-import { TitleApp, Svg, FetchingData, ServiceCreate, ServiceRow, ServiceUpdate, ConfirmRemove, removeService, CpnWraper } from '../../../refs';
 import { connect } from 'react-redux';
+import { Redirect } from "react-router-dom";
+import { TitleApp, Svg, FetchingData, CpnWraper, ServiceRow } from '../../../refs';
 
 class Service extends Component {
-    state = {
-        createForm: false,
-        detail: null,
-        remove: null
-    }
-
-    onCreateForm() {
-        this.setState({
-            createForm: true,
-            detail: null
-        });
-    }
-
-    onRemove(data) {
-        this.setState({
-            createForm: false,
-            branchDetail: null,
-            remove: data
-        });
-    }
-
-    handleRemove() {
-        const { dispatch } = this.props;
-        const loaded = () => this.returnMain();
-        dispatch(removeService(this.state.remove._id, loaded));
-    }
-
-    onDetail(data) {
-        this.setState({
-            createForm: false,
-            detail: data
-        });
-    }
-
-    returnMain() {
-        this.setState({
-            createForm: false,
-            detail: null,
-            remove: null
-        });
-    }
-
-    showList() {
-        let { service } = this.props;
-        return service.map((v, i) => <ServiceRow onRemove={() => this.onRemove(v)} onDetail={() => this.onDetail(v)} item={v} key={i} />)
-    }
+    state = { create: false };
 
     render() {
-        const { fetchDataStatus } = this.props;
-        const { createForm, detail, remove } = this.state;
+        const { fetchDataStatus, service } = this.props;
+        const { create } = this.state;
 
-        if (createForm) return <ServiceCreate returnMain={() => this.returnMain()} />
-        if (detail) return <ServiceUpdate item={detail} returnMain={() => this.returnMain()} />
+        if (create) return <Redirect to='/service/create' />
         return (
             <CpnWraper>
                 <TitleApp sub="Dịch vụ" />
 
-                {/* START COMPONENT TITLE */}
                 <div className="container-fluid cpn-head">
                     <div className="row align-items-center">
                         <div className="col-sm-6">
@@ -71,7 +25,7 @@ class Service extends Component {
                         </div>
                         <div className="col-sm-6">
                             <div className="cpn-tools-list">
-                                <button onClick={() => this.onCreateForm()} className="btn blue">
+                                <button onClick={() => this.setState({ create: true })} className="btn blue">
                                     <Svg name="CREATE" />
                                     Tạo dịch vụ
                                 </button>
@@ -79,16 +33,14 @@ class Service extends Component {
                         </div>
                     </div>
                 </div>
-                {/* END COMPONENT TITLE */}
-                {/* START SUBMENU */}
                 <ul className="cpn-sub-menu">
                     <li className="active">
                         Dịch vụ ({this.props.service.length})
                     </li>
                 </ul>
-                {/* END SUBMENU */}
 
-                {!fetchDataStatus.service ? <FetchingData /> : <Fragment >
+                {!fetchDataStatus.service ? <FetchingData /> : null}
+                {fetchDataStatus.service ? <Fragment >
                     <div className="cpn-table-tools">
                         <div className="tool-search">
                             <input type="text" placeholder="Tìm kiếm" />
@@ -120,7 +72,7 @@ class Service extends Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {this.showList()}
+                                        {service.map((v, i) => <ServiceRow item={v} key={i} />)}
                                     </tbody>
                                 </table>
 
@@ -136,17 +88,8 @@ class Service extends Component {
                             </div>
                         </div>
                     </div>
-                </Fragment>}
-
-                {/* Confirm Remove */}
-                {remove ? <ConfirmRemove
-                    nameRelated={remove.name}
-                    onCancel={() => this.returnMain()}
-                    content="Xoá dịch vụ có thể ảnh hưởng đến dữ liệu của chi nhánh"
-                    objectType="dịch vụ"
-                    onNext={() => this.handleRemove()}
-                /> : null}
-            </CpnWraper>
+                </Fragment> : null}
+            </CpnWraper >
         );
     }
 }

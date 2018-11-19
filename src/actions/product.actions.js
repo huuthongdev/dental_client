@@ -7,13 +7,13 @@ export const setProduct = () => dispatch => {
         .catch(error => dispatch(createAlert('ERROR', error.message)));
 }
 
-export const ADD_PRODUCT = 'ADD_PRODUCT';
-export const createProduct = (dataSend, returnMain, loaded) => dispatch => {
+export const CREATE_PRODUCT = 'CREATE_PRODUCT';
+export const createProduct = (dataSend, loaded, redirectToDetail) => dispatch => {
     return RequestService.post('/product', dataSend, loaded)
         .then(result => {
-            dispatch({ type: ADD_PRODUCT, result });
+            dispatch({ type: CREATE_PRODUCT, result });
             dispatch(createAlert('SUCCESS', `Tạo thành công dịch vụ: ${result.name}`));
-            returnMain();
+            redirectToDetail(result._id);
         })
         .catch(error => {
             dispatch(createAlert('ERROR', error.message));
@@ -22,16 +22,16 @@ export const createProduct = (dataSend, returnMain, loaded) => dispatch => {
 }
 
 export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
-export const updateProduct = (productId, dataSend, returnMain, loaded) => dispatch => {
+export const updateProduct = (productId, dataSend, success, errorFn) => dispatch => {
     return RequestService.put('/product/' + productId, dataSend)
         .then(result => {
             dispatch({ type: UPDATE_PRODUCT, result });
             dispatch(createAlert('SUCCESS', `Cập nhật thành công dịch vụ: ${result.name}`));
-            returnMain();
+            success();
         })
         .catch(error => {
             dispatch(createAlert('ERROR', error.message));
-            loaded();
+            errorFn();
         });
 }
 

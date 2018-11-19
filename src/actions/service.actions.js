@@ -6,14 +6,14 @@ export const setService = () => async dispatch => {
         .then(result => dispatch({ type: SET_SERVICE, result }))
         .catch(error => dispatch(createAlert('ERROR', error.message)));
 }
-
-export const ADD_SERVICE = 'ADD_SERVICE';
-export const createService = (dataSend, returnMain, loaded) => async dispatch => {
-    return RequestService.post('/service', dataSend, loaded)
+  
+export const CREATE_SERVICE = 'CREATE_SERVICE';
+export const createService = (dataSend, loaded, redirectToDetail) => async dispatch => {
+    return RequestService.post('/service', dataSend)
         .then(result => {
-            dispatch({ type: ADD_SERVICE, result });
+            dispatch({ type: CREATE_SERVICE, result });
             dispatch(createAlert('SUCCESS', `Tạo thành công dịch vụ: ${result.name}`));
-            returnMain();
+            redirectToDetail(result._id);
         })
         .catch(error => {
             dispatch(createAlert('ERROR', error.message));
@@ -21,15 +21,18 @@ export const createService = (dataSend, returnMain, loaded) => async dispatch =>
         });
 }
 
-export const UPDATE_SERVICE = 'UPDATE_SERVICE';
-export const updateService = (serviceId, dataSend, returnMain) => async dispatch => {
+export const UPDATE_SERVICE = 'UPDATE_SERVICE'; 
+export const updateService = (serviceId, dataSend, success, errorFn) => async dispatch => {
     return RequestService.put('/service/' + serviceId, dataSend)
     .then(result => {
         dispatch({ type: UPDATE_SERVICE, result });
         dispatch(createAlert('SUCCESS', `Cập nhật thành công dịch vụ: ${result.name}`));
-        returnMain();
+        success();
     })
-    .catch(error => dispatch(createAlert('ERROR', error.message)));
+    .catch(error => {
+        dispatch(createAlert('ERROR', error.message));
+        errorFn();
+    });
 }
 
 export const REMOVE_SERVICE = 'REMOVE_SERVICE';

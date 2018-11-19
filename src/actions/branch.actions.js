@@ -8,11 +8,7 @@ export const setBranch = () => async dispatch => {
 };
 
 export const CREATE_BRANCH = "CREATE_BRANCH";
-export const createBranch = (
-  dataSend,
-  loaded,
-  redirectToDetail
-) => async dispatch => {
+export const createBranch = (dataSend, loaded, redirectToDetail) => async dispatch => {
   return RequestService.post("/branch", dataSend)
     .then(result => {
       dispatch({ type: CREATE_BRANCH, result });

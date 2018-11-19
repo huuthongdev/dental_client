@@ -1,12 +1,14 @@
 import React, { Component, Fragment } from 'react';
-import { updateProduct, Svg, TitleApp, CpnWraper } from '../../../refs';
 import isEqual from 'react-fast-compare';
 import { connect } from 'react-redux';
+import { Redirect } from "react-router-dom";
+import { updateProduct, Svg, TitleApp, CpnWraper } from '../../../refs';
 
 class ProductUpdate extends Component {
     state = {
         loading: false,
-        same: true
+        same: true,
+        redirectToService: false
     }
 
     shouldEnableUpdate() {
@@ -14,8 +16,8 @@ class ProductUpdate extends Component {
         name = name.value;
         origin = origin.value;
         unit = unit.value;
-        cost = cost.value;
-        suggestedRetailerPrice = suggestedRetailerPrice.value;
+        cost = +cost.value;
+        suggestedRetailerPrice = +suggestedRetailerPrice.value;
         const refInput = { name, origin, unit, cost, suggestedRetailerPrice };
         const { item } = this.props;
         const current = { name: item.name, origin: item.origin, unit: item.unit, cost: item.cost, suggestedRetailerPrice: item.suggestedRetailerPrice };
@@ -33,14 +35,18 @@ class ProductUpdate extends Component {
         cost = cost.value;
         suggestedRetailerPrice = suggestedRetailerPrice.value;
         const dataSend = { name, origin, unit, cost, suggestedRetailerPrice };
-        const { dispatch, item, returnMain } = this.props;
-        const loaded = () => this.setState({ loading: false, same: true });
-        dispatch(updateProduct(item._id, dataSend, returnMain, loaded))
+        const { dispatch, item } = this.props;
+        dispatch(updateProduct(
+            item._id, dataSend,
+            () => this.setState({ redirectToService: true }),
+            () => this.setState({ loading: false })
+        ))
     }
 
     render() {
-        const { item } = this.props;
+        const item = this.props.product.filter(v => v._id === this.props.item._id)[0];
 
+        if (this.state.redirectToService) return <Redirect to="/product" />
         return (
             <CpnWraper>
                 <TitleApp sub={`Sản phẩm: ${this.props.item.name}`} />
@@ -54,7 +60,7 @@ class ProductUpdate extends Component {
                             </div>
                             </div>
                             <div className="col-sm-4 text-right">
-                                <button onClick={() => this.props.returnMain()} className="cpn-form-close">
+                                <button onClick={() => this.setState({ redirectToService: true })} className="cpn-form-close">
                                     <Svg name="CLOSE_FORM" />
                                 </button>
                             </div>

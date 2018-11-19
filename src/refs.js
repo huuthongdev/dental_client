@@ -29,11 +29,13 @@ import EmployeeUpdate from './components/dashboard/employee/EmployeeUpdate';
 import Service from './components/dashboard/service/Service';
 import ServiceCreate from './components/dashboard/service/ServiceCreate';
 import ServiceRow from './components/dashboard/service/ServiceRow';
+import ServiceDetail from './components/dashboard/service/ServiceDetail';
 import ServiceUpdate from './components/dashboard/service/ServiceUpdate';
 import Product from './components/dashboard/product/Product';
 import ProductRow from './components/dashboard/product/ProductRow';
 import ProductCreate from './components/dashboard/product/ProductCreate';
 import ProductUpdate from './components/dashboard/product/ProductUpdate';
+import ProductDetail from './components/dashboard/product/ProductDetail';
 import Client from './components/dashboard/client/Client';
 // Screens
 import Login from "./screens/Login";
@@ -64,9 +66,9 @@ import { offConfirmRemove, onConfirmRemove } from './actions/confirm-remove.acti
 // Images
 export { Logo, LogoBlue, AvatarDemo, Background }
 // Components
-export { Client, FetchingData, FadeAnimate, Alert, AlertItem, Svg, TitleApp, Main, Header, Sidebar, Branch, BranchCreate, BranchRow, BranchDetail, Employee, EmployeeRow }
+export { ServiceDetail, Client, FetchingData, FadeAnimate, Alert, AlertItem, Svg, TitleApp, Main, Header, Sidebar, Branch, BranchCreate, BranchRow, BranchDetail, Employee, EmployeeRow }
 export { EmployeeUpdate, EmployeeDetail, EmployeeCreate, BranchUpdate, BranchDetailEmployees, Service, ServiceCreate, ServiceRow, ServiceUpdate }
-export { ConfirmRemove, Product, ProductRow, ProductCreate, ProductUpdate, CpnWraper }
+export { ProductDetail, ConfirmRemove, Product, ProductRow, ProductCreate, ProductUpdate, CpnWraper }
 // Screens
 export { NotMatch404, Login, Authentication, SelectBranch }
 // Route

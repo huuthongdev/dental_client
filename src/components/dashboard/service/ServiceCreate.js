@@ -1,11 +1,14 @@
 import React, { Component, Fragment } from 'react';
-import { Svg, createService, CpnWraper, TitleApp } from '../../../refs';
 import { connect } from 'react-redux';
+import { Redirect } from "react-router-dom";
+import { Svg, createService, CpnWraper, TitleApp } from '../../../refs';
 
 class ServiceCreate extends Component {
     state = {
-        loading: false
-    }
+        loading: false,
+        goBack: false,
+        redirectToDetail: null
+    };
 
     handleSubmit(e) {
         e.preventDefault();
@@ -13,20 +16,18 @@ class ServiceCreate extends Component {
         name = name.value; suggestedRetailerPrice = suggestedRetailerPrice.value; unit = unit.value;
         this.setState({ loading: true });
         const { dispatch } = this.props;
-        const loaded = () => this.setState({ loading: false });
-        dispatch(createService({ name, suggestedRetailerPrice, unit }, this.props.returnMain, loaded))
-    }
-
-    showLoadingButton() {
-        const { loading } = this.state;
-        if (loading) return <button type="submit" className="btn blue"> <div className="loading-icon"></div> </button>
-        return <Fragment>
-            <button type="submit" className="btn blue"> Xác nhận </button>
-            <button onClick={() => this.props.returnMain()} className="btn outline-grey"> Huỷ </button>
-        </Fragment>
+        dispatch(createService(
+            { name, suggestedRetailerPrice, unit },
+            () => this.setState({ loading: false }),
+            _id => this.setState({ redirectToDetail: _id })
+        ))
     }
 
     render() {
+        const { goBack, loading, redirectToDetail } = this.state;
+        if (goBack) return <Redirect to="/service" />;
+        if (redirectToDetail)
+            return <Redirect to={`/service`} />;
         return (
             <CpnWraper>
                 <TitleApp sub="Tạo dịch vụ" />
@@ -40,7 +41,7 @@ class ServiceCreate extends Component {
                             </div>
                             </div>
                             <div className="col-sm-4 text-right">
-                                <button onClick={() => this.props.returnMain()} className="cpn-form-close">
+                                <button onClick={() => this.setState({ goBack: true })} className="cpn-form-close">
                                     <Svg name="CLOSE_FORM" />
                                 </button>
                             </div>
@@ -75,7 +76,24 @@ class ServiceCreate extends Component {
                                 </div>
 
                                 <div className="col-sm-6">
-                                    {this.showLoadingButton()}
+
+                                    {loading ? (
+                                        <button type="submit" className="btn blue">
+                                            <div className="loading-icon" />
+                                        </button>
+                                    ) : null}
+
+                                    {!loading ? (
+                                        <Fragment>
+                                            <button type="submit" className="btn blue">
+                                                Xác nhận
+                                            </button>
+                                            <button onClick={() => this.setState({ goBack: true })} className="btn outline-grey">
+                                                Huỷ
+                                            </button>
+                                        </Fragment>
+                                    ) : null}
+
                                 </div>
                             </div>
                         </div>

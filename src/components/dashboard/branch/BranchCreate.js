@@ -118,7 +118,7 @@ class BranchCreate extends Component {
                         Xác nhận
                       </button>
                       <button
-                        onClick={() => this.goBack()}
+                        onClick={() => this.setState({ goBack: true })}
                         className="btn outline-grey"
                       >
                         Huỷ
