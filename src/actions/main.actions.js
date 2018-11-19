@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { setBranch, setEmployee, setService, setProduct } from '../refs';
+import { setBranch, setEmployee, setService, setProduct, setClient } from '../refs';
 
 export function loadData(dispatch, user) {
     const token = localStorage.getItem("TOKEN");
@@ -11,6 +11,7 @@ export function loadData(dispatch, user) {
     dispatch(setEmployee());
     dispatch(setService());
     dispatch(setProduct());
+    dispatch(setClient());
 }
 
 export const FETCH_TEMP = 'FETCH_TEMP';

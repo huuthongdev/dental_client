@@ -1,53 +1,16 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from "react-router-dom";
 import { Svg, TitleApp, FetchingData, CpnWraper } from '../../../refs';
 
 class Client extends Component {
-    state = {
-        createForm: false,
-        detail: null,
-        remove: null
-    }
-
-    onCreateForm() {
-        this.setState({
-            createForm: true,
-            detail: null
-        });
-    }
-
-    onDetail(data) {
-        this.setState({
-            createForm: false,
-            detail: data
-        });
-    }
-
-    onRemove(data) {
-        this.setState({
-            createForm: false,
-            detail: null,
-            remove: data
-        });
-    }
-
-    handleRemove() {
-        // const { dispatch } = this.props;
-        // const { remove } = this.state;
-        // const loaded = () => this.returnMain();
-    }
-
-    returnMain() {
-        this.setState({
-            createForm: false,
-            detail: null,
-            remove: null
-        });
-    }
+    state = { create: false };
 
     render() {
-        const { fetchDataStatus } = this.props;
+        const { create } = this.state;
+        const { fetchDataStatus, client } = this.props;
 
+        if (create) return <Redirect to='client/create' />
         return (
             <CpnWraper>
                 <TitleApp sub="Khách hàng" />
@@ -63,7 +26,7 @@ class Client extends Component {
                         </div>
                         <div className="col-sm-6">
                             <div className="cpn-tools-list">
-                                <button onClick={() => this.onCreateForm()} className="btn blue">
+                                <button onClick={() => this.setState({ create: true })} className="btn blue">
                                     <Svg name="CREATE" />
                                     Tạo khách hàng
                                     </button>
@@ -80,7 +43,7 @@ class Client extends Component {
                 </ul>
                 {/* END SUBMENU */}
 
-                {!fetchDataStatus.branch ? <FetchingData /> : <Fragment >
+                {!fetchDataStatus.client ? <FetchingData /> : <Fragment >
                     <div className="cpn-table-tools">
                         <div className="tool-search">
                             <input type="text" placeholder="Tìm kiếm" />
@@ -112,7 +75,7 @@ class Client extends Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {/* {this.showListBranch()} */}
+
                                     </tbody>
                                 </table>
 
@@ -137,6 +100,7 @@ class Client extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        client: state.client,
         fetchDataStatus: state.fetchDataStatus
     };
 }

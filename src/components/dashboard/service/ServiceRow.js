@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Redirect } from "react-router-dom";
+import { connect } from 'react-redux';
 import { Svg, onConfirmRemove } from '../../../refs';
 
 class ServiceRow extends Component {
@@ -14,7 +15,8 @@ class ServiceRow extends Component {
     }
 
     handleRemove() {
-
+        // const { dispatch } = this.props;
+        // const { item } = this.props;
     }
 
     onRemove() {
@@ -33,7 +35,7 @@ class ServiceRow extends Component {
 
     render() {
         const { item } = this.props;
-        const { onDetail, onRemove } = this.state;
+        const { onDetail } = this.state;
 
         if (onDetail) return <Redirect to={`/service/${item._id}`} />;
         return (
@@ -52,7 +54,7 @@ class ServiceRow extends Component {
                             <Svg name="ARROW_DOWN" />
                         </button>
 
-                        <button onClick={() => onRemove()} className="row-btn-remove">
+                        <button onClick={() => this.onRemove()} className="row-btn-remove">
                             <Svg name="REMOVE" />
                         </button>
 
@@ -66,4 +68,9 @@ class ServiceRow extends Component {
     }
 }
 
-export default ServiceRow;
+const mapStateToProps = (state) => {
+    return {
+        service: state.service
+    };
+}
+export default connect(mapStateToProps, null)(ServiceRow);

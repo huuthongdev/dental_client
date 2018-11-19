@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Redirect } from "react-router-dom";
-import { Svg, GetRoleName } from '../../../refs';
+import { connect } from 'react-redux';
+import { Svg, GetRoleName, onConfirmRemove } from '../../../refs';
 
 class EmployeeRow extends Component {
     state = {
@@ -26,11 +27,27 @@ class EmployeeRow extends Component {
         return this.setState({ redirectToEmployeeDetail: _id });
     }
 
+    handleRemove() {
+        console.log('Handle remove employee');
+    }
+
+    onRemove(e) {
+        const { item } = this.props;
+        e.preventDefault();
+        const { dispatch } = this.props;
+        dispatch(onConfirmRemove(
+            item.name,
+            "Xoá nhân sự có thể ảnh hưởng đến dữ liệu của nhân sự bao gồm: Chi nhánh, Phiếu điều trị, các khách hàng liên quan",
+            "nhân sự",
+            () => this.handleRemove()
+        ))
+    }
+
     render() {
         const { item } = this.props;
         const { redirectToEmployeeDetail } = this.state;
 
-        if(redirectToEmployeeDetail) return <Redirect to={`/employee/${redirectToEmployeeDetail}`} />
+        if (redirectToEmployeeDetail) return <Redirect to={`/employee/${redirectToEmployeeDetail}`} />
         return (
             <Fragment>
                 <tr>
@@ -48,7 +65,7 @@ class EmployeeRow extends Component {
                             <Svg name="ARROW_DOWN" />
                         </button>
 
-                        <button className="row-btn-remove">
+                        <button onClick={e => this.onRemove(e)} className="row-btn-remove">
                             <Svg name="REMOVE" />
                         </button>
                         <div className="right-row-side" />
@@ -61,4 +78,9 @@ class EmployeeRow extends Component {
     }
 }
 
-export default EmployeeRow;
+const mapStateToProps = (state) => {
+    return {
+        employee: state.employee
+    };
+}
+export default connect(mapStateToProps, null)(EmployeeRow);

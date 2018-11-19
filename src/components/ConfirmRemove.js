@@ -25,6 +25,13 @@ class ConfirmRemove extends Component {
         };
     }
 
+    componentDidMount() {
+        const { dispatch } = this.props;
+        document.onkeyup = (e) => {
+            if (e.which === 27) return dispatch(offConfirmRemove());
+        }
+    }
+
     onCancel(e) {
         e.preventDefault();
         const { dispatch } = this.props;
@@ -37,7 +44,7 @@ class ConfirmRemove extends Component {
         return (
             <Fragment>
                 <div className="confirm-wraper">
-                    <div className="filter"></div>
+                    <div className="filter" onClick={(e) => this.onCancel(e)}></div>
 
                         <div className="confirm-box">
                             <div className="head">

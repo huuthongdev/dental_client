@@ -8,6 +8,7 @@ import { employeeReducer } from "./employee.reducer";
 import { serviceReducer } from "./service.reducer";
 import { productReducer } from "./product.reducer";
 import { confirmRemoveReducer } from "./confirm-remove.reducer";
+import { clientReducer } from "./client.reducer";
 
 export const AllReducers = combineReducers({
     main: mainReducer,
@@ -18,5 +19,6 @@ export const AllReducers = combineReducers({
     employee: employeeReducer,
     service: serviceReducer,
     product: productReducer,
-    confirmRemove: confirmRemoveReducer
+    confirmRemove: confirmRemoveReducer,
+    client: clientReducer
 });

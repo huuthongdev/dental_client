@@ -37,6 +37,7 @@ import ProductCreate from './components/dashboard/product/ProductCreate';
 import ProductUpdate from './components/dashboard/product/ProductUpdate';
 import ProductDetail from './components/dashboard/product/ProductDetail';
 import Client from './components/dashboard/client/Client';
+import ClientCreate from './components/dashboard/client/ClientCreate';
 // Screens
 import Login from "./screens/Login";
 import NotMatch404 from './screens/NotMatch404';
@@ -61,6 +62,7 @@ import { setEmployee, createEmployee, setEmployeeDetail, updateEmployee } from '
 import { setProduct, updateProduct, createProduct, removeProduct } from './actions/product.actions';
 import { loadData, fetchTemp } from './actions/main.actions';
 import { offConfirmRemove, onConfirmRemove } from './actions/confirm-remove.actions';
+import { setClient } from './actions/client.actions';
 
 // ===================== EXPORT =====================
 // Images
@@ -68,7 +70,7 @@ export { Logo, LogoBlue, AvatarDemo, Background }
 // Components
 export { ServiceDetail, Client, FetchingData, FadeAnimate, Alert, AlertItem, Svg, TitleApp, Main, Header, Sidebar, Branch, BranchCreate, BranchRow, BranchDetail, Employee, EmployeeRow }
 export { EmployeeUpdate, EmployeeDetail, EmployeeCreate, BranchUpdate, BranchDetailEmployees, Service, ServiceCreate, ServiceRow, ServiceUpdate }
-export { ProductDetail, ConfirmRemove, Product, ProductRow, ProductCreate, ProductUpdate, CpnWraper }
+export { ClientCreate, ProductDetail, ConfirmRemove, Product, ProductRow, ProductCreate, ProductUpdate, CpnWraper }
 // Screens
 export { NotMatch404, Login, Authentication, SelectBranch }
 // Route
@@ -86,5 +88,6 @@ export { createAlert, removeAlert }
 export { setEmployee, createEmployee, setEmployeeDetail, updateEmployee }
 export { setService, createService, updateService, removeService }
 export { setProduct, updateProduct, createProduct, removeProduct }
-export { loadData, fetchTemp }
 export { offConfirmRemove, onConfirmRemove }
+export { setClient }
+export { loadData, fetchTemp }

@@ -24,11 +24,11 @@ class ProductDetail extends Component {
 
         // Find branch in branchs store
         const product = this.props.product.filter(v => v._id === _id)[0];
-        if (!product) return <CpnWraper>Không tìm thấy dữ liệu!</CpnWraper>;
+        if (!product) return <CpnWraper><TitleApp sub={`Không tìm thấy dữ liệu!`} /> Không tìm thấy dữ liệu!</CpnWraper>;
 
         return (
             <Fragment>
-                <TitleApp sub={`Chi nhánh ${product.name}`} />
+                <TitleApp sub={`${product.name}`} />
                 <ProductUpdate item={product}/>
             </Fragment>
         );

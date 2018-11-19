@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Route, BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
 // Import
-import { Login, NotMatch404, Authentication, SelectBranch, Branch, Main, Employee, Service, Product, Client, BranchCreate, BranchDetail, EmployeeCreate, EmployeeDetail, ServiceDetail, ProductDetail } from '../refs';
+import { Login, NotMatch404, Authentication, SelectBranch, Branch, Main, Employee, Service, Product, Client, BranchCreate, BranchDetail, EmployeeCreate, EmployeeDetail, ServiceDetail, ProductDetail, ClientCreate } from '../refs';
 import { ServiceCreate, ProductCreate } from '../refs';
 import { connect } from 'react-redux';
 
@@ -31,6 +31,7 @@ class Routes extends Component {
                         <MustBeUser user={user} path="/product/:_id" exact component={ProductDetail} />
 
                         <MustBeUser user={user} path="/client" exact component={Client} />
+                        <MustBeUser user={user} path="/client/create" exact component={ClientCreate} />
 
                         <Route path="/login" exact component={Login} />
                         <Route path="/authentication" exact component={Authentication} />

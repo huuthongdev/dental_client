@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
-import { Svg, createService, CpnWraper, TitleApp } from '../../../refs';
+import { connect } from 'react-redux';
+import { CpnWraper, TitleApp } from '../../../refs';
+import Svg from '../../Svg';
 
-class ServiceCreate extends Component {
+class ClientCreate extends Component {
     state = {
         loading: false,
         goBack: false,
@@ -16,34 +17,21 @@ class ServiceCreate extends Component {
         }
     }
 
-    handleSubmit(e) {
-        e.preventDefault();
-        let { name, suggestedRetailerPrice, unit } = this.refs;
-        name = name.value; suggestedRetailerPrice = suggestedRetailerPrice.value; unit = unit.value;
-        this.setState({ loading: true });
-        const { dispatch } = this.props;
-        dispatch(createService(
-            { name, suggestedRetailerPrice, unit },
-            () => this.setState({ loading: false }),
-            _id => this.setState({ redirectToDetail: _id })
-        ))
-    }
-
     render() {
         const { goBack, loading, redirectToDetail } = this.state;
-        if (goBack) return <Redirect to="/service" />;
+        if (goBack) return <Redirect to="/client" />;
         if (redirectToDetail)
-            return <Redirect to={`/service`} />;
+            return <Redirect to={`/client`} />;
         return (
             <CpnWraper>
-                <TitleApp sub="Tạo dịch vụ" />
+                <TitleApp sub="Tạo khách hàng" />
                 <div className="cpn-form">
                     <div className="container-fluid">
                         <div className="row align-items-center">
                             <div className="col-sm-8">
                                 <div className="cpn-form-title">
-                                    <Svg name="SERVICE" />
-                                    Thêm mới dịch vụ
+                                    <Svg name="CLIENT" />
+                                    Thêm mới khách hàng
                             </div>
                             </div>
                             <div className="col-sm-4 text-right">
@@ -112,7 +100,7 @@ class ServiceCreate extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        service: state.service
+        client: state.client
     };
 }
-export default connect(mapStateToProps, null)(ServiceCreate);
+export default connect(mapStateToProps, null)(ClientCreate);
