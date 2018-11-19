@@ -55,7 +55,7 @@ import { setService, createService, updateService, removeService } from './actio
 import { setUserInfo, logOut } from './actions/user.actions';
 import { setBranch, createBranch, updateBranch, removeBranch, setBranchDetail } from './actions/branch.actions';
 import { createAlert, removeAlert } from './actions/alert.actions';
-import { setEmployee, createEmployee, setEmployeeDetail } from './actions/employee.actions';
+import { setEmployee, createEmployee, setEmployeeDetail, updateEmployee } from './actions/employee.actions';
 import { setProduct, updateProduct, createProduct, removeProduct } from './actions/product.actions';
 import { loadData, fetchTemp } from './actions/main.actions';
 import { offConfirmRemove, onConfirmRemove } from './actions/confirm-remove.actions';
@@ -81,7 +81,7 @@ export { RequestService, Roles, GetRoleName }
 export { setUserInfo, logOut }
 export { setBranch, createBranch, updateBranch, removeBranch, setBranchDetail }
 export { createAlert, removeAlert }
-export { setEmployee, createEmployee, setEmployeeDetail }
+export { setEmployee, createEmployee, setEmployeeDetail, updateEmployee }
 export { setService, createService, updateService, removeService }
 export { setProduct, updateProduct, createProduct, removeProduct }
 export { loadData, fetchTemp }

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Svg, FetchingData } from "../../../refs";
+import { Svg, FetchingData, GetRoleName } from "../../../refs";
 import { connect } from 'react-redux';
 
 class BranchDetailEmployees extends Component {
@@ -18,7 +18,9 @@ class BranchDetailEmployees extends Component {
               <th className="sid">ID</th>
               <th>Tên nhân viên</th>
               <th>Số điện thoại</th>
-              <th>Số - Tên đường</th>
+              <th>Email</th>
+              <th>Địa chỉ</th>
+              <th>Chức vụ</th>
               <th>Thao tác</th>
             </tr>
           </thead>
@@ -30,9 +32,11 @@ class BranchDetailEmployees extends Component {
                     <div className="left-row-side" />
                     {v.user.sid}
                   </td>
-                  <td> {v.user.name}</td>
+                  <td className="link"> {v.user.name}</td>
                   <td> {v.user.phone} </td>
-                  <td> {v.user.address} </td>
+                  <td> {v.user.email} </td>
+                  <td> {v.user.address}{v.user.district ? ' - ' + v.user.district : null}{v.user.city ? ' - ' + v.user.city : null} </td>
+                  <td> {v.roles.map((v, i) => <span key={i}> • {GetRoleName(v)} <br /></span>)} </td>
                   <td className="list-tools">
                     <button className="row-toggle-list-tools">
                       <Svg name="ARROW_DOWN" />
@@ -65,8 +69,8 @@ class BranchDetailEmployees extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return {
-        branch: state.branch
-    };
+  return {
+    branch: state.branch
+  };
 }
 export default connect(mapStateToProps, null)(BranchDetailEmployees);

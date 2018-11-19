@@ -88,11 +88,11 @@ class EmployeeDetail extends Component {
                   Thông tin chung
                 </li>
               </ul>
-
-              {subMenuActive === "INFO" ? (
-                <EmployeeUpdate item={employee} />
-              ) : null}
             </div>
+
+            {subMenuActive === "INFO" ? (
+              <EmployeeUpdate item={employee} />
+            ) : null}
           </div>
         </div>
       </CpnWraper>

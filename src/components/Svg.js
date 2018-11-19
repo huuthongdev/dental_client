@@ -23,6 +23,20 @@ class Svg extends Component {
             </svg>
         </Fragment>
 
+        if (name === 'INFO') return <Fragment>
+            <svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+                <g id="Dental-Application" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
+                    <g id="Mange---Branch-Detail" transform="translate(-90.000000, -141.000000)" fill="#546E7A">
+                        <g id="Icon-Formation" transform="translate(90.000000, 141.000000)">
+                            <path d="M6,0 C2.6916,0 0,2.69163636 0,6.00003636 C0,9.30843636 2.6916,12 6,12 C9.3084,12 12,9.30843636 12,6.00003636 C12,2.69163636 9.3084,0 6,0 Z M6,10.9090909 C3.29309091,10.9090909 1.09090909,8.70690909 1.09090909,6.00003636 C1.09090909,3.29316364 3.29309091,1.09090909 6,1.09090909 C8.70690909,1.09090909 10.9090909,3.29316364 10.9090909,6.00003636 C10.9090909,8.70690909 8.70687273,10.9090909 6,10.9090909 Z" id="Shape" fillRule="nonzero" />
+                            <path d="M5.99992727,2.54545455 C5.59898182,2.54545455 5.2728,2.87185455 5.2728,3.27305455 C5.2728,3.67389091 5.59898182,4 5.99992727,4 C6.40087273,4 6.72705455,3.67389091 6.72705455,3.27305455 C6.72705455,2.87185455 6.40087273,2.54545455 5.99992727,2.54545455 Z" id="Path" />
+                            <path d="M6,5.09090909 C5.69876364,5.09090909 5.45454545,5.33512727 5.45454545,5.63636364 L5.45454545,8.90909091 C5.45454545,9.21032727 5.69876364,9.45454545 6,9.45454545 C6.30123636,9.45454545 6.54545455,9.21032727 6.54545455,8.90909091 L6.54545455,5.63636364 C6.54545455,5.33512727 6.30123636,5.09090909 6,5.09090909 Z" id="Path" />
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </Fragment>
+
         if (name === 'TOGGLE_SIDEBAR_FULL') return <Fragment>
             <svg width="17px" height="16px" viewBox="0 0 17 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <g id="Dental-Application" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">

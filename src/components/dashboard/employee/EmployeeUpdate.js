@@ -1,25 +1,23 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Svg } from '../../../refs';
+import { Svg, updateEmployee } from '../../../refs';
 import isEqual from "react-fast-compare";
 
 class EmployeeUpdate extends Component {
-    state = {
-        enableUpdate: false,
-        same: true
-    }
+    state = { same: true }
 
-    resetForm() { document.getElementById('update-employee-form').reset(); }
+    resetForm() { document.getElementById('update-employee-form').reset(); this.setState({ same: true }); }
 
     shouldEnableUpdate() {
         let { name, email, phone, city, district, address, day, month, year } = this.refs;
-        name = name.value;
-        email = email.value;
-        phone = phone.value;
-        city = city.value;
-        district = district.value;
-        address = address.value;
-        const birthday = new Date(+year.value, +month.value - 1, +day.value).getTime();
+        name = name.value ? name.value : null;
+        email = email.value ? email.value : null;
+        phone = phone.value ? phone.value : null;
+        city = city.value ? city.value : null;
+        district = district.value ? district.value : null;
+        address = address.value ? address.value : null;
+        let birthday = null;
+        if (year.value && month.value && day.value) birthday = new Date(+year.value, +month.value - 1, +day.value).getTime();
         const refInput = { name, email, phone, city, district, address, birthday };
         const item = this.props.employee.filter(v => v._id === this.props.item._id)[0];
         const current = { name: item.name, email: item.email, phone: item.phone, city: item.city, district: item.district, address: item.address, birthday: item.birthday };
@@ -30,17 +28,18 @@ class EmployeeUpdate extends Component {
     async handleSubmit(e) {
         e.preventDefault();
         this.setState({ loading: true });
-        // const { dispatch, item } = this.props;
-        // let { name, email, phone, city, district, address, day, month, year } = this.refs;
-        // name = name.value;
-        // email = email.value;
-        // phone = phone.value;
-        // city = city.value;
-        // district = district.value;
-        // address = address.value;
-        // const birthday = new Date(+year.value, +month.value - 1, +day.value).getTime();
-        // dispatch(updateBranch(item._id, { name, email, phone, city, district, address }))
-        //     .then(() => this.setState({ loading: false, enableUpdate: false }));
+        const { dispatch, item } = this.props;
+        let { name, email, phone, city, district, address, day, month, year } = this.refs;
+        name = name.value;
+        email = email.value;
+        phone = phone.value;
+        city = city.value;
+        district = district.value;
+        address = address.value;
+        let birthday;
+        if (year.value && month.value && day.value) birthday = new Date(+year.value, +month.value - 1, +day.value).getTime();
+        dispatch(updateEmployee(item._id, { name, email, phone, city, district, address, birthday }, () => this.resetForm()))
+            .then(() => this.setState({ loading: false, same: true }));
     }
 
     render() {
@@ -57,7 +56,7 @@ class EmployeeUpdate extends Component {
             <Fragment>
                 <div className="col-sm-12">
                     <div className="cpn-form">
-                        <form id="update-employee-form" style={{ marginTop: '0px' }} onChange={() => this.shouldEnableUpdate()}>
+                        <form id="update-employee-form" style={{ marginTop: '0px' }} onChange={() => this.shouldEnableUpdate()} onSubmit={(e) => this.handleSubmit(e)}>
                             <div className="container-fluid">
                                 <div className="row">
                                     <div className="col-sm-6">
@@ -121,13 +120,14 @@ class EmployeeUpdate extends Component {
                                         </div>
                                     </div>
 
-                                    <div className="col-sm-12">
-                                        <button disabled={this.state.same} type="submit" className="btn blue">
-                                            {this.state.loading ? <div className="loading-icon"></div> : null}
-                                            {!this.state.loading ? <Fragment><Svg name="EDIT" /> Lưu thay đổi</Fragment> : null}
-                                        </button>
-
-                                    </div>
+                                    {this.state.same ? null : <Fragment>
+                                        <div className="col-sm-12">
+                                            <button disabled={this.state.same} type="submit" className="btn blue">
+                                                {this.state.loading ? <div className="loading-icon"></div> : null}
+                                                {!this.state.loading ? <Fragment><Svg name="EDIT" /> Lưu thay đổi</Fragment> : null}
+                                            </button>
+                                        </div>
+                                    </Fragment>}
                                 </div>
                             </div>
                         </form>

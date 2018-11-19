@@ -7,7 +7,7 @@ $red: #ff3636;
 $white: #fff;
 $light: #F2F5F7;
 $borderRadius: 5px;
-$boxShadow: 0px 2px 4px 0 rgba($color: $dark, $alpha: 0.05);
+$boxShadow: 0px 2px 4px 0 rgba($color: $dark, $alpha: 0.1);
 $off-blue: rgba($blue, 0.2);
 $off-white: rgba($white, 0.2);
 $off-dark: rgba($dark, 0.2);
@@ -367,6 +367,12 @@ html, body {
                 margin-right: 10px;
                 cursor: pointer;
                 opacity: 0.5;
+
+                svg {
+                    margin-right: 5px;
+                    transform: translateY(1px);
+                    height: 12px;
+                }
 
                 &.active {
                     position: relative;
@@ -1143,12 +1149,22 @@ html, body {
         }
 
         tbody {
-            tr td {
-                background: $white;
+            tr {
                 box-shadow: $boxShadow;
 
+                &.empty {
+                    height: 10px;
+                    box-shadow: none;
+                }
+            }
+
+            tr td {
+                background: $white;
+
                 &.list-tools {
-                    min-width: 100px;
+                    // min-width: 100px;
+                    // max-width: max-content;
+
                     button {
                         margin-right: 5px;
                     }
@@ -1192,9 +1208,7 @@ html, body {
                 }
             }
 
-            tr.empty {
-                height: 10px;
-            }
+           
         }
     }
    // ============================ End TABLE STYLE ============================

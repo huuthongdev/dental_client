@@ -14,7 +14,7 @@ import {
 class BranchDetail extends Component {
   state = {
     fetchDataDetailStatus: false,
-    subMenuActive: "INFO", 
+    subMenuActive: "INFO",
     goBack: false
   };
 
@@ -82,17 +82,19 @@ class BranchDetail extends Component {
           <div className="row">
             <div className="col-sm-12">
               <ul className="cpn-sub-menu">
-                <li
-                  onClick={() => this.changeSubMenu("INFO")}
-                  className={subMenuActive === "INFO" ? "active" : null}
-                >
+                <li onClick={() => this.changeSubMenu("INFO")} className={subMenuActive === "INFO" ? "active" : null} >
+                  <Svg name="INFO" />
                   Thông tin chung
                 </li>
-                <li
-                  onClick={() => this.changeSubMenu("EMPLOYEES")}
-                  className={subMenuActive === "EMPLOYEES" ? "active" : null}
-                >
-                  Nhân sự
+
+                <li onClick={() => this.changeSubMenu("EMPLOYEES")} className={subMenuActive === "EMPLOYEES" ? "active" : null} >
+                  <Svg name="EMPLOYEE" />
+                  Nhân sự {branch.detail && branch.detail.employees ? `(${branch.detail.employees.length})` : null}
+                </li>
+
+                <li onClick={() => this.changeSubMenu("CLIENT")} className={subMenuActive === "CLIENT" ? "active" : null} >
+                  <Svg name="CLIENT" />
+                  Khách hàng {branch.detail && branch.detail.clients ? `(${branch.detail.clients.length})` : null}
                 </li>
               </ul>
             </div>

@@ -17,7 +17,7 @@ export const branchReducer = (state = defaultState, action) => {
     case CREATE_BRANCH:
       return [action.result, ...state];
     case UPDATE_BRANCH:
-      return state.map(v => (v._id === action.result._id ? action.result : v));
+      return state.map((v, i) => (v._id === action.result._id ? { ...action.result, detail: state[i].detail } : v));
     case REMOVE_BRANCH:
       return state.filter(v => v._id !== action.result._id);
     case LOG_OUT:
