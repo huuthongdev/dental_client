@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
-import { Svg, TitleApp, FetchingData, CpnWraper } from '../../../refs';
+import { Svg, TitleApp, FetchingData, CpnWraper, ClientRow } from '../../../refs';
 
 class Client extends Component {
     state = { create: false };
@@ -21,7 +21,7 @@ class Client extends Component {
                         <div className="col-sm-6">
                             <div className="cpn-title">
                                 <Svg name="BRANCH" />
-                                Quản lí khách hàng
+                                Chăm sóc khách hàng
                                  </div>
                         </div>
                         <div className="col-sm-6">
@@ -75,7 +75,9 @@ class Client extends Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-
+                                        {client.map((v, i) => (
+                                            <ClientRow item={v} key={i} />)
+                                        )}
                                     </tbody>
                                 </table>
 

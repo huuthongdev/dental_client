@@ -38,6 +38,7 @@ import ProductUpdate from './components/dashboard/product/ProductUpdate';
 import ProductDetail from './components/dashboard/product/ProductDetail';
 import Client from './components/dashboard/client/Client';
 import ClientCreate from './components/dashboard/client/ClientCreate';
+import ClientRow from './components/dashboard/client/ClientRow';
 // Screens
 import Login from "./screens/Login";
 import NotMatch404 from './screens/NotMatch404';
@@ -46,13 +47,14 @@ import SelectBranch from './screens/SelectBranch';
 // Route
 import Routes from "./routes/Routes";
 // All Reducers
-import { AllReducers } from "./reducers/reducers";
+import { allReducers } from "./reducers/reducers";
 // Extension
 import { isDev } from './setting';
 // Utils
 import { RequestService } from './utils/request-service';
 import Roles from './utils/roles';
 import GetRoleName from './utils/get-role-name';
+
 // Actions
 import { setService, createService, updateService, removeService } from './actions/service.actions';
 import { setUserInfo, logOut } from './actions/user.actions';
@@ -62,7 +64,10 @@ import { setEmployee, createEmployee, setEmployeeDetail, updateEmployee } from '
 import { setProduct, updateProduct, createProduct, removeProduct } from './actions/product.actions';
 import { loadData, fetchTemp } from './actions/main.actions';
 import { offConfirmRemove, onConfirmRemove } from './actions/confirm-remove.actions';
-import { setClient } from './actions/client.actions';
+import { setClient, createClient } from './actions/client.actions';
+// Data
+import { VietNamPlaces } from './utils/vietnam-place';
+import medicalHistoryData from './utils/medical-historys';
 
 // ===================== EXPORT =====================
 // Images
@@ -70,13 +75,13 @@ export { Logo, LogoBlue, AvatarDemo, Background }
 // Components
 export { ServiceDetail, Client, FetchingData, FadeAnimate, Alert, AlertItem, Svg, TitleApp, Main, Header, Sidebar, Branch, BranchCreate, BranchRow, BranchDetail, Employee, EmployeeRow }
 export { EmployeeUpdate, EmployeeDetail, EmployeeCreate, BranchUpdate, BranchDetailEmployees, Service, ServiceCreate, ServiceRow, ServiceUpdate }
-export { ClientCreate, ProductDetail, ConfirmRemove, Product, ProductRow, ProductCreate, ProductUpdate, CpnWraper }
+export { ClientRow, ClientCreate, ProductDetail, ConfirmRemove, Product, ProductRow, ProductCreate, ProductUpdate, CpnWraper }
 // Screens
 export { NotMatch404, Login, Authentication, SelectBranch }
 // Route
 export { Routes }
 // All Reducers
-export { AllReducers }
+export { allReducers }
 // Extension
 export { isDev }
 // Utils
@@ -89,5 +94,7 @@ export { setEmployee, createEmployee, setEmployeeDetail, updateEmployee }
 export { setService, createService, updateService, removeService }
 export { setProduct, updateProduct, createProduct, removeProduct }
 export { offConfirmRemove, onConfirmRemove }
-export { setClient }
+export { setClient, createClient }
 export { loadData, fetchTemp }
+// Data
+export { VietNamPlaces, medicalHistoryData }

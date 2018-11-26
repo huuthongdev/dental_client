@@ -10,7 +10,7 @@ import { productReducer } from "./product.reducer";
 import { confirmRemoveReducer } from "./confirm-remove.reducer";
 import { clientReducer } from "./client.reducer";
 
-export const AllReducers = combineReducers({
+export const allReducers = combineReducers({
     main: mainReducer,
     user: userReducer,
     branch: branchReducer,

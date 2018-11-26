@@ -5,7 +5,7 @@ export const setBranch = () => async dispatch => {
   return RequestService.get("/branch")
     .then(result => dispatch({ type: SET_BRANCH, result }))
     .catch(error => dispatch(createAlert("ERROR", error.message)));
-};
+}; 
 
 export const CREATE_BRANCH = "CREATE_BRANCH";
 export const createBranch = (dataSend, loaded, redirectToDetail) => async dispatch => {

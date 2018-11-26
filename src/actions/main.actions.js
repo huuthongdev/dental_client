@@ -16,7 +16,7 @@ export function loadData(dispatch, user) {
 
 export const FETCH_TEMP = 'FETCH_TEMP';
 export const fetchTemp = () => dispatch => {
-    Axios.get('http://api.openweathermap.org/data/2.5/weather?q=Saigon&units=metric&appid=8d4f36fa4f4b9967bf5ce741f8bf789c')
+    Axios.get('https://api.openweathermap.org/data/2.5/weather?q=Saigon&units=metric&appid=8d4f36fa4f4b9967bf5ce741f8bf789c')
         .then(result => {
             const { temp } = result.data.main;
             dispatch({ type: FETCH_TEMP, temp });

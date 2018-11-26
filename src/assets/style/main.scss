@@ -507,7 +507,7 @@ html, body {
         padding: 15px 0px;
 
         button {
-            margin-right: 5px;
+            margin-left: 5px;
         }
 
         form {
@@ -891,7 +891,7 @@ html, body {
 
         &.form-white {
             .form-group {
-                color: $white;
+                color: $white; 
 
                 input {
                     color: $white;
@@ -951,7 +951,6 @@ html, body {
                 font-size: 1rem;
                 font-weight: 500;
                 padding: 0px 15px;
-                // padding-right: 45px;
                 color: $dark;
             }
 
@@ -962,6 +961,9 @@ html, body {
                     border-color: $blue;
                     color: $blue;
                     box-shadow: 0px 2px 4px rgba($color: $blue, $alpha: 0.3);
+                }
+                &:-webkit-autofill {
+                    color: $red !important;
                 }
             }
 
@@ -1002,7 +1004,7 @@ html, body {
                     display: block;
                 }
 
-                label, input, select, .select { 
+                label, input { 
                     color: $red; 
                     border-color: $red; 
 
@@ -1010,8 +1012,86 @@ html, body {
                         box-shadow: 0px 2px 4px rgba($color: $red, $alpha: 0.3);
                     }
                 }
+
+                .select {
+                    color: $red; 
+                    border-color: $red; 
+
+                    &:focus-within {
+                        box-shadow: 0px 2px 4px rgba($color: $red, $alpha: 0.3);
+                    }
+                }
             }
         }
+
+        // ============================ CHECKBOX STYLE ================================
+        .form-group {
+            label.checkbox-wraper {
+                display: inline-block;
+                position: relative;
+                padding-left: 23px;
+                margin-bottom: 12px;
+                cursor: pointer;
+                font-size: 1rem;
+                font-weight: 500;
+                user-select: none;
+                margin-right: 30px;
+            
+                input {
+                    position: absolute;
+                    opacity: 0;
+                    cursor: pointer;
+                    height: 0;
+                    width: 0;
+                }
+            
+                /* On mouse-over, add a grey background color */
+                &:hover input ~ .checkmark {
+                    background-color: #ccc;
+                }
+            
+                /* When the checkbox is checked, add a blue background */
+                input:checked ~ .checkmark {
+                    background-color: #2196F3;
+                }
+            
+                /* Show the checkmark when checked */
+                input:checked ~ .checkmark:after {
+                    display: block;
+                }
+            
+                /* Create a custom checkbox */
+                .checkmark {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 18px;
+                    width: 18px;
+                    background-color: #eee;
+                    border-radius: 50%;
+            
+                    /* Create the checkmark/indicator (hidden when not checked) */
+                    &:after {
+                        content: "";
+                        position: absolute;
+                        display: none;
+                    }
+            
+                    /* Style the checkmark/indicator */
+                    &:after {
+                        left: 6px;
+                        top: 3px;
+                        width: 6px;
+                        height: 10px;
+                        border: solid white;
+                        border-width: 0 3px 3px 0;
+                        transform: rotate(45deg);
+                    }
+                }
+            }
+        }
+
+        // ============================ End CHECKBOX STYLE ============================
 
         .form-sub-link {
             text-align: center;
@@ -1277,24 +1357,7 @@ html, body {
    // ============================ End SCREEN ACCOUNT RELATED STYLE ============================
 }
 
-/* Change Autocomplete styles in Chrome*/
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-    -webkit-text-fill-color: inherit !important;
-    transition: background-color 5000s ease-in-out 0s;
-}
-
-input::-webkit-calendar-picker-indicator {
-    display: none;
-}
-
+// ============================ SCROLL BAR STYLE ================================
 /* width */
 ::-webkit-scrollbar {
     width: 4px;
@@ -1316,8 +1379,10 @@ input::-webkit-calendar-picker-indicator {
 ::-webkit-scrollbar-thumb:hover {
     background: $dark; 
 }
+// ============================ End SCROLL BAR STYLE ============================
 
 
+// ============================ ANIMATE STYLE ================================
 .alert-animate-appear {
     opacity: 0;
     transform: translateX(50px);
@@ -1339,3 +1404,35 @@ input::-webkit-calendar-picker-indicator {
         transition: 0.2s ease;
     }
 }
+// ============================ End ANIMATE STYLE ============================
+
+
+// ============================ FORMAT CSS STYLE ================================
+/* Change Autocomplete styles in Chrome*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    -webkit-text-fill-color: inherit !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+input::-webkit-calendar-picker-indicator {
+    display: none;
+}
+// ============================ End FORMAT CSS STYLE ============================
+
+// ============================ CUSTOM CPN STYLE ================================
+#checkbox-medical-history {
+    padding-top: 10px;
+
+    span.checkbox-wraper {
+        margin-right: 30px;
+    }
+}
+// ============================ End CUSTOM CPN STYLE ============================
