@@ -3,17 +3,12 @@ import { connect } from 'react-redux';
 import AlertItem from './AlertItem';
 
 class Alert extends Component {
-
-    showAlertItems() {
-        const { alert } = this.props;
-        return alert.map((item, i) => <AlertItem item={item} key={i} />);
-    }
-
     render() {
+        const { alert } = this.props;
         return (
             <Fragment>
                 <ul className="alert-list">
-                    {this.showAlertItems()}
+                    {alert.map((item, i) => <AlertItem item={item} key={i} />)}
                 </ul>
             </Fragment>
         );

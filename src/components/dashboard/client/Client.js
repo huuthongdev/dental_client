@@ -20,7 +20,7 @@ class Client extends Component {
                     <div className="row align-items-center">
                         <div className="col-sm-6">
                             <div className="cpn-title">
-                                <Svg name="BRANCH" />
+                                <Svg name="CLIENT" />
                                 Chăm sóc khách hàng
                                  </div>
                         </div>
@@ -38,7 +38,7 @@ class Client extends Component {
                 {/* START SUBMENU */}
                 <ul className="cpn-sub-menu">
                     <li className="active">
-                        Khách hàng (0)
+                        Khách hàng ({client.length})
                     </li>
                 </ul>
                 {/* END SUBMENU */}

@@ -801,7 +801,7 @@ html, body {
     .btn {
         position: relative;
         border-radius: 5px;
-        padding: 0px 25px;
+        padding: 0px 15px;
         height: 35px;
         cursor: pointer;
         font-weight: 500;
@@ -830,6 +830,7 @@ html, body {
         &.blue {
             background: $blue;
             color: $white;
+            svg { circle, polygon, path { fill: $white; } }
             @include btnFocus($blue);
         }
 

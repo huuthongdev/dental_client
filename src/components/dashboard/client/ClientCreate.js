@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import { withFormik, Form, Field, FieldArray } from 'formik';
 import * as Yup from 'yup';
 
-import { CpnWraper, TitleApp, VietNamPlaces, medicalHistoryData, RequestService, createClient, createAlert } from '../../../refs';
+import { CpnWraper, TitleApp, VietNamPlaces, medicalHistoryData, RequestService, createClient, createAlert, SubmitButtonsGroup } from '../../../refs';
 import Svg from '../../Svg';
-import SubmitButtonsGroup from '../../SubmitButtonsGroup';
 
 // Validate functions
 async function validateEmail(email) {
@@ -308,6 +307,7 @@ const ClientCreate = withFormik({
             city: '',
             district: '',
             address: '',
+            homeTown: '',
             day: '',
             month: '',
             year: '',
@@ -328,10 +328,10 @@ const ClientCreate = withFormik({
     }),
     // Handle Submit
     handleSubmit(values, { resetForm, setErrors, setSubmitting }) {
-        const { name, gender, email, phone, city, district, address, medicalHistory, day, month, year } = values;
+        const { name, gender, email, phone, city, district, address, medicalHistory, day, month, year, homeTown } = values;
         let birthday = '';
         if (day && month && year) birthday = new Date(+year, +month - 1, +day).getTime();
-        const dataSend = { name, gender, email, phone, city, district, address, medicalHistory, birthday };
+        const dataSend = { name, gender, email, phone, city, district, address, medicalHistory, birthday, homeTown };
         RequestService.post('/client', dataSend)
         .then(result => {
             values.dispatch(createClient(result));

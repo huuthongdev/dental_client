@@ -23,7 +23,7 @@ class AlertItem extends Component {
                     >
                     <li className={`${item.type.toLowerCase()}`}>
                         <Svg name={`ALERT_${item.type.toUpperCase()}`} />
-                        <p>{item.type === 'ERROR' ? 'Lỗi:' : null}{item.message}</p>
+                        <p>{item.type === 'ERROR' ? 'Lỗi: ' : null}{item.message}</p>
                         <span onClick={() => this.removeAlertItem(item._id)}><Svg name="REMOVE" /></span>
                     </li>
                 </ReactCSSTransitionGroup>

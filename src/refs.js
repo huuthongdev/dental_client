@@ -4,6 +4,7 @@ import LogoBlue from './assets/images/logo-blue.svg';
 import Background from './assets/images/bg.jpg';
 import AvatarDemo from './assets/images/avatar.png';
 // Components
+import SubmitButtonsGroup from './components/SubmitButtonsGroup';
 import CpnWraper from './components/CpnWraper';
 import Svg from "./components/Svg";
 import ConfirmRemove from "./components/ConfirmRemove";
@@ -39,6 +40,8 @@ import ProductDetail from './components/dashboard/product/ProductDetail';
 import Client from './components/dashboard/client/Client';
 import ClientCreate from './components/dashboard/client/ClientCreate';
 import ClientRow from './components/dashboard/client/ClientRow';
+import ClientDetail from './components/dashboard/client/ClientDetail';
+import ClientUpdate from './components/dashboard/client/ClientUpdate';
 // Screens
 import Login from "./screens/Login";
 import NotMatch404 from './screens/NotMatch404';
@@ -54,7 +57,7 @@ import { isDev } from './setting';
 import { RequestService } from './utils/request-service';
 import Roles from './utils/roles';
 import GetRoleName from './utils/get-role-name';
-
+import converErrorMessage from './utils/convert-error-message';
 // Actions
 import { setService, createService, updateService, removeService } from './actions/service.actions';
 import { setUserInfo, logOut } from './actions/user.actions';
@@ -64,7 +67,7 @@ import { setEmployee, createEmployee, setEmployeeDetail, updateEmployee } from '
 import { setProduct, updateProduct, createProduct, removeProduct } from './actions/product.actions';
 import { loadData, fetchTemp } from './actions/main.actions';
 import { offConfirmRemove, onConfirmRemove } from './actions/confirm-remove.actions';
-import { setClient, createClient } from './actions/client.actions';
+import { setClient, createClient, setClientDetail, updateClient } from './actions/client.actions';
 // Data
 import { VietNamPlaces } from './utils/vietnam-place';
 import medicalHistoryData from './utils/medical-historys';
@@ -75,7 +78,7 @@ export { Logo, LogoBlue, AvatarDemo, Background }
 // Components
 export { ServiceDetail, Client, FetchingData, FadeAnimate, Alert, AlertItem, Svg, TitleApp, Main, Header, Sidebar, Branch, BranchCreate, BranchRow, BranchDetail, Employee, EmployeeRow }
 export { EmployeeUpdate, EmployeeDetail, EmployeeCreate, BranchUpdate, BranchDetailEmployees, Service, ServiceCreate, ServiceRow, ServiceUpdate }
-export { ClientRow, ClientCreate, ProductDetail, ConfirmRemove, Product, ProductRow, ProductCreate, ProductUpdate, CpnWraper }
+export { SubmitButtonsGroup, ClientUpdate, ClientDetail, ClientRow, ClientCreate, ProductDetail, ConfirmRemove, Product, ProductRow, ProductCreate, ProductUpdate, CpnWraper }
 // Screens
 export { NotMatch404, Login, Authentication, SelectBranch }
 // Route
@@ -85,7 +88,7 @@ export { allReducers }
 // Extension
 export { isDev }
 // Utils
-export { RequestService, Roles, GetRoleName }
+export { converErrorMessage, RequestService, Roles, GetRoleName }
 // Actions
 export { setUserInfo, logOut }
 export { setBranch, createBranch, updateBranch, removeBranch, setBranchDetail }
@@ -94,7 +97,7 @@ export { setEmployee, createEmployee, setEmployeeDetail, updateEmployee }
 export { setService, createService, updateService, removeService }
 export { setProduct, updateProduct, createProduct, removeProduct }
 export { offConfirmRemove, onConfirmRemove }
-export { setClient, createClient }
+export { setClient, createClient, setClientDetail, updateClient }
 export { loadData, fetchTemp }
 // Data
 export { VietNamPlaces, medicalHistoryData }

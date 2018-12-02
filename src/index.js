@@ -13,7 +13,7 @@ import ReduxThunk from "redux-thunk";
 import { Routes, allReducers, isDev } from './refs';
 
 const middleware = applyMiddleware(ReduxThunk);
-const extension = isDev ? compose(middleware, window.devToolsExtension()) : middleware;
+const extension = isDev ? compose(middleware, window.__REDUX_DEVTOOLS_EXTENSION__()) : middleware;
 const Store = createStore( allReducers, extension );
 const rootNode = <Provider store={Store}><Routes /></Provider>
 
