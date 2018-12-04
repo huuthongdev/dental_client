@@ -3,10 +3,10 @@ import { URL_SERVER_API } from '../setting';
 
 export class RequestService {
     static getConfig() {
-        const token = localStorage.getItem('TOKEN');
-        const branch = localStorage.getItem('BRANCH');
-        const config = { headers: { token, branch } };
-        return token ? config: null;
+        // const token = localStorage.getItem('TOKEN');
+        // const config = { headers: { token } };
+        // return token ? config: null;
+        return null;
     }
 
     static get(subUrl) {
