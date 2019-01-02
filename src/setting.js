@@ -10,3 +10,5 @@ export const URL_SERVER_API = 'http://localhost:4000';
 // export const URL_CLIENT = 'https://dentaldemo.herokuapp.com';
 // export const URL_SERVER_API = 'https://dentalapi.herokuapp.com';
 
+// LAYOUT RELATED
+export const ITEMS_PER_PAGE = 5;

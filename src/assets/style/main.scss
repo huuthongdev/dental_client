@@ -1,1439 +1,2022 @@
-$blue: #24ACFF;
-$dark: #546e7a;
-$grey: #989898;
-$green: #14ad0d;
-$orange: #ffb236;
-$red: #ff3636;
-$white: #fff;
-$light: #F2F5F7;
-$borderRadius: 5px;
-$boxShadow: 0px 2px 4px 0 rgba($color: $dark, $alpha: 0.1);
-$off-blue: rgba($blue, 0.2);
-$off-white: rgba($white, 0.2);
-$off-dark: rgba($dark, 0.2);
+@import "blue/../store.scss";
+@import "dark/../store.scss";
+@import "green/../store.scss";
+@import "orange/../store.scss";
+@import "red/../store.scss";
+@import "white/../store.scss";
+@import "light/../store.scss";
+@import "borderRadius/../store.scss";
+@import "boxShadow/../store.scss";
+@import "off-blue/../store.scss";
+@import "off-white/../store.scss";
+@import "off-dark/../store.scss";
 
-$zindexHeader: 100;
-$zindexSidebar: 101;
-$zindexAlertsList: 101;
-$zindexConfirm: 102;
+@import "zindexHeader/../store.scss";
+@import "zindexSidebar/../store.scss";
+@import "zindexAlertsList/../store.scss";
+@import "zindexConfirm/../store.scss";
 
-@mixin btnFocus($color) {
-    &:focus {
-        outline: none;
-        box-shadow: 0px 0px 10px rgba($color: $color, $alpha: 1);
+@import "btnFocus/../store.scss";
+@import "btnHover/../store.scss";
+@import "bgLighting/../store.scss";
+@import "sidebarCollapseTransition/../store.scss";
+@import "inputStyle/../store.scss";
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+  font-family: "Montserrat", sans-serif;
+  color: $dark;
+  font-weight: 500;
+  background: $light;
+
+  // ============================ CONFIRM STYLE ================================
+  .confirm-wraper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: $zindexConfirm;
+    width: 100vw;
+    min-height: 100vh;
+    .filter {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: $zindexConfirm + 1;
+      top: 0;
+      left: 0;
+      background: rgba($color: $dark, $alpha: 0.5);
     }
-}
+    .confirm-box {
+      max-width: 100%;
+      width: 500px;
+      background: $white;
+      position: relative;
+      top: 10px;
+      z-index: $zindexConfirm + 2;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: $boxShadow;
+      border-radius: $borderRadius;
+      // padding: 10px;
 
-@mixin bgLighting($color) { background: rgba($color: $color, $alpha: 0.2) }
-@mixin sidebarCollapseTransition { transition: 0.2s ease-in-out; }
+      .head {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba($color: $dark, $alpha: 0.2);
+        color: $orange;
+        font-weight: 800;
+      }
 
-html, body {
-    margin: 0;
-    padding: 0;
-    font-size: 14px;
-    font-family: 'Montserrat', sans-serif;
-    color: $dark;
-    font-weight: 500;
-    background: $light;
-
-    // ============================ CONFIRM STYLE ================================
-    .confirm-wraper {
-        position: fixed;
-        top: 0; left: 0;
-        z-index: $zindexConfirm;
-        width: 100vw;
-        min-height: 100vh;
-        .filter {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            z-index: $zindexConfirm + 1;
-            top: 0; left: 0;
-            background: rgba($color: $dark, $alpha: 0.5);
-        }
-        .confirm-box {
-            max-width: 100%;
-            width: 500px;
-            background: $white;
-            position: relative;
-            top: 10px;
-            z-index: $zindexConfirm + 2;
-            left: 50%; transform: translateX(-50%);
-            box-shadow: $boxShadow;
-            border-radius: $borderRadius;
-            // padding: 10px;
-
-            .head {
-                padding-top: 10px;
-                padding-bottom: 10px;
-                border-bottom: 1px solid rgba($color: $dark, $alpha: 0.2);
-                color: $orange;
-                font-weight: 800;
-            }
-
-            .name-related-confirm {
-                display: inline-block;
-                border: 1px solid $blue;
-                border-radius: $borderRadius;
-                background: $off-blue;
-                padding: 2px 4px;
-            }
-
-            .confirm-submit-box {
-                border-top: 1px solid rgba($color: $dark, $alpha: 0.2);
-                padding: 10px 0px;
-                button {
-                    margin-right: 5px;
-                }
-            }
-        }
-    }
-    // ============================ End CONFIRM STYLE ============================
-
-    // ============================ LOADING FETCHING DATA STYLE ================================
-    .loading-fetching-data {
-        width: 100%;
-        margin: 20px 0px;
-        text-align: center;
-
-        .loading-icon {
-            border: .20rem solid $off-dark;
-            border-top-color: $dark;
-            margin-right: 8px;
-            margin-bottom: -5px;
-        }
-    }
-    // ============================ End LOADING FETCHING DATA STYLE ============================
-
-    // ============================ LIST ALERTS STYLE ================================
-    ul.alert-list {
-        position: fixed;
-        z-index: $zindexAlertsList;
-        bottom: 15px;
-        right: 15px;
-
-        li {
-            display: block;
-            padding: 10px 15px;
-            border-radius: $borderRadius;
-            color: $white;
-            margin-bottom: 10px;
-
-            svg { 
-                display: inline-block; 
-                margin-right: 10px;
-                transform: translateY(3px);
-            }
-
-            svg.svg-remove {
-                cursor: pointer;
-                opacity: 0.5;
-                margin-left: 30px;
-                display: inline-block;
-                polygon, path, circle { fill: $white; }
-                margin-right: 0px;
-                transform: translateY(0px);
-
-                &:hover { opacity: 1; }
-            }
-            
-            p { 
-                display: inline-block; 
-                padding: 0px; 
-                margin: 0px;
-            }
-
-            &.success {
-                background: $green;
-            }
-
-            &.error {
-                background: $red;
-            }
-        }
-    }
-    // ============================ End LIST ALERTS STYLE ============================
-
-    // ============================ INPUT STYLE ================================
-    input, select, area {
-        font-family: 'Montserrat', sans-serif;
-        font-size: 1rem;
-        color: $dark;
-        font-weight: 500;
-    }
-    // ============================ End INPUT STYLE ============================
-
-    // ============================ LIST STYLE ================================
-    ul {
-       list-style-type: none;
-        margin: 0px;
-        padding: 0px;
-    }
-    // ============================ End LIST STYLE ============================
-
-    // ============================ TYPEGRAPHY STYLE ================================
-    small {
+      .name-related-confirm {
         display: inline-block;
-        font-size: 0.8rem;
-        font-weight: 600;
-    }
-    .text-danger { color: $red; }
-    .text-warning { color: $orange; }
-    .text-white { color: $white; }
-    .text-success { color: $green; }
-    // ============================ End TYPEGRAPHY STYLE ============================
-
-    // ============================ DIGITAL NUMBER REPORTS STYLE ================================
-    #digital-number-reports {
-        .digital-number-item {
-            background: $white;
-            border-radius: $borderRadius;
-            box-shadow: $boxShadow;
-            padding: 15px;
-
-            .number {
-                font-weight: 300;
-                font-size: 2.14rem;
-
-                small.measurement {
-                    margin-left: -5px;
-                }
-            }
-
-            .percent-text {
-                color: $grey;
-                margin-top: 5px;
-                font-size: 0.8rem;
-            }
-
-            p {
-                margin: 0px;
-                margin-bottom: 15px;
-                font-size: 0.9rem;
-            }
-
-            .process-bar {
-                position: relative;
-                width: 100%;
-                height: 5px;
-                border-radius: 300px;
-                background: $light;
-
-                &.style-1 {
-                    .percent {
-                        background: linear-gradient(to right, #DD5D89, #F6BA97, #DD5D89);
-                        background-size: 400% 400%;
-                        animation: backgroundGradientAnimate 9s ease infinite;
-                    }
-                }
-
-                &.style-2 {
-                    .percent {
-                        background: linear-gradient(to right, #9CE89C, #23ACFF, #9CE89C);
-                        background-size: 400% 400%;
-                        animation: backgroundGradientAnimate 9s ease infinite;
-                    }
-                }
-
-                &.style-3 {
-                    .percent {
-                        background: linear-gradient(to right, #A890D3, #EDBAE6, #A890D3);
-                        background-size: 400% 400%;
-                        animation: backgroundGradientAnimate 9s ease infinite;
-                    }
-                }
-
-                &.style-4 {
-                    .percent {
-                        background: linear-gradient(to right, #23ACFF, #00FFFF, #23ACFF);
-                        background-size: 400% 400%;
-                        animation: backgroundGradientAnimate 9s ease infinite;
-                    }
-                }
-
-                .percent {
-                    height: 100%;
-                    top: 0px;
-                    left: 0px;
-                    border-radius: 300px; 
-                }
-
-                @keyframes backgroundGradientAnimate { 
-                    0%{background-position:0% 78%}
-                    50%{background-position:100% 23%}
-                    100%{background-position:0% 78%}
-                }
-            }
-        }
-    }
-    // ============================ End DIGITAL NUMBER REPORTS STYLE ============================
-
-    // ============================ SIDEBAR COLLAPSE STYLE ================================
-    &.sidebar-collapse-active {
-        .sidebar {
-            width: 60px;
-            @include sidebarCollapseTransition;
-            .side-bar-logo { display: none; }
-            .side-bar-user-info {  
-                h4, ul { display: none; }
-                .avatar {
-                    width: 40px;
-                    height: 40px;
-                    @include sidebarCollapseTransition;
-
-                    #button-change-user-info {
-                        height: 15px;
-                        width: 15px;
-                        bottom: -5px;
-                        right: -1px;
-                        @include sidebarCollapseTransition;
-                    }
-                }
-            }
-
-            ul.sidebar-menu {
-                
-                li {
-                    span { display: none; }
-                }
-            }
-
-            .side-bar-user-info {
-                padding: 0px;
-                margin-bottom: 15px;
-            }
-        }
-
-        header {
-            padding-left: 60px;
-            @include sidebarCollapseTransition;
-
-            #toggle-extend-sidebar {
-                svg {
-                    &:first-child {
-                        display: none;
-                    }
-
-                    &:last-child {
-                        display: inline-block;
-                    }
-                }
-            }
-        }
-
-        .components-wraper {
-            padding-left: 85px;
-        }
-    }
-    // ============================ End SIDEBAR COLLAPSE STYLE ============================
-
-    // ============================ COMPONENTS WRAPER STYLE ================================
-    .components-wraper {
-        padding-top: 70px;
-        padding-left: 245px;
-        padding-right: 25px;
-        @include sidebarCollapseTransition;
-
-        .cpn-head {
-            margin-bottom: 15px;
-
-            .cpn-title {
-                font-size: 1.142rem;
-                font-weight: 600;
-    
-                svg {
-                    height: 16px;
-                    transform: translateY(2px);
-                    margin-right: 5px;
-                }
-            }
-    
-            .cpn-tools-list {
-                text-align: right;
-                button {
-                    margin-left: 5px;
-                }
-            }
-        }   
-        
-        ul.cpn-sub-menu {
-            border-bottom: 1px solid rgba($color: $grey, $alpha: 0.2);
-            margin-bottom: 30px;
-            padding: 0px 15px;
-
-            li {
-                display: inline-block;
-                padding: 10px 15px;
-                margin-right: 10px;
-                cursor: pointer;
-                opacity: 0.5;
-
-                svg {
-                    margin-right: 5px;
-                    transform: translateY(1px);
-                    height: 12px;
-                }
-
-                &.active {
-                    position: relative;
-                    cursor: default;
-                    opacity: 1;
-
-                    &:after {
-                        content: '';
-                        position: absolute;
-                        left: 0; bottom: 0;
-                        height: 3px;
-                        width: 100%;
-                        background: $blue;
-                        border-radius: 100px;
-                    }
-
-                    &:hover {
-                        border-radius: 0px;
-                        background: none;
-                    }
-                }
-
-                &:hover {
-                    opacity: 1;
-                    border-top-left-radius: $borderRadius;
-                    border-top-right-radius: $borderRadius;
-                    @include bgLighting($grey);
-                }
-            }
-        }
-
-        .cpn-table-tools {
-            margin-bottom: 30px;
-            padding: 0px 15px;
-
-            div { 
-                display: inline-block; 
-                margin-right: 7px;
-            }
-
-            .tool-search {
-                position: relative;
-
-                input {
-                    padding: 10px 15px;
-                    border: 0px;
-                    border-radius: 300px;
-                    padding-right: 25px;
-                    
-                    @include btnFocus($blue);
-                }
-
-                svg {
-                    position: absolute;
-                    height: 12px;
-                    width: 12px;
-                    top: 50%; transform: translateY(-50%);
-                    right: 10px;
-                }
-            }
-
-            .tool-select {
-                background: $white;
-                border-radius: 300px;
-                padding: 10px 15px;
-
-                select {
-                    height: 100%;
-                    border: 0px;
-                    background: none;
-                    min-width: 140px;
-
-                    &:focus { outline: none; }
-                }
-            }
-
-            .tool-reset {
-                padding: 10px 15px;
-                background: $dark;
-                text-align: center;
-                border-radius: 300px;
-                color: $white;
-                font-weight: 500;
-                cursor: pointer;
-
-                &:hover {
-                    box-shadow: 0px 0px 10px rgba($color: $dark, $alpha: 1);
-                }
-            }
-        }
-    }
-    // ============================ End COMPONENTS WRAPER STYLE ============================
-
-    // ============================ CPN FORM STYLE ================================
-
-    .cpn-form-title {
-        color: $blue;
-        font-weight: 600;
-
-        svg {
-            transform: translateY(2px);
-            margin-right: 5px;
-            polygon, circle, path { fill: $blue; }
-        }
-    }
-
-    .cpn-form-close {
-        position: relative;
-        cursor: pointer;
-        width: 35px;
-        height: 35px;
-        display: inline-block;
-        padding: 5px;
-        border-radius: 50%;
-        margin-right: 0px;
-
-        svg {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        &:hover, &:focus {
-            @include bgLighting($grey);
-        }
-    }
-
-    .cpn-form {
-        background: $white;
-        box-shadow: $boxShadow;
+        border: 1px solid $blue;
         border-radius: $borderRadius;
-        padding: 15px 0px;
+        background: $off-blue;
+        padding: 2px 4px;
+      }
 
+      .confirm-submit-box {
+        border-top: 1px solid rgba($color: $dark, $alpha: 0.2);
+        padding: 10px 0px;
         button {
-            margin-left: 5px;
+          margin-right: 5px;
         }
-
-        form {
-            margin-top: 20px;
-
-            button {
-                margin-top: 10px;
-            }
-        }
+      }
     }
-    // ============================ End CPN FORM STYLE ============================
+  }
+  // ============================ End CONFIRM STYLE ============================
 
-    // ============================ SIDEBAR STYLE ================================
-    .sidebar {
-        position: fixed;
-        z-index: $zindexSidebar;
-        box-shadow: $boxShadow;
-        box-shadow: 1px 0 20px 0 rgba(0,0,0,0.05);
-        top: 0px;
-        left: 0px;
-        width: 220px;
-        height: 100vh;
-        overflow: auto;
-        background: $white;
-        padding-top: 20px;
-
-        .side-bar-logo {
-            position: relative;
-            width: 100%;
-            text-align: center;
-            img {
-                width: 130px;
-                display: inline-block;
-            }
-        }
-
-        .side-bar-user-info {
-            width: 100%;
-            text-align: center;
-            padding: 25px 0px;
-
-            .avatar {
-                position: relative;
-                display: inline-block;
-                height: 70px;
-                width: 70px;
-                border-radius: 50%;
-                margin-bottom: 10px;
-                cursor: pointer;
-                background-size: cover !important;
-
-                #button-change-user-info {
-                    position: absolute;
-                    height: 20px;
-                    width: 20px;
-                    bottom: 4px;
-                    right: 4px;
-                }
-
-                &:hover {
-                    box-shadow: 0px 0px 10px rgba($color: $grey, $alpha: 0.5);
-                }
-            }
-
-            h4 { font-size: 1.14rem; margin: 0px; font-weight: 600; }
-            ul { 
-                font-size: 0.86rem; 
-                font-weight: 400;
-                list-style-position: inside;
-                text-align: left;
-                display: inline-block;
-                margin: auto;
-                margin-top: 12px;
-                list-style-type: disc;
-
-                li {
-                    margin-bottom: 5px;
-                }
-            }
-        }
-
-        ul.sidebar-menu {
-            margin: 0px; padding: 0px;
-            list-style-type: none;
-
-            a {
-                text-decoration: none;
-                color: inherit;
-
-                &.active li {
-                    position: relative;
-                    cursor: default;
-                    color: $blue;
-
-                    &:after {
-                        content: '';
-                        position: absolute;
-                        width: 4px;
-                        height: 100%;
-                        top: 0px; left: 0px;
-                        background: $blue;
-                    }
-                    // border-left: 4px solid $blue;
-                    &:hover { background: none; }
-                    svg { polygon, circle, path { fill: $blue; } }
-                }
-            }
-
-            li {
-                padding: 15px 20px;
-                margin-bottom: 10px;
-                font-weight: 500;
-                cursor: pointer;
-
-                &:hover {
-                    background: $light;
-                }
-                
-                svg {
-                    width: 16px;
-                    margin-right: 5px;
-                    svg { polygon, circle, path { fill: $dark !important; } }
-                }
-            }
-        }
-    }
-    // ============================ End SIDEBAR STYLE ============================
-
-    // ============================ HEADER STYLE ================================
-    header {
-        position: fixed;
-        z-index: $zindexHeader;
-        width: 100vw;
-        background: $white;
-        padding-left: 220px;
-
-        #toggle-extend-sidebar {
-            display: inline-block;
-            padding: 12px;
-            cursor: pointer;
-
-            svg {
-                height: 16px;
-                transform: translateY(2px);
-
-                &:first-child {
-                    display: inline-block;
-                }
-
-                &:last-child {
-                    display: none;
-                }
-            }
-        }
-
-        ul {
-            display: inline-block;
-            list-style-type: none;
-            padding: 0px;
-            margin: 0px;
-            li {
-                display: inline-block;
-                padding: 12px;
-                font-size: 1rem;
-
-                svg { 
-                    height: 16px; 
-                    transform: translateY(2px);  
-                    margin-right: 5px;
-                }
-
-                &#button-change-current-branch {
-                    select {
-                        background: none;
-                        border: 0px;
-                        padding: 12px;
-                        font-size: 1rem;
-                        color: $dark;
-
-                        &:focus { outline: none; }
-                    }
-                }
-            }
-
-            &.header-list-tools {
-                li {
-                    cursor: pointer;
-
-                    &#toggle-show-notifications {
-                        position: relative;
-
-                        span#total-notifications {
-                            position: absolute;
-                            top: 7px;
-                            right: 7px;
-                            background: $red;
-                            text-align: center;
-                            width: 18px; height: 18px;
-                            line-height: 18px;
-                            border-radius: 50%;
-                            color: $white;
-                            font-size: 9px;
-                            font-weight: 600;
-                            animation: totalNotificationsAnimate 1s ease-in-out infinite;
-                            box-shadow: 0px 0px 10px $red;
-                        }
-
-                        @keyframes totalNotificationsAnimate {
-                            0% { box-shadow: 0px 0px 0px $red; }
-                            50% { box-shadow: 0px 0px 10px $red; }
-                            100% { box-shadow: 0px 0px 0px $red; }
-                        }
-                    }
-                }
-            }
-
-            &.list-app-status {
-                li {
-                    position: relative;
-
-                    &:after {
-                        content: "";
-                        position: absolute;
-                        height: 30%;
-                        width: 1px;
-                        background: $dark;
-                        top: 50%; right: 0px ;transform: translateY(-50%); 
-                        opacity: 0.2;
-                    }
-
-                    &:last-child {
-                        &:after { display: none; }
-                    }
-                }
-            }
-        }
-    }
-    // ============================ End HEADER STYLE ============================
-
-    // ============================ LOADING BAR STYLE ================================
-    .loading-bar {
-        width: 100%;
-        height: 5px;
-        border-radius: 100px;
-        display: block;
-        position: relative;
-        background: rgba($color: $white, $alpha: 0.5);
-        overflow: hidden;
-
-        .percent {
-            position: absolute;
-            background: $white;
-            height: 5px;
-            top: 0px;
-            left: 0px;
-            animation: loadingBarAnimate ease-in-out 5s forwards;
-        }
-
-        @keyframes loadingBarAnimate {
-            0% { width: 0%; }
-            50% { width: 60%; }
-            70% { width: 90%; }
-            100% { width: 98%; }
-        }
-    }
-    // ============================ End LOADING BAR STYLE ============================
-
-    // ============================ LAYOUT STYLE ================================
-    .mt-1 { margin-top: 1rem; }
-    .mt-2 { margin-top: 2rem; }
-    .mt-3 { margin-top: 3rem; }
-    .mt-4 { margin-top: 4rem; }
-    .mt-5 { margin-top: 5rem; }
-    .mb-1 { margin-bottom: 1rem; }
-    .mb-2 { margin-bottom: 2rem; }
-    .mb-3 { margin-bottom: 3rem; }
-    .mb-4 { margin-bottom: 4rem; }
-    .mb-5 { margin-bottom: 5rem; }
-    .text-left { text-align: left; }
-    .text-right { text-align: right; }
-    .text-center { text-align: center; }
-    // ============================ End LAYOUT STYLE ============================
-
-    // ============================ EXTENDS STYLE ================================
-    .height-100vh {
-        height: 100vh;
-    }
-    // ============================ End EXTENDS STYLE ============================
-
-    // ============================ style ================================
-    .btn {
-        position: relative;
-        border-radius: 5px;
-        padding: 0px 15px;
-        height: 35px;
-        cursor: pointer;
-        font-weight: 500;
-        font-size: 1rem;
-
-        svg {
-            transform: translateY(3px);
-            margin-right: 5px;
-        }
-
-        &.w-100 {
-            width: 100%;
-        }
-        
-        &.white {
-            background: $white;
-            color: $blue;
-            @include btnFocus($white);
-
-            .loading-icon {
-                border: .20rem solid $off-blue;
-                border-top-color: $blue;
-            }
-        }
-
-        &.blue {
-            background: $blue;
-            color: $white;
-            svg { circle, polygon, path { fill: $white; } }
-            @include btnFocus($blue);
-        }
-
-        &.success {
-            background: $green;
-            color: $white;
-            @include btnFocus($green);
-        }
-
-        &.warning {
-            background: $orange;
-            color: $white;
-            @include btnFocus($orange);
-        }
-
-        &.danger {
-            background: $red;
-            color: $white;
-            @include btnFocus($red);
-        }
-
-        &.outline-grey {
-            opacity: 0.5;
-            background: none;
-            border: 1px solid $grey;
-            color: $grey;
-            @include btnFocus($grey);
-        }
-    }
-    // ============================ End style ============================
-
-    // ============================ LOADING ICON STYLE ================================
-    $base-line-height: 20px;
-    $spin-duration: 1s;
-
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
-    }
+  // ============================ LOADING FETCHING DATA STYLE ================================
+  .loading-fetching-data {
+    width: 100%;
+    margin: 20px 0px;
+    text-align: center;
 
     .loading-icon {
+      border: 0.2rem solid $off-dark;
+      border-top-color: $dark;
+      margin-right: 8px;
+      margin-bottom: -5px;
+    }
+  }
+  // ============================ End LOADING FETCHING DATA STYLE ============================
+
+  // ============================ LIST ALERTS STYLE ================================
+  ul.alert-list {
+    position: fixed;
+    z-index: $zindexAlertsList;
+    bottom: 15px;
+    right: 15px;
+
+    li {
+      display: block;
+      width: max-content;
+      clear: both;
+      padding: 10px 15px;
+      border-radius: $borderRadius;
+      color: $white;
+      margin-bottom: 10px;
+      float: right;
+
+      svg {
+        height: 14px;
         display: inline-block;
-        border-radius: 50%;
-        width: $base-line-height;
-        height: $base-line-height;
-        border: .20rem solid $off-white;
-        border-top-color: $white;
-        animation: spin $spin-duration infinite linear;
-    }
-    // ============================ End LOADING ICON STYLE ============================
+        margin-right: 10px;
+        transform: translateY(2px);
+      }
 
-    // ============================ FORM STYLE ================================
-    form {
+      svg.svg-remove {
+        height: 14px;
+        cursor: pointer;
+        opacity: 0.5;
+        margin-left: 30px;
+        display: inline-block;
+        polygon,
+        path,
+        circle {
+          fill: $white;
+        }
+        margin-right: 0px;
+        transform: translateY(2px);
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      p {
+        display: inline-block;
+        padding: 0px;
+        margin: 0px;
+      }
+
+      &.success {
+        background: $green;
+      }
+
+      &.error {
+        background: $red;
+      }
+    }
+  }
+  // ============================ End LIST ALERTS STYLE ============================
+
+  // ============================ INPUT STYLE ================================
+  input,
+  select,
+  area {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+    color: $dark;
+    font-weight: 500;
+  }
+  // ============================ End INPUT STYLE ============================
+
+  // ============================ LIST STYLE ================================
+  ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+  }
+  // ============================ End LIST STYLE ============================
+
+  // ============================ TYPEGRAPHY STYLE ================================
+  small {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .text-danger {
+    color: $red;
+  }
+  .text-warning {
+    color: $orange;
+  }
+  .text-white {
+    color: $white;
+  }
+  .text-success {
+    color: $green;
+  }
+  // ============================ End TYPEGRAPHY STYLE ============================
+
+  // ============================ DIGITAL NUMBER REPORTS STYLE ================================
+  #digital-number-reports {
+    .digital-number-item {
+      background: $white;
+      border-radius: $borderRadius;
+      box-shadow: $boxShadow;
+      padding: 15px;
+
+      .number {
+        font-weight: 300;
+        font-size: 2.14rem;
+
+        small.measurement {
+          margin-left: -5px;
+        }
+      }
+
+      .percent-text {
+        color: $grey;
+        margin-top: 5px;
+        font-size: 0.8rem;
+      }
+
+      p {
+        margin: 0px;
+        margin-bottom: 15px;
+        font-size: 0.9rem;
+      }
+
+      .process-bar {
+        position: relative;
         width: 100%;
+        height: 5px;
+        border-radius: 300px;
+        background: $light;
 
-        &.form-white {
-            .form-group {
-                color: $white; 
-
-                input {
-                    color: $white;
-                    border-color: $white;
-
-                    &::placeholder {
-                        color: $white;
-                        font-weight: 400;
-                        opacity: 0.7;
-                    }
-
-                    &:focus {
-                        outline: none;
-                        border-color: $white;
-                        color: $white;
-                        box-shadow: 0px 2px 4px rgba($color: $white, $alpha: 0.3);
-                    }
-                }
-            }
+        &.style-1 {
+          .percent {
+            background: linear-gradient(to right, #dd5d89, #f6ba97, #dd5d89);
+            background-size: 400% 400%;
+            animation: backgroundGradientAnimate 9s ease infinite;
+          }
         }
 
-        .form-group {
-            width: 100%;
-            position: relative;
-            margin-bottom: 15px;
-
-            &.icon input {
-                padding-right: 40px;
-            }
-
-            &.no-label {
-                svg {
-                    top: 50%;
-                }
-            }
-
-            svg {
-                position: absolute;
-                height: 16px;
-                top: 70%;
-                transform: translateY(-50%);
-                right: 15px;
-            }
-
-            label {
-                display: block;
-                margin-bottom: 5px;
-                font-weight: 400;
-            }
-
-            @mixin inputStyle() {
-                width: 100%;
-                background: none;
-                border-radius: $borderRadius;
-                border: 1px solid rgba($color: $dark, $alpha: 0.3);
-                height: 35px;
-                font-size: 1rem;
-                font-weight: 500;
-                padding: 0px 15px;
-                color: $dark;
-            }
-
-            input {
-                @include inputStyle();
-                &:focus {
-                    outline: none;
-                    border-color: $blue;
-                    color: $blue;
-                    box-shadow: 0px 2px 4px rgba($color: $blue, $alpha: 0.3);
-                }
-                &:-webkit-autofill {
-                    color: $red !important;
-                }
-            }
-
-            .select {
-                @include inputStyle();
-                padding: 0px 8px;
-
-                &:focus-within {
-                    border-color: $blue;
-                    box-shadow: 0px 2px 4px rgba($color: $blue, $alpha: 0.3);
-                }
-
-                select {
-                    width: 100%;
-                    height: 100%;
-                    background: none;
-                    border: none;
-                    font-size: 1rem;
-                    font-weight: 500;
-                    color: $dark;
-                    font-family: 'Montserrat', sans-serif;
-
-                    &:focus { outline: none; }
-                    option { color: $dark; font-family: 'Montserrat', sans-serif; font-weight: 500; }
-                }
-            }
-
-            .error-message {
-                display: none;
-                color: $red;
-                font-weight: 400;
-                font-size: 0.9rem;
-                margin-top: 5px;
-            }
-
-            &.error {
-                .error-message {
-                    display: block;
-                }
-
-                label, input { 
-                    color: $red; 
-                    border-color: $red; 
-
-                    &:focus {
-                        box-shadow: 0px 2px 4px rgba($color: $red, $alpha: 0.3);
-                    }
-                }
-
-                .select {
-                    color: $red; 
-                    border-color: $red; 
-
-                    &:focus-within {
-                        box-shadow: 0px 2px 4px rgba($color: $red, $alpha: 0.3);
-                    }
-                }
-            }
+        &.style-2 {
+          .percent {
+            background: linear-gradient(to right, #9ce89c, #23acff, #9ce89c);
+            background-size: 400% 400%;
+            animation: backgroundGradientAnimate 9s ease infinite;
+          }
         }
 
-        // ============================ CHECKBOX STYLE ================================
-        .form-group {
-            label.checkbox-wraper {
-                display: inline-block;
-                position: relative;
-                padding-left: 23px;
-                margin-bottom: 12px;
-                cursor: pointer;
-                font-size: 1rem;
-                font-weight: 500;
-                user-select: none;
-                margin-right: 30px;
-            
-                input {
-                    position: absolute;
-                    opacity: 0;
-                    cursor: pointer;
-                    height: 0;
-                    width: 0;
-                }
-            
-                /* On mouse-over, add a grey background color */
-                &:hover input ~ .checkmark {
-                    background-color: #ccc;
-                }
-            
-                /* When the checkbox is checked, add a blue background */
-                input:checked ~ .checkmark {
-                    background-color: #2196F3;
-                }
-            
-                /* Show the checkmark when checked */
-                input:checked ~ .checkmark:after {
-                    display: block;
-                }
-            
-                /* Create a custom checkbox */
-                .checkmark {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    height: 18px;
-                    width: 18px;
-                    background-color: #eee;
-                    border-radius: 50%;
-            
-                    /* Create the checkmark/indicator (hidden when not checked) */
-                    &:after {
-                        content: "";
-                        position: absolute;
-                        display: none;
-                    }
-            
-                    /* Style the checkmark/indicator */
-                    &:after {
-                        left: 6px;
-                        top: 3px;
-                        width: 6px;
-                        height: 10px;
-                        border: solid white;
-                        border-width: 0 3px 3px 0;
-                        transform: rotate(45deg);
-                    }
-                }
-            }
+        &.style-3 {
+          .percent {
+            background: linear-gradient(to right, #a890d3, #edbae6, #a890d3);
+            background-size: 400% 400%;
+            animation: backgroundGradientAnimate 9s ease infinite;
+          }
         }
 
-        // ============================ End CHECKBOX STYLE ============================
-
-        .form-sub-link {
-            text-align: center;
-            display: block;
-            width: 100%;
-            margin-top: 20px;
-            color: $white;
+        &.style-4 {
+          .percent {
+            background: linear-gradient(to right, #23acff, #00ffff, #23acff);
+            background-size: 400% 400%;
+            animation: backgroundGradientAnimate 9s ease infinite;
+          }
         }
+
+        .percent {
+          height: 100%;
+          top: 0px;
+          left: 0px;
+          border-radius: 300px;
+        }
+
+        @keyframes backgroundGradientAnimate {
+          0% {
+            background-position: 0% 78%;
+          }
+          50% {
+            background-position: 100% 23%;
+          }
+          100% {
+            background-position: 0% 78%;
+          }
+        }
+      }
     }
-    // ============================ End FORM STYLE ============================
+  }
+  // ============================ End DIGITAL NUMBER REPORTS STYLE ============================
 
-    // ============================ PAGING STYLE ================================
-    .paging {
-        margin: 15px 0px;
-        width: 100%;
-        text-align: center;
+  // ============================ COMPONENTS WRAPER STYLE ================================
+  .components-wraper {
+    padding-top: 70px;
+    padding-left: 225px;
+    padding-right: 25px;
+    @include sidebarCollapseTransition;
 
-        ul {
-            list-style-type: none;
-            padding: 0px;
+    .cpn-head {
+      margin-bottom: 15px;
 
-            li {
-                cursor: pointer;
-                display: inline-block;
-                border-radius: $borderRadius;
-                width: 35px;
-                height: 35px;
-                line-height: 35px;
-                text-align: center;
-                margin: 0px 2px;
-
-                &:hover {
-                    @include bgLighting($dark);
-                }
-
-                &.active {
-                    cursor: default;
-                    color: $white;
-                    background: $dark;
-                }
-            }
-        }
-    }
-    // ============================ End PAGING STYLE ============================
-
-    // ============================ BUTTON STYLE ================================
-    button {
-        text-align: center;
-        outline-color: none;
-        border: 0px;
-        &:focus {
-            outline: none;
-        }
-
-        &:disabled {
-            background: $grey !important;
-        }
-    }
-    // ============================ End BUTTON STYLE ============================
-
-    // ============================ LINK STYLE ================================
-    .link {
-        color: inherit;
+      .cpn-title {
+        font-size: 1.142rem;
         font-weight: 600;
+
+        svg {
+          height: 16px;
+          transform: translateY(2px);
+          margin-right: 5px;
+        }
+      }
+    }
+
+    .cpn-tools-list {
+      width: 100%;
+      text-align: right;
+      button {
+        margin-left: 5px;
+      }
+    }
+
+    ul.cpn-sub-menu {
+      border-bottom: 1px solid rgba($color: $grey, $alpha: 0.2);
+      margin-bottom: 15px;
+      padding: 0px 15px;
+
+      li {
+        display: inline-block;
+        padding: 10px 15px;
+        margin-right: 10px;
+        cursor: pointer;
+        opacity: 0.5;
+
+        svg {
+          margin-right: 5px;
+          transform: translateY(1px);
+          height: 12px;
+
+          * {
+            fill: $dark;
+          }
+        }
+
+        &.active {
+          position: relative;
+          cursor: default;
+          opacity: 1;
+
+          &:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 3px;
+            width: 100%;
+            background: $blue;
+            border-radius: 100px;
+          }
+
+          &:hover {
+            border-radius: 0px;
+            background: none;
+          }
+        }
+
+        &:hover {
+          opacity: 1;
+          border-top-left-radius: $borderRadius;
+          border-top-right-radius: $borderRadius;
+          @include bgLighting($grey);
+        }
+      }
+    }
+
+    .cpn-table-tools {
+      margin-bottom: 30px;
+
+      div {
+        display: inline-block;
+        margin-right: 7px;
+      }
+
+      .tool-search {
+        position: relative;
+
+        input {
+          padding: 10px 15px;
+          border: 0px;
+          border-radius: $borderRadius;
+          padding-right: 25px;
+          max-width: 300px;
+          width: 250px;
+
+          &::placeholder {
+            color: rgba($color: $grey, $alpha: 0.5);
+          }
+
+          @include btnFocus($blue);
+        }
+
+        svg {
+          position: absolute;
+          height: 12px;
+          width: 12px;
+          top: 50%;
+          transform: translateY(-50%);
+          right: 10px;
+        }
+      }
+
+      .tool-select {
+        background: $white;
+        border-radius: $borderRadius;
+        padding: 10px 15px;
+
+        select {
+          height: 100%;
+          border: 0px;
+          background: none;
+          min-width: 140px;
+
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+
+      .tool-reset {
+        padding: 10px 15px;
+        background: $dark;
+        text-align: center;
+        border-radius: $borderRadius;
+        color: $white;
+        font-weight: 500;
         cursor: pointer;
 
         &:hover {
-            text-decoration: underline;
+          box-shadow: 0px 0px 10px rgba($color: $dark, $alpha: 1);
         }
+      }
     }
-    // ============================ End LINK STYLE ============================
+  }
+  // ============================ End COMPONENTS WRAPER STYLE ============================
 
-    // ============================ STATUS STYLE ================================
-    .status {
-        border-radius: 100px;
-        padding: 5px 20px;
-        width: max-content;
+  // ============================ CPN FORM STYLE ================================
+
+  .cpn-form-title {
+    color: $blue;
+    font-weight: 600;
+
+    svg {
+      height: 14px;
+      transform: translateY(2px);
+      margin-right: 7px;
+
+      * {
+        fill: $blue;
+      }
+    }
+  }
+
+  .cpn-form-close {
+    position: relative;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    display: inline-block;
+    padding: 5px;
+    border-radius: 50%;
+    margin-right: 0px !important;
+
+    svg {
+      height: 14px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &:hover,
+    &:focus {
+      @include bgLighting($grey);
+    }
+  }
+
+  .cpn-form {
+    background: $white;
+    box-shadow: $boxShadow;
+    border-radius: $borderRadius;
+    padding: 15px 0px;
+
+    button {
+      margin-right: 7px;
+    }
+  }
+  // ============================ End CPN FORM STYLE ============================
+
+  // ============================ SIDEBAR STYLE ================================
+  .sidebar {
+    position: fixed;
+    z-index: $zindexSidebar;
+    box-shadow: $boxShadow;
+    box-shadow: 1px 0 20px 0 rgba(0, 0, 0, 0.05);
+    top: 0px;
+    left: 0px;
+    width: 200px;
+    height: 100vh;
+    overflow: auto;
+    background: $white;
+    padding-top: 20px;
+
+    .side-bar-logo {
+      position: relative;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 20px;
+
+      img {
+        width: 130px;
         display: inline-block;
-        font-weight: 600;
-        cursor: default;
+      }
 
-        &.success {
-            @include bgLighting($green);
-            color: $green;
-        }
-        &.warning {
-            @include bgLighting($orange);
-            color: $orange;
-        }
-        &.danger {
-            @include bgLighting($red);
-            color: $red;
-        }
+      svg {
+        width: 130px;
+      }
     }
-    // ============================ End STATUS STYLE ============================
-    
-   // ============================ TABLE STYLE ================================
-   table {
-        width: 100%;
-        text-align: left;
-        border-collapse: collapse;
 
-        th, td {
-            padding: 15px;
+    ul.sidebar-menu {
+      margin: 0px;
+      padding: 0px;
+      list-style-type: none;
+      border-bottom: 1px solid rgba($color: $grey, $alpha: 0.2);
+
+      &:last-child {
+        border-bottom: 0px;
+      }
+
+      label {
+        display: block;
+        padding: 10px 20px;
+        padding-top: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+
+        &:before {
+          content: "-- ";
+        }
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+
+        &.active li {
+          position: relative;
+          cursor: default;
+          color: $blue;
+          font-weight: 500;
+
+          &:after {
+            content: "";
+            position: absolute;
+            width: 4px;
+            height: 70%;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 0;
+            background: $blue;
+          }
+          &:hover {
+            background: none;
+          }
+
+          svg {
+            polygon,
+            circle,
+            path,
+            rect {
+              fill: $blue !important;
+            }
+          }
+        }
+      }
+
+      li {
+        padding: 15px 20px;
+        margin: 5px 0px;
+        font-weight: 300;
+        cursor: pointer;
+        color: $grey;
+        font-size: 1rem;
+
+        &:hover {
+          background: $light;
+        }
+
+        svg {
+          width: 12px;
+          margin-right: 7px;
+          transform: translateY(1px);
+
+          polygon,
+          circle,
+          path,
+          rect {
+            fill: $grey !important;
+          }
+        }
+      }
+    }
+  }
+  // ============================ End SIDEBAR STYLE ============================
+
+  // ============================ SIDEBAR COLLAPSE STYLE ================================
+  &.sidebar-collapse-active {
+    .sidebar {
+      width: 60px;
+      @include sidebarCollapseTransition;
+      .side-bar-logo {
+        display: none;
+      }
+
+      ul.sidebar-menu {
+        label {
+          display: none;
+        }
+
+        li {
+          span {
+            display: none;
+          }
+
+          svg {
+            width: 16px;
+          }
+        }
+      }
+    }
+
+    header {
+      padding-left: 60px;
+      @include sidebarCollapseTransition;
+
+      #toggle-extend-sidebar {
+        svg {
+          &:first-child {
+            display: none;
+          }
+
+          &:last-child {
+            display: inline-block;
+          }
+        }
+      }
+    }
+
+    .components-wraper {
+      padding-left: 85px;
+    }
+  }
+  // ============================ End SIDEBAR COLLAPSE STYLE ============================
+
+  // ============================ HEADER STYLE ================================
+  header {
+    position: fixed;
+    z-index: $zindexHeader;
+    width: 100vw;
+    background: $white;
+    padding-left: 200px;
+
+    #toggle-extend-sidebar {
+      display: inline-block;
+      padding: 12px;
+      cursor: pointer;
+
+      svg {
+        height: 16px;
+        transform: translateY(2px);
+
+        &:first-child {
+          display: inline-block;
+        }
+
+        &:last-child {
+          display: none;
+        }
+      }
+    }
+
+    ul {
+      display: inline-block;
+      list-style-type: none;
+      padding: 0px;
+      margin: 0px;
+      li {
+        display: inline-block;
+        padding: 12px;
+        font-size: 1rem;
+
+        svg {
+          height: 16px;
+          transform: translateY(2px);
+          margin-right: 5px;
+        }
+
+        &#button-change-current-branch {
+          select {
+            background: none;
+            border: 0px;
+            padding: 12px;
+            font-size: 1rem;
+            color: $dark;
+
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+      }
+
+      &.header-list-tools {
+        li {
+          cursor: pointer;
+
+          &#toggle-show-notifications {
             position: relative;
 
-            .row-side {
-                position: absolute;
-                height: 100%;
-                width: 5px;
-                background: $white;
-                top: 0px;
+            span#total-notifications {
+              position: absolute;
+              top: 7px;
+              right: 7px;
+              background: $red;
+              text-align: center;
+              width: 18px;
+              height: 18px;
+              line-height: 18px;
+              border-radius: 50%;
+              color: $white;
+              font-size: 9px;
+              font-weight: 600;
+              animation: totalNotificationsAnimate 1s ease-in-out infinite;
+              box-shadow: 0px 0px 10px $red;
             }
 
-            .left-row-side {
-                @extend .row-side;
-                left: -$borderRadius;
-                border-radius: $borderRadius 0px 0px $borderRadius;
+            @keyframes totalNotificationsAnimate {
+              0% {
+                box-shadow: 0px 0px 0px $red;
+              }
+              50% {
+                box-shadow: 0px 0px 10px $red;
+              }
+              100% {
+                box-shadow: 0px 0px 0px $red;
+              }
             }
-
-            .right-row-side {
-                @extend .row-side;
-                right: -$borderRadius;
-                border-radius: 0px $borderRadius $borderRadius 0px;
-            }
+          }
         }
+      }
 
-        thead {
-            tr {
-                th {
-                    color: $grey;
-                    font-weight: 500;
-                }
+      &.list-app-status {
+        li {
+          position: relative;
+
+          &:after {
+            content: "";
+            position: absolute;
+            height: 30%;
+            width: 1px;
+            background: $dark;
+            top: 50%;
+            right: 0px;
+            transform: translateY(-50%);
+            opacity: 0.2;
+          }
+
+          &:last-child {
+            &:after {
+              display: none;
             }
+          }
         }
-
-        tbody {
-            tr {
-                box-shadow: $boxShadow;
-
-                &.empty {
-                    height: 10px;
-                    box-shadow: none;
-                }
-            }
-
-            tr td {
-                background: $white;
-
-                &.list-tools {
-                    // min-width: 100px;
-                    // max-width: max-content;
-
-                    button {
-                        margin-right: 5px;
-                    }
-                }
-
-                .row-toggle-list-tools {
-                    display: inline-block;
-                    position: relative;
-                    width: 30px;
-                    height: 30px;
-                    border-radius: 50%;
-                    cursor: pointer;
-                    @include bgLighting($green);
-
-                    svg {
-                        position: absolute;
-                        width: 10px;
-                        top: 50%; left: 50%;
-                        transform: translate(-50%,-50%);
-                    }
-                    @include btnFocus($green);
-                   
-                }
-
-                .row-btn-remove {
-                    display: inline-block;
-                    position: relative;
-                    width: 30px;
-                    height: 30px;
-                    border-radius: 50%;
-                    cursor: pointer;
-                    @include bgLighting($red);
-
-                    svg {
-                        position: absolute;
-                        width: 10px;
-                        top: 50%; left: 50%;
-                        transform: translate(-50%,-50%);
-                    }
-                    @include btnFocus($red);
-                }
-            }
-
-           
-        }
+      }
     }
-   // ============================ End TABLE STYLE ============================
+  }
+  // ============================ End HEADER STYLE ============================
 
-   // ============================ SCREEN ACCOUNT RELATED STYLE ================================
-   #screen-login, #screen-select-branch, #screen-fetching-data {
-        width: 100vw;
+  // ============================ LOADING BAR STYLE ================================
+  .loading-bar {
+    width: 100%;
+    height: 5px;
+    border-radius: 100px;
+    display: block;
+    position: relative;
+    background: rgba($color: $white, $alpha: 0.5);
+    overflow: hidden;
+
+    .percent {
+      position: absolute;
+      background: $white;
+      height: 5px;
+      top: 0px;
+      left: 0px;
+      animation: loadingBarAnimate ease-in-out 5s forwards;
+    }
+
+    @keyframes loadingBarAnimate {
+      0% {
+        width: 0%;
+      }
+      50% {
+        width: 60%;
+      }
+      70% {
+        width: 90%;
+      }
+      100% {
+        width: 98%;
+      }
+    }
+  }
+  // ============================ End LOADING BAR STYLE ============================
+
+  // ============================ LAYOUT STYLE ================================
+  .mt-1 {
+    margin-top: 1rem;
+  }
+  .mt-2 {
+    margin-top: 2rem;
+  }
+  .mt-3 {
+    margin-top: 3rem;
+  }
+  .mt-4 {
+    margin-top: 4rem;
+  }
+  .mt-5 {
+    margin-top: 5rem;
+  }
+  .mb-1 {
+    margin-bottom: 1rem;
+  }
+  .mb-2 {
+    margin-bottom: 2rem;
+  }
+  .mb-3 {
+    margin-bottom: 3rem;
+  }
+  .mb-4 {
+    margin-bottom: 4rem;
+  }
+  .mb-5 {
+    margin-bottom: 5rem;
+  }
+  .text-left {
+    text-align: left !important;
+  }
+  .text-right {
+    text-align: right;
+  }
+  .text-center {
+    text-align: center;
+  }
+  // ============================ End LAYOUT STYLE ============================
+
+  // ============================ EXTENDS STYLE ================================
+  .height-100vh {
+    height: 100vh;
+  }
+  // ============================ End EXTENDS STYLE ============================
+
+  // ============================ stYLE  ================================
+  button {
+    text-align: center;
+    outline-color: none;
+    border: 0px;
+    &:focus {
+      outline: none;
+    }
+
+    &:disabled {
+      background: $grey !important;
+    }
+  }
+
+  .btn-remove {
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background: rgba($color: $red, $alpha: 0.1);
+    }
+
+    svg {
+      height: 12px;
+    }
+  }
+
+  .btn {
+    position: relative;
+    border-radius: 5px;
+    padding: 0px 15px;
+    height: 35px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1rem;
+
+    svg {
+      height: 14px;
+      transform: translateY(2px);
+      margin-right: 5px;
+    }
+
+    &.w-100 {
+      width: 100%;
+    }
+
+    &.white {
+      background: $white;
+      color: $blue;
+      @include btnFocus($white);
+      @include btnHover($white);
+
+      .loading-icon {
+        border: 0.2rem solid $off-blue;
+        border-top-color: $blue;
+      }
+    }
+
+    &.blue {
+      background: $blue;
+      color: $white;
+      svg {
+        circle,
+        polygon,
+        path {
+          fill: $white;
+        }
+      }
+      @include btnFocus($blue);
+      @include btnHover($blue);
+    }
+
+    &.success {
+      background: $green;
+      color: $white;
+      @include btnFocus($green);
+      @include btnHover($green);
+    }
+
+    &.warning {
+      background: $orange;
+      color: $white;
+      @include btnFocus($orange);
+      @include btnHover($orange);
+    }
+
+    &.danger {
+      background: $red;
+      color: $white;
+      @include btnFocus($red);
+      @include btnHover($red);
+    }
+
+    &.outline-grey {
+      opacity: 0.5;
+      background: none;
+      border: 1px solid $grey;
+      color: $grey;
+      @include btnFocus($grey);
+      @include btnHover($grey);
+
+      svg {
+        * {
+          fill: $grey;
+        }
+      }
+    }
+
+    &.grey {
+      background: $grey;
+      color: $white;
+      @include btnFocus($grey);
+      @include btnHover($grey);
+
+      svg {
+        * {
+          fill: $white;
+        }
+      }
+    }
+  }
+  // ============================ End BUTTON STYLE ============================
+
+  // ============================ LOADING ICON STYLE ================================
+  $base-line-height: 20px;
+  $spin-duration: 1s;
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .loading-icon {
+    display: inline-block;
+    border-radius: 50%;
+    width: $base-line-height;
+    height: $base-line-height;
+    border: 0.2rem solid $off-white;
+    border-top-color: $white;
+    animation: spin $spin-duration infinite linear;
+  }
+  // ============================ End LOADING ICON STYLE ============================
+
+  // ============================ FORM STYLE ================================
+  form {
+    width: 100%;
+
+    &.form-white {
+      .form-group {
+        color: $white;
+
+        input {
+          color: $white;
+          border-color: $white;
+
+          &::placeholder {
+            color: $white;
+            font-weight: 400;
+            opacity: 0.7;
+          }
+
+          &:focus {
+            outline: none;
+            border-color: $white;
+            color: $white;
+            box-shadow: 0px 2px 4px rgba($color: $white, $alpha: 0.3);
+          }
+        }
+      }
+    }
+
+    .form-note {
+      font-weight: 500;
+      font-size: 1rem;
+      margin: 10px 0px;
+    }
+
+    .form-group {
+      width: 100%;
+      margin-bottom: 15px;
+      position: relative;
+
+      .select {
+        position: unset !important;
+
+        input {
+          &:focus {
+            box-shadow: none !important;
+          }
+        }
+
+        .react-select__input {
+          input {
+            height: unset !important;
+          }
+        }
+
+        .react-select__single-value {
+          color: $dark;
+        }
+
+        .react-select__placeholder {
+          font-weight: 300;
+          font-size: 1rem;
+          color: $grey;
+        }
+
+        .react-select__menu {
+          z-index: $zindexHeader + 10;
+        }
+
+        .react-select__control {
+          height: 35px;
+          min-height: 35px !important;
+
+          &.react-select__control--is-focused {
+            border-color: $blue;
+            box-shadow: 0px 0px 10px rgba($color: $blue, $alpha: 1);
+            color: $blue;
+          }
+        }
+
+        &.react-select--is-disabled {
+          .react-select__control {
+            box-shadow: none;
+            border: none;
+          }
+        }
+
+        &.isMulti {
+          .react-select__clear-indicator {
+            cursor: pointer;
+          }
+
+          .react-select__control {
+            // height: 35px;
+            min-height: max-content !important;
+
+            .react-select__multi-value {
+              background: $light;
+
+              .react-select__multi-value__label {
+                color: $dark;
+                font-size: 1rem;
+                padding: 6px 10px;
+              }
+            }
+
+            .react-select__multi-value__remove {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      &.loading {
+        color: $blue;
+        font-weight: 500;
+        padding: 10px 0px;
+
+        .loading-icon {
+          margin: 0px 5px;
+          margin-bottom: -5px;
+        }
+      }
+
+      input:-webkit-autofill,
+      input:-webkit-autofill:hover,
+      input:-webkit-autofill:focus textarea:-webkit-autofill,
+      textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+      select:-webkit-autofill,
+      select:-webkit-autofill:hover,
+      select:-webkit-autofill:focus {
+        color: $dark !important;
+        -webkit-text-fill-color: $dark !important;
+      }
+
+      &.format-money-wraper {
+        input {
+          opacity: 0;
+          position: relative;
+          z-index: $zindexHeader;
+        }
+
+        &:focus-within {
+          .format-money {
+            box-shadow: 0px 0px 10px rgba($color: $blue, $alpha: 1);
+            border-color: $blue;
+            color: $blue;
+
+            &:after {
+              content: "";
+              display: inline-block;
+              height: 1.3rem;
+              width: 1px;
+              background: $blue;
+              margin-left: 1px;
+              animation: cursorTextAni infinite 1s ease;
+              opacity: 1;
+              transition: none;
+
+              @keyframes cursorTextAni {
+                0% {
+                  opacity: 0;
+                }
+                60% {
+                  opacity: 0;
+                }
+                100% {
+                  opacity: 1;
+                }
+              }
+            }
+          }
+        }
+
+        .format-money {
+          position: absolute;
+          opacity: 1;
+          top: 22px;
+          left: 0;
+          width: 100%;
+          height: 35px;
+          z-index: $zindexHeader - 1;
+          border-radius: $borderRadius;
+          border: 1px solid rgba($color: $dark, $alpha: 0.3);
+          display: flex;
+          align-items: center;
+          font-size: 1rem;
+          padding: 0px 9px;
+          color: $dark;
+          font-weight: 500;
+        }
+      }
+
+      .form-table {
+        text-align: left;
+        border: 1px solid rgba($color: $dark, $alpha: 0.3);
+        border-radius: $borderRadius;
+        overflow: hidden;
+        margin-bottom: 20px;
+        display: block;
+        width: 100;
+
+        input {
+          width: 140px;
+        }
+
+        .total-row {
+          border-top: 1px solid rgba($color: $dark, $alpha: 0.3);
+          background: $white !important;
+          text-align: center;
+          .number {
+            color: $red;
+            font-weight: 600;
+          }
+        }
+
+        .qty-col {
+          width: 170px;
+        }
+
+        table {
+          width: 100%;
+          // border-collapse: collapse;
+
+          .select-all-btn {
+            display: inline-block;
+            padding: 5px 15px;
+            margin: 0px 5px;
+            border-radius: $borderRadius;
+            background: $red;
+            color: $white;
+            text-align: center;
+            cursor: pointer;
+            @include btnHover($red);
+          }
+
+          .toggle-btn-col {
+            width: 200px;
+            text-align: center;
+          }
+
+          tbody {
+            tr:nth-child(odd) {
+              background: $light;
+            }
+
+            tr {
+              box-shadow: none;
+            }
+          }
+
+          th,
+          td {
+            padding: 10px 15px;
+            vertical-align: middle;
+            background: none;
+            box-shadow: none;
+
+            label.switch {
+              display: inline-block;
+              margin: 0px !important;
+
+              input {
+                height: unset;
+              }
+            }
+          }
+        }
+      }
+
+      .upload-file {
+        display: block;
+        height: 280px;
+        width: 100%;
+        border: 2px dotted $dark;
+        border-spacing: 1rem;
+        color: $dark;
+        background: $light;
+        border-radius: $borderRadius;
+        padding: 0px 15px;
+        cursor: pointer;
+        opacity: 0.5;
+
+        &:hover {
+          opacity: 1;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      .image-preview {
+        position: relative;
+        width: max-content;
+        max-width: 100% !important;
+
+        img {
+          max-width: 100%;
+          max-height: 400px;
+          width: unset;
+          height: unset;
+          cursor: pointer;
+        }
+
+        &:hover {
+          .select-other-image {
+            opacity: 1;
+          }
+        }
+
+        .select-other-image {
+          opacity: 0;
+          cursor: pointer;
+          position: absolute;
+          top: 0%;
+          left: 0%;
+          width: 100%;
+          height: 100%;
+          background: rgba($color: #000, $alpha: 0.8);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: $white;
+          font-size: 1rem;
+          font-weight: 500;
+          transition: 0.2s ease-in-out;
+
+          svg {
+            height: 18px;
+            margin-right: 7px;
+            polygon,
+            circle,
+            path {
+              fill: $white;
+            }
+          }
+        }
+      }
+
+      &.error {
+        input,
+        select {
+          border-color: $red !important;
+        }
+
+        .select {
+          .react-select__control {
+            border-color: $red;
+            box-shadow: 0px 0px 10px rgba($color: $red, $alpha: 1);
+            color: $red;
+          }
+        }
+
+        label,
+        input,
+        select {
+          color: $red;
+
+          &:focus {
+            box-shadow: 0px 0px 10px rgba($color: $red, $alpha: 1);
+            color: $red;
+          }
+        }
+
+        .format-money {
+          border-color: $red;
+        }
+
+        .error-message {
+          margin-left: 5px;
+          display: inline-block;
+          &:before {
+            display: inline-block;
+          }
+        }
+      }
+
+      .error-message {
+        display: none;
+        color: $red;
+
+        &:before {
+          display: none;
+          content: "";
+          margin-right: 5px;
+        }
+      }
+
+      select {
+        width: 100%;
+        height: 35px;
+        border: 1px solid rgba($color: $dark, $alpha: 0.3);
+        background: none;
+        color: $dark;
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 0px 15px;
+
+        @include btnFocus($blue);
+        &:focus {
+          border-color: $blue;
+          color: $blue;
+        }
+      }
+
+      &.required {
+        & > label {
+          &:after {
+            content: " (*)";
+            color: $red;
+          }
+        }
+      }
+
+      label {
+        position: relative;
+        font-size: 0.93rem;
+        margin-bottom: 5px;
+        display: inline-block;
+        font-weight: 500;
+      }
+
+      select {
+        &:disabled {
+          background: $light;
+          border: 0px;
+          appearance: none;
+
+          &:focus {
+            box-shadow: none;
+            border: none;
+            color: $dark;
+          }
+        }
+      }
+
+      input {
+        font-size: 1rem;
+        width: 100%;
+        height: 35px;
+        padding: 0px 9px;
+        color: $dark;
+        font-weight: 500;
+        border-radius: $borderRadius;
+        border: 1px solid rgba($color: $dark, $alpha: 0.3);
+
+        &:disabled {
+          border: 0;
+          background: rgba($color: $grey, $alpha: 0.1);
+        }
+
+        &:read-only {
+          background: $light;
+          border: 0px;
+
+          &:focus {
+            box-shadow: none;
+            border: none;
+            color: $dark;
+          }
+        }
+
+        &::placeholder {
+          color: $grey;
+        }
+
+        &:focus {
+          outline: none;
+          border-color: $blue;
+          color: $blue;
+        }
+
+        @include btnFocus($blue);
+      }
+    }
+
+    // ============================ CHECKBOX STYLE ================================
+    .form-group {
+      label.checkbox-wraper {
+        display: inline-block;
+        position: relative;
+        padding-left: 23px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 500;
+        user-select: none;
+        margin-right: 30px;
+
+        input {
+          position: absolute;
+          opacity: 0;
+          cursor: pointer;
+          height: 0;
+          width: 0;
+        }
+
+        /* On mouse-over, add a grey background color */
+        &:hover input ~ .checkmark {
+          background-color: #ccc;
+        }
+
+        /* When the checkbox is checked, add a blue background */
+        input:checked ~ .checkmark {
+          background-color: #2196f3;
+        }
+
+        /* Show the checkmark when checked */
+        input:checked ~ .checkmark:after {
+          display: block;
+        }
+
+        /* Create a custom checkbox */
+        .checkmark {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 18px;
+          width: 18px;
+          background-color: #eee;
+          border-radius: 50%;
+
+          /* Create the checkmark/indicator (hidden when not checked) */
+          &:after {
+            content: "";
+            position: absolute;
+            display: none;
+          }
+
+          /* Style the checkmark/indicator */
+          &:after {
+            left: 6px;
+            top: 3px;
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+          }
+        }
+      }
+    }
+
+    // ============================ End CHECKBOX STYLE ============================
+
+    .form-sub-link {
+      text-align: center;
+      display: block;
+      width: 100%;
+      margin-top: 20px;
+      color: $white;
+    }
+  }
+  // ============================ End FORM STYLE ============================
+
+  // ============================ PAGING STYLE ================================
+  .paging {
+    margin: 15px 0px;
+    width: 100%;
+    text-align: center;
+
+    ul {
+      list-style-type: none;
+      padding: 0px;
+
+      li {
+        cursor: pointer;
+        display: inline-block;
+        border-radius: $borderRadius;
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+        text-align: center;
+        margin: 0px 2px;
+
+        &:hover {
+          @include bgLighting($dark);
+        }
+
+        &.active {
+          cursor: default;
+          color: $white;
+          background: $dark;
+        }
+      }
+    }
+  }
+  // ============================ End PAGING STYLE ============================
+
+  // ============================ LINK STYLE ================================
+  .link {
+    color: inherit;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  // ============================ End LINK STYLE ============================
+
+  // ============================ STATUS STYLE ================================
+  .status {
+    border-radius: 100px;
+    padding: 5px 20px;
+    width: max-content;
+    display: inline-block;
+    font-weight: 600;
+    cursor: default;
+
+    &.success {
+      @include bgLighting($green);
+      color: $green;
+    }
+    &.warning {
+      @include bgLighting($orange);
+      color: $orange;
+    }
+    &.danger {
+      @include bgLighting($red);
+      color: $red;
+    }
+  }
+  // ============================ End STATUS STYLE ============================
+
+  // ============================ TABLE STYLE ================================
+  table {
+    width: 100%;
+    text-align: left;
+
+    th,
+    td {
+      padding: 10px;
+      position: relative;
+      max-width: 250px;
+
+      .row-side {
+        position: absolute;
+        height: 100%;
+        width: 5px;
+        background: $white;
+        top: 0px;
+      }
+
+      .left-row-side {
+        @extend .row-side;
+        left: -$borderRadius;
+        border-radius: $borderRadius 0px 0px $borderRadius;
+      }
+
+      .right-row-side {
+        @extend .row-side;
+        right: -$borderRadius;
+        border-radius: 0px $borderRadius $borderRadius 0px;
+      }
+    }
+
+    thead {
+      tr {
+        th {
+          color: $grey;
+          font-weight: 500;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        box-shadow: $boxShadow;
+
+        &.empty {
+          height: 7px;
+          box-shadow: none;
+        }
+      }
+
+      tr td {
+        background: $white;
+        line-height: 1.6rem;
+
+        &.list-tools {
+          // min-width: 100px;
+          // max-width: max-content;
+
+          button {
+            margin-right: 5px;
+          }
+        }
+
+        .row-toggle-list-tools {
+          display: inline-block;
+          position: relative;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          cursor: pointer;
+          @include bgLighting($green);
+
+          svg {
+            position: absolute;
+            width: 10px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+          @include btnFocus($green);
+        }
+
+        .row-btn-remove {
+          display: inline-block;
+          position: relative;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          cursor: pointer;
+          @include bgLighting($red);
+
+          svg {
+            position: absolute;
+            width: 10px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+          @include btnFocus($red);
+        }
+      }
+    }
+  }
+  // ============================ End TABLE STYLE ============================
+
+  // ============================ SCREEN ACCOUNT RELATED STYLE ================================
+  #screen-login,
+  #screen-select-branch,
+  #screen-fetching-data {
+    width: 100vw;
+    position: relative;
+
+    .background {
+      position: absolute;
+      z-index: 1;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100vh;
+      background-size: cover !important;
+    }
+
+    .filter {
+      position: absolute;
+      z-index: 2;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100vh;
+      background: rgba($color: $blue, $alpha: 0.9);
+    }
+
+    .container-fluid {
+      z-index: 5;
+      position: relative;
+    }
+
+    .col-sm-1 {
+      height: 100vh;
+    }
+
+    form {
+      position: relative;
+      z-index: 3;
+
+      .form-group {
+        background: none;
         position: relative;
 
-        .background {
-            position: absolute;
-            z-index: 1;
-            top: 0px;
-            left: 0px;
-            width: 100%;
-            height: 100vh;
-            background-size: cover !important;
+        input {
+          color: $white;
+          background: none;
         }
 
-        .filter {
-            position: absolute;
-            z-index: 2;
-            top: 0px;
-            left: 0px;
-            width: 100%;
-            height: 100vh;
-            background: rgba($color: $blue, $alpha: 0.9);
+        svg {
+          height: 14px;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          right: 10px;
         }
+      }
 
-        .container-fluid {
-            z-index: 5;
-            position: relative;
-        }
+      input:-webkit-autofill,
+      input:-webkit-autofill:hover,
+      input:-webkit-autofill:focus,
+      textarea:-webkit-autofill,
+      textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+      select:-webkit-autofill,
+      select:-webkit-autofill:hover,
+      select:-webkit-autofill:focus {
+        -webkit-text-fill-color: $white !important;
+        transition: background-color 5000s ease-in-out 0s;
+      }
 
-        .col-sm-1 {
-            height: 100vh;
-        }
-
-        form {
-            position: relative;
-            z-index: 3;
-
-            input {
-                color: $white;
-            }
-
-            input:-webkit-autofill,
-            input:-webkit-autofill:hover, 
-            input:-webkit-autofill:focus,
-            textarea:-webkit-autofill,
-            textarea:-webkit-autofill:hover
-            textarea:-webkit-autofill:focus,
-            select:-webkit-autofill,
-            select:-webkit-autofill:hover,
-            select:-webkit-autofill:focus {
-                -webkit-text-fill-color: $white !important;
-                transition: background-color 5000s ease-in-out 0s;
-            }
-
-            .logo {
-                text-align: center;
-                margin-bottom: 50px;
-            }
-        }
-   }
-   // ============================ End SCREEN ACCOUNT RELATED STYLE ============================
+      .logo {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+    }
+  }
+  // ============================ End SCREEN ACCOUNT RELATED STYLE ============================
 }
 
 // ============================ SCROLL BAR STYLE ================================
 /* width */
 ::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
+  width: 4px;
+  height: 4px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: $white; 
+  background: rgba($color: $dark, $alpha: 0.1);
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: rgba($color: $grey, $alpha: 0.5); 
-    border-radius: 200px;
+  background: rgba($color: $dark, $alpha: 0.5);
+  border-radius: 200px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: $dark; 
+  background: $dark;
 }
 // ============================ End SCROLL BAR STYLE ============================
-
-
 // ============================ ANIMATE STYLE ================================
 .alert-animate-appear {
-    opacity: 0;
-    transform: translateX(50px);
+  opacity: 0;
+  transform: translateX(50px);
 
-    &.alert-animate-appear-active {
-        opacity: 1;
-        transform: translateX(0px);
-        transition: 0.1s ease-in;
-    }
+  &.alert-animate-appear-active {
+    opacity: 1;
+    transform: translateX(0px);
+    transition: 0.1s ease-in;
+  }
 }
 
 .fade-animate-appear {
-    opacity: 0.5;
-    transform: translateY(-10px);
+  opacity: 0.5;
+  transform: translateY(-10px);
 
-    &.fade-animate-appear-active {
-        opacity: 1;
-        transform: translateY(0px);
-        transition: 0.2s ease;
-    }
+  &.fade-animate-appear-active {
+    opacity: 1;
+    transform: translateY(0px);
+    transition: 0.2s ease;
+  }
 }
 // ============================ End ANIMATE STYLE ============================
-
 
 // ============================ FORMAT CSS STYLE ================================
 /* Change Autocomplete styles in Chrome*/
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
+input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover
-textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-    -webkit-text-fill-color: inherit !important;
-    transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: inherit !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 input::-webkit-calendar-picker-indicator {
-    display: none;
+  display: none;
 }
 // ============================ End FORMAT CSS STYLE ============================
 
 // ============================ CUSTOM CPN STYLE ================================
 #checkbox-medical-history {
-    padding-top: 10px;
+  padding-top: 10px;
 
-    span.checkbox-wraper {
-        margin-right: 30px;
-    }
+  span.checkbox-wraper {
+    margin-right: 30px;
+  }
 }
 // ============================ End CUSTOM CPN STYLE ============================
+
+// ============================ PAGINATION STYLE ================================
+.pagination {
+  list-style-type: none;
+  width: 100%;
+  text-align: center;
+  margin: 10px 0px;
+
+  li {
+    display: inline-block;
+
+    &.active {
+      a {
+        background: $dark;
+        color: $white;
+
+        &:hover {
+          cursor: default;
+          background: $dark;
+          color: $white;
+        }
+      }
+    }
+
+    a {
+      display: inline-block;
+      height: 35px;
+      width: 35px;
+      line-height: 35px;
+      margin-right: 7px;
+      border-radius: $borderRadius;
+      background: $light;
+      color: $dark;
+      text-decoration: none;
+      font-weight: 600;
+
+      &:hover {
+        background: $dark;
+        color: $white;
+      }
+    }
+  }
+}
+// ============================ End PAGINATION STYLE ============================
+
+// ============================ REACT DATE TIME PICKER STYLE ================================
+.react-datepicker-wrapper,
+.react-datepicker__input-container {
+  width: 100%;
+
+  input {
+    width: 100%;
+  }
+}
+
+.react-datepicker {
+  width: 100%;
+
+  .react-datepicker__header {
+    background: $light;
+  }
+
+  .react-datepicker__day-name,
+  .react-datepicker__day,
+  .react-datepicker__time-name {
+    font-size: 1rem;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    border-radius: 50% !important;
+  }
+
+  .react-datepicker__day--today {
+    background: $grey;
+    color: $white;
+
+    &:hover {
+      background: $grey;
+    }
+  }
+
+  .react-datepicker__day--keyboard-selected {
+    background: $green;
+    cursor: default;
+
+    &:hover {
+      background: $blue;
+    }
+  }
+
+  .react-datepicker__day--selected,
+  .react-datepicker__time-list-item--selected {
+    background: $blue;
+    cursor: default;
+
+    &:hover {
+      background: $blue;
+    }
+  }
+}
+
+.react-datepicker__time-container
+  .react-datepicker__time
+  .react-datepicker__time-box
+  ul.react-datepicker__time-list
+  li.react-datepicker__time-list-item--selected {
+  background: $blue !important;
+}
+// ============================ End REACT DATE TIME PICKER STYLE ============================

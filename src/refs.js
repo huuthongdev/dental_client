@@ -11,53 +11,73 @@ import ConfirmRemove from "./components/ConfirmRemove";
 import FetchingData from "./components/FetchingData";
 import FadeAnimate from "./components/FadeAnimate";
 import TitleApp from './components/TitleApp';
-import Header from './components/dashboard/Header';
-import Sidebar from './components/dashboard/Sidebar';
-import Branch from './components/dashboard/branch/Branch';
-import BranchCreate from './components/dashboard/branch/BranchCreate';
-import BranchDetail from './components/dashboard/branch/BranchDetail';
-import BranchUpdate from './components/dashboard/branch/BranchUpdate';
-import BranchDetailEmployees from './components/dashboard/branch/BranchDetailEmployees';
-import BranchRow from './components/dashboard/branch/BranchRow';
-import Main from './components/dashboard/main/Main';
 import Alert from './components/alert/Alert';
 import AlertItem from './components/alert/AlertItem';
-import Employee from './components/dashboard/employee/Employee';
-import EmployeeRow from './components/dashboard/employee/EmployeeRow';
-import EmployeeCreate from './components/dashboard/employee/EmployeeCreate';
-import EmployeeDetail from './components/dashboard/employee/EmployeeDetail';
-import EmployeeUpdate from './components/dashboard/employee/EmployeeUpdate';
-import Service from './components/dashboard/service/Service';
-import ServiceCreate from './components/dashboard/service/ServiceCreate';
-import ServiceRow from './components/dashboard/service/ServiceRow';
-import ServiceDetail from './components/dashboard/service/ServiceDetail';
-import ServiceUpdate from './components/dashboard/service/ServiceUpdate';
-import Product from './components/dashboard/product/Product';
-import ProductRow from './components/dashboard/product/ProductRow';
-import ProductCreate from './components/dashboard/product/ProductCreate';
-import ProductUpdate from './components/dashboard/product/ProductUpdate';
-import ProductDetail from './components/dashboard/product/ProductDetail';
-import Client from './components/dashboard/client/Client';
-import ClientCreate from './components/dashboard/client/ClientCreate';
-import ClientRow from './components/dashboard/client/ClientRow';
-import ClientDetail from './components/dashboard/client/ClientDetail';
-import ClientUpdate from './components/dashboard/client/ClientUpdate';
+import Header from './components/Header';
+import Sidebar from './components/Sidebar';
 // Screens
 import Login from "./screens/Login";
 import NotMatch404 from './screens/NotMatch404';
 import Authentication from './screens/Authentication';
 import SelectBranch from './screens/SelectBranch';
+
+import Main from './screens/dashboard/main/Main';
+
+import Branch from './screens/dashboard/branch/Branch';
+import BranchCreate from './screens/dashboard/branch/BranchCreate';
+import BranchDetail from './screens/dashboard/branch/BranchDetail';
+import BranchUpdate from './screens/dashboard/branch/BranchUpdate';
+import BranchDetailEmployees from './screens/dashboard/branch/BranchDetailEmployees';
+import BranchAddEmployee from './screens/dashboard/branch/BranchAddEmployee';
+import BranchRow from './screens/dashboard/branch/BranchRow';
+
+
+import Employee from './screens/dashboard/employee/Employee';
+import EmployeeRow from './screens/dashboard/employee/EmployeeRow';
+import EmployeeCreate from './screens/dashboard/employee/EmployeeCreate';
+import EmployeeDetail from './screens/dashboard/employee/EmployeeDetail';
+import EmployeeUpdate from './screens/dashboard/employee/EmployeeUpdate';
+
+import Service from './screens/dashboard/service/Service';
+import ServiceCreate from './screens/dashboard/service/ServiceCreate';
+import ServiceRow from './screens/dashboard/service/ServiceRow';
+import ServiceDetail from './screens/dashboard/service/ServiceDetail';
+import ServiceUpdate from './screens/dashboard/service/ServiceUpdate';
+
+import Product from './screens/dashboard/product/Product';
+import ProductRow from './screens/dashboard/product/ProductRow';
+import ProductCreate from './screens/dashboard/product/ProductCreate';
+import ProductUpdate from './screens/dashboard/product/ProductUpdate';
+import ProductDetail from './screens/dashboard/product/ProductDetail';
+
+import Client from './screens/dashboard/client/Client';
+import ClientCreate from './screens/dashboard/client/ClientCreate';
+
+import ClientInformations from './screens/dashboard/client/information/ClientInformations';
+import ClientInformationRow from './screens/dashboard/client/information/ClientInformationRow';
+import ClientTicket from './screens/dashboard/client/ticket/ClientTicket';
+import ClientTicketRow from './screens/dashboard/client/ticket/ClientTicketRow';
+
+import ClientDetail from './screens/dashboard/client/ClientDetail';
+import ClientUpdate from './screens/dashboard/client/ClientUpdate';
+
+import ClientTicketCreate from './screens/dashboard/client/ticket/ClientTicketCreate';
+
 // Route
 import Routes from "./routes/Routes";
 // All Reducers
 import { allReducers } from "./reducers/reducers";
-// Extension
-import { isDev } from './setting';
+// Setting
+import { isDev, ITEMS_PER_PAGE } from './setting';
 // Utils
 import { RequestService } from './utils/request-service';
 import Roles from './utils/roles';
 import GetRoleName from './utils/get-role-name';
 import converErrorMessage from './utils/convert-error-message';
+import { convertToSave } from './utils/convertToSave';
+import pageNavigation from './utils/pageNavigation';
+import convertToSearch from './utils/convertToSearch';
+import { getLabelGender } from './utils/getLabelGender';
 // Actions
 import { setService, createService, updateService, removeService } from './actions/service.actions';
 import { setUserInfo, logOut } from './actions/user.actions';
@@ -65,30 +85,46 @@ import { setBranch, createBranch, updateBranch, removeBranch, setBranchDetail } 
 import { createAlert, removeAlert } from './actions/alert.actions';
 import { setEmployee, createEmployee, setEmployeeDetail, updateEmployee } from './actions/employee.actions';
 import { setProduct, updateProduct, createProduct, removeProduct } from './actions/product.actions';
-import { loadData, fetchTemp } from './actions/main.actions';
 import { offConfirmRemove, onConfirmRemove } from './actions/confirm-remove.actions';
 import { setClient, createClient, setClientDetail, updateClient } from './actions/client.actions';
 // Data
 import { VietNamPlaces } from './utils/vietnam-place';
 import medicalHistoryData from './utils/medical-historys';
+// Store
+import Store from './store';
+// Services
+import AlertService from './services/alert.service';
+import ServiceService from './services/service.service';
+import BranchService from './services/branch.service';
+import EmployeeService from './services/employee.service';
+import MainService from './services/main.service';
+import ProductService from './services/product.service';
+import ClientService from './services/client.service';
+import UserService from './services/user.service';
+import TicketService from './services/ticket.service';
 
 // ===================== EXPORT =====================
 // Images
 export { Logo, LogoBlue, AvatarDemo, Background }
 // Components
-export { ServiceDetail, Client, FetchingData, FadeAnimate, Alert, AlertItem, Svg, TitleApp, Main, Header, Sidebar, Branch, BranchCreate, BranchRow, BranchDetail, Employee, EmployeeRow }
-export { EmployeeUpdate, EmployeeDetail, EmployeeCreate, BranchUpdate, BranchDetailEmployees, Service, ServiceCreate, ServiceRow, ServiceUpdate }
-export { SubmitButtonsGroup, ClientUpdate, ClientDetail, ClientRow, ClientCreate, ProductDetail, ConfirmRemove, Product, ProductRow, ProductCreate, ProductUpdate, CpnWraper }
+export { FetchingData, FadeAnimate, Alert, AlertItem, Svg, TitleApp, Header, Sidebar, CpnWraper, ConfirmRemove, SubmitButtonsGroup }
 // Screens
 export { NotMatch404, Login, Authentication, SelectBranch }
+export { Main }
+export { Branch, BranchRow, BranchAddEmployee, BranchDetail, BranchCreate, BranchUpdate, BranchDetailEmployees }
+export { Employee, EmployeeCreate, EmployeeDetail, EmployeeRow, EmployeeUpdate }
+export { ClientTicketCreate }
+export { Service, ServiceCreate, ServiceDetail, ServiceUpdate, ServiceRow }
+export { Product, ProductCreate, ProductDetail, ProductUpdate, ProductRow }
+export { Client, ClientUpdate, ClientDetail, ClientInformationRow, ClientInformations, ClientCreate, ClientTicket, ClientTicketRow }
 // Route
 export { Routes }
 // All Reducers
 export { allReducers }
-// Extension
-export { isDev }
+// Setting
+export { isDev, ITEMS_PER_PAGE }
 // Utils
-export { converErrorMessage, RequestService, Roles, GetRoleName }
+export { converErrorMessage, RequestService, Roles, GetRoleName, convertToSave, convertToSearch, pageNavigation, getLabelGender }
 // Actions
 export { setUserInfo, logOut }
 export { setBranch, createBranch, updateBranch, removeBranch, setBranchDetail }
@@ -98,6 +134,17 @@ export { setService, createService, updateService, removeService }
 export { setProduct, updateProduct, createProduct, removeProduct }
 export { offConfirmRemove, onConfirmRemove }
 export { setClient, createClient, setClientDetail, updateClient }
-export { loadData, fetchTemp }
 // Data
 export { VietNamPlaces, medicalHistoryData }
+// Store
+export { Store }
+// Services
+export { AlertService }
+export { ServiceService }
+export { BranchService }
+export { EmployeeService }
+export { MainService }
+export { ProductService }
+export { ClientService }
+export { UserService }
+export { TicketService }

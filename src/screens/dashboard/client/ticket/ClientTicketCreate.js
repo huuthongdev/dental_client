@@ -1,0 +1,203 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from "react-router-dom";
+import * as Yup from 'yup';
+import { Form, Field, Formik } from 'formik';
+import Select from 'react-select';
+import { CpnWraper, TitleApp, Svg, SubmitButtonsGroup, TicketService } from '../../../../refs';
+
+class ClientTicketCreate extends Component {
+    state = {
+        goBack: false,
+        items: []
+    }
+
+    addItem(serviceId) {
+        const { items } = this.state;
+        const check = items.find(v => v.service === serviceId);
+        if (check) return;
+        return this.setState({ items: [...items, { service: serviceId, qty: 1 }] });
+    }
+
+    changeQty(serviceId, qty) {
+        let { items } = this.state;
+        items = items.map(v => v.service._id === serviceId ? v = { ...v, qty: qty } : v);
+        return this.setState({ items });
+    }
+
+    removeServiceInList(serviceId) {
+        const { items } = this.state;
+        return this.setState({ items: items.filter(v => v.service._id !== serviceId) });
+    }
+
+    render() {
+        const { goBack, items } = this.state;
+        const { match, client, employee, service } = this.props;
+
+        const totalPrice = items.length !== 0 ? items.map(v => v = v.service.suggestedRetailerPrice * v.qty).reduce((a, b) => a + b) : 0;
+
+        if (goBack) return <Redirect to="/client" />
+        return (
+            <CpnWraper>
+                <TitleApp sub="Tạo phiếu điều trị" />
+                <div className="cpn-form">
+                    <div className="container-fluid mb-1">
+                        <div className="row align-items-center">
+                            <div className="col-sm-8">
+                                <div className="cpn-form-title">
+                                    <Svg name="TICKET" />
+                                    Thêm mới phiếu điều trị
+                            </div>
+                            </div>
+                            <div className="col-sm-4 text-right">
+                                <button onClick={() => this.setState({ goBack: true })} className="cpn-form-close">
+                                    <Svg name="CLOSE_FORM" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <Formik
+                        initialValues={{
+                            dentistId: '',
+                            clientId: '',
+                            serviceSelect: '',
+                        }}
+                        validationSchema={Yup.object().shape({
+                            dentistId: Yup.string().required('không được để trống'),
+                            clientId: Yup.string().required('không được để trống')
+                        })}
+                        onSubmit={(values, { setSubmitting }) => {
+                            const { dentistId, clientId } = values;
+                            const payload = { dentistId, clientId, items: items.map(v => v = { service: v.service._id, qty: +v.qty }) };
+                            TicketService.create(payload)
+                            .then(success => {
+                                setSubmitting(false);
+                                console.log(success);
+                            });
+                        }}
+                        render={props => {
+                            const { isSubmitting, isValid, errors, touched, setValues, values, setTouched } = props;
+
+                            const dentistArr = employee.filter(v => {
+                                const currentBranchId = localStorage.getItem("BRANCH");
+                                return v.roleInBranchs && v.roleInBranchs.find(v => v.branch._id === currentBranchId
+                                    && (v.roles.includes('DENTIST')
+                                        || v.roles.includes('DENTISTS_MANAGER')))
+                            });
+
+                            const servicesAvailable = service.filter(v => !items.find(k => k.service._id === v._id));
+
+                            return <Form>
+                                <div className="container-fluid">
+                                    <div className="row">
+                                        <div className="col-sm-6">
+                                            <div className={`form-group required ${errors.clientId && touched.clientId ? 'error' : ''}`}>
+                                                <label>Khách hàng:</label><span className="error-message">{errors.clientId}</span>
+                                                <Select
+                                                    options={client.map(v => v = { label: `${v.name} - ${v.phone} - ${v.city}`, value: v._id })}
+                                                    className="select"
+                                                    classNamePrefix="react-select"
+                                                    onChange={selected => setValues({ ...values, clientId: selected.value })}
+                                                    isSearchable
+                                                    onBlur={() => setTouched({ ...touched, clientId: true })}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="col-sm-6">
+                                            <div className={`form-group required ${errors.dentistId && touched.dentistId ? 'error' : ''}`}>
+                                                <label>Bác sĩ phụ trách chính:</label><span className="error-message">{errors.dentistId}</span>
+                                                <Select
+                                                    options={dentistArr.map(v => v = { label: `BS: ${v.name}`, value: v._id })}
+                                                    className="select"
+                                                    classNamePrefix="react-select"
+                                                    onChange={selected => setValues({ ...values, dentistId: selected.value })}
+                                                    isSearchable
+                                                    onBlur={() => setTouched({ ...touched, dentistId: true })}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="col-sm-12">
+                                            <div className={`form-group ${errors.services && touched.services ? 'error' : ''}`}>
+                                                <label>Dịch vụ:</label><span className="error-message">{errors.services}</span>
+                                                <Select
+                                                    value={values.serviceSelect ? values.serviceSelect : null}
+                                                    options={servicesAvailable.map(v => v = { label: `${v.name}`, value: v })}
+                                                    className="select"
+                                                    classNamePrefix="react-select"
+                                                    onChange={selected => {
+                                                        this.addItem(selected.value);
+                                                    }}
+                                                    isSearchable
+                                                    placeholder="Thêm dịch vụ"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="col-sm-12">
+                                            <div className="form-group">
+                                                <div className="form-table">
+                                                    <table>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Dịch vụ</th>
+                                                                <th>Đơn giá</th>
+                                                                <th>Số lượng</th>
+                                                                <th>Chi phí</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {items.map((value, key) => {
+                                                                return <tr key={key}>
+                                                                    <td>{key + 1}</td>
+                                                                    <td>{value.service.name}</td>
+                                                                    <td>{(value.service.suggestedRetailerPrice).toLocaleString('en-GB')}/{value.service.unit}</td>
+                                                                    <td className="qty-col">
+                                                                        <input onChange={e => this.changeQty(value.service._id, e.target.value)} type="number" defaultValue={value.qty} />
+                                                                    </td>
+                                                                    <td>
+                                                                        {(value.service.suggestedRetailerPrice * value.qty).toLocaleString('en-GB')} VNĐ
+                                                                    </td>
+                                                                    <td style={{ width: '50px' }}>
+                                                                        <div onClick={() => this.removeServiceInList(value.service._id)} className="btn-remove">
+                                                                            <Svg name="REMOVE" />
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            })}
+                                                            <tr>
+                                                                <td colSpan={6} className="total-row">
+                                                                    Tổng cộng: <span className="number">{totalPrice.toLocaleString('en-GB')}</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="col-sm-12">
+                                            <SubmitButtonsGroup disabled={!isValid || items.length === 0} loading={isSubmitting} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </Form>
+                        }}
+                    />
+                </div>
+            </CpnWraper>
+        );
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        client: state.client,
+        employee: state.employee,
+        service: state.service
+    };
+}
+export default connect(mapStateToProps)(ClientTicketCreate);

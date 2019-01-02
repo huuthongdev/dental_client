@@ -1,6 +1,6 @@
 import { RequestService, createAlert } from "../refs";
 
-export const SET_SERVICE = 'SET_SERVICE';
+export const SET_SERVICE = 'SET_SERVICE'; 
 export const setService = () => async dispatch => {
     return RequestService.get('/service')
         .then(result => dispatch({ type: SET_SERVICE, result }))

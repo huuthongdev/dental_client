@@ -9,16 +9,18 @@ import { serviceReducer } from "./service.reducer";
 import { productReducer } from "./product.reducer";
 import { confirmRemoveReducer } from "./confirm-remove.reducer";
 import { clientReducer } from "./client.reducer";
+import { ticketReducer } from "./ticket.reducer";
 
 export const allReducers = combineReducers({
+    fetchDataStatus: fetchDataStatusReducer,
+    alert: alertReducer,
+    confirmRemove: confirmRemoveReducer,
     main: mainReducer,
     user: userReducer,
     branch: branchReducer,
-    alert: alertReducer,
-    fetchDataStatus: fetchDataStatusReducer,
     employee: employeeReducer,
     service: serviceReducer,
     product: productReducer,
-    confirmRemove: confirmRemoveReducer,
-    client: clientReducer
+    client: clientReducer,
+    ticket: ticketReducer
 });

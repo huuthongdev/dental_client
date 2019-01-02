@@ -1,4 +1,5 @@
-import { SET_USER_INFO, LOG_OUT } from "../actions/user.actions";
+export const SET_USER_INFO = 'SET_USER_INFO';
+export const LOG_OUT = 'LOG_OUT';
 
 const defaultState = {}
 

@@ -5,7 +5,7 @@ class Svg extends Component {
         const { name } = this.props;
 
         if (name === 'USER') return <Fragment>
-            <svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <defs>
                     <polygon id="path-1" points="0 0 15.9995556 0 15.9995556 16 0 16" />
                 </defs>
@@ -23,8 +23,44 @@ class Svg extends Component {
             </svg>
         </Fragment>
 
+        if (name === 'LOGO') return <Fragment>
+            <svg viewBox="0 0 146 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+                <g id="Dental-Application" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
+                    <g id="Group-14" fill="#3378FF">
+                        <g id="Group-2">
+                            <path d="M27.2943746,8.81531661 C27.4785001,8.89761207 27.6848877,8.94374084 27.90287,8.94374084 C28.6818092,8.94374084 29.3139581,8.35337919 29.3139581,7.62549749 C29.3139581,6.89761578 28.6818092,6.3074707 27.90287,6.3074707 C27.1232352,6.3074707 26.4915501,6.89761578 26.4915501,7.62549749 C26.4915501,7.68873505 26.496188,7.75067321 26.505232,7.81152854 C25.5579362,8.44130539 24.5410716,9.0227878 23.5100614,9.54904562 C23.3945771,9.60708558 23.2814118,9.66360957 23.1705654,9.71840102 L23.1698697,9.72013355 C22.3271592,10.1389741 21.4788831,10.5207818 20.6542604,10.8612251 C20.3458385,10.9887831 20.0297641,11.1148251 19.7085879,11.2384848 C18.5256857,11.693059 19.0773666,12.8218062 20.2347603,12.3778438 C20.5624295,12.2524515 20.8919539,12.1214285 21.222174,11.9849913 C21.731418,11.7744882 22.2290671,11.5572715 22.7132662,11.3342074 C22.4591081,12.420291 22.2935342,13.6804944 22.2833308,15.5906153 C22.2782291,16.5933206 21.6150061,19.3837864 20.4321039,19.5429632 C18.4498556,19.8585013 18.0336021,13.0370738 15.6251287,13.0556986 C13.8056716,13.1362615 12.960642,19.2263422 11.1720271,19.2794011 C9.24450632,19.1381994 9.67907969,15.2809245 9.42909565,13.782714 C9.34723631,13.2924063 9.2454339,12.8612214 9.131341,12.4692351 C11.667821,12.3022619 14.7745337,11.6519112 17.9927883,10.5290113 C20.3170834,9.71796788 22.4138883,8.76030859 24.1521818,7.75738679 C24.6189887,7.49230878 24.9682243,7.27400924 25.3030824,7.05441029 L25.3035462,7.05332746 C26.7355049,6.12208934 27.8423451,5.17287616 28.5238879,4.28430174 C28.5507879,4.28560114 28.5774559,4.28646741 28.6045878,4.28646741 C29.3837588,4.28646741 30.0161396,3.69610575 30.0161396,2.96844062 C30.0161396,2.24077548 29.3837588,1.6506304 28.6045878,1.6506304 C27.8254167,1.6506304 27.1934997,2.24077548 27.1934997,2.96844062 C27.1934997,3.20146672 27.2581988,3.42019939 27.371596,3.61012865 C26.9242683,4.18987852 26.3023229,4.73454454 25.7399747,5.17222646 C23.4381736,6.96323559 20.3198661,8.39127841 17.4972263,9.37622515 C14.6810795,10.3587897 11.3171941,11.1943052 8.28190543,11.2707533 L8.28515197,11.2796326 C7.96374392,11.2945757 7.63537898,11.305404 7.30817352,11.3108182 C7.67155478,12.1950613 7.95562755,12.9850977 8.12050571,13.973293 C8.17245045,14.2862323 8.18288577,14.6316567 8.19703144,14.948061 C8.21836588,15.4216931 8.23506241,15.894892 8.27077441,16.3680909 C8.37141734,17.6910987 8.62372034,19.4082585 9.94552836,20.17274 C10.2871114,20.3700326 10.6683486,20.4832971 11.0681376,20.5127502 L11.1411849,20.5179478 L11.2140003,20.5155656 C13.1375788,20.458825 14.0250453,18.0127007 14.6228736,16.6232068 C14.7891431,16.2368513 15.3382732,14.9229393 15.7357432,14.4085926 C16.1677657,14.8683644 16.727563,16.2851457 16.8773679,16.6650043 C17.4172221,18.0317586 18.1361002,20.4222252 19.891554,20.7522733 C20.1375958,20.7988352 20.3898988,20.8025169 20.637332,20.7650508 C22.070682,20.5616944 22.791879,19.1046316 23.1682465,17.952062 C23.3994469,17.2432382 23.6039793,16.3399372 23.6079216,15.5964627 C23.6169655,13.8372889 23.7619006,12.3258678 24.2665066,10.6325303 L24.2859859,10.5679934 C25.3830865,10.0021038 26.3920667,9.41195871 27.2943746,8.81531661 M23.2456998,0.766603883 C24.4875036,1.48214127 25.1150146,2.65311906 25.3540995,3.94147617 L25.2933427,3.94710691 C25.1312473,4.08809203 24.9566295,4.22669492 24.7465316,4.37807525 C22.7083964,5.90270696 19.5847554,7.40958018 15.921492,8.50584236 C11.5500178,9.81390707 7.44012243,10.2299323 4.76218576,9.79160067 C4.50338966,10.0714052 4.12052913,10.2487736 3.69337643,10.2487736 C2.91397349,10.2487736 2.2820565,9.65862852 2.2820565,8.93096339 C2.2820565,8.20286512 2.91397349,7.61272003 3.69337643,7.61272003 C4.3450046,7.61272003 4.89343898,8.02549674 5.05576628,8.58597215 C5.50680428,8.65592329 5.96781381,8.69208998 6.39334323,8.70963191 L6.39218375,8.70400117 C6.84391744,8.72089339 7.30539077,8.72262593 7.74761671,8.71049818 L7.7480805,8.71288042 C10.3448535,8.62733645 13.1243607,8.04390494 15.5170651,7.32793442 C18.2870645,6.49891593 21.3680367,5.2441267 23.6881576,3.58197494 C23.7442765,3.54169348 23.8013229,3.50054575 23.8583694,3.45831518 C23.1311431,1.48625604 21.1326621,0.736067935 18.4197091,2.25766771 C17.0584788,3.02149953 15.0064298,4.16670585 12.9066102,4.04023072 C12.1557305,3.99691732 11.9405309,3.00330791 12.8173302,2.87033577 C14.3125965,2.85929085 15.2195424,2.50217186 16.6635596,1.81630415 C15.787456,2.02399191 14.6583537,2.13595705 13.9879419,2.05452786 C12.5647953,1.88192396 11.4994644,1.30260722 10.3469406,1.35285076 C8.54997737,1.43146459 7.25762016,2.41294625 7.39072855,6.16323707 C8.57270319,6.1381153 9.79154932,6.01380584 10.9930032,5.82322687 C12.3312759,5.61055807 12.5657229,6.83026344 11.1126617,7.05397716 C7.40185956,7.62701345 4.24320219,7.48776087 2.51093799,6.68386415 C2.32240643,6.76052887 2.11323611,6.7997275 1.89386236,6.79171452 C1.11515511,6.76377737 0.508051002,6.15132589 0.5381975,5.42387732 C0.568112103,4.69664532 1.2236825,4.1296729 2.00308544,4.15804317 C2.781097,4.18576375 3.38889679,4.79864837 3.3585184,5.52566381 C3.35643133,5.57742332 3.35109772,5.62853314 3.34228567,5.67856011 C4.13096445,5.97915512 5.1204653,6.09588473 5.95250866,6.1413638 L6.06521019,6.14721111 C5.9743069,3.29264142 6.65306691,0.276296184 10.2850243,0.117336003 C10.4626568,0.109539591 10.6412168,0.111921828 10.8186173,0.123616446 C11.7533907,0.184255208 12.5870573,0.495895127 13.4798575,0.718526008 C14.3622223,0.938558085 15.1379149,1.00699326 16.0439331,0.850848448 C18.2270034,0.474454994 21.2488421,-0.383150345 23.2456998,0.766603883" id="Fill-35" />
+                        </g>
+                        <text id="DentalTech" fontFamily="Montserrat-Bold, Montserrat" fontSize={17} fontWeight="bold">
+                            <tspan x={35} y={17}>DENTAL</tspan>
+                            <tspan x="107.386" y={17} fontFamily="Montserrat-Regular, Montserrat" fontWeight="normal">Tech</tspan>
+                        </text>
+                    </g>
+                </g>
+            </svg>
+        </Fragment>
+
+        if (name === 'LOGO_WHITE') return <Fragment>
+            <svg viewBox="0 0 259 39" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+                <g id="Dental-Application" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
+                    <g id="Login" transform="translate(-549.000000, -274.000000)" fill="#FFFFFF">
+                        <g id="Group-16" transform="translate(548.000000, 274.000000)">
+                            <g id="Group-3">
+                                <g id="Group-2">
+                                    <path d="M49.4937992,16.3713023 C49.8276802,16.5241367 50.2019296,16.6098044 50.5972043,16.6098044 C52.0096807,16.6098044 53.1559773,15.5134185 53.1559773,14.1616382 C53.1559773,12.8098579 52.0096807,11.7138741 50.5972043,11.7138741 C49.1834665,11.7138741 48.0380109,12.8098579 48.0380109,14.1616382 C48.0380109,14.2790794 48.046421,14.3941074 48.0628207,14.5071244 C46.3450577,15.67671 44.5011433,16.7566059 42.631578,17.7339419 C42.4221665,17.8417304 42.2169601,17.9467035 42.0159587,18.048459 L42.0146971,18.0516766 C40.4865819,18.8295234 38.9483746,19.5385947 37.4530588,20.1708466 C36.8937872,20.40774 36.3206388,20.641818 35.7382394,20.8714718 C33.5932434,21.7156809 34.5936248,23.8119258 36.6923653,22.9874243 C37.2865388,22.7545529 37.8840765,22.5112244 38.4828756,22.257841 C39.4063046,21.8669066 40.3087083,21.4635041 41.1867228,21.0492424 C40.7258493,23.0662547 40.4256087,25.4066324 40.4071065,28.9539999 C40.3978554,30.8161668 39.1952111,35.9984605 37.050215,36.2940745 C33.4557382,36.8800739 32.7009317,24.2117085 28.3335667,24.2462973 C25.0342844,24.3959142 23.5019642,35.7060641 20.2586091,35.8046021 C16.7633715,35.5423704 17.5513978,28.3788598 17.0980934,25.5964688 C16.9496552,24.6858974 16.7650535,23.8851254 16.558165,23.1571509 C21.1576488,22.8470579 26.7911544,21.6392637 32.6269229,19.5538782 C36.8416445,18.0476546 40.6438508,16.2691445 43.7959564,14.4065755 C44.6424329,13.9142877 45.2757135,13.5088743 45.8829227,13.1010477 L45.8837637,13.0990367 C48.4803821,11.3695945 50.4874525,9.60677001 51.7233167,7.95656037 C51.7720953,7.95897355 51.8204534,7.96058233 51.8696525,7.96058233 C53.2825493,7.96058233 54.4292665,6.8641964 54.4292665,5.51281829 C54.4292665,4.16144018 53.2825493,3.06545645 51.8696525,3.06545645 C50.4567557,3.06545645 49.3108795,4.16144018 49.3108795,5.51281829 C49.3108795,5.94558104 49.4282004,6.35179887 49.6338274,6.70452464 C48.8226732,7.78120297 47.6948788,8.79272558 46.6751541,9.60556342 C42.5012214,12.9317232 36.8466906,15.5838028 31.7283037,17.4129896 C26.6216908,19.2377522 20.5218452,20.7894239 15.0178552,20.931399 L15.0237422,20.947889 C14.4409223,20.9756405 13.8454872,20.9957503 13.2521546,21.0058052 C13.911086,22.647971 14.4262046,24.1151815 14.7251837,25.9504012 C14.8193768,26.5315742 14.8382995,27.1730766 14.8639503,27.7606848 C14.9026368,28.6402872 14.9329132,29.5190851 14.9976709,30.3978831 C15.1801701,32.8548976 15.6376796,36.0439087 18.0345581,37.4636601 C18.653962,37.8300605 19.3452722,38.0404089 20.0702228,38.0951076 L20.2026819,38.1047603 L20.3347205,38.1003361 C23.8228095,37.9949608 25.4320822,33.4521585 26.5161441,30.8716698 C26.8176462,30.1541524 27.813402,27.7140301 28.5341476,26.7588149 C29.3175484,27.6126767 30.3326475,30.2438421 30.6042938,30.9492936 C31.5832294,33.4875517 32.886795,37.9269897 36.0700179,38.5399362 C36.5161737,38.6264083 36.9736831,38.6332456 37.422362,38.5636657 C40.0215034,38.1860038 41.329274,35.48003 42.0117536,33.3395437 C42.4309971,32.0231566 42.8018825,30.3455976 42.8090311,28.9648592 C42.8254308,25.6978222 43.0882464,22.8908973 44.0032653,19.7461278 L44.0385877,19.6262734 C46.0279969,18.5753356 47.8576142,17.4793519 49.4937992,16.3713023 M42.1522023,1.42369293 C44.4040066,2.75254807 45.5418931,4.92722111 45.9754338,7.31988432 L45.8652615,7.33034141 C45.5713285,7.59217092 45.2546882,7.84957627 44.8737107,8.13071118 C41.1778922,10.9621701 35.5136897,13.7606489 28.8709721,15.7965644 C20.9440322,18.2258274 13.491422,18.9984457 8.63543017,18.1844012 C8.16614659,18.7040383 7.47189282,19.0334367 6.6973226,19.0334367 C5.28400527,19.0334367 4.13812912,17.937453 4.13812912,16.5860749 C4.13812912,15.2338924 5.28400527,14.1379086 6.6973226,14.1379086 C7.87894167,14.1379086 8.87343601,14.904494 9.16778951,15.9453769 C9.98567175,16.0752861 10.8216357,16.1424528 11.5932624,16.1750307 L11.5911599,16.1645736 C12.4103036,16.1959449 13.2471086,16.1991624 14.0490116,16.1766395 L14.0498526,16.1810636 C18.7586677,16.0221963 23.7988407,14.9386806 28.1376114,13.6090211 C33.1605437,12.0694153 38.7473732,9.73909245 42.9545258,6.65223918 C43.056288,6.57743075 43.1597323,6.50101353 43.2631765,6.42258534 C41.9444728,2.76018979 38.3205607,1.36698331 33.4010726,4.19281146 C30.9327082,5.61135628 27.2116594,7.73816802 23.4039865,7.50328563 C22.0423913,7.42284646 21.6521627,5.57757183 23.2420921,5.33062356 C25.9535084,5.31011158 27.5981035,4.64689059 30.2165882,3.37313629 C28.6279202,3.75884212 26.5804814,3.96677738 25.3648014,3.81555174 C22.7841622,3.49500163 20.8523621,2.41912769 18.7624523,2.51243713 C15.503959,2.65843423 13.1604846,4.4811859 13.4018544,11.4460117 C15.5451685,11.399357 17.7553428,11.1684966 19.9339792,10.8145642 C22.3607136,10.4196079 22.7858442,12.684775 20.1509598,13.1002433 C13.4220387,14.1644536 7.69433997,13.9058416 4.55316756,12.4128906 C4.21129699,12.5552679 3.83200148,12.6280654 3.43420374,12.6131841 C2.02214793,12.5613008 0.921265817,11.4238909 0.975931468,10.072915 C1.03017661,8.7223413 2.21894427,7.66939252 3.6322616,7.72208018 C5.0430559,7.77356125 6.14519952,8.91177555 6.09011337,10.2619471 C6.08632882,10.3580719 6.07665721,10.4529901 6.06067801,10.5458974 C7.49081554,11.1041452 9.28511041,11.3209288 10.7938824,11.4053899 L10.9982478,11.4162492 C10.8334098,6.1149055 12.064228,0.513121485 18.6501774,0.21790972 C18.9722843,0.203430669 19.2960731,0.207854823 19.6177594,0.2295734 C21.3128151,0.342188243 22.8245306,0.920948093 24.4434749,1.33440544 C26.0434965,1.74303644 27.4500857,1.87013034 29.0929988,1.58014712 C33.0516329,0.881130703 38.5312337,-0.711564926 42.1522023,1.42369293" id="Fill-35" />
+                                </g>
+                                <text id="DentalTech" fontFamily="Montserrat-Bold, Montserrat" fontSize={30} fontWeight="bold">
+                                    <tspan x={64} y={30}>DENTAL</tspan>
+                                    <tspan x="191.74" y={30} fontFamily="Montserrat-Regular, Montserrat" fontWeight="normal">Tech</tspan>
+                                </text>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </Fragment>
+
         if (name === 'TICKET') return <Fragment>
-            <svg width="15px" height="14px" viewBox="0 0 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <defs>
                     <polygon id="path-1" points="0.352264 0 8.8 0 8.8 12.5997375 0.352264 12.5997375" />
                     <polygon id="path-3" points="0 0.700325955 8.447736 0.700325955 8.447736 10.4999827 0 10.4999827" />
@@ -69,7 +105,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'INFO') return <Fragment>
-            <svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <g id="Dental-Application" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
                     <g id="Mange---Branch-Detail" transform="translate(-90.000000, -141.000000)" fill="#546E7A">
                         <g id="Icon-Formation" transform="translate(90.000000, 141.000000)">
@@ -83,7 +119,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'TOGGLE_SIDEBAR_FULL') return <Fragment>
-            <svg width="17px" height="16px" viewBox="0 0 17 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 17 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <g id="Dental-Application" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
                     <g id="Dashboard-Core" transform="translate(-253.000000, -23.000000)" fill="#546E7A">
                         <g id="Navigation-Copy-2" transform="translate(220.000000, 0.000000)">
@@ -101,7 +137,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'REMOVE') return <Fragment>
-            <svg className="svg-remove" width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg className="svg-remove" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <g id="Dental-Application" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
                     <g id="Mange---Clients" transform="translate(-1275.000000, -322.000000)" fill="#FF3636" fillRule="nonzero">
                         <g id="Row" transform="translate(89.000000, 293.000000)">
@@ -119,7 +155,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'ALERT_SUCCESS') return <Fragment>
-            <svg width="17px" height="16px" viewBox="0 0 17 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 17 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <g id="Dental-Application" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
                     <g id="Dashboard-Core-Sidebar---Alert" transform="translate(-1062.000000, -716.000000)" fill="#FFFFFF">
                         <g id="Group-2" transform="translate(1045.000000, 706.000000)">
@@ -135,7 +171,7 @@ class Svg extends Component {
         </Fragment >
 
         if (name === 'BACK') return <Fragment>
-            <svg width="16px" height="14px" viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <g id="Dental-Application" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
                     <g id="Mange---Branch-Detail---Employee" transform="translate(-1248.000000, -96.000000)" fill="#FFFFFF" fillRule="nonzero">
                         <g id="Group-2">
@@ -154,7 +190,7 @@ class Svg extends Component {
         </Fragment >
 
         if (name === 'ALERT_ERROR') return <Fragment>
-            <svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <g id="Dental-Application" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
                     <g id="Dashboard-Core-Sidebar---Alert" transform="translate(-1062.000000, -666.000000)" fill="#FFFFFF">
                         <g id="Group-2-Copy" transform="translate(1045.000000, 656.000000)">
@@ -170,7 +206,7 @@ class Svg extends Component {
         </Fragment >
 
         if (name === 'ARROW_DOWN') return <Fragment>
-            <svg width="10px" height="7px" viewBox="0 0 10 7" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 10 7" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <g id="Dental-Application" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
                     <g id="Mange---Branch" transform="translate(-1227.000000, -307.000000)" fill="#14AD0D">
                         <g id="Table-Body" transform="translate(90.000000, 280.000000)">
@@ -186,7 +222,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'CLOSE_FORM') return <Fragment>
-            <svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <g id="Dental-Application" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
                     <g id="Mange---Branch-Add" transform="translate(-1296.000000, -109.000000)" fill="#546E7A" fillRule="nonzero">
                         <g id="Form-Create-Branch" transform="translate(90.000000, 88.000000)">
@@ -200,7 +236,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'CLOUD') return <Fragment>
-            <svg width="24px" height="16px" viewBox="0 0 24 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 24 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <defs>
                     <polygon id="path-1" points="0 0 23.9997 0 23.9997 15.9999 0 15.9999" />
                 </defs>
@@ -225,7 +261,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'TIME') return <Fragment>
-            <svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <defs>
                     <polygon id="path-1" points="0.0002 0.0004 16 0.0004 16 16 0.0002 16" />
                 </defs>
@@ -253,7 +289,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'DATE') return <Fragment>
-            <svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <defs>
                     <polygon id="path-1" points="0 16 16 16 16 0 0 0" />
                 </defs>
@@ -292,7 +328,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'NOTIFICATION') return <Fragment>
-            <svg width="13px" height="15px" viewBox="0 0 13 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 13 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <g id="Dental-Application" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
                     <g id="Dashboard-Core" transform="translate(-1231.000000, -24.000000)" fill="#546E7A">
                         <g id="Navigation-Copy-2" transform="translate(220.000000, 0.000000)">
@@ -311,7 +347,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'LOG_OUT') return <Fragment>
-            <svg width="13px" height="15px" viewBox="0 0 13 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 13 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <defs>
                     <polygon id="path-1" points="0.3128125 0.364736842 1.3121875 0.364736842 1.3121875 7.40905263 0.3128125 7.40905263" />
                     <polygon id="path-3" points="0 0.466263158 12.999675 0.466263158 12.999675 12.6312632 0 12.6312632" />
@@ -344,7 +380,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'FULL_SCREEN') return <Fragment>
-            <svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <defs>
                     <polygon id="path-1" points="0 0.000186666667 5.21220536 0.000186666667 5.21220536 5.43592 0 5.43592" />
                     <polygon id="path-3" points="0 0.291394098 5.2089851 0.291394098 5.2089851 5.59972 0 5.59972" />
@@ -386,7 +422,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'CREATE') return <Fragment>
-            <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <g id="Symbols" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
                     <g id="Button-Add" transform="translate(-15.000000, -11.000000)" fill="#FFFFFF" fillRule="nonzero">
                         <g id="Group-2">
@@ -401,7 +437,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'EDIT') return <Fragment>
-            <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <g id="Symbols" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
                     <g id="Button---Update" transform="translate(-23.000000, -14.000000)" fill="#FFFFFF" fillRule="nonzero">
                         <g id="Button---Fill---Blue">
@@ -417,7 +453,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'SEARCH') return <Fragment>
-            <svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <g id="Dental-Application" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd" opacity="0.5">
                     <g id="Mange---Branch" transform="translate(-307.000000, -197.000000)" fill="#546E7A" fillRule="nonzero">
                         <g id="Input-Search" transform="translate(91.000000, 185.000000)">
@@ -431,7 +467,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'TOGGLE_SIDEBAR_SHORTENT') return <Fragment>
-            <svg width="17px" height="16px" viewBox="0 0 17 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 17 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <g id="Dental-Application" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
                     <g id="Dashboard-Core-Sidebar---Shorten" transform="translate(-90.000000, -23.000000)" fill="#546E7A">
                         <g id="Group-Copy">
@@ -449,7 +485,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'PASSWORD') return <Fragment>
-            <svg width="12px" height="16px" viewBox="0 0 12 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 12 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <g id="Symbols" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
                     <g id="Icon-Password-Dark" transform="translate(-2.000000, 0.000000)" fill="#FFFFFF">
                         <path d="M10.6666667,6 L5.33333333,6 L5.33333333,4.66666667 C5.33333333,3.19644444 6.52977778,2 8,2 C9.47022222,2 10.6666667,3.19644444 10.6666667,4.66666667 L10.6666667,6 Z M8.99822222,12.9635556 C9.00888889,13.0568889 8.97866667,13.152 8.91555556,13.2222222 C8.85155556,13.2933333 8.76088889,13.3333333 8.66666667,13.3333333 L7.33333333,13.3333333 C7.23911111,13.3333333 7.14844444,13.2933333 7.08444444,13.2222222 C7.02133333,13.152 6.99111111,13.0568889 7.00177778,12.9635556 L7.21244444,11.072 C6.87022222,10.824 6.66666667,10.4311111 6.66666667,10 C6.66666667,9.26488889 7.26488889,8.66666667 8,8.66666667 C8.73511111,8.66666667 9.33333333,9.26488889 9.33333333,10 C9.33333333,10.4311111 9.12977778,10.824 8.78755556,11.072 L8.99822222,12.9635556 Z M13.6666667,6 L12.6666667,6 L12.6666667,4.66666667 C12.6666667,2.09333333 10.5733333,0 8,0 C5.42666667,0 3.33333333,2.09333333 3.33333333,4.66666667 L3.33333333,6 L2.33333333,6 C2.14933333,6 2,6.14933333 2,6.33333333 L2,14.6666667 C2,15.4017778 2.59822222,16 3.33333333,16 L12.6666667,16 C13.4017778,16 14,15.4017778 14,14.6666667 L14,6.33333333 C14,6.14933333 13.8506667,6 13.6666667,6 Z" id="Fill-1" />
@@ -459,7 +495,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'HOME') return <Fragment>
-            <svg width="16px" height="14px" viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <defs>
                     <polygon id="path-1" points="0 0 16 0 16 14 0 14" />
                 </defs>
@@ -482,7 +518,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'BRANCH') return <Fragment>
-            <svg width="15px" height="14px" viewBox="0 0 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <g id="Dental-Application" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
                     <g id="Dashboard-Core" transform="translate(-16.000000, -278.000000)" fill="#546E7A">
                         <g id="Sidebar">
@@ -499,7 +535,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'EMPLOYEE') return <Fragment>
-            <svg width="16px" height="12px" viewBox="0 0 16 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 16 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <defs>
                     <polygon id="path-1" points="0.8352 0.9484621 8 0.9484621 8 5.4737 0.8352 5.4737" />
                 </defs>
@@ -527,7 +563,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'SERVICE') return <Fragment>
-            <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <g id="Dental-Application" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
                     <g id="Dashboard-Core" transform="translate(-16.000000, -378.000000)" fill="#546E7A">
                         <g id="Sidebar">
@@ -553,7 +589,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'PRODUCT') return <Fragment>
-            <svg width="16px" height="13px" viewBox="0 0 16 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 16 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <defs>
                     <polygon id="path-1" points="0.101848624 0.096952717 5.24031193 0.096952717 5.24031193 5.63161609 0.101848624 5.63161609" />
                     <polygon id="path-3" points="0.0765 0.0443119266 5.2149289 0.0443119266 5.2149289 5.57896048 0.0765 5.57896048" />
@@ -588,7 +624,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'CLIENT') return <Fragment>
-            <svg width="15px" height="14px" viewBox="0 0 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <defs>
                     <polygon id="path-1" points="0 0.0647720802 4.04925193 0.0647720802 4.04925193 5.76452021 0 5.76452021" />
                     <polygon id="path-3" points="0.683725 0.320689811 12.25 0.320689811 12.25 5.86756471 0.683725 5.86756471" />
@@ -623,7 +659,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'ACCOUNTANT') return <Fragment>
-            <svg width="15px" height="14px" viewBox="0 0 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <defs>
                     <polygon id="path-1" points="0 0.107789852 11.0476625 0.107789852 11.0476625 13.124825 0 13.124825" />
                 </defs>
@@ -651,7 +687,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'WAREHOUSE') return <Fragment>
-            <svg width="15px" height="14px" viewBox="0 0 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg viewBox="0 0 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <g id="Dental-Application" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
                     <g id="Dashboard-Core" transform="translate(-16.000000, -639.000000)" fill="#546E7A">
                         <g id="Sidebar">
@@ -667,7 +703,7 @@ class Svg extends Component {
         </Fragment>
 
         if (name === 'SETTING') return <Fragment>
-            <svg id="button-change-user-info" width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+            <svg id="button-change-user-info" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <defs>
                     <polygon id="path-1" points="6.25e-05 0.101875 5.9269375 0.101875 5.9269375 6.02775 6.25e-05 6.02775" />
                 </defs>

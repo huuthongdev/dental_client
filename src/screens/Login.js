@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { Svg, Logo, Background, RequestService, TitleApp, setUserInfo, createAlert } from '../refs';
+import { Svg, Background, TitleApp, UserService, Alert } from '../refs';
 
 class Login extends Component {
     state = {
@@ -11,21 +11,16 @@ class Login extends Component {
         userInfo: null
     }
 
-    handleSubmit(e) {
+    async handleSubmit(e) {
         e.preventDefault();
         this.setState({ loading: true });
         const loginInfo = this.refs.loginInfo.value;
         const password = this.refs.password.value;
-        const { dispatch } = this.props;
-        RequestService.post('/user/log-in', { loginInfo, password })
+        return UserService.login(loginInfo, password)
             .then(result => {
-                this.setState({ loading: false, success: true, userInfo: result });
-                dispatch(setUserInfo(result));
-                dispatch(createAlert('SUCCESS', 'Đăng nhập thành công'));
+                if (result) return this.setState({ loading: false, success: true, userInfo: result })
+                return this.setState({ loading: false });
             })
-            .catch((error) => {
-                this.setState({ loading: false, error: error.message });
-            });
     }
 
     showLoadingButton() {
@@ -55,6 +50,7 @@ class Login extends Component {
             <Fragment>
                 {this.handleRedirect()}
                 <TitleApp sub="Login" />
+                <Alert />
                 <div id="screen-login">
                     <div className="background" style={{ background: `url("${Background}") no-repeat center center` }} />
                     <div className="filter" />
@@ -64,7 +60,7 @@ class Login extends Component {
                             <div className="col-sm-3">
                                 <form onClick={() => this.setState({ error: false })} onSubmit={(e) => this.handleSubmit(e)} className="form-white">
                                     <div className="logo">
-                                        <img src={Logo} alt="Dental Application" />
+                                        <Svg name="LOGO_WHITE" />
                                     </div>
 
                                     <div className="form-group icon no-label">

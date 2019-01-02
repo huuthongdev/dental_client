@@ -1,28 +1,21 @@
 import React, { Component, Fragment } from 'react';
-import { FadeAnimate, Header, Sidebar, Alert, loadData, fetchTemp, ConfirmRemove } from '../refs';
+import { FadeAnimate, Header, Sidebar, Alert, ConfirmRemove, MainService } from '../refs';
 import { connect } from 'react-redux';
 import { effect } from '../assets/js/effect';
 
 class CpnWraper extends Component {
     componentDidMount() {
         effect();
-        this.fetchData();
+        // Init data
+        MainService.initData();
         // Fetch Temp Related
-        const { dispatch } = this.props;
         this.fetchTempId = setInterval(() => {
-            dispatch(fetchTemp());
+            MainService.setTemp();
         }, 60 * 60 * 1000);
     }
 
     componentWillUnmount() {
         clearInterval(this.fetchTempId);
-    }
-
-    fetchData() {
-        const { dispatch, user, fetchDataStatus } = this.props;
-        if (!fetchDataStatus.branch) {
-            loadData(dispatch, user);
-        }
     }
 
     render() {

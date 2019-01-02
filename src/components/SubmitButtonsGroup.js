@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 
 class SubmitButtonsGroup extends Component {
     render() {
-        const { loading, disabled } = this.props;
+        const { loading, disabled, label } = this.props;
         return (
             <Fragment>
                 {loading ? (
@@ -14,7 +14,7 @@ class SubmitButtonsGroup extends Component {
                 {!loading ? (
                     <Fragment>
                         <button type="submit" className="btn blue" disabled={disabled}>
-                            Xác nhận
+                            {label ? label : 'Xác nhận'}
                         </button>
                     </Fragment>
                 ) : null}

@@ -1,28 +1,19 @@
 import { LOG_OUT } from "../actions/user.actions";
-import {
-  SET_BRANCH,
-  CREATE_BRANCH,
-  UPDATE_BRANCH,
-  REMOVE_BRANCH,
-  SET_BRANCH_DETAIL
-} from "../actions/branch.actions";
+
+export const SET_BRANCH = 'SET_BRANCH';
+export const CREATE_BRANCH = 'CREATE_BRANCH';
+export const UPDATE_BRANCH = 'UPDATE_BRANCH';
+export const REMOVE_BRANCH = 'REMOVE_BRANCH';
+export const SET_BRANCH_DETAIL = 'SET_BRANCH_DETAIL';
 
 const defaultState = [];
 export const branchReducer = (state = defaultState, action) => {
-  switch (action.type) {
-    case SET_BRANCH:
-      return action.result;
-    case SET_BRANCH_DETAIL:
-      return state.map(v => (v._id === action.result._id ? action.result : v));
-    case CREATE_BRANCH:
-      return [action.result, ...state];
-    case UPDATE_BRANCH:
-      return state.map((v, i) => (v._id === action.result._id ? { ...action.result, detail: state[i].detail } : v));
-    case REMOVE_BRANCH:
-      return state.filter(v => v._id !== action.result._id);
-    case LOG_OUT:
-      return defaultState;
-    default:
-      return state;
-  }
+  const { type } = action;
+  if (type === SET_BRANCH) return action.result;
+  if (type === SET_BRANCH_DETAIL) return state.map(v => (v._id === action.result._id ? action.result : v));
+  if (type === CREATE_BRANCH) return [action.result, ...state];
+  if (type === UPDATE_BRANCH) return state.map((v, i) => (v._id === action.result._id ? { ...action.result, detail: state[i].detail } : v));
+  if (type === REMOVE_BRANCH) return state.filter(v => v._id !== action.result._id);
+  if (type === LOG_OUT) return defaultState;
+  return state;
 };
