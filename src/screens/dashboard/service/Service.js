@@ -70,7 +70,7 @@ class Service extends Component {
                                             <th>Giá bán đề xuất</th>
                                             <th>Giá chi nhánh</th>
                                             <th>Đơn vị tính</th>
-                                            <th>Thao tác</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>

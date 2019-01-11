@@ -1,5 +1,6 @@
 import { Store, RequestService, AlertService } from "../refs";
-import { SET_CLIENT, CREATE_CLIENT, UPDATE_CLIENT, SET_CLIENT_DETAIL } from "../reducers/client.reducer";
+import { SET_CLIENT, CREATE_CLIENT, UPDATE_CLIENT } from "../reducers/client.reducer";
+import { SET_CLIENT_DETAIL } from "../reducers/client.detail.reducer";
 
 const { dispatch } = Store;
 
@@ -38,7 +39,10 @@ export default class ClientService {
 
     static async getDetail(_id) {
         return RequestService.get("/client/detail/" + _id)
-            .then(result => dispatch({ type: SET_CLIENT_DETAIL, result }))
+            .then(result => {
+                dispatch({ type: SET_CLIENT_DETAIL, result });
+                return result;
+            })
             .catch(error => console.log(error.message));
     }
 }

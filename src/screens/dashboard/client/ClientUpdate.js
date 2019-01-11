@@ -14,7 +14,7 @@ class ClientUpdate extends Component {
 
     render() {
         const { goBack } = this.state;
-        const { item } = this.props;
+        const { detail } = this.props;
 
         if (goBack) return <Redirect to="/client" />;
         return (
@@ -23,16 +23,16 @@ class ClientUpdate extends Component {
                     <div className="cpn-form">
                         <Formik
                             initialValues={{
-                                name: convertToSave(item.name, item.name, ''),
-                                phone: convertToSave(item.phone, item.phone, ''),
-                                email: convertToSave(item.email, item.email, ''),
-                                birthday: convertToSave(item.birthday, item.birthday, ''),
-                                medicalHistory: convertToSave(item.medicalHistory, item.medicalHistory, []),
-                                city: convertToSave(item.city, item.city, ''),
-                                district: convertToSave(item.district, item.district, ''),
-                                address: convertToSave(item.address, item.address, ''),
-                                homeTown: convertToSave(item.homeTown, item.homeTown, ''),
-                                gender: convertToSave(item.gender, item.gender, '')
+                                name: convertToSave(detail.name, detail.name, ''),
+                                phone: convertToSave(detail.phone, detail.phone, ''),
+                                email: convertToSave(detail.email, detail.email, ''),
+                                birthday: convertToSave(detail.birthday, detail.birthday, ''),
+                                medicalHistory: convertToSave(detail.medicalHistory, detail.medicalHistory, []),
+                                city: convertToSave(detail.city, detail.city, ''),
+                                district: convertToSave(detail.district, detail.district, ''),
+                                address: convertToSave(detail.address, detail.address, ''),
+                                homeTown: convertToSave(detail.homeTown, detail.homeTown, ''),
+                                gender: convertToSave(detail.gender, detail.gender, '')
                             }}
                             validationSchema={Yup.object().shape({
                                 name: Yup.string().required('không được để trống'),
@@ -47,7 +47,7 @@ class ClientUpdate extends Component {
                                 gender: Yup.string().required('không được để trống')
                             })}
                             onSubmit={(values, { setSubmitting, resetForm }) => {
-                                ClientService.update(item._id, values)
+                                ClientService.update(detail._id, values)
                                     .then(() => {
                                         setSubmitting(false);
                                         resetForm();

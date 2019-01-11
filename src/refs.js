@@ -6,8 +6,9 @@ import AvatarDemo from './assets/images/avatar.png';
 // Components
 import SubmitButtonsGroup from './components/SubmitButtonsGroup';
 import CpnWraper from './components/CpnWraper';
+import CpnPopupWraper from './components/CpnPopupWraper';
 import Svg from "./components/Svg";
-import ConfirmRemove from "./components/ConfirmRemove";
+import Confirm from "./components/Confirm";
 import FetchingData from "./components/FetchingData";
 import FadeAnimate from "./components/FadeAnimate";
 import TitleApp from './components/TitleApp';
@@ -52,21 +53,23 @@ import ProductDetail from './screens/dashboard/product/ProductDetail';
 
 import Client from './screens/dashboard/client/Client';
 import ClientCreate from './screens/dashboard/client/ClientCreate';
-
-import ClientInformations from './screens/dashboard/client/information/ClientInformations';
-import ClientInformationRow from './screens/dashboard/client/information/ClientInformationRow';
-import ClientTicket from './screens/dashboard/client/ticket/ClientTicket';
-import ClientTicketRow from './screens/dashboard/client/ticket/ClientTicketRow';
+import ClientRow from './screens/dashboard/client/ClientRow';
 
 import ClientDetail from './screens/dashboard/client/ClientDetail';
 import ClientUpdate from './screens/dashboard/client/ClientUpdate';
 
-import ClientTicketCreate from './screens/dashboard/client/ticket/ClientTicketCreate';
+import Ticket from './screens/dashboard/ticket/Ticket';
+import TicketRow from './screens/dashboard/ticket/TicketRow';
+import TicketCreate from './screens/dashboard/ticket/TicketCreate';
+import TicketDetail from './screens/dashboard/ticket/TicketDetail';
+import TicketDetailCalendar from './screens/dashboard/ticket/detail/TicketDetailCalendar';
+import TicketDetailCalendarPopupAdd from './screens/dashboard/ticket/detail/TicketDetailCalendarPopupAdd';
+import TicketDetailCalendarRow from './screens/dashboard/ticket/detail/TicketDetailCalendarRow';
 
 // Route
 import Routes from "./routes/Routes";
 // All Reducers
-import { allReducers } from "./reducers/reducers";
+import allReducers from "./reducers";
 // Setting
 import { isDev, ITEMS_PER_PAGE } from './setting';
 // Utils
@@ -78,6 +81,9 @@ import { convertToSave } from './utils/convertToSave';
 import pageNavigation from './utils/pageNavigation';
 import convertToSearch from './utils/convertToSearch';
 import { getLabelGender } from './utils/getLabelGender';
+import { convertTicketStatus } from './utils/convertTicketStatus';
+import { convertGender } from './utils/convertGender';
+import { convertStatus } from './utils/convertStatus';
 // Actions
 import { setService, createService, updateService, removeService } from './actions/service.actions';
 import { setUserInfo, logOut } from './actions/user.actions';
@@ -85,7 +91,6 @@ import { setBranch, createBranch, updateBranch, removeBranch, setBranchDetail } 
 import { createAlert, removeAlert } from './actions/alert.actions';
 import { setEmployee, createEmployee, setEmployeeDetail, updateEmployee } from './actions/employee.actions';
 import { setProduct, updateProduct, createProduct, removeProduct } from './actions/product.actions';
-import { offConfirmRemove, onConfirmRemove } from './actions/confirm-remove.actions';
 import { setClient, createClient, setClientDetail, updateClient } from './actions/client.actions';
 // Data
 import { VietNamPlaces } from './utils/vietnam-place';
@@ -102,21 +107,28 @@ import ProductService from './services/product.service';
 import ClientService from './services/client.service';
 import UserService from './services/user.service';
 import TicketService from './services/ticket.service';
+import ConfirmService from './services/confirm.service';
 
 // ===================== EXPORT =====================
 // Images
 export { Logo, LogoBlue, AvatarDemo, Background }
 // Components
-export { FetchingData, FadeAnimate, Alert, AlertItem, Svg, TitleApp, Header, Sidebar, CpnWraper, ConfirmRemove, SubmitButtonsGroup }
+export {
+    FetchingData, FadeAnimate, Alert, AlertItem, Svg, TitleApp, Header, Sidebar,
+    CpnWraper, CpnPopupWraper, Confirm, SubmitButtonsGroup
+}
 // Screens
 export { NotMatch404, Login, Authentication, SelectBranch }
 export { Main }
 export { Branch, BranchRow, BranchAddEmployee, BranchDetail, BranchCreate, BranchUpdate, BranchDetailEmployees }
 export { Employee, EmployeeCreate, EmployeeDetail, EmployeeRow, EmployeeUpdate }
-export { ClientTicketCreate }
 export { Service, ServiceCreate, ServiceDetail, ServiceUpdate, ServiceRow }
 export { Product, ProductCreate, ProductDetail, ProductUpdate, ProductRow }
-export { Client, ClientUpdate, ClientDetail, ClientInformationRow, ClientInformations, ClientCreate, ClientTicket, ClientTicketRow }
+export { Client, ClientUpdate, ClientDetail, ClientCreate, ClientRow }
+export {
+    Ticket, TicketRow, TicketCreate, TicketDetail,
+    TicketDetailCalendar, TicketDetailCalendarPopupAdd, TicketDetailCalendarRow
+}
 // Route
 export { Routes }
 // All Reducers
@@ -124,7 +136,11 @@ export { allReducers }
 // Setting
 export { isDev, ITEMS_PER_PAGE }
 // Utils
-export { converErrorMessage, RequestService, Roles, GetRoleName, convertToSave, convertToSearch, pageNavigation, getLabelGender }
+export {
+    converErrorMessage, RequestService, Roles, GetRoleName,
+    convertToSave, convertToSearch, pageNavigation, getLabelGender,
+    convertTicketStatus, convertGender, convertStatus
+}
 // Actions
 export { setUserInfo, logOut }
 export { setBranch, createBranch, updateBranch, removeBranch, setBranchDetail }
@@ -132,7 +148,6 @@ export { createAlert, removeAlert }
 export { setEmployee, createEmployee, setEmployeeDetail, updateEmployee }
 export { setService, createService, updateService, removeService }
 export { setProduct, updateProduct, createProduct, removeProduct }
-export { offConfirmRemove, onConfirmRemove }
 export { setClient, createClient, setClientDetail, updateClient }
 // Data
 export { VietNamPlaces, medicalHistoryData }
@@ -148,3 +163,4 @@ export { ProductService }
 export { ClientService }
 export { UserService }
 export { TicketService }
+export { ConfirmService }

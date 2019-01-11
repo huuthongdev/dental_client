@@ -1,22 +1,25 @@
-import { ON_CONFIRM_REMOVE, OFF_CONFIRM_REMOVE } from "../actions/confirm-remove.actions";
-
 const defaultState = {
-    nameRelated: null,
-    onCancel: null,
-    content: null,
+    method: null,
     objectType: null,
+    nameRelated: null,
+    content: null,
     onNext: null
 }
-export const confirmRemoveReducer = (state = defaultState, action) => {
+
+export const ON_CONFIRM = 'ON_CONFIRM';
+export const OFF_CONFIRM = 'OFF_CONFIRM';
+
+export const confirmReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case ON_CONFIRM_REMOVE:
+        case ON_CONFIRM:
             return {
+                method: action.method,
+                objectType: action.objectType,
                 nameRelated: action.nameRelated,
                 content: action.content,
-                objectType: action.objectType,
                 onNext: action.onNext
             }
-        case OFF_CONFIRM_REMOVE:
+        case OFF_CONFIRM:
             return defaultState;
         default:
             return state;

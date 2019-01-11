@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { CpnWraper, FetchingData, TitleApp, Svg, ClientUpdate, ClientService } from '../../../refs';
 
 class ClientDetail extends Component {
     state = {
-        fetchDataDetailStatus: false,
+        fetching: true,
         subMenuActive: "INFO",
-        goBack: false
+        client: null
     };
 
     changeSubMenu(menu) {
@@ -17,20 +17,17 @@ class ClientDetail extends Component {
     componentDidMount() {
         // Check Fetched Detail
         const { _id } = this.props.match.params;
-        const client = this.props.client.filter(v => v._id === _id)[0];
-        if (client && client.detail)
-            return this.setState({ fetchDataDetailStatus: true });
+        const { clientDetail } = this.props;
+        const client = clientDetail.find(v => v._id === _id);
+        if (client) return this.setState({ fetching: false, client });
         ClientService.getDetail(_id)
-            .then(() => this.setState({ fetchDataDetailStatus: true }))
+            .then(client => this.setState({ fetching: false, client }))
     }
 
     render() {
-        const { subMenuActive, goBack } = this.state;
-        const { _id } = this.props.match.params;
-        const { fetchDataStatus } = this.props;
+        const { subMenuActive, fetching, client } = this.state;
 
-        // Waiting for fetch data store
-        if (!fetchDataStatus.client) {
+        if (fetching) {
             return (
                 <CpnWraper>
                     <FetchingData />
@@ -38,12 +35,7 @@ class ClientDetail extends Component {
             );
         }
 
-        // Find client in clients store
-        const client = this.props.client.filter(v => v._id === _id)[0];
-        if (!client) return <CpnWraper>Không tìm thấy dữ liệu!</CpnWraper>;
-
-        // Redirect to client table
-        if (goBack) return <Redirect to="/client" />;
+        if (!fetching && !client) return <CpnWraper>Không tìm thấy dữ liệu!</CpnWraper>;
 
         return (
             <CpnWraper>
@@ -58,13 +50,13 @@ class ClientDetail extends Component {
                         </div>
                         <div className="col-sm-6">
                             <div className="cpn-tools-list">
-                                <Link to={`/client/ticket/new/${client._id}`}>
-                                    <button className="btn blue" onClick={() => this.setState({ goBack: true })}>
+                                <Link to={`/ticket/new/${client._id}`}>
+                                    <button className="btn blue">
                                         <Svg name="CREATE" />
                                         Tạo phiếu điều trị
                					    </button>
                                 </Link>
-                                <button className="btn blue" onClick={() => this.setState({ goBack: true })}>
+                                <button className="btn blue" onClick={() => this.props.history.goBack()}>
                                     <Svg name="BACK" />
                                     Trở lại
                					</button>
@@ -81,7 +73,7 @@ class ClientDetail extends Component {
                             </ul>
                         </div>
 
-                        {subMenuActive === "INFO" ? <ClientUpdate item={client} /> : null}
+                        {subMenuActive === "INFO" ? <ClientUpdate detail={client} /> : null}
                     </div>
                 </div>
             </CpnWraper>
@@ -91,7 +83,7 @@ class ClientDetail extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        client: state.client,
+        clientDetail: state.clientDetail,
         fetchDataStatus: state.fetchDataStatus
     };
 }

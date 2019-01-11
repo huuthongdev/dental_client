@@ -76,6 +76,13 @@ class Sidebar extends Component {
                             </li>
                         </NavLink>
 
+                        <NavLink to="/ticket">
+                            <li>
+                                <Svg name="TICKET" />
+                                <span>Hồ sơ điều trị</span>
+                            </li>
+                        </NavLink>
+
                         <li>
                             <Svg name="ACCOUNTANT" />
                             <span>Kế toán</span>

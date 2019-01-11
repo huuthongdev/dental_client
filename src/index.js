@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import './assets/style/bootstrap-grid.min.css';
 import './assets/style/main.scss';
 import 'react-datepicker/dist/react-datepicker.css';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 import { Provider } from 'react-redux';
 import { Routes, Store } from './refs';

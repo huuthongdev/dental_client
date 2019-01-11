@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 import * as Yup from 'yup';
-import { Form, Field, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import Select from 'react-select';
-import { CpnWraper, TitleApp, Svg, SubmitButtonsGroup, TicketService } from '../../../../refs';
+import { CpnWraper, TitleApp, Svg, SubmitButtonsGroup, TicketService, FetchingData } from '../../../refs';
 
-class ClientTicketCreate extends Component {
+class TicketCreate extends Component {
     state = {
         goBack: false,
-        items: []
+        items: [],
+        invalidQty: []
     }
 
     addItem(serviceId) {
@@ -31,12 +32,17 @@ class ClientTicketCreate extends Component {
     }
 
     render() {
-        const { goBack, items } = this.state;
-        const { match, client, employee, service } = this.props;
+        const { goBack, items, invalidQty } = this.state;
+        const { match, client, employee, service, fetchDataStatus } = this.props;
+        const { idClient } = match.params;
 
-        const totalPrice = items.length !== 0 ? items.map(v => v = v.service.suggestedRetailerPrice * v.qty).reduce((a, b) => a + b) : 0;
+        const checkClient = client.find(v => v._id === idClient);
 
         if (goBack) return <Redirect to="/client" />
+
+        const totalPrice = items.length !== 0 ? items.map(v => v = v.service.suggestedRetailerPrice * v.qty).reduce((a, b) => a + b) : 0;
+        if (!fetchDataStatus.client) return <CpnWraper> <FetchingData /> </CpnWraper>
+        
         return (
             <CpnWraper>
                 <TitleApp sub="Tạo phiếu điều trị" />
@@ -50,7 +56,7 @@ class ClientTicketCreate extends Component {
                             </div>
                             </div>
                             <div className="col-sm-4 text-right">
-                                <button onClick={() => this.setState({ goBack: true })} className="cpn-form-close">
+                                <button onClick={() => this.props.history.goBack()} className="cpn-form-close">
                                     <Svg name="CLOSE_FORM" />
                                 </button>
                             </div>
@@ -60,7 +66,7 @@ class ClientTicketCreate extends Component {
                     <Formik
                         initialValues={{
                             dentistId: '',
-                            clientId: '',
+                            clientId: checkClient ? checkClient._id : '',
                             serviceSelect: '',
                         }}
                         validationSchema={Yup.object().shape({
@@ -71,13 +77,14 @@ class ClientTicketCreate extends Component {
                             const { dentistId, clientId } = values;
                             const payload = { dentistId, clientId, items: items.map(v => v = { service: v.service._id, qty: +v.qty }) };
                             TicketService.create(payload)
-                            .then(success => {
-                                setSubmitting(false);
-                                console.log(success);
-                            });
+                                .then(() => {
+                                    setSubmitting(false);
+                                });
                         }}
                         render={props => {
                             const { isSubmitting, isValid, errors, touched, setValues, values, setTouched } = props;
+
+                            console.log(values);
 
                             const dentistArr = employee.filter(v => {
                                 const currentBranchId = localStorage.getItem("BRANCH");
@@ -95,12 +102,14 @@ class ClientTicketCreate extends Component {
                                             <div className={`form-group required ${errors.clientId && touched.clientId ? 'error' : ''}`}>
                                                 <label>Khách hàng:</label><span className="error-message">{errors.clientId}</span>
                                                 <Select
+                                                    defaultValue={checkClient ? { label: `${checkClient.name} - ${checkClient.phone} - ${checkClient.city}`, value: checkClient._id } : null}
                                                     options={client.map(v => v = { label: `${v.name} - ${v.phone} - ${v.city}`, value: v._id })}
                                                     className="select"
                                                     classNamePrefix="react-select"
                                                     onChange={selected => setValues({ ...values, clientId: selected.value })}
                                                     isSearchable
                                                     onBlur={() => setTouched({ ...touched, clientId: true })}
+                                                    isDisabled={checkClient}
                                                 />
                                             </div>
                                         </div>
@@ -156,7 +165,11 @@ class ClientTicketCreate extends Component {
                                                                     <td>{value.service.name}</td>
                                                                     <td>{(value.service.suggestedRetailerPrice).toLocaleString('en-GB')}/{value.service.unit}</td>
                                                                     <td className="qty-col">
-                                                                        <input onChange={e => this.changeQty(value.service._id, e.target.value)} type="number" defaultValue={value.qty} />
+                                                                        <input onChange={e => {
+                                                                            const qty = e.target.value;
+                                                                            if (qty >= 0) return this.changeQty(value.service._id, qty);
+                                                                            return e.target.value = 1;
+                                                                        }} type="number" defaultValue={value.qty} />
                                                                     </td>
                                                                     <td>
                                                                         {(value.service.suggestedRetailerPrice * value.qty).toLocaleString('en-GB')} VNĐ
@@ -180,7 +193,7 @@ class ClientTicketCreate extends Component {
                                         </div>
 
                                         <div className="col-sm-12">
-                                            <SubmitButtonsGroup disabled={!isValid || items.length === 0} loading={isSubmitting} />
+                                            <SubmitButtonsGroup disabled={!isValid || items.length === 0 || invalidQty} loading={isSubmitting} />
                                         </div>
                                     </div>
                                 </div>
@@ -197,7 +210,8 @@ const mapStateToProps = (state) => {
     return {
         client: state.client,
         employee: state.employee,
-        service: state.service
+        service: state.service,
+        fetchDataStatus: state.fetchDataStatus
     };
 }
-export default connect(mapStateToProps)(ClientTicketCreate);
+export default connect(mapStateToProps)(TicketCreate);

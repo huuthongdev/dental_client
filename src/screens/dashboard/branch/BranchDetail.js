@@ -8,8 +8,8 @@ import {
 	TitleApp,
 	CpnWraper,
 	BranchDetailEmployees,
-	setBranchDetail,
-	BranchAddEmployee
+	BranchAddEmployee,
+	BranchService
 } from "../../../refs";
 
 class BranchDetail extends Component {
@@ -25,15 +25,12 @@ class BranchDetail extends Component {
 	}
 
 	componentDidMount() {
-		// Check Fetched Detail
 		const { _id } = this.props.match.params;
-		const branch = this.props.branch.filter(v => v._id === _id)[0];
+		const branch = this.props.branch.find(v => v._id === _id);
 		if (branch && branch.detail)
 			return this.setState({ fetchDataDetailStatus: true });
-		const { dispatch } = this.props;
-		dispatch(setBranchDetail(_id)).then(() => {
-			this.setState({ fetchDataDetailStatus: true });
-		});
+		BranchService.setDetail(_id)
+		.then(() => this.setState({ fetchDataDetailStatus: true }));
 	}
 
 	render() {
@@ -59,7 +56,7 @@ class BranchDetail extends Component {
 
 		if (isShowAddEmployee) return <BranchAddEmployee branch={branch} goBack={() => this.setState({ isShowAddEmployee: false })} />
 
-		return (
+		return ( 
 			<CpnWraper>
 				<TitleApp sub={`Chi nhánh ${branch.name}`} />
 

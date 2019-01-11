@@ -5,41 +5,43 @@ import {
     Login, NotMatch404, Authentication, SelectBranch, Branch, Main,
     Employee, Service, Product, Client, BranchCreate, BranchDetail,
     EmployeeCreate, EmployeeDetail, ServiceDetail, ProductDetail, ClientCreate,
-    ClientDetail, ClientTicketCreate
+    ClientDetail, Store, Ticket, TicketCreate, TicketDetail
 } from '../refs';
 import { ServiceCreate, ProductCreate } from '../refs';
 import { connect } from 'react-redux';
 
 class Routes extends Component {
     render() {
-        const { user } = this.props;
         return (
             <Router>
                 <Fragment>
                     <Switch>
-                        <MustBeUser user={user} path="/" exact component={Main} />
+                        <MustBeUser path="/" exact component={Main} />
 
-                        <MustBeUser user={user} path="/branch" exact component={Branch} />
-                        <MustBeUser user={user} path="/branch/new" exact component={BranchCreate} />
-                        <MustBeUser user={user} path="/branch/:_id" exact component={BranchDetail} />
+                        <MustBeUser path="/branch" exact component={Branch} />
+                        <MustBeUser path="/branch/new" exact component={BranchCreate} />
+                        <MustBeUser path="/branch/:_id" exact component={BranchDetail} />
 
-                        <MustBeUser user={user} path="/employee" exact component={Employee} />
-                        <MustBeUser user={user} path="/employee/new" exact component={EmployeeCreate} />
-                        <MustBeUser user={user} path="/employee/:_id" exact component={EmployeeDetail} />
+                        <MustBeUser path="/employee" exact component={Employee} />
+                        <MustBeUser path="/employee/new" exact component={EmployeeCreate} />
+                        <MustBeUser path="/employee/:_id" exact component={EmployeeDetail} />
 
-                        <MustBeUser user={user} path="/service" exact component={Service} />
-                        <MustBeUser user={user} path="/service/new" exact component={ServiceCreate} />
-                        <MustBeUser user={user} path="/service/:_id" exact component={ServiceDetail} />
+                        <MustBeUser path="/service" exact component={Service} />
+                        <MustBeUser path="/service/new" exact component={ServiceCreate} />
+                        <MustBeUser path="/service/:_id" exact component={ServiceDetail} />
 
-                        <MustBeUser user={user} path="/product" exact component={Product} />
-                        <MustBeUser user={user} path="/product/new" exact component={ProductCreate} />
-                        <MustBeUser user={user} path="/product/:_id" exact component={ProductDetail} />
+                        <MustBeUser path="/product" exact component={Product} />
+                        <MustBeUser path="/product/new" exact component={ProductCreate} />
+                        <MustBeUser path="/product/:_id" exact component={ProductDetail} />
 
-                        <MustBeUser user={user} path="/client" exact component={Client} />
-                        <MustBeUser user={user} path="/client/new" exact component={ClientCreate} />
-                        <MustBeUser user={user} path="/client/:_id" exact component={ClientDetail} />
-                        <MustBeUser user={user} path="/client/ticket/new/:idClient" exact component={ClientTicketCreate} />
-                        <MustBeUser user={user} path="/client/ticket/new" exact component={ClientTicketCreate} />
+                        <MustBeUser path="/client" exact component={Client} />
+                        <MustBeUser path="/client/new" exact component={ClientCreate} />
+                        <MustBeUser path="/client/:_id" exact component={ClientDetail} />
+
+                        <MustBeUser path="/ticket" exact component={Ticket} />
+                        <MustBeUser path="/ticket/new" exact component={TicketCreate} />
+                        <MustBeUser path="/ticket/new/:idClient" exact component={TicketCreate} />
+                        <MustBeUser path="/ticket/:_id" exact component={TicketDetail} />
 
                         <Route path="/login" exact component={Login} />
                         <Route path="/authentication" exact component={Authentication} />
@@ -53,14 +55,15 @@ class Routes extends Component {
 }
 
 const MustBeUser = ({ component: Component, ...rest }) => {
-    const { user } = rest;
+    const { user } = Store.getState();
     const token = localStorage.getItem("TOKEN");
     const currentBranch = localStorage.getItem("BRANCH");
     return (
         <Route {...rest} render={(props) => {
-            if (user._id && currentBranch) return <Component  {...props} />
+            if (!user._id && !token) return <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
             if (!user._id && token) return <Redirect to={{ pathname: '/authentication', state: { from: props.location } }} />
-            return <Redirect to='/login' />
+            if (user._id && token && !currentBranch) return <Redirect to={{ pathname: '/select-branch', state: { from: props.location } }} />
+            return <Component  {...props} />
         }} />
     )
 }

@@ -7,14 +7,16 @@ import { fetchDataStatusReducer } from "./fetch-data-status.reducer";
 import { employeeReducer } from "./employee.reducer";
 import { serviceReducer } from "./service.reducer";
 import { productReducer } from "./product.reducer";
-import { confirmRemoveReducer } from "./confirm-remove.reducer";
+import { confirmReducer } from "./confirm.reducer";
 import { clientReducer } from "./client.reducer";
 import { ticketReducer } from "./ticket.reducer";
+import { clientDetailReducer } from "./client.detail.reducer";
+import { ticketDetailReducer } from "./ticket.detail.reducer";
 
-export const allReducers = combineReducers({
+export default combineReducers({
     fetchDataStatus: fetchDataStatusReducer,
     alert: alertReducer,
-    confirmRemove: confirmRemoveReducer,
+    confirm: confirmReducer,
     main: mainReducer,
     user: userReducer,
     branch: branchReducer,
@@ -22,5 +24,7 @@ export const allReducers = combineReducers({
     service: serviceReducer,
     product: productReducer,
     client: clientReducer,
-    ticket: ticketReducer
+    clientDetail: clientDetailReducer,
+    ticket: ticketReducer,
+    ticketDetail: ticketDetailReducer
 });

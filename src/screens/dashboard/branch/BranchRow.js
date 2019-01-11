@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { Svg, onConfirmRemove } from "../../../refs";
+import { Svg } from "../../../refs";
 
 class BranchRow extends Component {
   state = {
@@ -14,16 +14,7 @@ class BranchRow extends Component {
   }
 
   onRemove() {
-    const { dispatch } = this.props;
-    const { item } = this.props;
-    dispatch(
-      onConfirmRemove(
-        item.name,
-        "Xoá chi nhánh có thể ảnh hưởng đến dữ liệu của chi nhánh bao gồm: Nhân sự, Khách hàng, Phiếu điều trị, KPI",
-        "chi nhánh",
-        () => this.handleRemove()
-      )
-    );
+    
   }
 
   render() {
@@ -58,15 +49,6 @@ class BranchRow extends Component {
             <button className="row-toggle-list-tools">
               <Svg name="ARROW_DOWN" />
             </button>
-
-            {item.isMaster ? null : (
-              <button
-                onClick={() => this.onRemove()}
-                className="row-btn-remove"
-              >
-                <Svg name="REMOVE" />
-              </button>
-            )}
 
             <div className="right-row-side" />
           </td>

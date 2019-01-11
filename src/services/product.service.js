@@ -1,5 +1,5 @@
-import { Store, RequestService, AlertService } from "../refs";
-import { SET_PRODUCT, CREATE_PRODUCT, UPDATE_PRODUCT } from "../reducers/product.reducer";
+import { Store, RequestService, AlertService, ConfirmService } from "../refs";
+import { SET_PRODUCT, CREATE_PRODUCT, UPDATE_PRODUCT, REMOVE_PRODUCT } from "../reducers/product.reducer";
 
 const { dispatch } = Store;
 
@@ -34,5 +34,28 @@ export default class ProductService {
                 AlertService.error(error.message);
                 return false;
             })
+    }
+
+    static disable(value) {
+        const disable = () => {
+            console.log(value);
+        }
+        return ConfirmService.on('Vô hiệu', 'sản phẩm', value.name, 'xoá sản phẩm có thể ...', disable);
+    }
+
+    static remove(value) {
+        const handleRemove = async () => {
+            return RequestService.delete('/product/' + value._id)
+                .then(result => {
+                    dispatch({ type: REMOVE_PRODUCT, result });
+                    AlertService.success(`Đã xoá dịch vụ ${result.name}`);
+                    return result;
+                })
+                .catch(error => {
+                    AlertService.error(error.message);
+                    return false;
+                });
+        }
+        return ConfirmService.on('Xoá', 'sản phẩm', value.name, 'Xoá sản phẩm có thể ảnh hướng đến một số hồ sơ điều trị liên quan.', handleRemove)
     }
 }

@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
-import { Svg, onConfirmRemove } from '../../../refs';
+import { Svg } from '../../../refs';
 
 class ServiceRow extends Component {
     state = {
@@ -20,16 +20,16 @@ class ServiceRow extends Component {
     }
 
     onRemove() {
-        const { dispatch } = this.props;
-        const { item } = this.props;
-        dispatch(
-            onConfirmRemove(
-                item.name,
-                "Xoá dịch vụ có thể ảnh hưởng đến dữ liệu của dịch vụ bao gồm: Chi nhánh, Phiếu điều trị, các dịch vụ liên quan",
-                "dịch vụ",
-                () => this.handleRemove()
-            )
-        );
+        // const { dispatch } = this.props;
+        // const { item } = this.props;
+        // dispatch(
+        //     onConfirmRemove(
+        //         item.name,
+        //         "Xoá dịch vụ có thể ảnh hưởng đến dữ liệu của dịch vụ bao gồm: Chi nhánh, Phiếu điều trị, các dịch vụ liên quan",
+        //         "dịch vụ",
+        //         () => this.handleRemove()
+        //     )
+        // );
     }
 
 
@@ -53,11 +53,6 @@ class ServiceRow extends Component {
                         <button className="row-toggle-list-tools">
                             <Svg name="ARROW_DOWN" />
                         </button>
-
-                        <button onClick={() => this.onRemove()} className="row-btn-remove">
-                            <Svg name="REMOVE" />
-                        </button>
-
                         <div className="right-row-side" />
                     </td>
                 </tr>

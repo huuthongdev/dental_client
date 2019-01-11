@@ -1,3 +1,3 @@
-export function convertToSave(value, valueToSaveIfYes = value, valueToSaveIfNo = undefined) {
+export function convertToSave(value, valueToSaveIfYes = value, valueToSaveIfNo = '') {
     return value ? valueToSaveIfYes : valueToSaveIfNo;
 }

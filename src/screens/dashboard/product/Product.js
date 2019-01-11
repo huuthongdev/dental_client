@@ -74,7 +74,7 @@ class Product extends Component {
                                             <th>Giá chi nhánh</th>
                                             <th>Đơn vị</th>
                                             <th>Kho tổng</th>
-                                            <th>Thao tác</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>

@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
-import { Svg, GetRoleName, onConfirmRemove } from '../../../refs';
+import { Svg, GetRoleName } from '../../../refs';
 
 class EmployeeRow extends Component {
     state = {
@@ -32,15 +32,9 @@ class EmployeeRow extends Component {
     }
 
     onRemove(e) {
-        const { item } = this.props;
-        e.preventDefault();
-        const { dispatch } = this.props;
-        dispatch(onConfirmRemove(
-            item.name,
-            "Xoá nhân sự có thể ảnh hưởng đến dữ liệu của nhân sự bao gồm: Chi nhánh, Phiếu điều trị, các khách hàng liên quan",
-            "nhân sự",
-            () => this.handleRemove()
-        ))
+        // const { item } = this.props;
+        // e.preventDefault();
+        // const { dispatch } = this.props;
     }
 
     render() {
@@ -63,10 +57,6 @@ class EmployeeRow extends Component {
                     <td className="list-tools">
                         <button className="row-toggle-list-tools">
                             <Svg name="ARROW_DOWN" />
-                        </button>
-
-                        <button onClick={e => this.onRemove(e)} className="row-btn-remove">
-                            <Svg name="REMOVE" />
                         </button>
                         <div className="right-row-side" />
                     </td>

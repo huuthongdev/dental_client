@@ -48,7 +48,7 @@ class EmployeeDetail extends Component {
     }
 
     // Find employee in branchs store
-    const employee = this.props.employee.filter(v => v._id === _id)[0];
+    const employee = this.props.employee.find(v => v._id === _id);
     if (!employee) return <CpnWraper>Không tìm thấy dữ liệu!</CpnWraper>;
 
     // Redirect to employee table

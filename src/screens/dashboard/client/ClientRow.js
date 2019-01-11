@@ -1,14 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import { Redirect } from "react-router-dom";
-import { Svg } from '../../../../refs';
+import { Svg } from '../../../refs';
 
-class ClientInformationRow extends Component {
+class ClientRow extends Component {
     state = {
         onRemove: false,
         onDetail: false
     };
-
-
 
     render() {
         const { item } = this.props;
@@ -32,11 +30,6 @@ class ClientInformationRow extends Component {
                         <button className="row-toggle-list-tools">
                             <Svg name="ARROW_DOWN" />
                         </button>
-
-                        <button className="row-btn-remove">
-                            <Svg name="REMOVE" />
-                        </button>
-
                         <div className="right-row-side" />
                     </td>
                 </tr>
@@ -46,4 +39,4 @@ class ClientInformationRow extends Component {
     }
 }
 
-export default ClientInformationRow;
+export default ClientRow;

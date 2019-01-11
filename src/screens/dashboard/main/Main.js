@@ -6,7 +6,7 @@ class Main extends Component {
         return (
             <Fragment>
                 <CpnWraper>
-                    <TitleApp sub="Thông tin chung" />
+                    <TitleApp sub="Thông tin chung" /> 
                     {/* START DIGITAL NUMBER REPORTS */}
                     <div className="container-fluid" id="digital-number-reports">
                         <div className="row">

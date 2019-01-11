@@ -7,18 +7,11 @@ export const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
 
 const defaultState = []
 export const productReducer = (state = defaultState, action) => {
-    switch (action.type) {
-        case SET_PRODUCT:
-            return action.result;
-        case CREATE_PRODUCT:
-            return [action.result, ...state];
-        case UPDATE_PRODUCT:
-            return state.map(v => v._id === action.result._id ? action.result : v);
-        case REMOVE_PRODUCT:
-            return state.filter(v => v._id !== action.result._id);
-        case LOG_OUT:
-            return defaultState;
-        default:
-            return state;
-    }
+    const { type } = action;
+    if (type === SET_PRODUCT) return action.result;
+    if (type === CREATE_PRODUCT) return [action.result, ...state];
+    if (type === UPDATE_PRODUCT) return state.map(v => v._id === action.result._id ? action.result : v);
+    if (type === REMOVE_PRODUCT) return state.filter(v => v._id !== action.result._id);
+    if (type === LOG_OUT) return defaultState;
+    return state;
 }
