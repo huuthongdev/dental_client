@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { CpnWraper, TicketService, FetchingData, TitleApp, Svg, convertGender, TicketDetailCalendar, TicketDetailCalendarPopupAdd } from '../../../refs';
+import { ScreenDashboardWraper, TicketService, FetchingData, TitleApp, CpnSvg, convertGender, TicketDetailCalendar, TicketDetailCalendarPopupAdd } from '../../../refs';
 
 class TicketDetail extends Component {
     state = {
@@ -19,34 +19,53 @@ class TicketDetail extends Component {
         this.setState({ navigation: 'MAIN' });
     }
 
+    componentWillMount() {
+        const { state } = this.props.location;
+        if (state) this.setState({ isCreateCalendar: state.isCreateCalendar });
+    }
+
     componentDidMount() {
         // Check Fetched Detail
+        const { state } = this.props.location;
         const { _id } = this.props.match.params;
         const { ticketDetail } = this.props;
+        
         const ticket = ticketDetail.find(v => v._id === _id);
-        if (ticket) return this.setState({ fetching: false, ticket });
+
+        if (ticket) return this.setState({
+            ticket,
+            fetching: false,
+            isCreateCalendar: state ? state.isCreateCalendar : false
+        });
+
         TicketService.getDetail(_id)
-            .then(ticket => this.setState({ fetching: false, ticket }));
+            .then(ticket => this.setState({
+                ticket,
+                fetching: false,
+                isCreateCalendar: state ? state.isCreateCalendar : false
+            }));
     }
 
     render() {
         const { fetching, ticket, tabActive, isCreateCalendar } = this.state;
 
+        console.log(this.props);
+
         if (fetching) {
             return (
-                <CpnWraper>
+                <ScreenDashboardWraper>
                     <FetchingData />
-                </CpnWraper>
+                </ScreenDashboardWraper>
             );
         }
 
-        if (!fetching && !ticket) return <CpnWraper>Không tìm thấy dữ liệu!</CpnWraper>;
+        if (!fetching && !ticket) return <ScreenDashboardWraper>Không tìm thấy dữ liệu!</ScreenDashboardWraper>;
 
         const { gender, name, phone, city, district, address, medicalHistory } = ticket.client;
         const { totalAmount, dentistResponsible } = ticket;
 
         return (
-            <CpnWraper>
+            <ScreenDashboardWraper>
                 <TitleApp sub={`Hồ sơ KH: ${ticket.client.name}`} />
 
                 {isCreateCalendar ? <TicketDetailCalendarPopupAdd
@@ -57,7 +76,7 @@ class TicketDetail extends Component {
                 <div className="row">
                     <div className="col-sm-3">
                         <div className="cpn-client-info">
-                            <div className="title"><Svg name="TICKET" /> Hồ sơ điều trị
+                            <div className="title"><CpnSvg name="TICKET" /> Hồ sơ điều trị
                                 <p>KH: {`${name}`}</p>
                             </div>
                             <div className="item">
@@ -90,12 +109,12 @@ class TicketDetail extends Component {
 
                         <div className="cpn-tools-list">
                             <button className="btn blue" onClick={() => this.setState({ isCreateCalendar: true })}>
-                                <Svg name="CREATE" />
+                                <CpnSvg name="CREATE" />
                                 Tạo lịch hẹn
                             </button>
                             <Link to="/ticket">
                                 <button className="btn grey">
-                                    <Svg name="BACK" />
+                                    <CpnSvg name="BACK" />
                                     Trở lại
                                 </button>
                             </Link>
@@ -107,7 +126,7 @@ class TicketDetail extends Component {
                             <div className="col-sm-12">
                                 <ul className="cpn-sub-menu">
                                     <li onClick={() => this.changeSubMenu("CALENDAR")} className={tabActive === "CALENDAR" ? "active" : null} >
-                                        <Svg name="DATE" />
+                                        <CpnSvg name="DATE" />
                                         Lịch điều trị
                                         </li>
                                 </ul>
@@ -120,7 +139,7 @@ class TicketDetail extends Component {
 
                     </div>
                 </div>
-            </CpnWraper>
+            </ScreenDashboardWraper>
         );
     }
 }

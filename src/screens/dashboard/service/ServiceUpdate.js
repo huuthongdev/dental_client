@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import isEqual from 'react-fast-compare';
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
-import { Svg, updateService } from '../../../refs';
+import { CpnSvg, updateService } from '../../../refs';
 
 class ServiceUpdate extends Component {
     state = {
@@ -47,13 +47,13 @@ class ServiceUpdate extends Component {
                     <div className="row align-items-center">
                         <div className="col-sm-8">
                             <div className="cpn-form-title">
-                                <Svg name="SERVICE" />
+                                <CpnSvg name="SERVICE" />
                                 Chỉnh sửa dịch vụ
                             </div>
                         </div>
                         <div className="col-sm-4 text-right">
                             <button onClick={() => this.setState({ redirectToService: true })} className="cpn-form-close">
-                                <Svg name="CLOSE_FORM" />
+                                <CpnSvg name="CLOSE_FORM" />
                             </button>
                         </div>
                     </div>
@@ -89,7 +89,7 @@ class ServiceUpdate extends Component {
                             <div className="col-sm-6">
                                 <button disabled={this.state.same} type="submit" className="btn blue">
                                     {this.state.loading ? <div className="loading-icon"></div> : null}
-                                    {!this.state.loading ? <Fragment><Svg name="EDIT" /> Lưu thay đổi</Fragment> : null}
+                                    {!this.state.loading ? <Fragment><CpnSvg name="EDIT" /> Lưu thay đổi</Fragment> : null}
                                 </button>
                             </div>
                         </div>

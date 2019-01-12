@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ServiceUpdate, CpnWraper, FetchingData, TitleApp } from '../../../refs';
+import { ServiceUpdate, ScreenDashboardWraper, FetchingData, TitleApp } from '../../../refs';
 
 class ServiceDetail extends Component {
     state = {
@@ -16,22 +16,22 @@ class ServiceDetail extends Component {
         // Waiting for fetch data store
         if (!fetchDataStatus.service) {
             return (
-                <CpnWraper>
+                <ScreenDashboardWraper>
                     <FetchingData />
-                </CpnWraper>
+                </ScreenDashboardWraper>
             );
         }
 
         // Find branch in branchs store
         const service = this.props.service.filter(v => v._id === _id)[0];
-        if (!service) return <CpnWraper>Không tìm thấy dữ liệu!</CpnWraper>;
+        if (!service) return <ScreenDashboardWraper>Không tìm thấy dữ liệu!</ScreenDashboardWraper>;
 
 
         return (
-            <CpnWraper>
+            <ScreenDashboardWraper>
                 <TitleApp sub={`Chi nhánh ${service.name}`} />
                 <ServiceUpdate item={service} />
-            </CpnWraper>
+            </ScreenDashboardWraper>
         );
     }
 }

@@ -4,12 +4,48 @@ import { SET_USER_INFO } from "../reducers/user.reducer";
 const { dispatch } = Store;
 
 export default class UserService {
-    static async login(loginInfo, password) {
-        return RequestService.post('/user/log-in', { loginInfo, password })
+    static async setLocalStorageUserInfo(token) {
+        localStorage.setItem("TOKEN", token);
+    }
+
+    static async removeLocalStorageUserInfo() {
+        localStorage.removeItem("TOKEN");
+    }
+
+    static checkAuth() {
+        const token_local_storage = localStorage.getItem("TOKEN");
+        const branch_local_storage = localStorage.getItem("BRANCH");
+
+        // (1) Not have token in localStorage (Login)
+        if (!token_local_storage) return 1;
+        // (2) Have token in localStorage || Not authen (Authentication -> check token)
+        const { user } = Store.getState();
+        if (!user.token) return 2;
+        // (3) Authen Success, Select place working (Select Place)
+        if (!branch_local_storage) return 3;
+        // (4) Authen completed (Success)
+        return 4;
+    }
+
+    static async login(payload) {
+        return RequestService.post('/user/log-in', payload)
             .then(result => {
-                localStorage.setItem("TOKEN", result.token);
+                this.setLocalStorageUserInfo(result.token);
                 dispatch({ type: SET_USER_INFO, result });
                 AlertService.success('Đăng nhập thành công');
+                return result;
+            })
+            .catch(error => {
+                AlertService.error(error.message);
+                return false;
+            })
+    }
+
+    static async authentication() {
+        return RequestService.get('/user/check')
+            .then(result => {
+                this.setLocalStorageUserInfo(result.token);
+                dispatch({ type: SET_USER_INFO, result });
                 return result;
             })
             .catch(error => {

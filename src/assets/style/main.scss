@@ -1,26 +1,26 @@
-@import "blue/../store.scss";
-@import "dark/../store.scss";
-@import "green/../store.scss";
-@import "orange/../store.scss";
-@import "red/../store.scss";
-@import "white/../store.scss";
-@import "light/../store.scss";
-@import "borderRadius/../store.scss";
-@import "boxShadow/../store.scss";
-@import "off-blue/../store.scss";
-@import "off-white/../store.scss";
-@import "off-dark/../store.scss";
+@import "blue/../variables.scss";
+@import "dark/../variables.scss";
+@import "green/../variables.scss";
+@import "orange/../variables.scss";
+@import "red/../variables.scss";
+@import "white/../variables.scss";
+@import "light/../variables.scss";
+@import "borderRadius/../variables.scss";
+@import "boxShadow/../variables.scss";
+@import "off-blue/../variables.scss";
+@import "off-white/../variables.scss";
+@import "off-dark/../variables.scss";
 
-@import "zindexHeader/../store.scss";
-@import "zindexSidebar/../store.scss";
-@import "zindexAlertsList/../store.scss";
-@import "zindexConfirm/../store.scss";
+@import "zindexHeader/../variables.scss";
+@import "zindexSidebar/../variables.scss";
+@import "zindexAlertsList/../variables.scss";
+@import "zindexConfirm/../variables.scss";
 
-@import "btnFocus/../store.scss";
-@import "btnHover/../store.scss";
-@import "bgLighting/../store.scss";
-@import "sidebarCollapseTransition/../store.scss";
-@import "inputStyle/../store.scss";
+@import "btnFocus/../variables.scss";
+@import "btnHover/../variables.scss";
+@import "bgLighting/../variables.scss";
+@import "sidebarCollapseTransition/../variables.scss";
+@import "inputStyle/../variables.scss";
 
 html,
 body {
@@ -31,7 +31,7 @@ body {
   color: $dark;
   font-weight: 500;
   background: $light;
-  width: 100vw; 
+  width: 100vw;
 
   // ============================ CONFIRM STYLE ================================
   .confirm-wraper {
@@ -1825,7 +1825,11 @@ body {
   #screen-select-branch,
   #screen-fetching-data {
     width: 100vw;
+    height: 100vh;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     .background {
       position: absolute;
@@ -1847,18 +1851,11 @@ body {
       background: rgba($color: $blue, $alpha: 0.9);
     }
 
-    .container-fluid {
-      z-index: 5;
-      position: relative;
-    }
-
-    .col-sm-1 {
-      height: 100vh;
-    }
-
-    form {
+    .body {
       position: relative;
       z-index: 3;
+      max-width: 100%;
+      width: 300px;
 
       .form-group {
         background: none;
@@ -1867,6 +1864,16 @@ body {
         input {
           color: $white;
           background: none;
+          padding-right: 35px;
+          border: 1px solid $white;
+
+          &::placeholder {
+            color: rgba($color: $white, $alpha: 0.5);
+          }
+
+          &:focus {
+            box-shadow: 0px 0px 2px 0px $white;
+          }
         }
 
         svg {
@@ -1892,7 +1899,7 @@ body {
 
       .logo {
         text-align: center;
-        margin-bottom: 50px;
+        margin-bottom: 30px;
       }
     }
   }

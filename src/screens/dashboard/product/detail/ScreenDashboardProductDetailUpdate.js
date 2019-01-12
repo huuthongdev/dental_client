@@ -3,35 +3,32 @@ import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
-import { CpnSvg, TitleApp, ScreenDashboardWraper, ProductService } from '../../../refs';
+import { CpnSvg, TitleApp, ScreenDashboardWraper, ProductService, convertToSave } from '../../../../refs';
 
-class ProductCreate extends Component {
+class ScreenDashboardProductDetailUpdate extends Component {
     state = {
         loading: false,
-        goBack: false,
-        redirectToDetail: null
-    };
+        redirectToService: false
+    }
 
     render() {
-        const { goBack, redirectToDetail } = this.state;
-        if (goBack) return <Redirect to="/product" />;
-        if (redirectToDetail)
-            return <Redirect to={`/product`} />;
+        const item = this.props.product.find(v => v._id === this.props.item._id);
 
+        if (this.state.redirectToService) return <Redirect to="/product" />
         return (
             <ScreenDashboardWraper>
-                <TitleApp sub="Tạo sản phẩm" />
+                <TitleApp sub={`Sản phẩm: ${item.name}`} />
                 <div className="cpn-form">
                     <div className="container-fluid mb-1">
                         <div className="row align-items-center">
                             <div className="col-sm-8">
                                 <div className="cpn-form-title">
                                     <CpnSvg name="PRODUCT" />
-                                    Thêm mới sản phẩm
-                                </div>
+                                    Chỉnh sửa sản phẩm
+                            </div>
                             </div>
                             <div className="col-sm-4 text-right">
-                                <button onClick={() => this.setState({ goBack: true })} className="cpn-form-close">
+                                <button onClick={() => this.setState({ redirectToService: true })} className="cpn-form-close">
                                     <CpnSvg name="CLOSE_FORM" />
                                 </button>
                             </div>
@@ -39,11 +36,11 @@ class ProductCreate extends Component {
                     </div>
                     <Formik
                         initialValues={{
-                            name: '',
-                            suggestedRetailerPrice: '',
-                            origin: '',
-                            unit: '',
-                            cost: ''
+                            name: convertToSave(item.name, item.name, ''),
+                            suggestedRetailerPrice: convertToSave(item.suggestedRetailerPrice, item.suggestedRetailerPrice, ''),
+                            origin: convertToSave(item.origin, item.origin, ''),
+                            unit: convertToSave(item.unit, item.unit, ''),
+                            cost: convertToSave(item.cost, item.cost, ''),
                         }}
                         validationSchema={Yup.object().shape({
                             name: Yup.string().required('Không được để trống'),
@@ -52,15 +49,15 @@ class ProductCreate extends Component {
                             unit: Yup.string().required('Không được để trống'),
                             cost: Yup.number().min(0, 'Giá thấp nhất bằng 0')
                         })}
-                        onSubmit={(values, { setSubmitting }) => {
-                            ProductService.create(values)
+                        onSubmit={(values, { setSubmitting, resetForm }) => {
+                            ProductService.update(item._id, values)
                                 .then(success => {
-                                    if (!success) return setSubmitting(false);
-                                    return this.setState({ goBack: true });
+                                    setSubmitting(false);
+                                    if (!success) return resetForm();
                                 });
                         }}
                         render={props => {
-                            const { isSubmitting, isValid, errors, touched, values } = props;
+                            const { isSubmitting, isValid, errors, touched, values, dirty } = props;
 
                             return <Form>
                                 <div className="container-fluid">
@@ -119,11 +116,8 @@ class ProductCreate extends Component {
                                             </button> : null}
 
                                             {!isSubmitting ? <Fragment>
-                                                <button disabled={!isValid} type="submit" className="btn blue">
+                                                <button disabled={!isValid || !dirty} type="submit" className="btn blue">
                                                     Xác nhận
-                                                </button>
-                                                <button onClick={() => this.setState({ goBack: true })} className="btn outline-grey">
-                                                    Huỷ
                                                 </button>
                                             </Fragment> : null}
                                         </div>
@@ -143,4 +137,4 @@ const mapStateToProps = (state) => {
         product: state.product
     };
 }
-export default connect(mapStateToProps, null)(ProductCreate);
+export default connect(mapStateToProps)(ScreenDashboardProductDetailUpdate);

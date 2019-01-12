@@ -1,13 +1,10 @@
 import React, { Component, Fragment, createRef } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import Pagination from "react-js-pagination";
-import {
-    TitleApp, TicketRow, FetchingData, CpnSvg, ITEMS_PER_PAGE,
-    convertToSearch, pageNavigation, ScreenDashboardWraper
-} from '../../../refs';
+import { TitleApp, CpnSvg, FetchingData, ProductRow, ScreenDashboardWraper, convertToSearch, pageNavigation, ITEMS_PER_PAGE } from '../../../refs';
 
-class Ticket extends Component {
+class ScreenDashboardProduct extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,20 +15,24 @@ class Ticket extends Component {
     }
 
     render() {
-        const { fetchDataStatus, ticket } = this.props;
-        const { currentPage, searchName } = this.state;
+        const { searchName, currentPage } = this.state;
+        const { fetchDataStatus, product } = this.props;
 
-        let initData = ticket;
+        let initData = product;
 
         // Search
-        if (searchName) initData = initData.filter(v => convertToSearch(v.client.name).search(convertToSearch(searchName)) !== -1);
+        if (searchName) initData = initData.filter(v => convertToSearch(v.name).search(convertToSearch(searchName)) !== -1);
 
         const postsPage = pageNavigation(currentPage, ITEMS_PER_PAGE, initData);
 
         return (
             <ScreenDashboardWraper>
-                <TitleApp sub="Hồ sơ điều trị" />
-                {!fetchDataStatus.ticket ? <FetchingData /> : <Fragment >
+                <TitleApp sub="Sản phẩm" />
+
+                {!fetchDataStatus.product ? <FetchingData /> : null}
+                {fetchDataStatus.product ? <Fragment >
+
+                    {/* START TABLE TOOLS */}
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-sm-6">
@@ -48,32 +49,36 @@ class Ticket extends Component {
                             </div>
                             <div className="col-sm-6">
                                 <div className="cpn-tools-list">
-                                    <Link to="/ticket/new">
+                                    <Link to="/product/new">
                                         <button className="btn blue">
                                             <CpnSvg name="CREATE" />
-                                            Tạo hồ sơ điều trị
-                                        </button>
+                                            Tạo sản phẩm
+                                    </button>
                                     </Link>
                                 </div>
                             </div>
-
-
+                        </div>
+                    </div>
+                    {/* END TABLE TOOLS */}
+                    {/* START BRANCH TABLE */}
+                    <div className="container-fluid">
+                        <div className="row">
                             <div className="col-sm-12">
                                 <table>
                                     <thead>
                                         <tr>
                                             <th className="sid">ID</th>
-                                            <th>Tên khách hàng</th>
-                                            <th>Bác sĩ</th>
-                                            <th>Dịch vụ</th>
-                                            <th>Trạng thái</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Giá nhập</th>
+                                            <th>Giá đề xuất</th>
+                                            <th>Giá chi nhánh</th>
+                                            <th>Đơn vị</th>
+                                            <th>Kho tổng</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {postsPage.map((v, i) => (
-                                            <TicketRow item={v} key={i} />)
-                                        )}
+                                        {postsPage.map((v, i) => <ProductRow onRemove={() => this.onRemove(v)} onDetail={() => this.onDetail(v)} item={v} key={i} />)}
                                     </tbody>
                                 </table>
 
@@ -86,12 +91,10 @@ class Ticket extends Component {
                                     activeClass="active"
                                     activeLinkClass="active"
                                 /> : null}
-
                             </div>
                         </div>
                     </div>
-                </Fragment>}
-
+                </Fragment> : null}
             </ScreenDashboardWraper>
         );
     }
@@ -99,8 +102,8 @@ class Ticket extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        ticket: state.ticket,
+        product: state.product,
         fetchDataStatus: state.fetchDataStatus
     };
 }
-export default connect(mapStateToProps)(Ticket);
+export default connect(mapStateToProps)(ScreenDashboardProduct);

@@ -5,39 +5,43 @@ import Background from './assets/images/bg.jpg';
 import AvatarDemo from './assets/images/avatar.png';
 // Components
 import SubmitButtonsGroup from './components/SubmitButtonsGroup';
-import CpnWraper from './components/CpnWraper';
 import CpnPopupWraper from './components/CpnPopupWraper';
-import Svg from "./components/Svg";
+import CpnSvg from "./components/CpnSvg";
 import Confirm from "./components/Confirm";
 import FetchingData from "./components/FetchingData";
 import FadeAnimate from "./components/FadeAnimate";
 import TitleApp from './components/TitleApp';
-import Alert from './components/alert/Alert';
-import AlertItem from './components/alert/AlertItem';
-import Header from './components/Header';
-import Sidebar from './components/Sidebar';
+import CpnAlert from './components/alert/CpnAlert';
+import CpnAlertItem from './components/alert/CpnAlertItem';
+import ScreenDashboardSidebar from './screens/dashboard/ScreenDashboardSidebar';
+import CpnTitle from './components/CpnTitle';
+
 // Screens
-import Login from "./screens/Login";
-import NotMatch404 from './screens/NotMatch404';
-import Authentication from './screens/Authentication';
-import SelectBranch from './screens/SelectBranch';
+import ScreenWraper from './screens/ScreenWraper';
+import ScreenLogin from "./screens/login/ScreenLogin";
+import ScreenNotMatch404 from './screens/ScreenNotMatch404';
+import ScreenAuthentication from './screens/authentication/ScreenAuthentication';
+import ScreenSelectBranch from './screens/select-branch/ScreenSelectBranch';
 
-import Main from './screens/dashboard/main/Main';
+import ScreenDashboardHeader from './screens/dashboard/ScreenDashboardHeader';
+import ScreenDashboardWraper from './screens/dashboard/ScreenDashboardWraper';
 
-import Branch from './screens/dashboard/branch/Branch';
-import BranchCreate from './screens/dashboard/branch/BranchCreate';
-import BranchDetail from './screens/dashboard/branch/BranchDetail';
-import BranchUpdate from './screens/dashboard/branch/BranchUpdate';
-import BranchDetailEmployees from './screens/dashboard/branch/BranchDetailEmployees';
-import BranchAddEmployee from './screens/dashboard/branch/BranchAddEmployee';
-import BranchRow from './screens/dashboard/branch/BranchRow';
+import ScreenDashboardMain from './screens/dashboard/main/ScreenDashboardMain';
+
+import ScreenDashboardBranch from './screens/dashboard/branch/ScreenDashboardBranch';
+import ScreenDashboardBranchCreate from './screens/dashboard/branch/ScreenDashboardBranchCreate';
+import ScreenDashboardBranchDetail from './screens/dashboard/branch/detail/ScreenDashboardBranchDetail';
+import ScreenDashboardBranchDetailUpdate from './screens/dashboard/branch/detail/ScreenDashboardBranchDetailUpdate';
+import ScreenDashboardBranchDetailEmployees from './screens/dashboard/branch/detail/ScreenDashboardBranchDetailEmployees';
+import ScreenDashboardBranchDetailEmployeeAdd from './screens/dashboard/branch/detail/ScreenDashboardBranchDetailEmployeeAdd';
+import ScreenDashboardBranchRow from './screens/dashboard/branch/ScreenDashboardBranchRow';
 
 
-import Employee from './screens/dashboard/employee/Employee';
-import EmployeeRow from './screens/dashboard/employee/EmployeeRow';
-import EmployeeCreate from './screens/dashboard/employee/EmployeeCreate';
-import EmployeeDetail from './screens/dashboard/employee/EmployeeDetail';
-import EmployeeUpdate from './screens/dashboard/employee/EmployeeUpdate';
+import ScreenDashboardEmployee from './screens/dashboard/employee/ScreenDashboardEmployee';
+import ScreenDashboardEmployeeRow from './screens/dashboard/employee/ScreenDashboardEmployeeRow';
+import ScreenDashboardEmployeeCreate from './screens/dashboard/employee/ScreenDashboardEmployeeCreate';
+import ScreenDashboardEmployeeDetail from './screens/dashboard/employee/detail/ScreenDashboardEmployeeDetail';
+import ScreenDashboardEmployeeDetailUpdate from './screens/dashboard/employee/detail/ScreenDashboardEmployeeDetailUpdate';
 
 import Service from './screens/dashboard/service/Service';
 import ServiceCreate from './screens/dashboard/service/ServiceCreate';
@@ -45,18 +49,18 @@ import ServiceRow from './screens/dashboard/service/ServiceRow';
 import ServiceDetail from './screens/dashboard/service/ServiceDetail';
 import ServiceUpdate from './screens/dashboard/service/ServiceUpdate';
 
-import Product from './screens/dashboard/product/Product';
+import ScreenDashboardProduct from './screens/dashboard/product/ScreenDashboardProduct';
 import ProductRow from './screens/dashboard/product/ProductRow';
 import ProductCreate from './screens/dashboard/product/ProductCreate';
-import ProductUpdate from './screens/dashboard/product/ProductUpdate';
-import ProductDetail from './screens/dashboard/product/ProductDetail';
+import ScreenDashboardProductDetail from './screens/dashboard/product/detail/ScreenDashboardProductDetail';
+import ScreenDashboardProductDetailUpdate from './screens/dashboard/product/detail/ScreenDashboardProductDetailUpdate';
 
-import Client from './screens/dashboard/client/Client';
-import ClientCreate from './screens/dashboard/client/ClientCreate';
-import ClientRow from './screens/dashboard/client/ClientRow';
+import ScreenDashboardClient from './screens/dashboard/client/ScreenDashboardClient';
+import ScreenDashboardClientCreate from './screens/dashboard/client/ScreenDashboardClientCreate';
+import ScreenDashboardClientRow from './screens/dashboard/client/ScreenDashboardClientRow';
 
-import ClientDetail from './screens/dashboard/client/ClientDetail';
-import ClientUpdate from './screens/dashboard/client/ClientUpdate';
+import ScreenDashboardClientDetail from './screens/dashboard/client/detail/ScreenDashboardClientDetail';
+import ScreenDashboardClientDetailUpdate from './screens/dashboard/client/detail/ScreenDashboardClientDetailUpdate';
 
 import Ticket from './screens/dashboard/ticket/Ticket';
 import TicketRow from './screens/dashboard/ticket/TicketRow';
@@ -114,17 +118,32 @@ import ConfirmService from './services/confirm.service';
 export { Logo, LogoBlue, AvatarDemo, Background }
 // Components
 export {
-    FetchingData, FadeAnimate, Alert, AlertItem, Svg, TitleApp, Header, Sidebar,
-    CpnWraper, CpnPopupWraper, Confirm, SubmitButtonsGroup
+    CpnTitle,
+    FetchingData, FadeAnimate, CpnAlert, CpnAlertItem, CpnSvg, TitleApp,
+    CpnPopupWraper, Confirm, SubmitButtonsGroup
 }
 // Screens
-export { NotMatch404, Login, Authentication, SelectBranch }
-export { Main }
-export { Branch, BranchRow, BranchAddEmployee, BranchDetail, BranchCreate, BranchUpdate, BranchDetailEmployees }
-export { Employee, EmployeeCreate, EmployeeDetail, EmployeeRow, EmployeeUpdate }
+export { ScreenWraper }
+export { ScreenLogin }
+export { ScreenAuthentication }
+export { ScreenSelectBranch }
+export { ScreenNotMatch404 }
+export { ScreenDashboardHeader, ScreenDashboardWraper, ScreenDashboardSidebar }
+export { ScreenDashboardMain }
+export {
+    ScreenDashboardBranch, ScreenDashboardBranchRow, ScreenDashboardBranchDetailEmployeeAdd, ScreenDashboardBranchDetail,
+    ScreenDashboardBranchCreate, ScreenDashboardBranchDetailUpdate, ScreenDashboardBranchDetailEmployees
+}
+export { 
+    ScreenDashboardEmployee, ScreenDashboardEmployeeCreate, ScreenDashboardEmployeeDetail, 
+    ScreenDashboardEmployeeRow, ScreenDashboardEmployeeDetailUpdate 
+}
 export { Service, ServiceCreate, ServiceDetail, ServiceUpdate, ServiceRow }
-export { Product, ProductCreate, ProductDetail, ProductUpdate, ProductRow }
-export { Client, ClientUpdate, ClientDetail, ClientCreate, ClientRow }
+export { 
+    ScreenDashboardProduct, ProductCreate, ScreenDashboardProductDetail,
+     ScreenDashboardProductDetailUpdate, ProductRow 
+    }
+export { ScreenDashboardClient, ScreenDashboardClientDetailUpdate, ScreenDashboardClientDetail, ScreenDashboardClientCreate, ScreenDashboardClientRow }
 export {
     Ticket, TicketRow, TicketCreate, TicketDetail,
     TicketDetailCalendar, TicketDetailCalendarPopupAdd, TicketDetailCalendarRow

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Svg, ConfirmService } from '../refs';
+import { CpnSvg, ConfirmService } from '../refs';
 
 class Confirm extends Component {
     state = {
@@ -49,7 +49,7 @@ class Confirm extends Component {
                                     </div>
                                     <div className="col-sm-6 text-right">
                                         <button onClick={(e) => this.onCancel(e)} type="" className="cpn-form-close">
-                                            <Svg name="CLOSE_FORM" />
+                                            <CpnSvg name="CLOSE_FORM" />
                                         </button>
                                     </div>
                                 </div>

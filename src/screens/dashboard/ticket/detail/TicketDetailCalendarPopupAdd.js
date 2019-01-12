@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import Select from 'react-select';
-import { CpnPopupWraper, Svg, convertToSave } from '../../../../refs';
+import { CpnPopupWraper, CpnSvg, convertToSave } from '../../../../refs';
 
 import moment from 'moment'
 import 'moment/locale/vi';
@@ -29,13 +29,13 @@ class TicketDetailCalendarPopupAdd extends Component {
                         <div className="row align-items-center">
                             <div className="col-sm-8">
                                 <div className="cpn-form-title">
-                                    <Svg name="DATE" />
+                                    <CpnSvg name="DATE" />
                                     Thông tin lịch hẹn
                             </div>
                             </div>
                             <div className="col-sm-4 text-right">
                                 <button onClick={() => this.props.goBack()} className="cpn-form-close">
-                                    <Svg name="CLOSE_FORM" />
+                                    <CpnSvg name="CLOSE_FORM" />
                                 </button>
                             </div>
                         </div>

@@ -1,19 +1,21 @@
 import React, { Component, Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { Svg, convertTicketStatus } from '../../../refs';
+import { CpnSvg, convertTicketStatus } from '../../../refs';
 
 class TicketRow extends Component {
     state = {
         onRemove: false,
         onDetail: false,
+        onCreateCalendar: false,
         isSelectListTools: false
-    }; 
+    };
 
     render() {
         const { item } = this.props;
-        const { onDetail } = this.state;
+        const { onDetail, onCreateCalendar } = this.state;
 
-        if (onDetail) return <Redirect to={`/ticket/${item._id}`} />
+        if (onDetail) return <Redirect to={{ pathname: `/ticket/${item._id}` }} />
+        if (onCreateCalendar) return <Redirect to={{ pathname: `/ticket/${item._id}`, state: { isCreateCalendar: true } }} />
         return (
             <Fragment>
                 <tr>
@@ -42,14 +44,18 @@ class TicketRow extends Component {
                     </td>
                     <td className="list-tools">
                         <button className="row-toggle-list-tools">
-                            <Svg name="ARROW_DOWN" />
+                            <CpnSvg name="ARROW_DOWN" />
                             <div className="row-list-tools">
                                 <div onClick={() => this.setState({ onDetail: true })} className="item">
-                                    <Svg name="INFO" />
+                                    <CpnSvg name="INFO" />
                                     Chi tiết
                                 </div>
+                                <div className="item" onClick={() => this.setState({ onCreateCalendar: true })}>
+                                    <CpnSvg name="INFO" />
+                                    Đặt lịch hẹn
+                                    </div>
                                 <div className="item">
-                                    <Svg name="MONEY_CHECK" />
+                                    <CpnSvg name="MONEY_CHECK" />
                                     Thanh toán
                                 </div>
                             </div>

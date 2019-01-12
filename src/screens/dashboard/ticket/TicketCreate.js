@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
 import Select from 'react-select';
-import { CpnWraper, TitleApp, Svg, SubmitButtonsGroup, TicketService, FetchingData } from '../../../refs';
+import { ScreenDashboardWraper, TitleApp, CpnSvg, SubmitButtonsGroup, TicketService, FetchingData } from '../../../refs';
 
 class TicketCreate extends Component {
     state = {
@@ -41,23 +41,23 @@ class TicketCreate extends Component {
         if (goBack) return <Redirect to="/client" />
 
         const totalPrice = items.length !== 0 ? items.map(v => v = v.service.suggestedRetailerPrice * v.qty).reduce((a, b) => a + b) : 0;
-        if (!fetchDataStatus.client) return <CpnWraper> <FetchingData /> </CpnWraper>
+        if (!fetchDataStatus.client) return <ScreenDashboardWraper> <FetchingData /> </ScreenDashboardWraper>
         
         return (
-            <CpnWraper>
+            <ScreenDashboardWraper>
                 <TitleApp sub="Tạo phiếu điều trị" />
                 <div className="cpn-form">
                     <div className="container-fluid mb-1">
                         <div className="row align-items-center">
                             <div className="col-sm-8">
                                 <div className="cpn-form-title">
-                                    <Svg name="TICKET" />
+                                    <CpnSvg name="TICKET" />
                                     Thêm mới phiếu điều trị
                             </div>
                             </div>
                             <div className="col-sm-4 text-right">
                                 <button onClick={() => this.props.history.goBack()} className="cpn-form-close">
-                                    <Svg name="CLOSE_FORM" />
+                                    <CpnSvg name="CLOSE_FORM" />
                                 </button>
                             </div>
                         </div>
@@ -176,7 +176,7 @@ class TicketCreate extends Component {
                                                                     </td>
                                                                     <td style={{ width: '50px' }}>
                                                                         <div onClick={() => this.removeServiceInList(value.service._id)} className="btn-remove">
-                                                                            <Svg name="REMOVE" />
+                                                                            <CpnSvg name="REMOVE" />
                                                                         </div>
                                                                     </td>
                                                                 </tr>
@@ -201,7 +201,7 @@ class TicketCreate extends Component {
                         }}
                     />
                 </div>
-            </CpnWraper>
+            </ScreenDashboardWraper>
         );
     }
 }

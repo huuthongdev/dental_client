@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
-import { Svg, createService, CpnWraper, TitleApp, ServiceService } from '../../../refs';
+import { CpnSvg, createService, ScreenDashboardWraper, TitleApp, ServiceService } from '../../../refs';
 
 class ServiceCreate extends Component {
     state = {
@@ -37,20 +37,20 @@ class ServiceCreate extends Component {
         if (redirectToDetail)
             return <Redirect to={`/service`} />;
         return (
-            <CpnWraper>
+            <ScreenDashboardWraper>
                 <TitleApp sub="Tạo dịch vụ" />
                 <div className="cpn-form">
                     <div className="container-fluid">
                         <div className="row align-items-center">
                             <div className="col-sm-8">
                                 <div className="cpn-form-title">
-                                    <Svg name="SERVICE" />
+                                    <CpnSvg name="SERVICE" />
                                     Thêm mới dịch vụ
                             </div>
                             </div>
                             <div className="col-sm-4 text-right">
                                 <button onClick={() => this.setState({ goBack: true })} className="cpn-form-close">
-                                    <Svg name="CLOSE_FORM" />
+                                    <CpnSvg name="CLOSE_FORM" />
                                 </button>
                             </div>
                         </div>
@@ -125,7 +125,7 @@ class ServiceCreate extends Component {
                         }}
                     />
                 </div>
-            </CpnWraper>
+            </ScreenDashboardWraper>
         );
     }
 }

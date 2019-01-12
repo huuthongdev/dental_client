@@ -2,7 +2,7 @@ import React, { Component, Fragment, createRef } from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import Pagination from "react-js-pagination";
-import { TitleApp, Svg, FetchingData, CpnWraper, ServiceRow, convertToSearch, ITEMS_PER_PAGE, pageNavigation } from '../../../refs';
+import { TitleApp, CpnSvg, FetchingData, ScreenDashboardWraper, ServiceRow, convertToSearch, ITEMS_PER_PAGE, pageNavigation } from '../../../refs';
 
 class Service extends Component {
     constructor(props) {
@@ -26,7 +26,7 @@ class Service extends Component {
         const postsPage = pageNavigation(currentPage, ITEMS_PER_PAGE, initData);
 
         return (
-            <CpnWraper>
+            <ScreenDashboardWraper>
                 <TitleApp sub="Dịch vụ" />
 
                 {!fetchDataStatus.service ? <FetchingData /> : null}
@@ -37,7 +37,7 @@ class Service extends Component {
                                 <div className="cpn-table-tools">
                                     <div className="tool-search">
                                         <input ref={this.searchNameInput} onChange={e => this.setState({ searchName: e.target.value })} type="text" placeholder="Tìm kiếm" />
-                                        <Svg name="SEARCH" />
+                                        <CpnSvg name="SEARCH" />
                                     </div>
                                     <div onClick={() => {
                                         this.setState({ searchName: '' });
@@ -51,7 +51,7 @@ class Service extends Component {
                                 <div className="cpn-tools-list">
                                     <Link to='/service/new'>
                                         <button onClick={() => this.setState({ create: true })} className="btn blue">
-                                            <Svg name="CREATE" />
+                                            <CpnSvg name="CREATE" />
                                             Tạo dịch vụ
                                         </button>
                                     </Link>
@@ -91,7 +91,7 @@ class Service extends Component {
                         </div>
                     </div>
                 </Fragment> : null}
-            </CpnWraper >
+            </ScreenDashboardWraper >
         );
     }
 }

@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
-import { Svg } from '../../../refs';
+import { CpnSvg } from '../../../refs';
 
 class ServiceRow extends Component {
     state = {
@@ -51,7 +51,7 @@ class ServiceRow extends Component {
                     <td>{item.unit}</td>
                     <td className="list-tools">
                         <button className="row-toggle-list-tools">
-                            <Svg name="ARROW_DOWN" />
+                            <CpnSvg name="ARROW_DOWN" />
                         </button>
                         <div className="right-row-side" />
                     </td>

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Svg, convertStatus } from '../../../../refs';
+import { CpnSvg, convertStatus } from '../../../../refs';
 
 class TicketDetailCalendarRow extends Component {
     render() {
@@ -31,14 +31,14 @@ class TicketDetailCalendarRow extends Component {
                     </td>
                     <td className="list-tools">
                         <button className="row-toggle-list-tools">
-                            <Svg name="ARROW_DOWN" />
+                            <CpnSvg name="ARROW_DOWN" />
                             <div className="row-list-tools">
                                 <div onClick={() => this.setState({ onDetail: true })} className="item">
-                                    <Svg name="INFO" />
+                                    <CpnSvg name="INFO" />
                                     Chi tiết
                                 </div>
                                 <div className="item">
-                                    <Svg name="MONEY_CHECK" />
+                                    <CpnSvg name="MONEY_CHECK" />
                                     Thanh toán
                                 </div>
                             </div>

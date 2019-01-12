@@ -1,13 +1,13 @@
 import React, { Component, Fragment, createRef } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import Pagination from "react-js-pagination";
+import { Link } from 'react-router-dom';
 import {
-    TitleApp, TicketRow, FetchingData, CpnSvg, ITEMS_PER_PAGE,
-    convertToSearch, pageNavigation, ScreenDashboardWraper
+    convertToSearch, ITEMS_PER_PAGE, pageNavigation,
+    FetchingData, CpnSvg, TitleApp, ScreenDashboardClientRow, ScreenDashboardWraper
 } from '../../../refs';
 
-class Ticket extends Component {
+class ScreenDashboardClient extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,20 +18,21 @@ class Ticket extends Component {
     }
 
     render() {
-        const { fetchDataStatus, ticket } = this.props;
+        const { fetchDataStatus, client } = this.props;
         const { currentPage, searchName } = this.state;
 
-        let initData = ticket;
+        let initData = client;
 
         // Search
-        if (searchName) initData = initData.filter(v => convertToSearch(v.client.name).search(convertToSearch(searchName)) !== -1);
+        if (searchName) initData = initData.filter(v => convertToSearch(v.name).search(convertToSearch(searchName)) !== -1);
 
         const postsPage = pageNavigation(currentPage, ITEMS_PER_PAGE, initData);
 
         return (
             <ScreenDashboardWraper>
-                <TitleApp sub="Hồ sơ điều trị" />
-                {!fetchDataStatus.ticket ? <FetchingData /> : <Fragment >
+                <TitleApp sub="Khách hàng" />
+
+                {!fetchDataStatus.client ? <FetchingData /> : <Fragment >
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-sm-6">
@@ -46,17 +47,17 @@ class Ticket extends Component {
                                     }} className="tool-reset">Reset</div>
                                 </div>
                             </div>
+
                             <div className="col-sm-6">
                                 <div className="cpn-tools-list">
-                                    <Link to="/ticket/new">
+                                    <Link to="/client/new">
                                         <button className="btn blue">
                                             <CpnSvg name="CREATE" />
-                                            Tạo hồ sơ điều trị
+                                            Tạo khách hàng
                                         </button>
                                     </Link>
                                 </div>
                             </div>
-
 
                             <div className="col-sm-12">
                                 <table>
@@ -64,15 +65,15 @@ class Ticket extends Component {
                                         <tr>
                                             <th className="sid">ID</th>
                                             <th>Tên khách hàng</th>
-                                            <th>Bác sĩ</th>
-                                            <th>Dịch vụ</th>
-                                            <th>Trạng thái</th>
+                                            <th>Điện thoại</th>
+                                            <th>Email</th>
+                                            <th>Sinh nhật</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {postsPage.map((v, i) => (
-                                            <TicketRow item={v} key={i} />)
+                                            <ScreenDashboardClientRow item={v} key={i} />)
                                         )}
                                     </tbody>
                                 </table>
@@ -99,8 +100,8 @@ class Ticket extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        ticket: state.ticket,
+        client: state.client,
         fetchDataStatus: state.fetchDataStatus
     };
 }
-export default connect(mapStateToProps)(Ticket);
+export default connect(mapStateToProps)(ScreenDashboardClient);
