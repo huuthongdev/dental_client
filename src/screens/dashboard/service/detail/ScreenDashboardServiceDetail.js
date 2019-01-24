@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ServiceUpdate, ScreenDashboardWraper, FetchingData, TitleApp } from '../../../refs';
+import { ScreenDashboardServiceDetailUpdate, ScreenDashboardWraper, CpnFetchingData, TitleApp } from '../../../../refs';
 
-class ServiceDetail extends Component {
+class ScreenDashboardServiceDetail extends Component {
     state = {
         // fetchDataDetailStatus: false,
         // subMenuActive: "INFO",
@@ -17,7 +17,7 @@ class ServiceDetail extends Component {
         if (!fetchDataStatus.service) {
             return (
                 <ScreenDashboardWraper>
-                    <FetchingData />
+                    <CpnFetchingData />
                 </ScreenDashboardWraper>
             );
         }
@@ -30,7 +30,7 @@ class ServiceDetail extends Component {
         return (
             <ScreenDashboardWraper>
                 <TitleApp sub={`Chi nhánh ${service.name}`} />
-                <ServiceUpdate item={service} />
+                <ScreenDashboardServiceDetailUpdate item={service} />
             </ScreenDashboardWraper>
         );
     }
@@ -42,4 +42,4 @@ const mapStateToProps = (state) => {
         fetchDataStatus: state.fetchDataStatus
     };
 }
-export default connect(mapStateToProps, null)(ServiceDetail);
+export default connect(mapStateToProps)(ScreenDashboardServiceDetail);

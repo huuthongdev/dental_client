@@ -4,13 +4,13 @@ import { Redirect } from "react-router-dom";
 import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
 import Select from 'react-select';
-import { ScreenDashboardWraper, TitleApp, CpnSvg, SubmitButtonsGroup, TicketService, FetchingData } from '../../../refs';
+import { ScreenDashboardWraper, TitleApp, CpnSvg, SubmitButtonsGroup, TicketService, CpnFetchingData } from '../../../refs';
 
-class TicketCreate extends Component {
+class ScreenDashboardTicketCreate extends Component {
     state = {
         goBack: false,
         items: [],
-        invalidQty: []
+        redirectToDetail: null
     }
 
     addItem(serviceId) {
@@ -32,17 +32,18 @@ class TicketCreate extends Component {
     }
 
     render() {
-        const { goBack, items, invalidQty } = this.state;
+        const { goBack, items, redirectToDetail } = this.state;
         const { match, client, employee, service, fetchDataStatus } = this.props;
         const { idClient } = match.params;
 
         const checkClient = client.find(v => v._id === idClient);
 
-        if (goBack) return <Redirect to="/client" />
+        if (goBack) return <Redirect to="/ticket" />
+        if (redirectToDetail) return <Redirect to={`/ticket/${redirectToDetail}`} />
 
         const totalPrice = items.length !== 0 ? items.map(v => v = v.service.suggestedRetailerPrice * v.qty).reduce((a, b) => a + b) : 0;
-        if (!fetchDataStatus.client) return <ScreenDashboardWraper> <FetchingData /> </ScreenDashboardWraper>
-        
+        if (!fetchDataStatus.client) return <ScreenDashboardWraper> <CpnFetchingData /> </ScreenDashboardWraper>
+
         return (
             <ScreenDashboardWraper>
                 <TitleApp sub="Tạo phiếu điều trị" />
@@ -77,14 +78,14 @@ class TicketCreate extends Component {
                             const { dentistId, clientId } = values;
                             const payload = { dentistId, clientId, items: items.map(v => v = { service: v.service._id, qty: +v.qty }) };
                             TicketService.create(payload)
-                                .then(() => {
+                                .then(success => {
+                                    if (success) return this.setState({ redirectToDetail: success._id });
                                     setSubmitting(false);
+                                    this.setState({ goBack: true });
                                 });
                         }}
                         render={props => {
                             const { isSubmitting, isValid, errors, touched, setValues, values, setTouched } = props;
-
-                            console.log(values);
 
                             const dentistArr = employee.filter(v => {
                                 const currentBranchId = localStorage.getItem("BRANCH");
@@ -193,7 +194,7 @@ class TicketCreate extends Component {
                                         </div>
 
                                         <div className="col-sm-12">
-                                            <SubmitButtonsGroup disabled={!isValid || items.length === 0 || invalidQty} loading={isSubmitting} />
+                                            <SubmitButtonsGroup disabled={!isValid || items.length === 0} loading={isSubmitting} />
                                         </div>
                                     </div>
                                 </div>
@@ -214,4 +215,4 @@ const mapStateToProps = (state) => {
         fetchDataStatus: state.fetchDataStatus
     };
 }
-export default connect(mapStateToProps)(TicketCreate);
+export default connect(mapStateToProps)(ScreenDashboardTicketCreate);

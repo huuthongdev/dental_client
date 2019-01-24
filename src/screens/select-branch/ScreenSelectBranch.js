@@ -10,7 +10,7 @@ class ScreenSelectBranch extends Component {
 
     handleSelectBranch(e, branchId) {
         e.preventDefault();
-        localStorage.setItem("BRANCH", branchId);
+        UserService.setCurrentBranch(branchId);
         this.setState({ selected: true });
     }
 

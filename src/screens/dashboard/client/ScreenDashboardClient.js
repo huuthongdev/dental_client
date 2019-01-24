@@ -4,7 +4,7 @@ import Pagination from "react-js-pagination";
 import { Link } from 'react-router-dom';
 import {
     convertToSearch, ITEMS_PER_PAGE, pageNavigation,
-    FetchingData, CpnSvg, TitleApp, ScreenDashboardClientRow, ScreenDashboardWraper
+    CpnFetchingData, CpnSvg, ScreenDashboardClientRow, ScreenDashboardWraper
 } from '../../../refs';
 
 class ScreenDashboardClient extends Component {
@@ -29,10 +29,8 @@ class ScreenDashboardClient extends Component {
         const postsPage = pageNavigation(currentPage, ITEMS_PER_PAGE, initData);
 
         return (
-            <ScreenDashboardWraper>
-                <TitleApp sub="Khách hàng" />
-
-                {!fetchDataStatus.client ? <FetchingData /> : <Fragment >
+            <ScreenDashboardWraper title="Khách hàng">
+                {!fetchDataStatus.client ? <CpnFetchingData /> : <Fragment >
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-sm-6">

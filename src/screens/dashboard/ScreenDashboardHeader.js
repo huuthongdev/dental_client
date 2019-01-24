@@ -1,11 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { logOut, CpnSvg, MainService } from '../../refs';
+import { CpnSvg, MainService, UserService } from '../../refs';
 
 class ScreenDashboardHeader extends Component {
     handleLogout() {
-        const { dispatch } = this.props;
-        return dispatch(logOut());
+        UserService.logOut();        
     }
 
     showListBranch() {
@@ -16,7 +15,7 @@ class ScreenDashboardHeader extends Component {
         return (
             <select defaultValue={currentBranch} onChange={(e) => this.changeCurrentBranch(e)}>
                 {user.roleInBranchs.map((v, i) => <Fragment key={i}>
-                    <option value={v.branch._id}>{v.branch.isMaster ? 'Trụ sở' : v.branch.name}</option>
+                    <option value={v.branch._id}>{v.branch.name}</option>
                 </Fragment>)}
             </select>
         );

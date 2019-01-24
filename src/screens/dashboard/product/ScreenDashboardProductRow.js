@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Redirect } from "react-router-dom";
 import { CpnSvg } from '../../../refs';
 
-class ProductRow extends Component {
+class ScreenDashboardProductRow extends Component {
     state = {
         onDetail: false
     };
@@ -20,11 +20,11 @@ class ProductRow extends Component {
                         {item.sid}
                     </td>
                     <td className="link" onClick={() => this.setState({ onDetail: true })}>{item.name}</td>
-                    <td>{item.cost.toLocaleString('en-GB')}</td>
-                    <td>{item.suggestedRetailerPrice.toLocaleString('en-GB')}</td>
-                    <td>100..</td>
+                    <td>{item.cost.toLocaleString('en-GB')}đ</td>
+                    <td>{item.suggestedRetailerPrice.toLocaleString('en-GB')}đ</td>
+                    <td>--</td>
                     <td>{item.unit}</td>
-                    <td>0..</td>
+                    <td>--</td>
                     <td className="list-tools">
                         <button className="row-toggle-list-tools">
                             <CpnSvg name="ARROW_DOWN" />
@@ -39,4 +39,4 @@ class ProductRow extends Component {
     }
 }
 
-export default ProductRow;
+export default ScreenDashboardProductRow;

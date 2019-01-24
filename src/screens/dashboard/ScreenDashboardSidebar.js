@@ -20,7 +20,7 @@ class ScreenDashboardSidebar extends Component {
     render() {
         return (
             <Fragment>
-                <div className="sidebar">
+                <div className="sidebar" id="sidebar-main">
                     <div className="side-bar-logo">
                         <CpnSvg name="LOGO" />
                     </div>
@@ -83,14 +83,17 @@ class ScreenDashboardSidebar extends Component {
                             </li>
                         </NavLink>
 
-                        <li>
-                            <CpnSvg name="ACCOUNTANT" />
-                            <span>Kế toán</span>
-                        </li>
-                        <li>
+                        <NavLink to="/accountant">
+                            <li>
+                                <CpnSvg name="ACCOUNTANT" />
+                                <span>Kế toán</span>
+                            </li>
+                        </NavLink>
+
+                        {/* <li>
                             <CpnSvg name="WAREHOUSE" />
                             <span>Quản lí kho</span>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
 

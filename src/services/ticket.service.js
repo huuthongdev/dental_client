@@ -1,5 +1,5 @@
 import { Store, RequestService, AlertService } from "../refs";
-import { SET_TICKETS, CREATE_TICKET } from "../reducers/ticket.reducer";
+import { SET_TICKETS, CREATE_TICKET, UPDATE_TICKET } from "../reducers/ticket.reducer";
 import { SET_TICKET_DETAIL } from "../reducers/ticket.detail.reducer";
 
 const { dispatch } = Store;
@@ -38,13 +38,40 @@ export default class TicketService {
 
     static async createCalendarForTicket(payload, clientName) {
         return await RequestService.post('/calendar-dentist', payload)
-            .then(async result => {
+            .then(result => {
                 AlertService.success(`Đã đặt lịch hẹn cho khách hàng ${clientName}`);
                 return result;
             })
             .catch(error => {
                 AlertService.error(error.message);
                 return false;
+            })
+    }
+
+    static async payment(payload) {
+        return RequestService.post('/receipt-voucher/ticket', payload)
+            .then(async () => {
+                await this.getDetail(payload.ticketId);
+                await this.set();
+                AlertService.success(`Thanh toán thành công`);
+                return true;
+            })
+            .catch(error => {
+                AlertService.error(error.message);
+                return false;
+            });
+    }
+
+    static async changeStatus(_id, status) {
+        return RequestService.put('/ticket/status/' + _id, { status })
+            .then(async (result) => {
+                AlertService.success(`Thay đổi trạng thái hồ sơ điều trị ${result.sid} thành công`);
+                dispatch({ type: UPDATE_TICKET, result });
+                return result;
+            })
+            .catch(error => {
+                AlertService.error(error.message);
+                return;
             })
     }
 }

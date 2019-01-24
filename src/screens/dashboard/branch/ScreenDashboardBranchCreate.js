@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import * as Yup from 'yup';
 import { Formik, Form, Field } from "formik";
 import Select from 'react-select'
@@ -8,36 +8,12 @@ import { CpnSvg, ScreenDashboardWraper, TitleApp, VietNamPlaces, BranchService }
 
 class ScreenDashboardBranchCreate extends Component {
 	state = {
-		loading: false,
-		goBack: false,
 		redirectToDetail: null
 	};
 
-	handleSubmit(e) {
-		e.preventDefault();
-		this.setState({ loading: true });
-		// const { dispatch } = this.props;
-		let { name, email, phone, city, district, address } = this.refs;
-		name = name.value;
-		email = email.value;
-		phone = phone.value;
-		city = city.value;
-		district = district.value;
-		address = address.value;
-		// dispatch(
-		// 	createBranch(
-		// 		{ name, email, phone, city, district, address },
-		// 		() => this.setState({ loading: false }),
-		// 		_id => this.setState({ redirectToDetail: _id })
-		// 	)
-		// );
-	}
-
 	render() {
-		const { goBack, redirectToDetail } = this.state;
-		if (goBack) return <Redirect to="/branch" />;
-		if (redirectToDetail)
-			return <Redirect to={`/branch/${redirectToDetail}`} />;
+		const { redirectToDetail } = this.state;
+		if (redirectToDetail) return <Redirect to={`/branch/${redirectToDetail}`} />;
 		return (
 			<ScreenDashboardWraper>
 				<TitleApp sub="Tạo chi nhánh" />
@@ -51,9 +27,11 @@ class ScreenDashboardBranchCreate extends Component {
                				</div>
 							</div>
 							<div className="col-sm-4 text-right">
-								<button onClick={() => this.setState({ goBack: true })} className="cpn-form-close">
-									<CpnSvg name="CLOSE_FORM" />
-								</button>
+								<Link to="/branch">
+									<button className="cpn-form-close">
+										<CpnSvg name="CLOSE_FORM" />
+									</button>
+								</Link>
 							</div>
 						</div>
 					</div>

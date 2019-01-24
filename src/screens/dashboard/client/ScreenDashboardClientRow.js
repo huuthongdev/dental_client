@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { CpnSvg } from '../../../refs';
 
 class ScreenDashboardClientRow extends Component {
@@ -18,9 +18,11 @@ class ScreenDashboardClientRow extends Component {
                 <tr>
                     <td>
                         <div className="left-row-side" />
-                        {item.sid}
+                        <Link className="link" to={`/client/${item._id}`}>
+                            {item.sid}
+                        </Link>
                     </td>
-                    <td className="link" onClick={() => this.setState({ onDetail: true })}>
+                    <td>
                         {item.name}
                     </td>
                     <td>{item.phone}</td>

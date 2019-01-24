@@ -51,9 +51,9 @@ class ScreenDashboardProductDetailUpdate extends Component {
                         })}
                         onSubmit={(values, { setSubmitting, resetForm }) => {
                             ProductService.update(item._id, values)
-                                .then(success => {
+                                .then(() => {
                                     setSubmitting(false);
-                                    if (!success) return resetForm();
+                                    resetForm();
                                 });
                         }}
                         render={props => {

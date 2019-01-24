@@ -31,9 +31,9 @@ class ScreenDashboardBranchDetailUpdate extends Component {
                             })}
                             onSubmit={(values, { setSubmitting, resetForm }) => {
                                 BranchService.update(_id, values)
-                                    .then(success => {
+                                    .then(() => {
                                         setSubmitting(false);
-                                        if (!success) resetForm();
+                                        resetForm();
                                     })
                             }}
                             render={props => {

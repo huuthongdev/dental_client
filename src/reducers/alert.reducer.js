@@ -1,4 +1,4 @@
-import { LOG_OUT } from "../actions/user.actions";
+import { LOG_OUT } from "./user.reducer";
 
 export const CREATE_ALERT = 'CREATE_ALERT';
 export const REMOVE_ALERT = 'REMOVE_ALERT';

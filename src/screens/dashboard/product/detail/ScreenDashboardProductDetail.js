@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { ScreenDashboardProductDetailUpdate, ScreenDashboardWraper, FetchingData, TitleApp } from '../../../../refs';
+import { ScreenDashboardProductDetailUpdate, ScreenDashboardWraper, CpnFetchingData, TitleApp } from '../../../../refs';
 
 class ScreenDashboardProductDetail extends Component {
     state = {
@@ -17,7 +17,7 @@ class ScreenDashboardProductDetail extends Component {
         if (!fetchDataStatus.product) {
             return (
                 <ScreenDashboardWraper>
-                    <FetchingData />
+                    <CpnFetchingData />
                 </ScreenDashboardWraper>
             );
         }

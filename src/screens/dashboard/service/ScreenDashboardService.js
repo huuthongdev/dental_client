@@ -2,9 +2,12 @@ import React, { Component, Fragment, createRef } from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import Pagination from "react-js-pagination";
-import { TitleApp, CpnSvg, FetchingData, ScreenDashboardWraper, ServiceRow, convertToSearch, ITEMS_PER_PAGE, pageNavigation } from '../../../refs';
+import {
+    CpnSvg, CpnFetchingData, ScreenDashboardWraper, ScreenDashboardServiceRow,
+    convertToSearch, ITEMS_PER_PAGE, pageNavigation
+} from '../../../refs';
 
-class Service extends Component {
+class ScreenDashboardService extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -26,10 +29,8 @@ class Service extends Component {
         const postsPage = pageNavigation(currentPage, ITEMS_PER_PAGE, initData);
 
         return (
-            <ScreenDashboardWraper>
-                <TitleApp sub="Dịch vụ" />
-
-                {!fetchDataStatus.service ? <FetchingData /> : null}
+            <ScreenDashboardWraper title="Dịch vụ">
+                {!fetchDataStatus.service ? <CpnFetchingData /> : null}
                 {fetchDataStatus.service ? <Fragment >
                     <div className="container-fluid">
                         <div className="row">
@@ -74,7 +75,7 @@ class Service extends Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {postsPage.map((v, i) => <ServiceRow item={v} key={i} />)}
+                                        {postsPage.map((v, i) => <ScreenDashboardServiceRow item={v} key={i} />)}
                                     </tbody>
                                 </table>
 
@@ -102,4 +103,4 @@ const mapStateToProps = (state) => {
         fetchDataStatus: state.fetchDataStatus
     };
 }
-export default connect(mapStateToProps, null)(Service);
+export default connect(mapStateToProps)(ScreenDashboardService);

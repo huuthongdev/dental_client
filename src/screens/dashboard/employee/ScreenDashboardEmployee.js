@@ -4,10 +4,9 @@ import Pagination from "react-js-pagination";
 import { Link } from "react-router-dom";
 import {
 	CpnSvg,
-	TitleApp,
 	ScreenDashboardEmployeeRow,
 	ScreenDashboardWraper,
-	FetchingData,
+	CpnFetchingData,
 	pageNavigation,
 	ITEMS_PER_PAGE,
 	convertToSearch
@@ -34,10 +33,8 @@ class ScreenDashboardEmployee extends Component {
 		const postsPage = pageNavigation(currentPage, ITEMS_PER_PAGE, initData);
 
 		return (
-			<ScreenDashboardWraper>
-				<TitleApp sub="Nhân sự" />
-
-				{!fetchDataStatus.branch ? <FetchingData /> : null}
+			<ScreenDashboardWraper title="Nhân sự">
+				{!fetchDataStatus.branch ? <CpnFetchingData /> : null}
 				{fetchDataStatus.branch ? (
 					<Fragment>
 						<div className="container-fluid">
@@ -76,7 +73,7 @@ class ScreenDashboardEmployee extends Component {
 												<th>Email</th>
 												<th>Địa chỉ</th>
 												<th>Chi nhánh - Chức vụ</th>
-												<th>Thao tác</th>
+												<th></th>
 											</tr>
 										</thead>
 										<tbody>

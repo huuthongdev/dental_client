@@ -2,7 +2,7 @@ import React, { Component, Fragment, createRef } from 'react';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import Pagination from "react-js-pagination";
-import { TitleApp, CpnSvg, FetchingData, ProductRow, ScreenDashboardWraper, convertToSearch, pageNavigation, ITEMS_PER_PAGE } from '../../../refs';
+import { CpnSvg, CpnFetchingData, ScreenDashboardProductRow, ScreenDashboardWraper, convertToSearch, pageNavigation, ITEMS_PER_PAGE } from '../../../refs';
 
 class ScreenDashboardProduct extends Component {
     constructor(props) {
@@ -26,10 +26,8 @@ class ScreenDashboardProduct extends Component {
         const postsPage = pageNavigation(currentPage, ITEMS_PER_PAGE, initData);
 
         return (
-            <ScreenDashboardWraper>
-                <TitleApp sub="Sản phẩm" />
-
-                {!fetchDataStatus.product ? <FetchingData /> : null}
+            <ScreenDashboardWraper title="Sản phẩm">
+                {!fetchDataStatus.product ? <CpnFetchingData /> : null}
                 {fetchDataStatus.product ? <Fragment >
 
                     {/* START TABLE TOOLS */}
@@ -78,7 +76,7 @@ class ScreenDashboardProduct extends Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {postsPage.map((v, i) => <ProductRow onRemove={() => this.onRemove(v)} onDetail={() => this.onDetail(v)} item={v} key={i} />)}
+                                        {postsPage.map((v, i) => <ScreenDashboardProductRow onRemove={() => this.onRemove(v)} onDetail={() => this.onDetail(v)} item={v} key={i} />)}
                                     </tbody>
                                 </table>
 

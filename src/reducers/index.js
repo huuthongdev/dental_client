@@ -12,19 +12,32 @@ import { clientReducer } from "./client.reducer";
 import { ticketReducer } from "./ticket.reducer";
 import { clientDetailReducer } from "./client.detail.reducer";
 import { ticketDetailReducer } from "./ticket.detail.reducer";
+import { employeeDetailReducer } from "./employee.detail.reducer";
+import { calendarDentistReducer } from "./calendarDentist.reducer";
+import { receiptVoucherReducer } from "./receiptVoucher.reducer";
 
 export default combineReducers({
-    fetchDataStatus: fetchDataStatusReducer,
+    main: mainReducer,
     alert: alertReducer,
     confirm: confirmReducer,
-    main: mainReducer,
+    fetchDataStatus: fetchDataStatusReducer,
+    
     user: userReducer,
     branch: branchReducer,
-    employee: employeeReducer,
-    service: serviceReducer,
     product: productReducer,
+
+    service: serviceReducer,
+
+    employee: employeeReducer,
+    employeeDetail: employeeDetailReducer,
+
     client: clientReducer,
     clientDetail: clientDetailReducer,
+
     ticket: ticketReducer,
-    ticketDetail: ticketDetailReducer
+    ticketDetail: ticketDetailReducer,
+
+    calendarDentist: calendarDentistReducer,
+
+    receiptVoucher: receiptVoucherReducer
 });

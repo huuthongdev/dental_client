@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { FadeAnimate, ScreenDashboardHeader, ScreenDashboardSidebar, CpnAlert, Confirm, MainService } from '../../refs';
+import { ScreenDashboardHeader, ScreenDashboardSidebar, CpnAlert, Confirm, MainService, CpnTitle } from '../../refs';
 import { connect } from 'react-redux';
 import { effect } from '../../assets/js/effect';
 
@@ -19,18 +19,18 @@ class ScreenDashboardWraper extends Component {
     }
 
     render() {
+        const { title } = this.props;
         return (
             <Fragment>
                 <ScreenDashboardHeader />
                 <ScreenDashboardSidebar />
                 <CpnAlert />
                 <Confirm />
+                {title ? <CpnTitle title={this.props.title} /> : null}
 
-                <FadeAnimate>
-                    <div className="components-wraper">
-                        {this.props.children}
-                    </div>
-                </FadeAnimate>
+                <div className="components-wraper">
+                    {this.props.children}
+                </div>
             </Fragment>
         );
     }

@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import {
 	CpnSvg,
 	ScreenDashboardBranchDetailUpdate,
-	FetchingData,
+	CpnFetchingData,
 	TitleApp,
 	ScreenDashboardWraper,
 	ScreenDashboardBranchDetailEmployees,
@@ -42,7 +42,7 @@ class ScreenDashboardBranchDetail extends Component {
 		if (!fetchDataStatus.branch) {
 			return (
 				<ScreenDashboardWraper>
-					<FetchingData />
+					<CpnFetchingData />
 				</ScreenDashboardWraper>
 			);
 		}

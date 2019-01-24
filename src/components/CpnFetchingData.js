@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { TitleApp } from '../refs';
 
-class FetchingData extends Component {
+class CpnFetchingData extends Component {
     render() {
         return (
             <Fragment>
@@ -15,4 +15,4 @@ class FetchingData extends Component {
     }
 }
 
-export default FetchingData;
+export default CpnFetchingData;

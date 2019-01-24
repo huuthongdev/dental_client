@@ -5,14 +5,18 @@ import { Redirect } from 'react-router-dom';
 
 class ScreenAuthentication extends Component {
     state = {
-        error: false
+        fetching: true
     }
 
     componentDidMount() {
-        UserService.authentication();
+        UserService.authentication()
+            .then(success => {
+                if (success) return;
+                this.setState({ fetching: false });
+            });
     }
 
-    render() { 
+    render() {
         const checkAuth = UserService.checkAuth();
 
         if (checkAuth === 1) return <Redirect to={{ pathname: '/login', state: { ...this.props.location.state } }} />

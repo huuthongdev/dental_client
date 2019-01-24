@@ -1,4 +1,4 @@
-import { LOG_OUT } from "../actions/user.actions";
+import { LOG_OUT } from "./user.reducer";
 
 const defaultState = [];
 
@@ -8,18 +8,11 @@ export const UPDATE_SERVICE = 'UPDATE_SERVICE';
 export const REMOVE_SERVICE = 'REMOVE_SERVICE'; 
 
 export const serviceReducer = (state = defaultState, action) => {
-    switch (action.type) {
-        case SET_SERVICE:
-            return action.result;
-        case CREATE_SERVICE:
-            return [action.result, ...state];
-        case UPDATE_SERVICE:
-            return state.map(v => v._id === action.result._id ? action.result : v);
-        case REMOVE_SERVICE:
-            return state.filter(v => v._id !== action.result._id);
-        case LOG_OUT:
-            return defaultState;
-        default:
-            return state
-    }
+    const { type, result } = action;
+    if (type === SET_SERVICE) return result;
+    if (type === CREATE_SERVICE) return [result, ...state];
+    if (type === UPDATE_SERVICE) return state.map(v => v._id === result._id ? result : v);
+    if (type === REMOVE_SERVICE) return state.filter(v => v._id !== result._id);
+    if (type === LOG_OUT) return defaultState;
+    return state;
 }

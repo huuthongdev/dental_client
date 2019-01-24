@@ -2,7 +2,10 @@ import React, { Component, Fragment, createRef } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Pagination from "react-js-pagination";
-import { TitleApp, CpnSvg, ScreenDashboardBranchRow, FetchingData, ScreenDashboardWraper, ITEMS_PER_PAGE, pageNavigation, convertToSearch } from "../../../refs";
+import {
+  CpnSvg, ScreenDashboardBranchRow, CpnFetchingData, ScreenDashboardWraper,
+  ITEMS_PER_PAGE, pageNavigation, convertToSearch
+} from "../../../refs";
 
 class ScreenDashboardBranch extends Component {
   constructor(props) {
@@ -26,10 +29,9 @@ class ScreenDashboardBranch extends Component {
     const postsPage = pageNavigation(currentPage, ITEMS_PER_PAGE, initData);
 
     return (
-      <ScreenDashboardWraper>
-        <TitleApp sub="Chi nhánh" />
+      <ScreenDashboardWraper title="Chi nhánh">
 
-        {!fetchDataStatus.branch ? <FetchingData /> : null}
+        {!fetchDataStatus.branch ? <CpnFetchingData /> : null}
         {fetchDataStatus.branch ? (
           <Fragment>
             <div className="container-fluid">
@@ -68,7 +70,7 @@ class ScreenDashboardBranch extends Component {
                         <th>Quận/Xã</th>
                         <th>Thành phố</th>
                         <th>Điện thoại</th>
-                        <th>Thao tác</th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>

@@ -1,66 +1,21 @@
 import React, { Component, Fragment } from 'react';
-import { TitleApp, ScreenDashboardWraper } from '../../../refs';
+import { ScreenDashboardWraper, ScreenDashboardMainNumberReports, ScreenDashboardCalendarsToday } from '../../../refs';
 
 class ScreenDashboardMain extends Component {
     render() {
         return (
             <Fragment>
-                <ScreenDashboardWraper>
-                    <TitleApp sub="Thông tin chung" /> 
-                    {/* START DIGITAL NUMBER REPORTS */}
-                    <div className="container-fluid" id="digital-number-reports">
+                <ScreenDashboardWraper title="Thông tin chung">
+                    <ScreenDashboardMainNumberReports />
+                    <div className="container-fluid mt-2">
                         <div className="row">
-                            {/* START ITEM */}
-                            <div className="col-sm-3">
-                                <div className="digital-number-item">
-                                    <div className="number">1600 <small className="measurement">(Phiếu)</small></div>
-                                    <p>Tổng số phiếu điều trị trong tháng</p>
-                                    <div className="process-bar style-1">
-                                        <div className="percent" style={{ width: '43%' }} />
-                                    </div>
-                                    <div className="percent-text">Đạt 51% chỉ tiêu tháng</div>
-                                </div>
+                            <div className="col-sm-8">
+                                <ScreenDashboardCalendarsToday />
                             </div>
-                            {/* END ITEM */}
-                            {/* START ITEM */}
-                            <div className="col-sm-3">
-                                <div className="digital-number-item">
-                                    <div className="number">1600 <small className="measurement">(Phiếu)</small></div>
-                                    <p>Tổng số phiếu điều trị trong tháng</p>
-                                    <div className="process-bar style-2">
-                                        <div className="percent" style={{ width: '43%' }} />
-                                    </div>
-                                    <div className="percent-text">Đạt 51% chỉ tiêu tháng</div>
-                                </div>
+                            <div className="col-sm-4">
                             </div>
-                            {/* END ITEM */}
-                            {/* START ITEM */}
-                            <div className="col-sm-3">
-                                <div className="digital-number-item">
-                                    <div className="number">1600 <small className="measurement">(Phiếu)</small></div>
-                                    <p>Tổng số phiếu điều trị trong tháng</p>
-                                    <div className="process-bar style-3">
-                                        <div className="percent" style={{ width: '43%' }} />
-                                    </div>
-                                    <div className="percent-text">Đạt 51% chỉ tiêu tháng</div>
-                                </div>
-                            </div>
-                            {/* END ITEM */}
-                            {/* START ITEM */}
-                            <div className="col-sm-3">
-                                <div className="digital-number-item">
-                                    <div className="number">1600 <small className="measurement">(Phiếu)</small></div>
-                                    <p>Tổng số phiếu điều trị trong tháng</p>
-                                    <div className="process-bar style-4">
-                                        <div className="percent" style={{ width: '43%' }} />
-                                    </div>
-                                    <div className="percent-text">Đạt 51% chỉ tiêu tháng</div>
-                                </div>
-                            </div>
-                            {/* END ITEM */}
                         </div>
                     </div>
-                    {/* END DIGITAL NUMBER REPORTS */}
                 </ScreenDashboardWraper>
             </Fragment>
         );

@@ -18,7 +18,7 @@ class ScreenDashboardEmployeeRow extends Component {
         const { roleInBranchs } = this.props.item;
         return roleInBranchs.map((v, i) => {
             return <Fragment key={i}>
-                • {v.branch.name} <br/> ({this.showRoles(v.roles)}) <br />
+                • <strong>{v.branch.name}</strong> <br/> ({this.showRoles(v.roles)}) <br />
             </Fragment>
         });
     }

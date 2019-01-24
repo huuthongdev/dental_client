@@ -3,11 +3,10 @@ import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
-import { CpnSvg, TitleApp, ScreenDashboardWraper, ProductService } from '../../../refs';
+import { CpnSvg, TitleApp, ScreenDashboardWraper, ProductService, CpnCurrencyInput } from '../../../refs';
 
-class ProductCreate extends Component {
+class ScreenDashboardProductCreate extends Component {
     state = {
-        loading: false,
         goBack: false,
         redirectToDetail: null
     };
@@ -15,8 +14,7 @@ class ProductCreate extends Component {
     render() {
         const { goBack, redirectToDetail } = this.state;
         if (goBack) return <Redirect to="/product" />;
-        if (redirectToDetail)
-            return <Redirect to={`/product`} />;
+        if (redirectToDetail) return <Redirect to={`/product`} />;
 
         return (
             <ScreenDashboardWraper>
@@ -60,7 +58,7 @@ class ProductCreate extends Component {
                                 });
                         }}
                         render={props => {
-                            const { isSubmitting, isValid, errors, touched, values } = props;
+                            const { isSubmitting, isValid, errors, touched, values, setFieldValue } = props;
 
                             return <Form>
                                 <div className="container-fluid">
@@ -98,18 +96,16 @@ class ProductCreate extends Component {
                                         </div>
 
                                         <div className="col-sm-6">
-                                            <div className={`form-group required format-money-wraper ${errors.suggestedRetailerPrice && touched.suggestedRetailerPrice ? 'error' : ''}`}>
+                                            <div className={`form-group required ${errors.suggestedRetailerPrice && touched.suggestedRetailerPrice ? 'error' : ''}`}>
                                                 <label>Giá đề xuất:</label><span className="error-message">{errors.suggestedRetailerPrice}</span>
-                                                <span className="format-money">{`${values.suggestedRetailerPrice !== 0 ? values.suggestedRetailerPrice.toLocaleString() : ''}`}</span>
-                                                <Field type="number" name="suggestedRetailerPrice" />
+                                                <CpnCurrencyInput value={values.suggestedRetailerPrice} onChange={number => setFieldValue('suggestedRetailerPrice', number)} />
                                             </div>
                                         </div>
 
                                         <div className="col-sm-6">
-                                            <div className={`form-group format-money-wraper ${errors.cost && touched.cost ? 'error' : ''}`}>
+                                            <div className={`form-group ${errors.cost && touched.cost ? 'error' : ''}`}>
                                                 <label>Giá cost:</label><span className="error-message">{errors.cost}</span>
-                                                <span className="format-money">{`${values.cost !== 0 ? values.cost.toLocaleString() : ''}`}</span>
-                                                <Field type="number" name="cost" />
+                                                <CpnCurrencyInput value={values.cost} onChange={number => setFieldValue('cost', number)} />
                                             </div>
                                         </div>
 
@@ -143,4 +139,4 @@ const mapStateToProps = (state) => {
         product: state.product
     };
 }
-export default connect(mapStateToProps, null)(ProductCreate);
+export default connect(mapStateToProps)(ScreenDashboardProductCreate);

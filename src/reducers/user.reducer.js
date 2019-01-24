@@ -4,12 +4,8 @@ export const LOG_OUT = 'LOG_OUT';
 const defaultState = {}
 
 export const userReducer = (state = defaultState, action) => {
-    switch (action.type) {
-        case SET_USER_INFO:
-            return action.result;
-        case LOG_OUT:
-            return defaultState;
-        default:
-            return state
-    }
+    const { type, result } = action;
+    if (type === SET_USER_INFO) return result;
+    if (type === LOG_OUT) return defaultState;
+    return state; 
 }

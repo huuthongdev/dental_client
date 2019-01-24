@@ -1,5 +1,6 @@
 import { Store, RequestService, AlertService } from "../refs";
 import { SET_EMPLOYEE, CREATE_EMPLOYEE, UPDATE_EMPLOYEE } from "../reducers/employee.reducer";
+import { SET_EMPLOYEE_DETAIL } from "../reducers/employee.detail.reducer";
 
 const { dispatch } = Store;
 
@@ -34,5 +35,16 @@ export default class EmployeeService {
                 AlertService.error(error.message);
                 return false;
             });
+    }
+
+    static async setDetail(_id) {
+        return RequestService.get('/user/' + _id)
+            .then(result => {
+                dispatch({ type: SET_EMPLOYEE_DETAIL, result });
+                return result;
+            })
+            .catch(() => {
+                return false;
+            })
     }
 }

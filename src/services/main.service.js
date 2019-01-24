@@ -1,6 +1,6 @@
-import { Store, BranchService, EmployeeService, ServiceService, ProductService, ClientService, TicketService } from "../refs";
+import { Store, BranchService, EmployeeService, ServiceService, ProductService, ClientService, TicketService, ReceiptVoucherService, RequestService } from "../refs";
 import Axios from "axios";
-import { SET_TEMP } from "../reducers/main.reducer";
+import { SET_TEMP, SET_DASHBOARD_INFO } from "../reducers/main.reducer";
 import { SET_INIT_DATA } from "../reducers/fetch-data-status.reducer";
 
 const { dispatch } = Store;
@@ -23,11 +23,19 @@ export default class MainService {
         if (fetchDataStatus.initData) return;
         dispatch({ type: SET_INIT_DATA });
         this.setTemp();
+        this.getMainDashboadInfo();
         BranchService.set();
         EmployeeService.set();
         ServiceService.set();
         ProductService.set();
         ClientService.set();
         TicketService.set();
+        ReceiptVoucherService.set();
+    }
+
+    static async getMainDashboadInfo() {
+        return RequestService.get('/main/dashboard-info')
+            .then(result => dispatch({ type: SET_DASHBOARD_INFO, result }))
+            .catch(error => console.log(error));
     }
 }

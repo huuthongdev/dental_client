@@ -1,11 +1,15 @@
 $blue: #3378ff;
 $dark: #4a5d7d;
+$purple: #8e44ad;
 $grey: #8b92a4;
 $green: #14ad0d;
 $orange: #ffb236;
 $red: #ff3636;
 $white: #fff;
 $light: #f2f5f7;
+
+$colorMain: $blue;
+
 $borderRadius: 3px;
 $boxShadow: 0px 2px 4px 0
   rgba(
@@ -17,9 +21,10 @@ $off-white: rgba($white, 0.2);
 $off-dark: rgba($dark, 0.2);
 
 $zindexHeader: 100;
-$zindexSidebar: 101;
-$zindexAlertsList: 101;
-$zindexConfirm: 102;
+$zindexSidebar: 200;
+$zindexAlertsList: 300;
+$zindexConfirm: 250; 
+$zindexPopup: 250;
 
 @mixin btnFocus($color) {
   &:focus {

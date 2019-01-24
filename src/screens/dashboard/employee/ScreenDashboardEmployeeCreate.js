@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import * as Yup from 'yup';
 import { Formik, Form, Field } from "formik";
 import DatePicker from "react-datepicker";
@@ -9,20 +9,14 @@ import { CpnSvg, TitleApp, Roles, GetRoleName, ScreenDashboardWraper, VietNamPla
 
 class ScreenDashboardEmployeeCreate extends Component {
 	state = {
-		loading: false,
-		goBack: false,
 		redirectToDetail: null
 	};
 
 	render() {
-		const { goBack, redirectToDetail } = this.state;
+		const { redirectToDetail } = this.state;
 		const { branch } = this.props;
 
-		if (goBack) return <Redirect to="/employee" />;
-
-		if (redirectToDetail)
-			return <Redirect to={`/employee/${redirectToDetail}`} />;
-
+		if (redirectToDetail) return <Redirect to={`/employee/${redirectToDetail}`} />;
 
 		function equalTo(ref, msg) {
 			return Yup.mixed().test({
@@ -52,14 +46,11 @@ class ScreenDashboardEmployeeCreate extends Component {
                 			</div>
 							</div>
 							<div className="col-sm-4 text-right">
-								<button
-									onClick={() =>
-										this.setState({ goBack: true })
-									}
-									className="cpn-form-close"
-								>
-									<CpnSvg name="CLOSE_FORM" />
-								</button>
+								<Link to="/employee">
+									<button className="cpn-form-close">
+										<CpnSvg name="CLOSE_FORM" />
+									</button>
+								</Link>
 							</div>
 						</div>
 					</div>
@@ -94,10 +85,10 @@ class ScreenDashboardEmployeeCreate extends Component {
 						})}
 						onSubmit={(values, { setSubmitting }) => {
 							EmployeeService.create({ ...values, birthday: new Date(values.birthday).getTime() })
-							.then(success => {
-								if (success) return this.setState({ goBack: true });
-								setSubmitting(false);
-							})
+								.then(result => {
+									if (result) return this.setState({ redirectToDetail: result._id });
+									return setSubmitting(false);
+								})
 						}}
 						render={props => {
 							const { isSubmitting, isValid, errors, touched, setValues, values, setTouched } = props;

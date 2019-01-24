@@ -1,19 +1,25 @@
 import React, { Component, Fragment } from 'react';
-import { CpnSvg, convertStatus } from '../../../../refs';
+import { CpnSvg, convertStatus, TimeUtils } from '../../../../refs';
 
-class TicketDetailCalendarRow extends Component {
+class ScreenDashboardTicketDetailCalendarRow extends Component {
     render() {
-        const { startTime, endTime, content, dentist, status } = this.props.item;
-        console.log(this.props.item);
+        const { startTime, endTime, content, dentist, status, sid } = this.props.item;
+
         return (
             <Fragment>
                 <tr>
-                    <td>
+                    <td className="sid">
                         <div className="left-row-side" />
-                        {new Date(startTime).toLocaleDateString('en-GB')} | {new Date(startTime).toLocaleTimeString('en-GB')}
+                        {sid}
                     </td>
                     <td>
-                        {new Date(endTime).toLocaleDateString('en-GB')} | {new Date(endTime).toLocaleTimeString('en-GB')}
+                        {endTime < Date.now() ? <p className="text-danger"><strong>Hết hạn</strong></p> : <Fragment>
+                            <strong>{new Date(startTime).toLocaleDateString('en-GB')} | {new Date(startTime).toLocaleTimeString('en-GB')}</strong> <br />
+                            (Còn lại {TimeUtils.between(startTime, Date.now())})
+                        </Fragment>}
+                    </td>
+                    <td>
+                        {TimeUtils.between(startTime, endTime, true)}
                     </td>
                     <td>
                         {content}
@@ -53,4 +59,4 @@ class TicketDetailCalendarRow extends Component {
     }
 }
 
-export default TicketDetailCalendarRow;
+export default ScreenDashboardTicketDetailCalendarRow;

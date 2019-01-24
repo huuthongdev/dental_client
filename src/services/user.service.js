@@ -1,5 +1,5 @@
 import { Store, RequestService, AlertService, BranchService } from "../refs";
-import { SET_USER_INFO } from "../reducers/user.reducer";
+import { SET_USER_INFO, LOG_OUT } from "../reducers/user.reducer";
 
 const { dispatch } = Store;
 
@@ -15,7 +15,6 @@ export default class UserService {
     static checkAuth() {
         const token_local_storage = localStorage.getItem("TOKEN");
         const branch_local_storage = localStorage.getItem("BRANCH");
-
         // (1) Not have token in localStorage (Login)
         if (!token_local_storage) return 1;
         // (2) Have token in localStorage || Not authen (Authentication -> check token)
@@ -27,10 +26,15 @@ export default class UserService {
         return 4;
     }
 
+    static setCurrentBranch(branchId) {
+        localStorage.setItem("BRANCH", branchId);
+    }
+
     static async login(payload) {
         return RequestService.post('/user/log-in', payload)
             .then(result => {
                 this.setLocalStorageUserInfo(result.token);
+                if (result.roleInBranchs && result.roleInBranchs.length === 1) this.setCurrentBranch(result.roleInBranchs[0].branch._id)
                 dispatch({ type: SET_USER_INFO, result });
                 AlertService.success('Đăng nhập thành công');
                 return result;
@@ -49,7 +53,8 @@ export default class UserService {
                 return result;
             })
             .catch(error => {
-                AlertService.error(error.message);
+                this.removeLocalStorageUserInfo();
+                AlertService.error('Lỗi xác thực! Vui lòng đăng nhập lại');
                 return false;
             })
     }
@@ -64,5 +69,10 @@ export default class UserService {
             AlertService.error('Lỗi!');
             return false;
         }
+    }
+
+    static async logOut() {
+        this.removeLocalStorageUserInfo();
+        return dispatch({ type: LOG_OUT });
     }
 }

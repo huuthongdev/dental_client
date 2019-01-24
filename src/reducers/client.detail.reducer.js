@@ -1,3 +1,5 @@
+import { LOG_OUT } from "./user.reducer";
+
 const defaultState = [];
 
 export const SET_CLIENT_DETAIL = 'SET_CLIENT_DETAIL';
@@ -11,5 +13,6 @@ export const clientDetailReducer = (state = defaultState, action) => {
         // Client initial fetch
         return [action.result, ...state];
     }
+    if (type === LOG_OUT) return defaultState;
     return state;
 }

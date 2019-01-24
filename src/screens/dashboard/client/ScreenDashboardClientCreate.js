@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { Form, Field, Formik } from 'formik';
 import Select from 'react-select';
 import DatePicker from "react-datepicker";
-import { CpnSvg, ScreenDashboardWraper, TitleApp, VietNamPlaces, medicalHistoryData, SubmitButtonsGroup, ClientService } from '../../../refs';
+import { CpnSvg, ScreenDashboardWraper, TitleApp, VietNamPlaces, medicalHistoryData, SubmitButtonsGroup, ClientService, ShortKeyService } from '../../../refs';
 
 class ScreenDashboardClientCreate extends Component {
     state = {
@@ -14,9 +14,7 @@ class ScreenDashboardClientCreate extends Component {
     };
 
     componentDidMount() {
-        document.onkeyup = (e) => {
-            if (e.which === 27) return this.setState({ goBack: true });
-        }
+        ShortKeyService.esc(() => this.setState({ goBack: true }));
     }
 
     render() {

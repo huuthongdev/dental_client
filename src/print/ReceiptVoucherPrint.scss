@@ -1,0 +1,149 @@
+@import "blue/../../assets/style/variables.scss";
+@import "dark/../../assets/style/variables.scss";
+@import "green/../../assets/style/variables.scss";
+@import "orange/../../assets/style/variables.scss";
+@import "purple/../../assets/style/variables.scss";
+@import "red/../../assets/style/variables.scss";
+@import "white/../../assets/style/variables.scss";
+@import "light/../../assets/style/variables.scss";
+@import "borderRadius/../../assets/style/variables.scss";
+@import "boxShadow/../../assets/style/variables.scss";
+@import "off-blue/../../assets/style/variables.scss";
+@import "off-white/../../assets/style/variables.scss";
+@import "off-dark/../../assets/style/variables.scss";
+@import "colorMain/../../assets/style/variables.scss";
+
+@import "zindexHeader/../../assets/style/variables.scss";
+@import "zindexSidebar/../../assets/style/variables.scss";
+@import "zindexAlertsList/../../assets/style/variables.scss";
+@import "zindexConfirm/../../assets/style/variables.scss";
+@import "zindexPopup/../../assets/style/variables.scss";
+
+@import "btnFocus/../../assets/style/variables.scss";
+@import "btnHover/../../assets/style/variables.scss";
+@import "bgLighting/../../assets/style/variables.scss";
+@import "sidebarCollapseTransition/../../assets/style/variables.scss";
+@import "inputStyle/../../assets/style/variables.scss";
+
+.receipt-voucher-print {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  border-radius: $borderRadius;
+  background: $white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  overflow: none;
+
+  .head {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .title {
+      text-align: right;
+      width: 100%;
+      font-weight: 700;
+      color: $colorMain;
+      font-size: 1.1rem;
+    }
+
+    .logo {
+      svg {
+        height: 25px;
+      }
+    }
+  }
+
+  .body {
+    .total {
+      color: $colorMain;
+      font-size: 1.1rem;
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+
+      strong {
+        font-weight: 800;
+      }
+    }
+
+    .tab-title {
+      width: 100%;
+      padding: 5px 0px;
+      font-weight: 600;
+      border-bottom: 1px solid $dark;
+    }
+
+    .text-right {
+      text-align: right !important;
+    }
+
+    .footer {
+      border-top: 1px solid rgba($color: $dark, $alpha: 0.5);
+      width: 100%;
+      background: $white;
+      z-index: 200;
+      text-align: center;
+      color: $dark;
+      align-self: flex-end;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      padding: 10px;
+      line-height: 1.5rem;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 15px 0px;
+      margin-bottom: 25px;
+      color: $dark;
+      font-size: 1rem;
+      font-weight: 600;
+
+      &.client-info {
+        margin-bottom: 10px;
+
+        tr td {
+          padding: 3px;
+        }
+      }
+
+      span {
+        color: $dark;
+      }
+
+      tr {
+        box-shadow: none;
+
+        &.total {
+          td {
+            color: $colorMain !important;
+
+            span {
+              color: $colorMain !important;
+              font-weight: 700;
+            }
+          }
+        }
+
+        &.dashed-bottom {
+          td {
+            border-bottom: 1px dashed $dark;
+          }
+        }
+      }
+
+      td {
+        box-shadow: none;
+        padding: 6px;
+        font-weight: 600;
+      }
+    }
+  }
+}

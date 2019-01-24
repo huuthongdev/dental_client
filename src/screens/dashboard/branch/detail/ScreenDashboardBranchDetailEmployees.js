@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { CpnSvg, FetchingData, GetRoleName } from "../../../../refs";
+import { CpnSvg, CpnFetchingData, GetRoleName } from "../../../../refs";
 import { connect } from 'react-redux';
 
 class ScreenDashboardBranchDetailEmployees extends Component {
@@ -8,7 +8,7 @@ class ScreenDashboardBranchDetailEmployees extends Component {
     const branch = this.props.branch.find(v => v._id === _id);
     const employees = branch.detail && branch.detail.employees ? branch.detail.employees : [];
 
-    if (!loaded) return <FetchingData />
+    if (!loaded) return <CpnFetchingData />
     if (loaded && employees.length === 0) return <div className="col-sm-12 text-center">Không có dữ liệu</div>
     return (
       <div className="col-sm-12">
@@ -21,7 +21,7 @@ class ScreenDashboardBranchDetailEmployees extends Component {
               <th>Email</th>
               <th>Địa chỉ</th>
               <th>Chức vụ</th>
-              <th>Thao tác</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -41,11 +41,6 @@ class ScreenDashboardBranchDetailEmployees extends Component {
                     <button className="row-toggle-list-tools">
                       <CpnSvg name="ARROW_DOWN" />
                     </button>
-
-                    <button className="row-btn-remove">
-                      <CpnSvg name="REMOVE" />
-                    </button>
-
                     <div className="right-row-side" />
                   </td>
                 </tr>

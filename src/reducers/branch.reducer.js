@@ -1,4 +1,4 @@
-import { LOG_OUT } from "../actions/user.actions";
+import { LOG_OUT } from "./user.reducer";
 
 export const SET_BRANCH = 'SET_BRANCH';
 export const CREATE_BRANCH = 'CREATE_BRANCH';

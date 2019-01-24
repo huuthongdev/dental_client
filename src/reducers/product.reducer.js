@@ -1,4 +1,4 @@
-import { LOG_OUT } from "../actions/user.actions";
+import { LOG_OUT } from "./user.reducer";
 
 export const SET_PRODUCT = 'SET_PRODUCT';
 export const CREATE_PRODUCT = 'CREATE_PRODUCT';

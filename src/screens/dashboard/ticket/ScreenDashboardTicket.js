@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Pagination from "react-js-pagination";
 import {
-    TitleApp, TicketRow, FetchingData, CpnSvg, ITEMS_PER_PAGE,
+    ScreenDashboardTicketRow, CpnFetchingData, CpnSvg, ITEMS_PER_PAGE,
     convertToSearch, pageNavigation, ScreenDashboardWraper
 } from '../../../refs';
 
-class Ticket extends Component {
+class ScreenDashboardTicket extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -29,9 +29,8 @@ class Ticket extends Component {
         const postsPage = pageNavigation(currentPage, ITEMS_PER_PAGE, initData);
 
         return (
-            <ScreenDashboardWraper>
-                <TitleApp sub="Hồ sơ điều trị" />
-                {!fetchDataStatus.ticket ? <FetchingData /> : <Fragment >
+            <ScreenDashboardWraper title="Hồ sơ điều trị">
+                {!fetchDataStatus.ticket ? <CpnFetchingData /> : <Fragment >
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-sm-6">
@@ -67,12 +66,13 @@ class Ticket extends Component {
                                             <th>Bác sĩ</th>
                                             <th>Dịch vụ</th>
                                             <th>Trạng thái</th>
+                                            <th>Phí nợ</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {postsPage.map((v, i) => (
-                                            <TicketRow item={v} key={i} />)
+                                            <ScreenDashboardTicketRow item={v} key={i} />)
                                         )}
                                     </tbody>
                                 </table>
@@ -103,4 +103,4 @@ const mapStateToProps = (state) => {
         fetchDataStatus: state.fetchDataStatus
     };
 }
-export default connect(mapStateToProps)(Ticket);
+export default connect(mapStateToProps)(ScreenDashboardTicket);

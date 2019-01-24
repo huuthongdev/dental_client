@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 import { CpnSvg } from '../../../refs';
 
-class ServiceRow extends Component {
+class ScreenDashboardServiceRow extends Component {
     state = {
         onRemove: false,
         onDetail: false
@@ -68,4 +68,4 @@ const mapStateToProps = (state) => {
         service: state.service
     };
 }
-export default connect(mapStateToProps, null)(ServiceRow);
+export default connect(mapStateToProps)(ScreenDashboardServiceRow);
