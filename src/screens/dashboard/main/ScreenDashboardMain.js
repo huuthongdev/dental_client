@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { ScreenDashboardWraper, ScreenDashboardMainNumberReports, ScreenDashboardCalendarsToday } from '../../../refs';
+import { ScreenDashboardWraper, ScreenDashboardCalendarsToday, ScreenDashboardMainTicketNotHaveCalendar, ScreenDashboardMainNumberReports } from '../../../refs';
 
 class ScreenDashboardMain extends Component {
     render() {
@@ -9,10 +9,11 @@ class ScreenDashboardMain extends Component {
                     <ScreenDashboardMainNumberReports />
                     <div className="container-fluid mt-2">
                         <div className="row">
-                            <div className="col-sm-8">
+                            <div className="col-sm-7">
                                 <ScreenDashboardCalendarsToday />
                             </div>
-                            <div className="col-sm-4">
+                            <div className="col-sm-5">
+                                <ScreenDashboardMainTicketNotHaveCalendar />
                             </div>
                         </div>
                     </div>

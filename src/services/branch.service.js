@@ -1,13 +1,22 @@
-import { Store, RequestService, AlertService } from "../refs";
+import { Store, RequestService, AlertService, CheckRoleService, Role } from "../refs";
 import { SET_BRANCH, CREATE_BRANCH, UPDATE_BRANCH, SET_BRANCH_DETAIL } from "../reducers/branch.reducer";
 
 const { dispatch } = Store;
 
 export default class BranchService {
     static async set() {
+        if (!CheckRoleService.check(Role.ADMIN)) return;
         return RequestService.get('/branch')
             .then(result => dispatch({ type: SET_BRANCH, result }))
             .catch(error => AlertService.create('ERROR', error.message));
+    }
+
+    static getCurrentBranch() {
+        const { user } = Store.getState();
+        const roleInBranchs = user.roleInBranchs;
+        const currentBranch = localStorage.getItem("BRANCH");
+        let roles = roleInBranchs.find((v) => v.branch._id.toString() === currentBranch.toString());
+        return roles.branch;
     }
 
     static async create(payload) {

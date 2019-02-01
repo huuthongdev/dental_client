@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
-import { CpnSvg, GetRoleName } from '../../refs';
+import { CpnSvg, GetRoleName, CheckRoleService, Role, UserService } from '../../refs';
 import { connect } from 'react-redux';
 
 class ScreenDashboardSidebar extends Component {
@@ -18,11 +18,19 @@ class ScreenDashboardSidebar extends Component {
     }
 
     render() {
+        const { name } = this.props.user;
+        const rolesCurrentBracnh = UserService.getRolesInCurrentBranch();
         return (
             <Fragment>
                 <div className="sidebar" id="sidebar-main">
                     <div className="side-bar-logo">
                         <CpnSvg name="LOGO" />
+                    </div>
+
+                    <div className="user-info">
+                        <div className="avatar"><CpnSvg name="USER" /></div>
+                        <h4>{name}</h4>
+                        {rolesCurrentBracnh.map((value, key) => <p key={key}>• {GetRoleName(value)}</p>)}
                     </div>
 
                     <ul className="sidebar-menu">
@@ -37,12 +45,12 @@ class ScreenDashboardSidebar extends Component {
 
                     <ul className="sidebar-menu">
                         <label>HỆ THỐNG</label>
-                        <NavLink to="/branch">
+                        {CheckRoleService.check(Role.ADMIN) ? <NavLink to="/branch">
                             <li>
                                 <CpnSvg name="BRANCH" />
                                 <span>Chi nhánh</span>
                             </li>
-                        </NavLink>
+                        </NavLink> : null}
 
                         <NavLink to="/employee">
                             <li>

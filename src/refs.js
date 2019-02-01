@@ -32,6 +32,8 @@ import ScreenDashboardMain from './screens/dashboard/main/ScreenDashboardMain';
 import ScreenDashboardMainNumberReports from './screens/dashboard/main/ScreenDashboardMainNumberReports';
 import ScreenDashboardCalendarsToday from './screens/dashboard/main/ScreenDashboardCalendarsToday';
 import ScreenDashboardCalendarsTodayRow from './screens/dashboard/main/ScreenDashboardCalendarsTodayRow';
+import ScreenDashboardMainTicketNotHaveCalendar from './screens/dashboard/main/ScreenDashboardMainTicketNotHaveCalendar';
+import ScreenDashboardMainTicketNotHaveCalendarRow from './screens/dashboard/main/ScreenDashboardMainTicketNotHaveCalendarRow';
 
 import ScreenDashboardBranch from './screens/dashboard/branch/ScreenDashboardBranch';
 import ScreenDashboardBranchCreate from './screens/dashboard/branch/ScreenDashboardBranchCreate';
@@ -89,7 +91,7 @@ import Routes from "./routes/Routes";
 // All Reducers
 import allReducers from "./reducers";
 // Setting
-import { isDev, ITEMS_PER_PAGE } from './setting';
+import { isDev, ITEMS_PER_PAGE, appVersion } from './setting';
 import { calendarSetting } from './calendar-setting';
 // Utils
 import { RequestService } from './utils/request-service';
@@ -123,6 +125,7 @@ import ConfirmService from './services/confirm.service';
 import CalendarDentistService from './services/calendarDentist.service';
 import ShortKeyService from './services/shortKey.service';
 import ReceiptVoucherService from './services/receiptVoucher.service';
+import CheckRoleService, { Role } from './services/checkRole.service';
 
 // ===================== EXPORT =====================
 // Images
@@ -140,7 +143,10 @@ export { ScreenAuthentication }
 export { ScreenSelectBranch }
 export { ScreenNotMatch404 }
 export { ScreenDashboardHeader, ScreenDashboardWraper, ScreenDashboardSidebar }
-export { ScreenDashboardMain, ScreenDashboardMainNumberReports, ScreenDashboardCalendarsToday, ScreenDashboardCalendarsTodayRow }
+export {
+    ScreenDashboardMain, ScreenDashboardMainNumberReports, ScreenDashboardCalendarsToday, ScreenDashboardCalendarsTodayRow,
+    ScreenDashboardMainTicketNotHaveCalendar, ScreenDashboardMainTicketNotHaveCalendarRow
+}
 export {
     ScreenDashboardBranch, ScreenDashboardBranchRow, ScreenDashboardBranchDetailEmployeeAdd, ScreenDashboardBranchDetail,
     ScreenDashboardBranchCreate, ScreenDashboardBranchDetailUpdate, ScreenDashboardBranchDetailEmployees
@@ -179,7 +185,7 @@ export { Routes }
 // All Reducers
 export { allReducers }
 // Setting
-export { isDev, ITEMS_PER_PAGE }
+export { isDev, ITEMS_PER_PAGE, appVersion }
 export { calendarSetting }
 // Utils
 export {
@@ -206,3 +212,4 @@ export { ConfirmService }
 export { CalendarDentistService }
 export { ShortKeyService }
 export { ReceiptVoucherService }
+export { CheckRoleService, Role }

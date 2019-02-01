@@ -18,6 +18,10 @@ export default class AlertService {
         return this.create('ERROR', message);
     }
 
+    static warning(message) {
+        return this.create('WARNING', message);
+    }
+
     static remove(_id) {
         return dispatch({ type: REMOVE_ALERT, _id })
     }

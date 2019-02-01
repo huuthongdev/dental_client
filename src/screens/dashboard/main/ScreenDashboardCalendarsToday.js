@@ -7,14 +7,25 @@ class ScreenDashboardCalendarsToday extends Component {
         const { fetchDataStatus, main } = this.props;
         const { dashboardInfo } = main;
 
+        if (!fetchDataStatus.dashboardInfo) return <Fragment>
+            <div className="box-title">
+                Lịch hẹn hôm nay
+                </div>
+        </Fragment>
+
+        let calendarsPending = dashboardInfo.calendarsToday.filter(v => v.status === 'PENDING');
+        let calendarsWorking = dashboardInfo.calendarsToday.filter(v => v.status === 'WORKING');
+        let calendarsDone = dashboardInfo.calendarsToday.filter(v => v.status === 'DONE');
+
+        let calendarsToday = [...calendarsWorking, ...calendarsPending, ...calendarsDone];
+
         return (
             <Fragment>
                 <div className="box-title">
                     Lịch hẹn hôm nay
                 </div>
-                {!fetchDataStatus.dashboardInfo ? <CpnFetchingData /> : null}
-                {fetchDataStatus.dashboardInfo && dashboardInfo.calendarsToday.length === 0 ? <CpnEmptyValue message="Không có lịch hẹn nào hôm nay" /> : null}
-                {fetchDataStatus.dashboardInfo && dashboardInfo.calendarsToday.length !== 0 ? <table>
+                {dashboardInfo.calendarsToday.length === 0 ? <CpnEmptyValue message="Không có lịch hẹn nào hôm nay" /> : null}
+                {dashboardInfo.calendarsToday.length !== 0 ? <table>
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -27,10 +38,9 @@ class ScreenDashboardCalendarsToday extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {dashboardInfo.calendarsToday
-                            ? dashboardInfo.calendarsToday.map((value, key) => (
-                                <ScreenDashboardCalendarsTodayRow value={value} key={key} />
-                            )) : null}
+                        {calendarsToday.map((value, key) => (
+                            <ScreenDashboardCalendarsTodayRow value={value} key={key} />
+                        ))}
                     </tbody>
                 </table> : null}
 

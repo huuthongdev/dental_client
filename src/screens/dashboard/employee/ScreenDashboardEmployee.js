@@ -34,8 +34,8 @@ class ScreenDashboardEmployee extends Component {
 
 		return (
 			<ScreenDashboardWraper title="Nhân sự">
-				{!fetchDataStatus.branch ? <CpnFetchingData /> : null}
-				{fetchDataStatus.branch ? (
+				{!fetchDataStatus.employee ? <CpnFetchingData /> : null}
+				{fetchDataStatus.employee ? (
 					<Fragment>
 						<div className="container-fluid">
 							<div className="row">

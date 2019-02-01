@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { CpnSvg, MainService, UserService } from '../../refs';
+import { CpnSvg, UserService } from '../../refs';
 
 class ScreenDashboardHeader extends Component {
     handleLogout() {
@@ -22,9 +22,9 @@ class ScreenDashboardHeader extends Component {
     }
 
     changeCurrentBranch(e) {
-        e.preventDefault();
+        e.preventDefault(); 
         localStorage.setItem("BRANCH", e.target.value);
-        return MainService.initData();
+        window.location.reload();
     }
 
     render() {
@@ -42,7 +42,7 @@ class ScreenDashboardHeader extends Component {
                                 <ul className="list-app-status">
                                     <li>
                                         <CpnSvg name="CLOUD" />
-                                        {this.props.main.temp ? this.props.main.temp : '--'}°C
+                                        TP.HCM {this.props.main.temp ? this.props.main.temp : '--'}°C
                                     </li>
                                     <li>
                                         <CpnSvg name="TIME" />

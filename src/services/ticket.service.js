@@ -65,7 +65,7 @@ export default class TicketService {
     static async changeStatus(_id, status) {
         return RequestService.put('/ticket/status/' + _id, { status })
             .then(async (result) => {
-                AlertService.success(`Thay đổi trạng thái hồ sơ điều trị ${result.sid} thành công`);
+                AlertService.success(`Cập nhật hồ sơ: #${result.sid} thành công`);
                 dispatch({ type: UPDATE_TICKET, result });
                 return result;
             })

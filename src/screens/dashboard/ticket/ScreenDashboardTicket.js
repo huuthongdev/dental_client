@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Pagination from "react-js-pagination";
 import {
     ScreenDashboardTicketRow, CpnFetchingData, CpnSvg, ITEMS_PER_PAGE,
-    convertToSearch, pageNavigation, ScreenDashboardWraper
+    convertToSearch, pageNavigation, ScreenDashboardWraper, CpnEmptyValue
 } from '../../../refs';
 
 class ScreenDashboardTicket extends Component {
@@ -55,9 +55,8 @@ class ScreenDashboardTicket extends Component {
                                     </Link>
                                 </div>
                             </div>
-
-
-                            <div className="col-sm-12">
+ 
+                            {ticket.length === 0 ? <div className="col-sm-12"><CpnEmptyValue message="Chưa có hồ sơ nào"/></div> : <div className="col-sm-12">
                                 <table>
                                     <thead>
                                         <tr>
@@ -87,7 +86,8 @@ class ScreenDashboardTicket extends Component {
                                     activeLinkClass="active"
                                 /> : null}
 
-                            </div>
+                            </div>}
+                            
                         </div>
                     </div>
                 </Fragment>}

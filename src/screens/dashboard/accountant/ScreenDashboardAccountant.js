@@ -34,10 +34,10 @@ class ScreenDashboardAccountant extends Component {
                                     <CpnSvg name="RECEIPT_VOUCHER" />
                                     Phiếu thu
                 				</li>
-                                <li>
+                                {/* <li>
                                     <CpnSvg name="PAYMENT_VOUCHER" />
                                     Phiếu chi
-                				</li>
+                				</li> */}
                             </ul>
                         </div>
 

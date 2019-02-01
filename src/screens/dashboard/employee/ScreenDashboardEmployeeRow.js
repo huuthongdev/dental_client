@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
-import { CpnSvg, GetRoleName } from '../../../refs';
+import { CpnSvg, GetRoleName, CheckRoleService, Role } from '../../../refs';
 
 class ScreenDashboardEmployeeRow extends Component {
     state = {
@@ -16,9 +16,11 @@ class ScreenDashboardEmployeeRow extends Component {
 
     showRolesInBranch() {
         const { roleInBranchs } = this.props.item;
+        const checkAdmin = CheckRoleService.check(Role.ADMIN);
         return roleInBranchs.map((v, i) => {
             return <Fragment key={i}>
-                • <strong>{v.branch.name}</strong> <br/> ({this.showRoles(v.roles)}) <br />
+                {checkAdmin ? <Fragment>• <strong>{v.branch.name}</strong> <br /> ({this.showRoles(v.roles)}) <br /></Fragment> : null}
+                {!checkAdmin ? <Fragment>• {this.showRoles(v.roles)} <br /></Fragment> : null}
             </Fragment>
         });
     }

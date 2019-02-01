@@ -22,6 +22,7 @@ export default class CalendarDentistService {
                 await this.get(payload.dentistId);
                 await TicketService.getDetail(payload.ticketId);
                 AlertService.success(`Tạo lịch hẹn thành công`);
+                MainService.getMainDashboadInfo();
                 return true;
             })
             .catch(error => {

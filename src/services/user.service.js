@@ -10,6 +10,17 @@ export default class UserService {
 
     static async removeLocalStorageUserInfo() {
         localStorage.removeItem("TOKEN");
+        localStorage.removeItem("BRANCH");
+    }
+
+    static getRolesInCurrentBranch() {
+        const branchIdLocal = localStorage.getItem('BRANCH');
+        if (!branchIdLocal) return [];
+        const { user } = Store.getState();
+        if (!user) return [];
+        const rolesCurrentBranch = user.roleInBranchs ? user.roleInBranchs.find(v => v.branch._id.toString() === branchIdLocal) : null;
+        if (!rolesCurrentBranch) return [];
+        return rolesCurrentBranch.roles;
     }
 
     static checkAuth() {

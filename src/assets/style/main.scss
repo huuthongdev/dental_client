@@ -11,6 +11,7 @@
 @import "off-blue/../variables.scss";
 @import "off-white/../variables.scss";
 @import "off-dark/../variables.scss";
+@import "off-green/../variables.scss";
 @import "colorMain/../variables.scss";
 
 @import "zindexHeader/../variables.scss";
@@ -166,6 +167,10 @@ body {
       &.error {
         background: $red;
       }
+
+      &.warning {
+        background: $orange;
+      }
     }
   }
   // ============================ End LIST ALERTS STYLE ============================
@@ -199,7 +204,7 @@ body {
     color: $red !important;
   }
   .text-warning {
-    color: $orange !important; 
+    color: $orange !important;
   }
   .text-white {
     color: $white !important;
@@ -537,8 +542,46 @@ body {
       }
     }
 
+    .user-info {
+      padding: 15px;
+      text-align: center;
+
+      .avatar {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+
+        svg {
+          display: block;
+          height: 40px;
+          transform: translateY(3px);
+          margin-right: 5px;
+
+          * {
+            fill: $dark;
+          }
+        }
+      }
+
+      h4 {
+        font-size: 1.2rem;
+        margin: 0;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+
+      p {
+        font-size: 0.9rem;
+        margin: 0;
+        color: $grey;
+        font-weight: 300;
+      }
+    }
+
     ul.sidebar-menu {
-      margin: 0px; 
+      margin: 0px;
       padding: 0px;
       list-style-type: none;
       border-bottom: 1px solid rgba($color: $grey, $alpha: 0.2);
@@ -631,6 +674,10 @@ body {
       width: 60px;
       @include sidebarCollapseTransition;
       .side-bar-logo {
+        display: none;
+      }
+
+      .user-info {
         display: none;
       }
 
@@ -1043,6 +1090,11 @@ body {
     &.blue {
       border: 0.2rem solid $off-blue;
       border-top-color: $blue;
+    }
+
+    &.green {
+      border: 0.2rem solid $off-green;
+      border-top-color: $green;
     }
   }
   // ============================ End LOADING ICON STYLE ============================
@@ -2381,7 +2433,7 @@ input::-webkit-calendar-picker-indicator {
   margin-bottom: 10px;
 
   &:before {
-    content: '• ';
+    content: "• ";
   }
 }
 // ============================ End BOX TITLE STYLE ============================

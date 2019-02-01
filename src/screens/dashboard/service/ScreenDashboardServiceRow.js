@@ -47,7 +47,7 @@ class ScreenDashboardServiceRow extends Component {
                     </td>
                     <td onClick={() => this.setState({ onDetail: true })} className="link"> {item.name}</td>
                     <td>{item.suggestedRetailerPrice.toLocaleString('en-GB')}đ</td>
-                    <td>{this.formatPriceInCurrentBranch()}</td>
+                    {/* <td>{this.formatPriceInCurrentBranch()}</td> */}
                     <td>{item.unit}</td>
                     <td className="list-tools">
                         <button className="row-toggle-list-tools">

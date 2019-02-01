@@ -68,8 +68,8 @@ class ScreenDashboardService extends Component {
                                         <tr>
                                             <th className="sid">ID</th>
                                             <th>Tên dịch vụ</th>
-                                            <th>Giá bán đề xuất</th>
-                                            <th>Giá chi nhánh</th>
+                                            <th>Đơn giá</th>
+                                            {/* <th>Giá chi nhánh</th> */}
                                             <th>Đơn vị tính</th>
                                             <th></th>
                                         </tr>

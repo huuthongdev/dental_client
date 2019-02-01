@@ -4,7 +4,7 @@ import Pagination from "react-js-pagination";
 import { Link } from 'react-router-dom';
 import {
     convertToSearch, ITEMS_PER_PAGE, pageNavigation,
-    CpnFetchingData, CpnSvg, ScreenDashboardClientRow, ScreenDashboardWraper
+    CpnFetchingData, CpnSvg, ScreenDashboardClientRow, ScreenDashboardWraper, CpnEmptyValue, CheckRoleService, Role
 } from '../../../refs';
 
 class ScreenDashboardClient extends Component {
@@ -57,7 +57,7 @@ class ScreenDashboardClient extends Component {
                                 </div>
                             </div>
 
-                            <div className="col-sm-12">
+                            {client.length === 0 ? <div className="col-sm-12"><CpnEmptyValue message="Chưa có khách hàng nào" /></div> : <div className="col-sm-12">
                                 <table>
                                     <thead>
                                         <tr>
@@ -86,7 +86,7 @@ class ScreenDashboardClient extends Component {
                                     activeLinkClass="active"
                                 /> : null}
 
-                            </div>
+                            </div>}
                         </div>
                     </div>
                 </Fragment>}

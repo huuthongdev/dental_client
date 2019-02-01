@@ -12,7 +12,7 @@ import {
 
 class ScreenDashboardEmployeeDetail extends Component {
 	state = {
-		fetching: true,
+		fetching: true, 
 		employee: null,
 		goBack: false,
 		subMenuActive: "INFO"

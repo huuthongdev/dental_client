@@ -5,7 +5,7 @@ import {
     ScreenLogin, ScreenNotMatch404, ScreenAuthentication, ScreenSelectBranch, ScreenDashboardBranch, ScreenDashboardMain,
     ScreenDashboardEmployee, ScreenDashboardService, ScreenDashboardProduct, ScreenDashboardClient, ScreenDashboardBranchCreate, ScreenDashboardBranchDetail,
     ScreenDashboardEmployeeCreate, ScreenDashboardEmployeeDetail, ScreenDashboardServiceDetail, ScreenDashboardProductDetail, ScreenDashboardClientCreate,
-    ScreenDashboardClientDetail, ScreenDashboardTicket, ScreenDashboardTicketCreate, ScreenDashboardTicketDetail, UserService, ScreenDashboardAccountant
+    ScreenDashboardClientDetail, ScreenDashboardTicket, ScreenDashboardTicketCreate, ScreenDashboardTicketDetail, UserService, ScreenDashboardAccountant, Role, CheckRoleService, AlertService
 } from '../refs';
 import { ScreenDashboardServiceCreate, ScreenDashboardProductCreate } from '../refs';
 import { connect } from 'react-redux';
@@ -18,14 +18,15 @@ class Routes extends Component {
                 <Fragment>
                     <Switch>
                         <MustBeUser path="/" exact component={ScreenDashboardMain} />
+                        <MustBeUser path="/main" exact component={ScreenDashboardMain} />
 
-                        <MustBeUser path="/branch" exact component={ScreenDashboardBranch} />
-                        <MustBeUser path="/branch/new" exact component={ScreenDashboardBranchCreate} />
-                        <MustBeUser path="/branch/:_id" exact component={ScreenDashboardBranchDetail} />
+                        <MustBeUser mustHaveRoles={[Role.ADMIN]} path="/branch" exact component={ScreenDashboardBranch} />
+                        <MustBeUser mustHaveRoles={[Role.ADMIN]} path="/branch/new" exact component={ScreenDashboardBranchCreate} />
+                        <MustBeUser mustHaveRoles={[Role.ADMIN]} path="/branch/:_id" exact component={ScreenDashboardBranchDetail} />
 
                         <MustBeUser path="/employee" exact component={ScreenDashboardEmployee} />
-                        <MustBeUser path="/employee/new" exact component={ScreenDashboardEmployeeCreate} />
-                        <MustBeUser path="/employee/:_id" exact component={ScreenDashboardEmployeeDetail} />
+                        <MustBeUser mustHaveRoles={[Role.DIRECTOR]} path="/employee/new" exact component={ScreenDashboardEmployeeCreate} />
+                        <MustBeUser mustHaveRoles={[Role.DIRECTOR]} path="/employee/:_id" exact component={ScreenDashboardEmployeeDetail} />
 
                         <MustBeUser path="/service" exact component={ScreenDashboardService} />
                         <MustBeUser path="/service/new" exact component={ScreenDashboardServiceCreate} />
@@ -61,6 +62,7 @@ class Routes extends Component {
 
 const MustBeUser = ({ component: Component, ...rest }) => {
     const checkAuth = UserService.checkAuth();
+    const { mustHaveRoles } = rest;
     return (
         <Route {...rest} render={(props) => {
             // (1) Not have token in localStorage (Login)
@@ -70,6 +72,12 @@ const MustBeUser = ({ component: Component, ...rest }) => {
             // (3) Authen Success, Select place working (Select Place)
             if (checkAuth === 3) return <Redirect to={{ pathname: '/select-branch', state: { from: { pathname: `${props.location.pathname}${props.location.search}` } } }} />
             // (4) Authen completed (Success)
+            // Not have permission to access
+            // console.log(CheckRoleService.check(mustHaveRoles));
+            if (mustHaveRoles && !CheckRoleService.check(...mustHaveRoles)) {
+                AlertService.warning('Bạn không có quyền truy cập vào chức năng này')
+                return <Redirect to="/" />
+            }
             return <Component  {...props} />
         }} />
     )

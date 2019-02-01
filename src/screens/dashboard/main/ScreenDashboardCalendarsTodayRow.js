@@ -26,10 +26,10 @@ class ScreenDashboardCalendarsTodayRow extends Component {
                     {sid}
                 </td>
                 <td>
-                    {startTime < Date.now() ? <p className="text-danger"><strong>Hết hạn <br /></strong> {new Date(startTime).toLocaleDateString('en-GB')} | {new Date(startTime).toLocaleTimeString('en-GB')}</p> : <Fragment>
-                        <strong>{new Date(startTime).toLocaleDateString('en-GB')} | {new Date(startTime).toLocaleTimeString('en-GB')}</strong> <br />
-                        (Còn lại {TimeUtils.between(startTime, Date.now())})
-                        </Fragment>}
+                    {startTime < Date.now() ? <strong className="text-danger">Hết hạn <br /></strong> : null}
+                    <strong>{new Date(startTime).toLocaleDateString('en-GB')} </strong>  <br /> {new Date(startTime).toLocaleTimeString('en-GB')}<br />
+                    {!(startTime < Date.now()) ? <span>(Còn lại {TimeUtils.between(startTime, Date.now())})</span> : null}
+
                 </td>
                 <td>
                     {ticket.client.name}
@@ -49,7 +49,7 @@ class ScreenDashboardCalendarsTodayRow extends Component {
                     </div>
                 </td>
                 <td>
-                    {loading ? <div className="loading-icon blue" /> : null}
+                    {loading ? <div className="loading-icon green" /> : null}
                     {!loading ? <button className="row-toggle-list-tools">
                         <CpnSvg name="ARROW_DOWN" />
                         <div className="row-list-tools">

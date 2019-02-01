@@ -80,7 +80,7 @@ class ScreenDashboardTicketRow extends Component {
                             </div>
                         </button> */}
 
-                        {loading ? <div className="loading-icon blue" /> : null}
+                        {loading ? <div className="loading-icon green" /> : null}
                         {!loading ? <button className="row-toggle-list-tools">
                             <CpnSvg name="ARROW_DOWN" />
                             <div className="row-list-tools">
