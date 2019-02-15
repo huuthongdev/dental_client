@@ -45,6 +45,5 @@ export default class MainService {
         // const currentVersion = appVersion;
         const currentVersion = localStorage.getItem('APP_VERSION');
         if (!currentVersion) return localStorage.setItem('APP_VERSION', appVersion);
-        console.log(window);
     }
 }

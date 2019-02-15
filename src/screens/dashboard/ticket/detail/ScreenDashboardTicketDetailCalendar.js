@@ -12,9 +12,9 @@ class ScreenDashboardTicketDetailCalendar extends Component {
                     ? <CpnEmptyValue /> : <table>
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>ID</th> 
                                 <th>Hẹn đến</th>
-                                <th>Thời gian điều trị</th>
+                                <th>Thời gian điều trị</th> 
                                 <th>Nội dung</th>
                                 <th>Bác sĩ</th>
                                 <th>Trạng thái</th>

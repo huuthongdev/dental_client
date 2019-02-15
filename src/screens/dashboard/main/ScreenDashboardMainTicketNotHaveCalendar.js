@@ -19,6 +19,8 @@ class ScreenDashboardMainTicketNotHaveCalendar extends Component {
                             <th>ID</th>
                             <th>Khách hàng</th>
                             <th>Nội dung</th>
+                            <th>Bác sĩ</th>
+                            <th>Công nợ</th>
                             <th></th>
                         </tr>
                     </thead>

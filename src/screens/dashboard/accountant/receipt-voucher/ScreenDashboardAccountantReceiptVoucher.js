@@ -49,7 +49,7 @@ class ScreenDashboardAccountantReceiptVoucher extends Component {
                                             </td>
                                             <td>{this.convertTypeReceiptVoucher(type)}</td>
                                             <td>
-                                                {ticket ? <Link className="link" to={`/ticket/${ticket._id}`}>
+                                                {ticket ? <Link className="link" to={`/client/ticket/${ticket._id}`}>
                                                     {ticket.sid}
                                                 </Link> : null}
                                             </td>

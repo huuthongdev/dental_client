@@ -4,7 +4,7 @@ export const SET_TEMP = 'SET_TEMP';
 
 const defaultState = {
     temp: null,
-    dashboardInfo: null
+    dashboardInfo: {}
 };
 
 export const SET_DASHBOARD_INFO = 'SET_DASHBOARD_INFO';

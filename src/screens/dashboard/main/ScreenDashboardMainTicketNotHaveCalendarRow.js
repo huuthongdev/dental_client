@@ -9,17 +9,21 @@ class ScreenDashboardMainTicketNotHaveCalendarRow extends Component {
     }
 
     render() {
-        const { sid, client, items, _id } = this.props.value;
+        const { sid, client, items, _id, dentistResponsible, receiptVoucher, totalAmount } = this.props.value;
         const { onDetail, onCreateCalendar } = this.state;
 
-        if (onDetail) return <Redirect to={{ pathname: `/ticket/${_id}` }} />
-        if (onCreateCalendar) return <Redirect to={{ pathname: `/ticket/${_id}`, state: { ccl: true } }} />
+        const debitAmount = receiptVoucher && receiptVoucher.length !== 0
+            ? totalAmount - receiptVoucher.map(v => v.totalPayment).reduce((a, b) => a + b)
+            : totalAmount;
+
+        if (onDetail) return <Redirect to={{ pathname: `/client/ticket/${_id}` }} />
+        if (onCreateCalendar) return <Redirect to={{ pathname: `/client/ticket/${_id}`, state: { ccl: true } }} />
         return (
             <Fragment>
                 <tr>
                     <td>
                         <div className="left-row-side" />
-                        <Link className="link" to={`/ticket/${_id}`}>
+                        <Link className="link" to={`/client/ticket/${_id}`}>
                             {sid}
                         </Link>
                     </td>
@@ -29,6 +33,10 @@ class ScreenDashboardMainTicketNotHaveCalendarRow extends Component {
                     <td>
                         {items.map((value, key) => <Fragment key={key}>• {value.service.name} (x{value.qty})<br /></Fragment>)}
                     </td>
+                    <td>
+                        {dentistResponsible.name}
+                    </td>
+                    {debitAmount && debitAmount > 0 ? <td className="text-danger">{debitAmount.toLocaleString('vi-VN')}đ</td> : <td className="text-success">Đã thanh toán đủ</td>}
                     <td>
                         <button className="row-toggle-list-tools">
                             <CpnSvg name="ARROW_DOWN" />

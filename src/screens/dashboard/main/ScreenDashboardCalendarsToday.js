@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { CpnFetchingData, CpnEmptyValue, ScreenDashboardCalendarsTodayRow } from '../../../refs';
+import { CpnEmptyValue, ScreenDashboardCalendarsTodayRow } from '../../../refs';
 
 class ScreenDashboardCalendarsToday extends Component {
     render() {

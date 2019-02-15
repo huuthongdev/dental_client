@@ -18,7 +18,7 @@ class ScreenDashboardCalendarsTodayRow extends Component {
         const { loading, redirectToTicketDetail } = this.state;
         const { sid, startTime, ticket, content, dentist, status, _id } = this.props.value;
 
-        if (redirectToTicketDetail) return <Redirect to={`/ticket/${redirectToTicketDetail}`} />
+        if (redirectToTicketDetail) return <Redirect to={`/client/ticket/${redirectToTicketDetail}`} />
         return <Fragment>
             <tr>
                 <td>
@@ -27,7 +27,7 @@ class ScreenDashboardCalendarsTodayRow extends Component {
                 </td>
                 <td>
                     {startTime < Date.now() ? <strong className="text-danger">Hết hạn <br /></strong> : null}
-                    <strong>{new Date(startTime).toLocaleDateString('en-GB')} </strong>  <br /> {new Date(startTime).toLocaleTimeString('en-GB')}<br />
+                    <strong>{new Date(startTime).toLocaleDateString('en-GB')} | {new Date(startTime).toLocaleTimeString('en-GB')}</strong><br />
                     {!(startTime < Date.now()) ? <span>(Còn lại {TimeUtils.between(startTime, Date.now())})</span> : null}
 
                 </td>

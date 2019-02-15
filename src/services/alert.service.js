@@ -6,7 +6,7 @@ const { dispatch } = Store;
 export default class AlertService {
     static create(typeAlert, message) {
         const result = { type: typeAlert, message, _id: Date.now() };
-        setTimeout(() => { this.remove(result._id); }, 4000);
+        setTimeout(() => { this.remove(result._id); }, 3000);
         return dispatch({ type: CREATE_ALERT, result });
     }
 

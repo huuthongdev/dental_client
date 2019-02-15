@@ -47,7 +47,7 @@ class ScreenDashboardTicket extends Component {
                             </div>
                             <div className="col-sm-6">
                                 <div className="cpn-tools-list">
-                                    <Link to="/ticket/new">
+                                    <Link to="/client/ticket/new">
                                         <button className="btn blue">
                                             <CpnSvg name="CREATE" />
                                             Tạo hồ sơ điều trị

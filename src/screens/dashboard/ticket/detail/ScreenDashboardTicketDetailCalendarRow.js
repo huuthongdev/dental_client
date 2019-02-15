@@ -18,7 +18,7 @@ class ScreenDashboardTicketDetailCalendarRow extends Component {
                             (Còn lại {TimeUtils.between(startTime, Date.now())})
                         </Fragment>}
                     </td>
-                    <td>
+                    <td> 
                         {TimeUtils.between(startTime, endTime, true)}
                     </td>
                     <td>

@@ -1,4 +1,4 @@
-import { Store, RequestService, AlertService } from "../refs";
+import { Store, RequestService, AlertService, ClientService } from "../refs";
 import { SET_TICKETS, CREATE_TICKET, UPDATE_TICKET } from "../reducers/ticket.reducer";
 import { SET_TICKET_DETAIL } from "../reducers/ticket.detail.reducer";
 
@@ -62,9 +62,10 @@ export default class TicketService {
             });
     }
 
-    static async changeStatus(_id, status) {
+    static async changeStatus(_id, status, clientId) {
         return RequestService.put('/ticket/status/' + _id, { status })
             .then(async (result) => {
+                await ClientService.getDetail(clientId);
                 AlertService.success(`Cập nhật hồ sơ: #${result.sid} thành công`);
                 dispatch({ type: UPDATE_TICKET, result });
                 return result;

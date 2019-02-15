@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
-import { CpnPopupWraper, CpnSvg, SubmitButtonsGroup, TicketService, convertToSave, ShortKeyService } from '../../../../refs';
+import { CpnPopupWraper, CpnSvg, SubmitButtonsGroup, TicketService, convertToSave, ShortKeyService, CpnCurrencyInput } from '../../../../refs';
 
 class ScreenDashboardTicketDetailReceiptVoucherPopupAdd extends Component {
     componentDidMount() {
@@ -47,15 +47,19 @@ class ScreenDashboardTicketDetailReceiptVoucherPopupAdd extends Component {
                                 });
                         }}
                         render={props => {
-                            const { isSubmitting, errors, touched, values } = props;
+                            const { isSubmitting, errors, touched, values, setFieldValue, setTouched } = props;
                             return <Form>
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col-sm-12">
-                                            <div className={`form-group required format-money-wraper ${errors.totalPayment && touched.totalPayment ? 'error' : ''}`}>
+                                            <div className={`form-group required ${errors.totalPayment && touched.totalPayment ? 'error' : ''}`}>
                                                 <label>Số tiền:</label><span className="error-message">{errors.totalPayment}</span>
-                                                <span className="format-money">{`${values.totalPayment !== 0 ? values.totalPayment.toLocaleString() : ''}`}</span>
-                                                <Field type="number" name="totalPayment" />
+                                                <CpnCurrencyInput
+                                                    subfix="đ"
+                                                    value={values.totalPayment}
+                                                    onChange={e => setFieldValue('totalPayment', e)}
+                                                    onBlur={() => setTouched({ ...touched, totalPayment: true })}
+                                                />
                                             </div>
                                         </div>
                                         <div className="col-sm-12">

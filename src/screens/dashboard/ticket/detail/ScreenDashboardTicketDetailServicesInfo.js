@@ -32,7 +32,7 @@ class ScreenDashboardTicketDetailServicesInfo extends Component {
                                                 {value.service.name}
                                             </td>
                                             <td>
-                                                {value.qty} ({value.service.unit})
+                                                x{value.qty} ({value.service.unit})
                                                 <div className="right-row-side" />
                                             </td>
                                         </tr>

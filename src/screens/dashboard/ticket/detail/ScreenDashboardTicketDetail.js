@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import {
     ScreenDashboardWraper, TicketService, CpnFetchingData, CpnSvg, convertGender,
     ScreenDashboardTicketDetailCalendar, ScreenDashboardTicketDetailCalendarPopupAdd,
@@ -9,6 +9,7 @@ import {
 
 class ScreenDashboardTicketDetail extends Component {
     state = {
+        goBack: false,
         fetching: true,
         // CALENDAR || RECEIPT_VOUCHER || SERVICES
         tabActive: "SERVICES_INFO",
@@ -56,7 +57,15 @@ class ScreenDashboardTicketDetail extends Component {
     }
 
     render() {
-        const { fetching, ticket, tabActive, isCreateCalendar, isCreateReceiptVoucher } = this.state;
+        const { fetching, ticket, tabActive, isCreateCalendar, isCreateReceiptVoucher, goBack } = this.state;
+        const { state } = this.props.location;
+
+        if (goBack) return <Redirect to={{
+            pathname: state && state.from && state.from.pathname ? state.from.pathname : '/',
+            state: {
+                subMenuActive: 'TICKETS'
+            }
+        }} />
 
         if (fetching) {
             return (
@@ -124,12 +133,10 @@ class ScreenDashboardTicketDetail extends Component {
                                     <CpnSvg name="CREATE" />
                                     Thu phí
                             </button> : null}
-                                <Link to="/ticket">
-                                    <button className="btn grey">
-                                        <CpnSvg name="BACK" />
-                                        Trở lại
+                                <button onClick={() => this.setState({ goBack: true })} className="btn grey">
+                                    <CpnSvg name="BACK" />
+                                    Trở lại
                                     </button>
-                                </Link>
                             </div>
 
                             <div className="row">

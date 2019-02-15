@@ -4,7 +4,7 @@ import Pagination from "react-js-pagination";
 import { Link } from 'react-router-dom';
 import {
     convertToSearch, ITEMS_PER_PAGE, pageNavigation,
-    CpnFetchingData, CpnSvg, ScreenDashboardClientRow, ScreenDashboardWraper, CpnEmptyValue, CheckRoleService, Role
+    CpnFetchingData, CpnSvg, ScreenDashboardClientRow, ScreenDashboardWraper, CpnEmptyValue
 } from '../../../refs';
 
 class ScreenDashboardClient extends Component {
@@ -24,7 +24,9 @@ class ScreenDashboardClient extends Component {
         let initData = client;
 
         // Search
-        if (searchName) initData = initData.filter(v => convertToSearch(v.name).search(convertToSearch(searchName)) !== -1);
+        if (searchName) initData = initData.filter(v => convertToSearch(v.name).search(convertToSearch(searchName)) !== -1
+            || convertToSearch(v.phone).search(convertToSearch(searchName)) !== -1
+        );
 
         const postsPage = pageNavigation(currentPage, ITEMS_PER_PAGE, initData);
 

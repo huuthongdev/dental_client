@@ -1,4 +1,4 @@
-import { Store, RequestService, AlertService, BranchService } from "../refs";
+import { Store, RequestService, AlertService, BranchService, EmployeeService } from "../refs";
 import { SET_USER_INFO, LOG_OUT } from "../reducers/user.reducer";
 
 const { dispatch } = Store;
@@ -73,7 +73,9 @@ export default class UserService {
     static async setRoleInBranch(userId, branchId, roles) {
         try {
             await RequestService.put('/user/set-role-in-branch', { userId, branchId, roles });
+            await EmployeeService.setDetail(userId);
             await BranchService.setDetail(branchId);
+            await EmployeeService.set();
             AlertService.success('Sắp xếp nhân sự & vai trò thành công');
             return true;
         } catch (error) {
@@ -85,5 +87,32 @@ export default class UserService {
     static async logOut() {
         this.removeLocalStorageUserInfo();
         return dispatch({ type: LOG_OUT });
+    }
+
+    static async suggestForgotPassword(email) {
+        return RequestService.post('/user/forgot-password', { email })
+            .then(result => result)
+            .catch(error => {
+                AlertService.error(error.message);
+                return;
+            })
+    }
+
+    static async changePasswordWithPinCode(PIN, newPassword) {
+        return RequestService.post('/user/change-password-with-pin', { pin: PIN, newPassword })
+            .then(result => result)
+            .catch(error => {
+                AlertService.error(error.message);
+                return;
+            })
+    }
+
+    static async checkCodePin(pin) {
+        return RequestService.post('/user/change-password-check-pin', { pin })
+            .then(() => true)
+            .catch(error => {
+                AlertService.error(error.message);
+                return false;
+            });
     }
 }

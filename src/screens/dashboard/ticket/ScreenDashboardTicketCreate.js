@@ -38,8 +38,8 @@ class ScreenDashboardTicketCreate extends Component {
 
         const checkClient = client.find(v => v._id === idClient);
 
-        if (goBack) return <Redirect to="/ticket" />
-        if (redirectToDetail) return <Redirect to={`/ticket/${redirectToDetail}`} />
+        if (goBack) return <Redirect to="/client/ticket" />
+        if (redirectToDetail) return <Redirect to={`/client/ticket/${redirectToDetail}`} />
 
         const totalPrice = items.length !== 0 ? items.map(v => v = v.service.suggestedRetailerPrice * v.qty).reduce((a, b) => a + b) : 0;
         if (!fetchDataStatus.client) return <ScreenDashboardWraper> <CpnFetchingData /> </ScreenDashboardWraper>
@@ -162,7 +162,7 @@ class ScreenDashboardTicketCreate extends Component {
                                                             <tbody>
                                                                 {items.map((value, key) => {
                                                                     return <tr key={key}>
-                                                                        <td>{key + 1}</td>
+                                                                        <td style={{ width: '40px' }}>{key + 1}</td>
                                                                         <td>{value.service.name}</td>
                                                                         <td>{(value.service.suggestedRetailerPrice).toLocaleString('en-GB')}/{value.service.unit}</td>
                                                                         <td className="qty-col">
@@ -186,7 +186,7 @@ class ScreenDashboardTicketCreate extends Component {
                                                                             />
                                                                         </td>
                                                                         <td>
-                                                                            {(value.service.suggestedRetailerPrice * value.qty).toLocaleString('en-GB')} VNĐ
+                                                                            {(value.service.suggestedRetailerPrice * value.qty).toLocaleString('en-GB')}đ
                                                                     </td>
                                                                         <td style={{ width: '50px' }}>
                                                                             <div onClick={() => this.removeServiceInList(value.service._id)} className="btn-remove">

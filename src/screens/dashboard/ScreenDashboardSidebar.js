@@ -43,36 +43,40 @@ class ScreenDashboardSidebar extends Component {
                         </NavLink>
                     </ul>
 
-                    <ul className="sidebar-menu">
-                        <label>HỆ THỐNG</label>
-                        {CheckRoleService.check(Role.ADMIN) ? <NavLink to="/branch">
-                            <li>
-                                <CpnSvg name="BRANCH" />
-                                <span>Chi nhánh</span>
-                            </li>
-                        </NavLink> : null}
+                    {CheckRoleService.check(Role.DIRECTOR) ?
+                        <ul className="sidebar-menu">
+                            <label>HỆ THỐNG</label>
+                            {CheckRoleService.check(Role.ADMIN) ? <NavLink to="/branch">
+                                <li>
+                                    <CpnSvg name="BRANCH" />
+                                    <span>Chi nhánh</span>
+                                </li>
+                            </NavLink> : null}
 
-                        <NavLink to="/employee">
-                            <li>
-                                <CpnSvg name="EMPLOYEE" />
-                                <span>Nhân sự</span>
-                            </li>
-                        </NavLink>
+                            <NavLink to="/employee">
+                                <li>
+                                    <CpnSvg name="EMPLOYEE" />
+                                    <span>Nhân sự</span>
+                                </li>
+                            </NavLink>
 
-                        <NavLink to="/service">
-                            <li>
-                                <CpnSvg name="SERVICE" />
-                                <span>Dịch vụ</span>
-                            </li>
-                        </NavLink>
+                            <NavLink to="/service">
+                                <li>
+                                    <CpnSvg name="SERVICE" />
+                                    <span>Dịch vụ</span>
+                                </li>
+                            </NavLink>
 
-                        <NavLink to="/product">
-                            <li>
-                                <CpnSvg name="PRODUCT" />
-                                <span>Sản phẩm</span>
-                            </li>
-                        </NavLink>
-                    </ul>
+                            <NavLink to="/product">
+                                <li>
+                                    <CpnSvg name="PRODUCT" />
+                                    <span>Sản phẩm</span>
+                                </li>
+                            </NavLink>
+                        </ul>
+                        : null}
+
+
 
                     <ul className="sidebar-menu">
                         <label>KINH DOANH</label>
@@ -84,12 +88,12 @@ class ScreenDashboardSidebar extends Component {
                             </li>
                         </NavLink>
 
-                        <NavLink to="/ticket">
+                        {/* <NavLink to="/ticket">
                             <li>
                                 <CpnSvg name="TICKET" />
                                 <span>Hồ sơ điều trị</span>
                             </li>
-                        </NavLink>
+                        </NavLink> */}
 
                         <NavLink to="/accountant">
                             <li>

@@ -5,18 +5,29 @@ import * as Yup from 'yup';
 import { Formik, Form, Field } from "formik";
 import DatePicker from "react-datepicker";
 import Select from 'react-select'
-import { CpnSvg, TitleApp, Roles, GetRoleName, ScreenDashboardWraper, VietNamPlaces, EmployeeService, BranchService, CheckRoleService, Role, UserService } from "../../../refs";
+import { CpnSvg, TitleApp, Roles, GetRoleName, ScreenDashboardWraper, VietNamPlaces, EmployeeService, BranchService, CheckRoleService, Role, UserService, CpnFetchingData, RequestService, AlertService } from "../../../refs";
 
 class ScreenDashboardEmployeeCreate extends Component {
 	state = {
 		redirectToDetail: null,
 		// NEW || OLD
 		tabActive: 'NEW',
-		goBack: false
+		goBack: false,
+		fetching: true,
+		employees: []
 	};
 
+	componentDidMount() {
+		RequestService.get('/user/fetch')
+			.then(result => this.setState({ employees: result, fetching: false }))
+			.catch(error => {
+				this.setState({ fetching: false });
+				AlertService.error(error.message);
+			});
+	}
+
 	render() {
-		const { redirectToDetail, tabActive, goBack } = this.state;
+		const { redirectToDetail, tabActive, goBack, fetching, employees } = this.state;
 		const { branch } = this.props;
 
 		if (goBack) return <Redirect to="/employee" />
@@ -37,6 +48,8 @@ class ScreenDashboardEmployeeCreate extends Component {
 		}
 		Yup.addMethod(Yup.string, 'equalTo', equalTo);
 
+		if (fetching) return <CpnFetchingData dashboardWraper />
+		console.log(employees);
 		return (
 			<ScreenDashboardWraper>
 				<TitleApp sub="Tạo nhân sự" />
@@ -60,20 +73,20 @@ class ScreenDashboardEmployeeCreate extends Component {
 							</div>
 						</div>
 
-						{/* <div className="container-fluid">
-                            <div className="row">
-                                <div className="col-sm-12">
-                                    <ul className="cpn-sub-menu">
-                                        <li onClick={() => this.setState({ tabActive: 'NEW' })} className={tabActive === "NEW" ? "active" : null} >
-                                            Nhân sự mới
+						<div className="container-fluid">
+							<div className="row">
+								<div className="col-sm-12">
+									<ul className="cpn-sub-menu">
+										<li onClick={() => this.setState({ tabActive: 'NEW' })} className={tabActive === "NEW" ? "active" : null} >
+											Nhân sự mới
                 				    </li>
-                                        <li onClick={() => this.setState({ tabActive: 'OLD' })} className={tabActive === "OLD" ? "active" : null} >
-                                            Điều phối
+										<li onClick={() => this.setState({ tabActive: 'OLD' })} className={tabActive === "OLD" ? "active" : null} >
+											Điều phối
                 				    </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div> */}
+									</ul>
+								</div>
+							</div>
+						</div>
 
 						{tabActive === 'NEW'
 							? <Formik
@@ -279,7 +292,7 @@ class ScreenDashboardEmployeeCreate extends Component {
 							initialValues={{
 								roles: '',
 								userId: '',
-								branchId: branch._id
+								branchId: localStorage.getItem("BRANCH")
 							}}
 							validationSchema={Yup.object().shape({
 								roles: Yup.array(),
@@ -296,8 +309,7 @@ class ScreenDashboardEmployeeCreate extends Component {
 							render={props => {
 								const { isSubmitting, isValid, errors, touched, setValues, values, setTouched } = props;
 								const { employee } = this.props;
-
-								const employeeArr = employee.map(v => v = { label: `${v.name}`, value: v._id });
+								const employeeArr = employees.filter(v => !employee.find(k => k._id === v._id)).map(v => v = { label: `${v.name}`, value: v._id });
 								const branchEmployees = branch && branch.detail && branch.detail.employees ? branch.detail.employees : [];
 
 								return <Form>

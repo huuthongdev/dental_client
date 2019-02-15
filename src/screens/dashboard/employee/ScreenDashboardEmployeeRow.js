@@ -33,12 +33,6 @@ class ScreenDashboardEmployeeRow extends Component {
         console.log('Handle remove employee');
     }
 
-    onRemove(e) {
-        // const { item } = this.props;
-        // e.preventDefault();
-        // const { dispatch } = this.props;
-    }
-
     render() {
         const { item } = this.props;
         const { redirectToEmployeeDetail } = this.state;
@@ -49,7 +43,9 @@ class ScreenDashboardEmployeeRow extends Component {
                 <tr>
                     <td className="sid">
                         <div className="left-row-side" />
-                        {item.sid}
+                        <div onClick={() => this.onDetail(item._id)} className="link">
+                            {item.sid}
+                        </div>
                     </td>
                     <td onClick={() => this.onDetail(item._id)} className="link">{item.name}</td>
                     <td>{item.phone}</td>

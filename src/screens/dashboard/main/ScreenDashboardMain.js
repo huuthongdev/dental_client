@@ -9,10 +9,10 @@ class ScreenDashboardMain extends Component {
                     <ScreenDashboardMainNumberReports />
                     <div className="container-fluid mt-2">
                         <div className="row">
-                            <div className="col-sm-7">
+                            <div className="col-sm-12">
                                 <ScreenDashboardCalendarsToday />
                             </div>
-                            <div className="col-sm-5">
+                            <div className="col-sm-12 mt-2">
                                 <ScreenDashboardMainTicketNotHaveCalendar />
                             </div>
                         </div>

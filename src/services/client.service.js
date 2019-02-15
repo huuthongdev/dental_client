@@ -40,7 +40,7 @@ export default class ClientService {
     static async getDetail(_id) {
         return RequestService.get("/client/detail/" + _id)
             .then(result => {
-                dispatch({ type: SET_CLIENT_DETAIL, result });
+                dispatch({ type: SET_CLIENT_DETAIL, result, _id });
                 return result;
             })
             .catch(error => console.log(error.message));

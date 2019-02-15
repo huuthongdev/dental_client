@@ -25,13 +25,16 @@ export default class TimeUtils {
             timeRemaining = (timeRemaining % 60);
 
             if (fullText) {
+                if (minutes === 0) return `Đã đến giờ`;
                 if (days === 0 && hours > 0) return `${hours} giờ  ${minutes} phút`;
-                if (years > 0) return `${years} năm ${months} tháng ${days} ngày`
+                if (years > 0) return `${years} năm ${months} tháng ${days} ngày`;
+                if (minutes > 0) return `${minutes} phút`;
                 return `${days} ngày`;
             }
-
-            if (days === 0 && hours > 0) return `${hours}h:${minutes}p`;
-            if (years > 0) return `${years} năm ${months} tháng ${days} ngày`
+            if (minutes === 0) return `Đã đến giờ`;
+            if (days === 0) return `${hours}h:${minutes}p`;
+            if (years > 0) return `${years} năm ${months} tháng ${days} ngày`;
+            if (minutes > 0) return `${minutes} phút`;
             return `${days} ngày`;
         } else {
             return;

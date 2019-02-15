@@ -102,6 +102,15 @@ body {
     margin: 20px 0px;
     text-align: center;
 
+    &.white {
+      color: $white;
+
+      .loading-icon {
+        border-color: $off-white;
+        border-top-color: $white;
+      }
+    }
+
     .loading-icon {
       border: 0.2rem solid $off-dark;
       border-top-color: $dark;
@@ -115,8 +124,8 @@ body {
   ul.alert-list {
     position: fixed;
     z-index: $zindexAlertsList;
-    bottom: 15px;
-    right: 15px;
+    bottom: 25px;
+    right: 25px;
 
     li {
       display: block;
@@ -127,6 +136,7 @@ body {
       color: $white;
       margin-bottom: 10px;
       float: right;
+      font-size: 1.1rem;
 
       svg {
         height: 14px;
@@ -239,7 +249,7 @@ body {
 
       p {
         margin: 0px;
-        margin-bottom: 15px;
+        // margin-bottom: 15px;
         font-size: 0.9rem;
       }
 
@@ -1888,7 +1898,8 @@ body {
   // ============================ SCREEN ACCOUNT RELATED STYLE ================================
   #screen-login,
   #screen-select-branch,
-  #screen-fetching-data {
+  #screen-fetching-data,
+  #screen-forgot-password {
     width: 100vw;
     height: 100vh;
     position: relative;
@@ -1921,6 +1932,22 @@ body {
       z-index: 3;
       max-width: 100%;
       width: 300px;
+
+      .description {
+        margin-bottom: 10px;
+        color: $white;
+        text-align: center;
+        width: 100%;
+        padding: 0px 15px;
+      }
+
+      .title {
+        text-align: center;
+        width: 100%;
+        color: $white;
+        margin-bottom: 20px;
+        font-size: 1.2rem;
+      }
 
       .form-group {
         background: none;
@@ -2437,3 +2464,7 @@ input::-webkit-calendar-picker-indicator {
   }
 }
 // ============================ End BOX TITLE STYLE ============================
+
+a {
+  color: inherit;
+}

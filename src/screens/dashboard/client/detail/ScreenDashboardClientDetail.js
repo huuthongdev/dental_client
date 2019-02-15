@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
-import { ScreenDashboardWraper, CpnFetchingData, TitleApp, CpnSvg, ScreenDashboardClientDetailUpdate, ClientService, ShortKeyService } from '../../../../refs';
+import { ScreenDashboardWraper, CpnFetchingData, TitleApp, CpnSvg, ScreenDashboardClientDetailUpdate, ClientService, ShortKeyService, ScreenDashboardClientDetailTickets } from '../../../../refs';
 
 class ScreenDashboardClientDetail extends Component {
     state = {
         fetching: true,
+        // INFO || TICKETS
         subMenuActive: "INFO",
         client: null,
         goBack: false
@@ -15,9 +16,19 @@ class ScreenDashboardClientDetail extends Component {
         return this.setState({ subMenuActive: menu });
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.setDetail();
         ShortKeyService.esc(() => this.setState({ goBack: true }));
+        const { state } = this.props.location;
+        if (state && state.subMenuActive) return this.setState({ subMenuActive: state.subMenuActive });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.state.fetching === true) return;
+        const { _id } = this.props.match.params;
+        const { clientDetail } = nextProps;
+        const client = clientDetail.find(v => v._id === _id);
+        if (client) return this.setState({ client });
     }
 
     setDetail() {
@@ -46,6 +57,8 @@ class ScreenDashboardClientDetail extends Component {
 
         if (!fetching && !client) return <ScreenDashboardWraper>Không tìm thấy dữ liệu!</ScreenDashboardWraper>;
 
+        // console.log(client);
+
         return (
             <ScreenDashboardWraper>
                 <TitleApp sub={`Khách hàng ${client.name}`} />
@@ -59,7 +72,7 @@ class ScreenDashboardClientDetail extends Component {
                         </div>
                         <div className="col-sm-6">
                             <div className="cpn-tools-list">
-                                <Link to={`/ticket/new/${client._id}`}>
+                                <Link to={`/client/ticket/new/${client._id}`}>
                                     <button className="btn blue">
                                         <CpnSvg name="CREATE" />
                                         Tạo phiếu điều trị
@@ -81,10 +94,15 @@ class ScreenDashboardClientDetail extends Component {
                                     <CpnSvg name="INFO" />
                                     Thông tin chung
                 				</li>
+                                <li onClick={() => this.changeSubMenu("TICKETS")} className={subMenuActive === "TICKETS" ? "active" : null} >
+                                    <CpnSvg name="TICKET" />
+                                    Lịch sử điều trị {client && client.tickets ? `(${client.tickets.length})` : null}
+                                </li>
                             </ul>
                         </div>
 
                         {subMenuActive === "INFO" ? <ScreenDashboardClientDetailUpdate detail={client} /> : null}
+                        {subMenuActive === "TICKETS" ? <ScreenDashboardClientDetailTickets detail={client} /> : null}
                     </div>
                 </div>
             </ScreenDashboardWraper>

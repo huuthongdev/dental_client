@@ -8,18 +8,30 @@ import {
 	ScreenDashboardWraper,
 	CpnFetchingData,
 	EmployeeService,
+	ScreenDashboardEmployeeDetailRoles,
 } from "../../../../refs";
 
 class ScreenDashboardEmployeeDetail extends Component {
 	state = {
-		fetching: true, 
+		fetching: true,
 		employee: null,
 		goBack: false,
-		subMenuActive: "INFO"
+		// INFO || ROLES
+		subMenuActive: "ROLES"
 	};
 
 	changeSubMenu(menu) {
 		return this.setState({ subMenuActive: menu });
+	}
+
+	componentWillReceiveProps() {
+		if (this.state.fetching) return;
+		const { _id } = this.props.match.params;
+		const { employeeDetail } = this.props;
+		const checkExisted = employeeDetail.find(v => v._id === _id);
+		if (checkExisted) return this.setState({ fetching: false, employee: checkExisted });
+		EmployeeService.setDetail(_id)
+			.then(employee => this.setState({ fetching: false, employee }))
 	}
 
 	componentDidMount() {
@@ -74,15 +86,19 @@ class ScreenDashboardEmployeeDetail extends Component {
 							<ul className="cpn-sub-menu">
 								<li onClick={() => this.changeSubMenu("INFO")} className={subMenuActive === "INFO" ? "active" : null}>
 									<CpnSvg name="INFO" /> Thông tin chung
-                </li>
-								<li onClick={() => this.changeSubMenu("PASSWORD")} className={subMenuActive === "PASSWORD" ? "active" : null}>
+                				</li>
+								<li onClick={() => this.changeSubMenu("ROLES")} className={subMenuActive === "ROLES" ? "active" : null}>
 									<CpnSvg name="PASSWORD" /> Vai trò
-                </li>
+                				</li>
 							</ul>
 						</div>
 
 						{subMenuActive === "INFO" ? (
 							<ScreenDashboardEmployeeDetailUpdate item={employee} />
+						) : null}
+
+						{subMenuActive === "ROLES" ? (
+							<ScreenDashboardEmployeeDetailRoles item={employee} />
 						) : null}
 					</div>
 				</div>

@@ -23,6 +23,7 @@ import ScreenLogin from "./screens/login/ScreenLogin";
 import ScreenNotMatch404 from './screens/ScreenNotMatch404';
 import ScreenAuthentication from './screens/authentication/ScreenAuthentication';
 import ScreenSelectBranch from './screens/select-branch/ScreenSelectBranch';
+import ScreenForgotPassword from './screens/forgot-password/ScreenForgotPassword';
 
 import ScreenDashboardSidebar from './screens/dashboard/ScreenDashboardSidebar';
 import ScreenDashboardHeader from './screens/dashboard/ScreenDashboardHeader';
@@ -65,6 +66,9 @@ import ScreenDashboardProductDetailUpdate from './screens/dashboard/product/deta
 import ScreenDashboardClient from './screens/dashboard/client/ScreenDashboardClient';
 import ScreenDashboardClientCreate from './screens/dashboard/client/ScreenDashboardClientCreate';
 import ScreenDashboardClientRow from './screens/dashboard/client/ScreenDashboardClientRow';
+import ScreenDashboardClientDetailTickets from './screens/dashboard/client/detail/ScreenDashboardClientDetailTickets';
+import ScreenDashboardClientDetailTicketsRow from './screens/dashboard/client/detail/ScreenDashboardClientDetailTicketsRow';
+import ScreenDashboardEmployeeDetailRoles from './screens/dashboard/employee/detail/ScreenDashboardEmployeeDetailRoles';
 
 import ScreenDashboardClientDetail from './screens/dashboard/client/detail/ScreenDashboardClientDetail';
 import ScreenDashboardClientDetailUpdate from './screens/dashboard/client/detail/ScreenDashboardClientDetailUpdate';
@@ -106,6 +110,7 @@ import { convertTicketStatus } from './utils/convertTicketStatus';
 import { convertGender } from './utils/convertGender';
 import { convertStatus } from './utils/convertStatus';
 import TimeUtils from './utils/time.util';
+import { formatPhoneNumber } from './utils/formatPhoneNumber.util';
 // Data
 import { VietNamPlaces } from './utils/vietnam-place';
 import medicalHistoryData from './utils/medical-historys';
@@ -141,6 +146,7 @@ export { ScreenWraper }
 export { ScreenLogin }
 export { ScreenAuthentication }
 export { ScreenSelectBranch }
+export { ScreenForgotPassword }
 export { ScreenNotMatch404 }
 export { ScreenDashboardHeader, ScreenDashboardWraper, ScreenDashboardSidebar }
 export {
@@ -165,7 +171,8 @@ export {
 }
 export {
     ScreenDashboardClient, ScreenDashboardClientDetailUpdate, ScreenDashboardClientDetail,
-    ScreenDashboardClientCreate, ScreenDashboardClientRow
+    ScreenDashboardClientCreate, ScreenDashboardClientRow, ScreenDashboardClientDetailTickets, ScreenDashboardClientDetailTicketsRow,
+    ScreenDashboardEmployeeDetailRoles
 }
 export {
     ScreenDashboardTicket, ScreenDashboardTicketRow, ScreenDashboardTicketCreate, ScreenDashboardTicketDetail,
@@ -192,7 +199,7 @@ export {
     converErrorMessage, RequestService, Roles, GetRoleName,
     convertToSave, convertToSearch, pageNavigation, getLabelGender,
     convertTicketStatus, convertGender, convertStatus,
-    TimeUtils
+    TimeUtils, formatPhoneNumber
 }
 // Data
 export { VietNamPlaces, medicalHistoryData }

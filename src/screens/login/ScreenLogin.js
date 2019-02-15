@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
 import { CpnSvg, Background, UserService, CpnAlert, ScreenWraper } from '../../refs';
 
@@ -47,7 +47,7 @@ class ScreenLogin extends Component {
                                     {!isSubmitting ? <button type="submit" className="btn white w-100"> Đăng nhập </button> : null}
 
                                     <div className="form-sub-link">
-                                        <div className="link">Quên mật khẩu!</div>
+                                        <Link to="/forgot-password"><div className="link">Quên mật khẩu!</div></Link>
                                     </div>
                                 </Form>
                             }}
