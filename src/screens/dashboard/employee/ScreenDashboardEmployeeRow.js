@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
-import { CpnSvg, GetRoleName, CheckRoleService, Role } from '../../../refs';
+import { CpnSvg, GetRoleName, CheckRoleService, Role, formatPhoneNumber } from '../../../refs';
 
 class ScreenDashboardEmployeeRow extends Component {
     state = {
@@ -48,7 +48,7 @@ class ScreenDashboardEmployeeRow extends Component {
                         </div>
                     </td>
                     <td onClick={() => this.onDetail(item._id)} className="link">{item.name}</td>
-                    <td>{item.phone}</td>
+                    <td>{formatPhoneNumber(item.phone)}</td>
                     <td>{item.email}</td>
                     <td>{item.address}</td>
                     <td>{this.showRolesInBranch()}</td>

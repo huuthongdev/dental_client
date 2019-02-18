@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
+import DatePicker from "react-datepicker";
 import Select from 'react-select';
-import { ScreenDashboardWraper, CpnSvg, SubmitButtonsGroup, TicketService, CpnFetchingData } from '../../../refs';
+import { ScreenDashboardWraper, CpnSvg, SubmitButtonsGroup, TicketService, CpnFetchingData, CpnCurrencyInput } from '../../../refs';
 
 class ScreenDashboardTicketCreate extends Component {
     state = {
@@ -26,6 +27,12 @@ class ScreenDashboardTicketCreate extends Component {
         return this.setState({ items });
     }
 
+    addNote(serviceId, note) {
+        let { items } = this.state;
+        items = items.map(v => v.service._id === serviceId ? v = { ...v, note } : v);
+        return this.setState({ items });
+    }
+
     removeServiceInList(serviceId) {
         const { items } = this.state;
         return this.setState({ items: items.filter(v => v.service._id !== serviceId) });
@@ -39,7 +46,7 @@ class ScreenDashboardTicketCreate extends Component {
         const checkClient = client.find(v => v._id === idClient);
 
         if (goBack) return <Redirect to="/client/ticket" />
-        if (redirectToDetail) return <Redirect to={`/client/ticket/${redirectToDetail}`} />
+        if (redirectToDetail) return <Redirect to={`/client/${redirectToDetail}`} />
 
         const totalPrice = items.length !== 0 ? items.map(v => v = v.service.suggestedRetailerPrice * v.qty).reduce((a, b) => a + b) : 0;
         if (!fetchDataStatus.client) return <ScreenDashboardWraper> <CpnFetchingData /> </ScreenDashboardWraper>
@@ -69,23 +76,25 @@ class ScreenDashboardTicketCreate extends Component {
                                 dentistId: '',
                                 clientId: checkClient ? checkClient._id : '',
                                 serviceSelect: '',
+                                createAt: Date.now(),
+                                discountAmount: 0
                             }}
                             validationSchema={Yup.object().shape({
                                 dentistId: Yup.string().required('không được để trống'),
                                 clientId: Yup.string().required('không được để trống')
                             })}
                             onSubmit={(values, { setSubmitting }) => {
-                                const { dentistId, clientId } = values;
-                                const payload = { dentistId, clientId, items: items.map(v => v = { service: v.service._id, qty: +v.qty }) };
+                                const { dentistId, clientId, createAt, discountAmount } = values;
+                                const payload = { dentistId, clientId, items: items.map(v => v = { service: v.service._id, qty: +v.qty, note: v.note }), createAt, discountAmount };
                                 TicketService.create(payload)
                                     .then(success => {
-                                        if (success) return this.setState({ redirectToDetail: success._id });
+                                        if (success) return this.setState({ redirectToDetail: success.client._id });
                                         setSubmitting(false);
                                         this.setState({ goBack: true });
                                     });
                             }}
                             render={props => {
-                                const { isSubmitting, isValid, errors, touched, setValues, values, setTouched } = props;
+                                const { isSubmitting, isValid, errors, touched, setValues, values, setTouched, setFieldValue } = props;
 
                                 const dentistArr = employee.filter(v => {
                                     const currentBranchId = localStorage.getItem("BRANCH");
@@ -95,15 +104,16 @@ class ScreenDashboardTicketCreate extends Component {
                                 });
 
                                 const servicesAvailable = service.filter(v => !items.find(k => k.service._id === v._id));
+                                const total = totalPrice - values.discountAmount;
 
                                 return <Form>
                                     <div className="container-fluid">
                                         <div className="row">
-                                            <div className="col-sm-6">
+                                            <div className="col-sm-12">
                                                 <div className={`form-group required ${errors.clientId && touched.clientId ? 'error' : ''}`}>
                                                     <label>Khách hàng:</label><span className="error-message">{errors.clientId}</span>
                                                     <Select
-                                                        defaultValue={checkClient ? { label: `${checkClient.name} - ${checkClient.phone} - ${checkClient.city}`, value: checkClient._id } : null}
+                                                        defaultValue={checkClient ? { label: `${checkClient.name} - ${checkClient.phone ? checkClient.phone : '*'} - ${checkClient.city ? checkClient.city : '*'}`, value: checkClient._id } : null}
                                                         options={client.map(v => v = { label: `${v.name} - ${v.phone} - ${v.city}`, value: v._id })}
                                                         className="select"
                                                         classNamePrefix="react-select"
@@ -124,6 +134,17 @@ class ScreenDashboardTicketCreate extends Component {
                                                         onChange={selected => setValues({ ...values, dentistId: selected.value })}
                                                         isSearchable
                                                         onBlur={() => setTouched({ ...touched, dentistId: true })}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-sm-6">
+                                                <div className={`form-group ${errors.createAt && touched.createAt ? 'error' : ''}`}>
+                                                    <label>Ngày bắt đầu điều trị:</label><span className="error-message">{errors.createAt}</span>
+                                                    <DatePicker
+                                                        selected={values.createAt ? new Date(values.createAt) : null}
+                                                        onChange={(date) => setFieldValue('createAt', date ? new Date(date).getTime() : '')}
+                                                        onBlur={() => setTouched({ ...touched, createAt: true })}
+                                                        dateFormat="dd/MM/yyyy"
                                                     />
                                                 </div>
                                             </div>
@@ -155,7 +176,8 @@ class ScreenDashboardTicketCreate extends Component {
                                                                     <th>Dịch vụ</th>
                                                                     <th>Đơn giá</th>
                                                                     <th>Số lượng</th>
-                                                                    <th>Chi phí</th>
+                                                                    <th>Ghi chú</th>
+                                                                    <th style={{ width: '130px' }}>Chi phí</th>
                                                                     <th></th>
                                                                 </tr>
                                                             </thead>
@@ -164,7 +186,7 @@ class ScreenDashboardTicketCreate extends Component {
                                                                     return <tr key={key}>
                                                                         <td style={{ width: '40px' }}>{key + 1}</td>
                                                                         <td>{value.service.name}</td>
-                                                                        <td>{(value.service.suggestedRetailerPrice).toLocaleString('en-GB')}/{value.service.unit}</td>
+                                                                        <td>{(value.service.suggestedRetailerPrice).toLocaleString('vi-VN')}/{value.service.unit}</td>
                                                                         <td className="qty-col">
                                                                             <input
                                                                                 onChange={e => {
@@ -186,8 +208,17 @@ class ScreenDashboardTicketCreate extends Component {
                                                                             />
                                                                         </td>
                                                                         <td>
-                                                                            {(value.service.suggestedRetailerPrice * value.qty).toLocaleString('en-GB')}đ
-                                                                    </td>
+                                                                            <input
+                                                                                type="text"
+                                                                                onChange={e => {
+                                                                                    const note = e.target.value;
+                                                                                    return this.addNote(value.service._id, note);
+                                                                                }}
+                                                                            />
+                                                                        </td>
+                                                                        <td>
+                                                                            {(value.service.suggestedRetailerPrice * value.qty).toLocaleString('vi-VN')}đ
+                                                                        </td>
                                                                         <td style={{ width: '50px' }}>
                                                                             <div onClick={() => this.removeServiceInList(value.service._id)} className="btn-remove">
                                                                                 <CpnSvg name="REMOVE" />
@@ -196,8 +227,42 @@ class ScreenDashboardTicketCreate extends Component {
                                                                     </tr>
                                                                 })}
                                                                 <tr>
-                                                                    <td colSpan={6} className="total-row">
-                                                                        Tổng cộng: <span className="number">{totalPrice.toLocaleString('en-GB')}</span>
+                                                                    <td colSpan={5} className="total-row text-right">
+                                                                        Tạm tính:
+                                                                    </td>
+                                                                    <td colSpan={2} className="total-row text-right">
+                                                                        {totalPrice.toLocaleString('vi-VN')}đ
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colSpan={5} className="total-row text-right">
+                                                                        Giảm giá:
+                                                                    </td>
+                                                                    <td colSpan={2} className="total-row text-right" style={{ paddingTop: 0, paddingBottom: 0 }}>
+                                                                        <CpnCurrencyInput
+                                                                            showNull
+                                                                            subfix="đ"
+                                                                            value={values.discountAmount}
+                                                                            onChange={e => setFieldValue('discountAmount', e)}
+                                                                            style={{
+                                                                                borderRight: 0,
+                                                                                borderLeft: 0,
+                                                                                borderTop: 0,
+                                                                                borderBottom: 0,
+                                                                                borderRadius: 0,
+                                                                                textAlign: 'right',
+                                                                                paddingRight: 0,
+                                                                                paddingTop: '5px'
+                                                                            }}
+                                                                        />
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colSpan={5} className="total-row text-right">
+                                                                        Tổng tiền:
+                                                                    </td>
+                                                                    <td colSpan={2} className="total-row text-right">
+                                                                        <span className="number">{total.toLocaleString('vi-VN')}đ</span>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -206,7 +271,7 @@ class ScreenDashboardTicketCreate extends Component {
                                                 </div>
                                             </div>
 
-                                            <div className="col-sm-12">
+                                            <div className="col-sm-12 text-right">
                                                 <SubmitButtonsGroup disabled={!isValid || items.length === 0} loading={isSubmitting} />
                                             </div>
                                         </div>

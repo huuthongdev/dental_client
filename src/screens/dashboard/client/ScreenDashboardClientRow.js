@@ -21,11 +21,6 @@ class ScreenDashboardClientRow extends Component {
                     <td>
                         <div className="left-row-side" />
                         <Link className="link" to={`/client/${item._id}`}>
-                            {item.sid}
-                        </Link>
-                    </td>
-                    <td>
-                        <Link className="link" to={`/client/${item._id}`}>
                             {item.name}
                         </Link>
                     </td>

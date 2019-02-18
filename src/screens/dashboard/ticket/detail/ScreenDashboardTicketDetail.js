@@ -18,6 +18,18 @@ class ScreenDashboardTicketDetail extends Component {
         isCreateReceiptVoucher: false
     };
 
+    componentWillReceiveProps(nextProps) {
+        const { _id } = this.props.match.params;
+        const { ticketDetail } = nextProps;
+
+        const ticket = ticketDetail.find(v => v._id === _id);
+        if (ticket) return this.setState({
+            ticket,
+            fetching: false
+        });
+
+    }
+
     changeSubMenu(menu) {
         return this.setState({ tabActive: menu });
     }
@@ -32,9 +44,7 @@ class ScreenDashboardTicketDetail extends Component {
         const { _id } = this.props.match.params;
         const { ticketDetail } = this.props;
 
-
         const ticket = ticketDetail.find(v => v._id === _id);
-
         if (ticket) return this.setState({
             ticket,
             fetching: false
@@ -61,7 +71,7 @@ class ScreenDashboardTicketDetail extends Component {
         const { state } = this.props.location;
 
         if (goBack) return <Redirect to={{
-            pathname: state && state.from && state.from.pathname ? state.from.pathname : '/',
+            pathname: state && state.from && state.from.pathname ? state.from.pathname : ticket ? `/client/${ticket.client._id}` : '/',
             state: {
                 subMenuActive: 'TICKETS'
             }
@@ -77,18 +87,19 @@ class ScreenDashboardTicketDetail extends Component {
 
         if (!fetching && !ticket) return <ScreenDashboardWraper>Không tìm thấy dữ liệu!</ScreenDashboardWraper>;
 
-        const { gender, name, phone, city, district, address, medicalHistory } = ticket.client;
-        const { totalAmount, dentistResponsible, receiptVoucher } = ticket;
+        let { totalAmount, dentistResponsible, receiptVoucher, discountAmount } = ticket;
+        console.log(ticket);
 
         const debitAmount = receiptVoucher && receiptVoucher.length !== 0
             ? totalAmount - receiptVoucher.map(v => v.totalPayment).reduce((a, b) => a + b)
             : totalAmount;
+        discountAmount = discountAmount ? +discountAmount : 0;
 
         return (
             <ScreenDashboardWraper title={`Hồ sơ KH: ${ticket.client.name}`}>
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-sm-3">
+                        {/* <div className="col-sm-3">
                             <div className="cpn-client-info">
                                 <div className="title"><CpnSvg name="TICKET" /> Hồ sơ điều trị
                                 <p>KH: {`${name}`}</p>
@@ -103,7 +114,7 @@ class ScreenDashboardTicketDetail extends Component {
                                 </div>
                                 <div className="item">
                                     <div className="label">• Địa chỉ</div>
-                                    <div className="content">{`${address} - ${district} - ${city}`}</div>
+                                    <div className="content">{address && district && city ? `${address} - ${district} - ${city}` : '--'}</div>
                                 </div>
                                 <div className="item">
                                     <div className="label">• Lịch sử bệnh lí</div>
@@ -117,12 +128,12 @@ class ScreenDashboardTicketDetail extends Component {
                                     <div className="label">• Phí nợ</div>
                                     {debitAmount === 0
                                         ? <p className="text-success"><strong>Đã thanh toán đủ</strong></p>
-                                        : <div className="content text-danger"><strong>{debitAmount.toLocaleString()}</strong></div>}
+                                        : <div className="content text-danger"><strong>{(debitAmount - discountAmount).toLocaleString('vi-VN')}đ</strong> {discountAmount ? `(Giảm: ${(+discountAmount).toLocaleString('vi-VN')}đ)` : null}</div>}
 
                                 </div>
                             </div>
-                        </div>
-                        <div className="col-sm-9">
+                        </div> */}
+                        <div className="col">
 
                             <div className="cpn-tools-list">
                                 <button className="btn blue" onClick={() => this.setState({ isCreateCalendar: true })}>
@@ -144,11 +155,11 @@ class ScreenDashboardTicketDetail extends Component {
                                     <ul className="cpn-sub-menu">
                                         <li onClick={() => this.changeSubMenu("SERVICES_INFO")} className={tabActive === "SERVICES_INFO" ? "active" : null} >
                                             <CpnSvg name="SERVICE" />
-                                            Thông tin dịch vụ
+                                            Cập nhật thông tin
                                     </li>
                                         <li onClick={() => this.changeSubMenu("CALENDAR")} className={tabActive === "CALENDAR" ? "active" : null} >
                                             <CpnSvg name="DATE" />
-                                            Lịch điều trị ({ticket.calendar.length})
+                                            Lịch hẹn ({ticket.calendar.length})
                                     </li>
                                         <li onClick={() => this.changeSubMenu("RECEIPT_VOUCHER")} className={tabActive === "RECEIPT_VOUCHER" ? "active" : null} >
                                             <CpnSvg name="MONEY_CHECK" />
@@ -157,7 +168,7 @@ class ScreenDashboardTicketDetail extends Component {
                                     </ul>
                                 </div>
 
-                                <div className="col-sm-12">
+                                <div className="col-sm-12"> 
                                     {tabActive === 'SERVICES_INFO' ? <ScreenDashboardTicketDetailServicesInfo ticket={ticket} /> : null}
                                     {tabActive === 'CALENDAR' ? <ScreenDashboardTicketDetailCalendar ticket={ticket} /> : null}
                                     {tabActive === 'RECEIPT_VOUCHER' ? <ScreenDashboardTicketDetailReceiptVoucher ticket={ticket} /> : null}
@@ -180,7 +191,7 @@ class ScreenDashboardTicketDetail extends Component {
                 {isCreateReceiptVoucher ? <ScreenDashboardTicketDetailReceiptVoucherPopupAdd
                     ticketId={ticket._id}
                     clientId={ticket.client._id}
-                    debitAmount={debitAmount}
+                    debitAmount={debitAmount - discountAmount}
                     goBack={() => {
                         this.getDetail();
                         this.setState({ isCreateReceiptVoucher: false });

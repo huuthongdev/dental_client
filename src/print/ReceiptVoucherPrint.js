@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import ReactToPrint from "react-to-print";
 import './ReceiptVoucherPrint.scss';
 import { CpnSvg } from '../refs';
-
+ 
 class ComponentToPrint extends React.Component {
     render() {
         // const { } = this.props.ticket;
@@ -46,6 +46,7 @@ class ComponentToPrint extends React.Component {
                                     <td className="text-right">Đơn giá</td>
                                     <td className="text-right">Tổng</td>
                                 </tr>
+
                                 {ticket.items.map((value, key) => <tr key={key} className={`${key === ticket.items.length - 1 ? 'dashed-bottom' : ''}`}>
                                     <td><span>{value.service.name}</span></td>
                                     <td><span>x{value.qty} ({value.service.unit})</span></td>
@@ -70,7 +71,7 @@ class ComponentToPrint extends React.Component {
                                     <td className="text-right"><span>{totalPayment.toLocaleString('en-GB')}đ</span></td>
                                 </tr>
                                 <tr>
-                                    <td colSpan={3} className="text-right">Công nợ còn lại</td>
+                                    <td colSpan={3} className="text-right">Còn lại</td>
                                     <td className="text-right"><span>{(total - totalPayment - totalBefore).toLocaleString('en-GB')}đ</span></td>
                                 </tr>
                             </tbody>

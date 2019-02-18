@@ -19,7 +19,6 @@ class ScreenDashboardClientDetailUpdate extends Component {
         if (goBack) return <Redirect to="/client" />;
         return (
             <Fragment>
-                <div className="col-sm-12">
                     <div className="cpn-form">
                         <Formik
                             initialValues={{
@@ -195,7 +194,6 @@ class ScreenDashboardClientDetailUpdate extends Component {
                             }}
                         />
                     </div>
-                </div>
             </Fragment>
         );
     }

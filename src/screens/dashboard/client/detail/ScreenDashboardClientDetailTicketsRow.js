@@ -20,13 +20,13 @@ class ScreenDashboardClientDetailTicketsRow extends Component {
 
 
     render() {
-        const { sid, _id, createAt, dentistResponsible, items, status, receiptVoucher, totalAmount, client, branchRegister } = this.props.value;
+        let { sid, _id, createAt, dentistResponsible, items, status, receiptVoucher, totalAmount, client, discountAmount } = this.props.value;
+
         const { onDetail, onCreateCalendar, onPayment, loading } = this.state;
         const debitAmount = receiptVoucher && receiptVoucher.length !== 0
             ? totalAmount - receiptVoucher.map(v => v.totalPayment).reduce((a, b) => a + b)
             : totalAmount;
-
-        console.log(this.props.value);
+        discountAmount = discountAmount ? +discountAmount : 0;
 
         if (onDetail) return <Redirect to={{ pathname: `/client/ticket/${_id}`, state: { from: { pathname: this.props.location.pathname } } }} />
         if (onCreateCalendar) return <Redirect to={{ pathname: `/client/ticket/${_id}`, state: { ccl: true, from: { pathname: this.props.location.pathname } } }} />
@@ -46,9 +46,10 @@ class ScreenDashboardClientDetailTicketsRow extends Component {
                     <td>
                         {new Date(createAt).toLocaleDateString('vi-VN')}
                     </td>
-                    <td>{items.map((value, key) => {
-                        return <Fragment key={key}>• {value.service.name} (x{value.qty} {value.service.unit})<br /></Fragment>
-                    })}
+                    <td>
+                        {items.map((value, key) => {
+                            return <Fragment key={key}>• <strong>{value.service.name}{value.note ? ` - ${value.note}` : null}</strong> (x{value.qty} {value.service.unit})<br /></Fragment>
+                        })}
                     </td>
                     <td>
                         {dentistResponsible.name}
@@ -62,11 +63,12 @@ class ScreenDashboardClientDetailTicketsRow extends Component {
                         </div>
                     </td>
                     <td>
-                        {debitAmount.toLocaleString('vi-VN')}đ
+                        {(debitAmount - discountAmount) > 0 ? <Fragment><strong className="text-warning">{(debitAmount - discountAmount).toLocaleString('vi-VN')}đ</strong> {discountAmount ? <Fragment> <br /> {`(-${(+discountAmount).toLocaleString('vi-VN')}đ)`}</Fragment> : null}</Fragment>
+                            : <span className="text-success">Đã thanh toán</span>}
                     </td>
-                    <td>
+                    {/* <td>
                         {branchRegister.name}
-                    </td>
+                    </td> */}
                     <td className="list-tools">
                         {loading ? <div className="loading-icon green" /> : null}
                         {!loading ? <button className="row-toggle-list-tools">
@@ -80,7 +82,11 @@ class ScreenDashboardClientDetailTicketsRow extends Component {
                                     <CpnSvg name="DATE" />
                                     Đặt lịch hẹn
                                 </div>
-                                {debitAmount !== 0 ? <div className="item" onClick={() => this.setState({ onPayment: true })}>
+                                {debitAmount !== 0 ? <div className="item" onClick={() => this.props.onPayment({
+                                    debitAmount, 
+                                    clientId: client._id, 
+                                    ticketId: _id
+                                })}>
                                     <CpnSvg name="MONEY_CHECK" />
                                     Thu phí
                                 </div> : null}

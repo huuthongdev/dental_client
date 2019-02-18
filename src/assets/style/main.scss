@@ -926,7 +926,7 @@ body {
     text-align: left !important;
   }
   .text-right {
-    text-align: right;
+    text-align: right !important;
   }
   .text-center {
     text-align: center;
@@ -1313,6 +1313,7 @@ body {
 
         input {
           width: 140px;
+          box-shadow: none !important;
         }
 
         .total-row {

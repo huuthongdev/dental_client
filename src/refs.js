@@ -50,6 +50,7 @@ import ScreenDashboardEmployeeRow from './screens/dashboard/employee/ScreenDashb
 import ScreenDashboardEmployeeCreate from './screens/dashboard/employee/ScreenDashboardEmployeeCreate';
 import ScreenDashboardEmployeeDetail from './screens/dashboard/employee/detail/ScreenDashboardEmployeeDetail';
 import ScreenDashboardEmployeeDetailUpdate from './screens/dashboard/employee/detail/ScreenDashboardEmployeeDetailUpdate';
+import ScreenDashboardEmployeeDetailRoles from './screens/dashboard/employee/detail/ScreenDashboardEmployeeDetailRoles';
 
 import ScreenDashboardService from './screens/dashboard/service/ScreenDashboardService';
 import ScreenDashboardServiceCreate from './screens/dashboard/service/ScreenDashboardServiceCreate';
@@ -68,7 +69,7 @@ import ScreenDashboardClientCreate from './screens/dashboard/client/ScreenDashbo
 import ScreenDashboardClientRow from './screens/dashboard/client/ScreenDashboardClientRow';
 import ScreenDashboardClientDetailTickets from './screens/dashboard/client/detail/ScreenDashboardClientDetailTickets';
 import ScreenDashboardClientDetailTicketsRow from './screens/dashboard/client/detail/ScreenDashboardClientDetailTicketsRow';
-import ScreenDashboardEmployeeDetailRoles from './screens/dashboard/employee/detail/ScreenDashboardEmployeeDetailRoles';
+import ScreenDashboardClientReceiptVoucher from './screens/dashboard/client/detail/ScreenDashboardClientReceiptVoucher';
 
 import ScreenDashboardClientDetail from './screens/dashboard/client/detail/ScreenDashboardClientDetail';
 import ScreenDashboardClientDetailUpdate from './screens/dashboard/client/detail/ScreenDashboardClientDetailUpdate';
@@ -172,7 +173,7 @@ export {
 export {
     ScreenDashboardClient, ScreenDashboardClientDetailUpdate, ScreenDashboardClientDetail,
     ScreenDashboardClientCreate, ScreenDashboardClientRow, ScreenDashboardClientDetailTickets, ScreenDashboardClientDetailTicketsRow,
-    ScreenDashboardEmployeeDetailRoles
+    ScreenDashboardEmployeeDetailRoles, ScreenDashboardClientReceiptVoucher
 }
 export {
     ScreenDashboardTicket, ScreenDashboardTicketRow, ScreenDashboardTicketCreate, ScreenDashboardTicketDetail,

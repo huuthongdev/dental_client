@@ -63,7 +63,7 @@ class ScreenDashboardClient extends Component {
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th className="sid">ID</th>
+                                            {/* <th className="sid">ID</th> */}
                                             <th>Tên khách hàng</th>
                                             <th>Điện thoại</th>
                                             <th>Email</th>

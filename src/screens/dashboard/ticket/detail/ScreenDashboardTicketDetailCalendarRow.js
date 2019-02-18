@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { CpnSvg, convertStatus, TimeUtils } from '../../../../refs';
 
 class ScreenDashboardTicketDetailCalendarRow extends Component {
+    
+
     render() {
         const { startTime, endTime, content, dentist, status, sid } = this.props.item;
 

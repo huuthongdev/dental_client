@@ -23,11 +23,12 @@ export default class ClientService {
                 return false;
             })
     }
-
+ 
     static async update(_id, payload) {
         return RequestService.put('/client/' + _id, payload)
-            .then(result => {
+            .then(async result => {
                 dispatch({ type: UPDATE_CLIENT, result });
+                await ClientService.getDetail(_id);
                 AlertService.success(`Đã cập nhật khách hàng: ${result.name}`);
                 return result;
             })

@@ -13,8 +13,9 @@ export default class TicketService {
 
     static async create(payload) {
         return RequestService.post('/ticket', payload)
-            .then(result => {
-                dispatch({ type: CREATE_TICKET, result })
+            .then(async result => {
+                dispatch({ type: CREATE_TICKET, result });
+                await ClientService.getDetail(result.client._id);
                 AlertService.success(`Đã tạo phiếu cho khách hàng ${result.client.name}`);
                 return result;
             })
@@ -22,6 +23,19 @@ export default class TicketService {
                 AlertService.error(error.message);
                 return false;
             })
+    }
+
+    static async update(ticketId, items, dentistId) {
+        try {
+            await RequestService.put('/ticket/items/' + ticketId, { items });
+            await RequestService.put('/ticket/dentist-responsible/' + ticketId, { dentistId });
+            await this.getDetail(ticketId);
+            return true;
+
+        } catch (error) {
+            AlertService.error(error.message);
+            return;
+        }
     }
 
     static async getDetail(_id) {
@@ -48,11 +62,12 @@ export default class TicketService {
             })
     }
 
-    static async payment(payload) {
+    static async payment(payload, clientId) {
         return RequestService.post('/receipt-voucher/ticket', payload)
             .then(async () => {
-                await this.getDetail(payload.ticketId);
-                await this.set();
+                this.getDetail(payload.ticketId);
+                this.set();
+                await ClientService.getDetail(clientId)
                 AlertService.success(`Thanh toán thành công`);
                 return true;
             })

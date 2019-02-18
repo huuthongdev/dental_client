@@ -7,7 +7,7 @@ class ScreenDashboardTicketDetailReceiptVoucherPopupAdd extends Component {
     componentDidMount() {
         ShortKeyService.esc(() => this.props.goBack());
     }
-
+ 
     render() {
         const { debitAmount, clientId, ticketId } = this.props;
         return (
@@ -40,8 +40,8 @@ class ScreenDashboardTicketDetailReceiptVoucherPopupAdd extends Component {
                         })}
                         onSubmit={(values, { setSubmitting }) => {
                             const payload = { ...values, clientId, ticketId };
-                            TicketService.payment(payload)
-                                .then(success => {
+                            TicketService.payment(payload, clientId)
+                                .then(success => { 
                                     setSubmitting(false);
                                     if (success) this.props.goBack();
                                 });

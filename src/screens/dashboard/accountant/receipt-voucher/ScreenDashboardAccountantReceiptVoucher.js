@@ -61,9 +61,7 @@ class ScreenDashboardAccountantReceiptVoucher extends Component {
                                                 <strong>+{totalPayment.toLocaleString()}đ</strong>
                                             </td>
                                             <td>
-                                                <ReceiptVoucherPrint>
-                                                    {content}
-                                                </ReceiptVoucherPrint>
+                                                {content}
                                             </td>
                                             <td className="list-tools">
                                                 <button className="row-toggle-list-tools">

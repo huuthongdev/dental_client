@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { CpnEmptyValue } from '../../../../refs';
+import { CpnEmptyValue, CpnSvg, ReceiptVoucherPrint } from '../../../../refs';
 
 class ScreenDashboardTicketDetailReceiptVoucher extends Component {
     render() {
@@ -20,12 +20,14 @@ class ScreenDashboardTicketDetailReceiptVoucher extends Component {
                                         <th>Thu ngân</th>
                                         <th>Phí thu</th>
                                         <th>Ghi chú</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {receiptVoucher.map((value, key) => <Fragment key={key}>
                                         <tr>
                                             <td>
+                                                <div className="left-row-side" />
                                                 {new Date(value.createAt).toLocaleTimeString('en-GB')} | {new Date(value.createAt).toLocaleDateString('en-GB')}
                                             </td>
                                             <td>
@@ -36,6 +38,16 @@ class ScreenDashboardTicketDetailReceiptVoucher extends Component {
                                             </td>
                                             <td>
                                                 {value.content}
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <ReceiptVoucherPrint detail={value}>
+                                                        <div className="item" style={{ cursor: 'pointer' }}>
+                                                            <CpnSvg name="PRINTER" />
+                                                        </div>
+                                                    </ReceiptVoucherPrint>
+                                                </div>
+                                                <div className="right-row-side" />
                                             </td>
                                         </tr>
                                         <tr className="empty" />

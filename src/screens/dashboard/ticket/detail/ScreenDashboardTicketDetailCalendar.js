@@ -9,7 +9,7 @@ class ScreenDashboardTicketDetailCalendar extends Component {
         return (
             <Fragment>
                 {isEmpty
-                    ? <CpnEmptyValue /> : <table>
+                    ? <CpnEmptyValue message="Chưa có lịch hẹn nào"/> : <table>
                         <thead>
                             <tr>
                                 <th>ID</th> 
