@@ -2,72 +2,52 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
-import Select from 'react-select';
 import DatePicker from "react-datepicker";
-import { CpnEmptyValue, SubmitButtonsGroup, CpnCurrencyInput, CpnSvg, ScreenDashboardWraper, CpnFetchingData, TicketService } from '../../../../refs';
+import Select from 'react-select';
+import ScreenClientDetailWraper from './ScreenClientDetailWraper';
+import { SubmitButtonsGroup, CpnCurrencyInput, CpnSvg, TicketService, formMessage } from '../../../../refs';
 
-class ScreenDashboardTicketDetailServicesInfo extends Component {
-    state = {
-        items: []
-    }
-
-    componentWillMount() {
-        this.setState({ items: this.props.ticket.items });
-    }
-
-    addItem(serviceId) {
-        const { items } = this.state;
-        const check = items.find(v => v.service === serviceId);
-        if (check) return;
-        return this.setState({ items: [...items, { service: serviceId, qty: 1 }] });
-    }
-
-    changeQty(serviceId, qty) {
-        let { items } = this.state;
-        items = items.map(v => v.service._id === serviceId ? v = { ...v, qty: qty } : v);
-        return this.setState({ items });
-    }
-
-    addNote(serviceId, note) {
-        let { items } = this.state;
-        items = items.map(v => v.service._id === serviceId ? v = { ...v, note } : v);
-        return this.setState({ items });
-    }
-
-    removeServiceInList(serviceId) {
-        const { items } = this.state;
-        return this.setState({ items: items.filter(v => v.service._id !== serviceId) });
-    }
-
+class ScreenClientDetailTicketCreate extends Component {
     render() {
-        const { items } = this.state;
-        const { employee, service, fetchDataStatus } = this.props;
+        const { employee, service, history } = this.props;
 
-        const totalPrice = items.length !== 0 ? items.map(v => v = v.service.suggestedRetailerPrice * v.qty).reduce((a, b) => a + b) : 0;
-        if (!fetchDataStatus.client) return <Fragment> <CpnFetchingData /> </Fragment>
         return (
-            <Fragment>
-                <div className="row">
-                    <div className="col-sm-12">
-                        <div className="cpn-form">
+            <ScreenClientDetailWraper
+                subBox
+                title="• Tạo phiếu điều trị"
+                render={mainProps => {
+                    const { client } = mainProps;
+                    return <Fragment>
+                        <div className="cpn-form" style={{ padding: '15px 5px' }}>
                             <Formik
+                                className="cpn-form"
                                 initialValues={{
-                                    dentistId: this.props.ticket.dentistResponsible._id,
-                                    clientId: this.props.ticket ? this.props.ticket._id : '',
-                                    serviceSelect: '',
-                                    createAt: this.props.ticket.createAt,
-                                    discountAmount: this.props.ticket.discountAmount ? this.props.ticket.discountAmount : 0
-                                }} ticketupda
+                                    dentistId: '',
+                                    clientId: client._id,
+                                    createAt: Date.now(),
+                                    discountAmount: 0,
+                                    items: []
+                                }}
                                 validationSchema={Yup.object().shape({
-                                    dentistId: Yup.string().required('không được để trống'),
-                                    clientId: Yup.string().required('không được để trống')
+                                    dentistId: Yup.string().required(formMessage.required),
+                                    clientId: Yup.string().required(formMessage.required),
+                                    items: Yup.array().required(formMessage.required)
                                 })}
                                 onSubmit={(values, { setSubmitting }) => {
-                                    TicketService.update(this.props.ticket._id, items, values.dentistId)
-                                        .then(() => setSubmitting(false));
+                                    const { dentistId, clientId, createAt, discountAmount } = values;
+                                    const payload = {
+                                        dentistId, clientId, createAt, discountAmount,
+                                        items: values.items.map(v => v = { service: v.service._id, qty: +v.qty, note: v.note }),
+                                    };
+                                    TicketService.create(payload)
+                                        .then(success => {
+                                            setSubmitting(false);
+                                            if (success) return history.push(`/client/${client._id}`)
+                                        });
                                 }}
                                 render={props => {
                                     const { isSubmitting, errors, touched, setValues, values, setTouched, setFieldValue } = props;
+                                    let { items } = values;
                                     const dentistArr = employee.filter(v => {
                                         const currentBranchId = localStorage.getItem("BRANCH");
                                         return v.roleInBranchs && v.roleInBranchs.find(v => v.branch._id === currentBranchId
@@ -76,7 +56,28 @@ class ScreenDashboardTicketDetailServicesInfo extends Component {
                                     });
 
                                     const servicesAvailable = service.filter(v => !items.find(k => k.service._id === v._id));
+                                    const totalPrice = items.length !== 0 ? items.map(v => v = v.service.suggestedRetailerPrice * v.qty).reduce((a, b) => a + b) : 0;
                                     const total = totalPrice - values.discountAmount;
+
+                                    const addItem = (serviceId) => {
+                                        const check = items.find(v => v.service === serviceId);
+                                        if (check) return;
+                                        return setFieldValue('items', [...items, { service: serviceId, qty: 1 }]);
+                                    }
+
+                                    const changeQty = (serviceId, qty) => {
+                                        items = items.map(v => v.service._id === serviceId ? v = { ...v, qty: qty } : v);
+                                        return setFieldValue('items', items);
+                                    }
+
+                                    const addNote = (serviceId, note) => {
+                                        items = items.map(v => v.service._id === serviceId ? v = { ...v, note } : v);
+                                        return setFieldValue('items', items);
+                                    }
+
+                                    const removeServiceInList = (serviceId) => {
+                                        return setFieldValue('items', items.filter(v => v.service._id !== serviceId));
+                                    }
 
                                     return <Form>
                                         <div className="container-fluid">
@@ -85,13 +86,13 @@ class ScreenDashboardTicketDetailServicesInfo extends Component {
                                                     <div className={`form-group required ${errors.dentistId && touched.dentistId ? 'error' : ''}`}>
                                                         <label>Bác sĩ phụ trách chính:</label><span className="error-message">{errors.dentistId}</span>
                                                         <Select
-                                                            defaultValue={dentistArr.map(v => v = { label: `BS: ${v.name}`, value: v._id }).find(v => v.value === values.dentistId)}
                                                             options={dentistArr.map(v => v = { label: `BS: ${v.name}`, value: v._id })}
                                                             className="select"
                                                             classNamePrefix="react-select"
                                                             onChange={selected => setValues({ ...values, dentistId: selected.value })}
                                                             isSearchable
                                                             onBlur={() => setTouched({ ...touched, dentistId: true })}
+                                                            placeholder="- Chọn -"
                                                         />
                                                     </div>
                                                 </div>
@@ -108,16 +109,14 @@ class ScreenDashboardTicketDetailServicesInfo extends Component {
                                                 </div>
 
                                                 <div className="col-sm-12">
-                                                    <div className={`form-group ${errors.services && touched.services ? 'error' : ''}`}>
-                                                        <label>Dịch vụ:</label><span className="error-message">{errors.services}</span>
+                                                    <div className={`form-group ${errors.items && touched.items ? 'error' : ''}`}>
+                                                        <label>Dịch vụ:</label><span className="error-message">{errors.items}</span>
                                                         <Select
-                                                            value={values.serviceSelect ? values.serviceSelect : null}
+                                                            value={null}
                                                             options={servicesAvailable.map(v => v = { label: `+ ${v.name}`, value: v })}
                                                             className="select"
                                                             classNamePrefix="react-select"
-                                                            onChange={selected => {
-                                                                this.addItem(selected.value);
-                                                            }}
+                                                            onChange={selected => addItem(selected.value)}
                                                             isSearchable
                                                             placeholder="+ Chọn dịch vụ thêm vào"
                                                         />
@@ -151,35 +150,29 @@ class ScreenDashboardTicketDetailServicesInfo extends Component {
                                                                                         const qty = e.target.value;
                                                                                         if (qty !== '' && +qty <= 0) {
                                                                                             e.target.value = 1;
-                                                                                            return this.changeQty(value.service._id, 1);
+                                                                                            return changeQty(value.service._id, 1);
                                                                                         };
-                                                                                        if (qty > 0) return this.changeQty(value.service._id, +qty);
+                                                                                        if (qty > 0) return changeQty(value.service._id, +qty);
                                                                                     }}
                                                                                     type="number"
                                                                                     defaultValue={value.qty}
                                                                                     onBlur={e => {
                                                                                         const qty = e.target.value;
                                                                                         if (qty === '' || +qty <= 0) {
-                                                                                            this.removeServiceInList(value.service._id);
+                                                                                            removeServiceInList(value.service._id);
                                                                                         };
                                                                                     }}
                                                                                 />
                                                                             </td>
                                                                             <td>
-                                                                                <input
-                                                                                    type="text"
-                                                                                    defaultValue={value.note}
-                                                                                    onChange={e => {
-                                                                                        const note = e.target.value;
-                                                                                        return this.addNote(value.service._id, note);
-                                                                                    }}
+                                                                                <input type="text" onChange={e => addNote(value.service._id, e.target.value)}
                                                                                 />
                                                                             </td>
                                                                             <td>
                                                                                 {(value.service.suggestedRetailerPrice * value.qty).toLocaleString('vi-VN')}đ
                                                                         </td>
                                                                             <td style={{ width: '50px' }}>
-                                                                                <div onClick={() => this.removeServiceInList(value.service._id)} className="btn-remove">
+                                                                                <div onClick={() => removeServiceInList(value.service._id)} className="btn-remove">
                                                                                     <CpnSvg name="REMOVE" />
                                                                                 </div>
                                                                             </td>
@@ -196,32 +189,28 @@ class ScreenDashboardTicketDetailServicesInfo extends Component {
                                                                     <tr>
                                                                         <td colSpan={5} className="total-row text-right">
                                                                             Giảm giá:
-                                                                    </td>
+                                                                        </td>
                                                                         <td colSpan={2} className="total-row text-right" style={{ paddingTop: 0, paddingBottom: 0 }}>
                                                                             <CpnCurrencyInput
                                                                                 showNull
                                                                                 subfix="đ"
                                                                                 value={values.discountAmount}
                                                                                 onChange={e => setFieldValue('discountAmount', e)}
-                                                                                style={{
-                                                                                    borderRight: 0,
-                                                                                    borderLeft: 0,
-                                                                                    borderTop: 0,
-                                                                                    borderBottom: 0,
-                                                                                    borderRadius: 0,
-                                                                                    textAlign: 'right',
-                                                                                    paddingRight: 0,
-                                                                                    paddingTop: '5px'
-                                                                                }}
                                                                             />
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td colSpan={5} className="total-row text-right">
                                                                             Tổng tiền:
-                                                                    </td>
+                                                                        </td>
                                                                         <td colSpan={2} className="total-row text-right">
-                                                                            <span className="number">{total.toLocaleString('vi-VN')}đ</span>
+                                                                            <CpnCurrencyInput
+                                                                                showNull
+                                                                                subfix="đ"
+                                                                                value={total}
+                                                                                className="number"
+                                                                                onChange={e => setFieldValue('discountAmount', +totalPrice - +e)}
+                                                                            />
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -230,8 +219,8 @@ class ScreenDashboardTicketDetailServicesInfo extends Component {
                                                     </div>
                                                 </div>
 
-                                                <div className="col-sm-12 text-right">
-                                                    <SubmitButtonsGroup label="Cập nhật" disabled={items.length === 0} loading={isSubmitting} />
+                                                <div className="col-sm-12 text-center">
+                                                    <SubmitButtonsGroup loading={isSubmitting} />
                                                 </div>
                                             </div>
                                         </div>
@@ -239,19 +228,17 @@ class ScreenDashboardTicketDetailServicesInfo extends Component {
                                 }}
                             />
                         </div>
-                    </div>
-                </div>
-            </Fragment>
+                    </Fragment>
+                }}
+            />
         );
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        client: state.client,
         employee: state.employee,
-        service: state.service,
-        fetchDataStatus: state.fetchDataStatus
+        service: state.service
     };
 }
-export default connect(mapStateToProps)(ScreenDashboardTicketDetailServicesInfo);
+export default connect(mapStateToProps)(ScreenClientDetailTicketCreate);

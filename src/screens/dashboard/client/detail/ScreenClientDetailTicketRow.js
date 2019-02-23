@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { CpnSvg, convertTicketStatus, TicketService } from '../../../refs';
+import { Link, Redirect, withRouter } from 'react-router-dom';
+import { convertTicketStatus, CpnSvg, TicketService, formatSID } from '../../../../refs';
 
-class ScreenDashboardTicketRow extends Component {
+class ScreenClientDetailTicketRow extends Component {
     state = {
         onRemove: false,
         onDetail: false,
@@ -19,37 +19,35 @@ class ScreenDashboardTicketRow extends Component {
     }
 
     render() {
-        const { item } = this.props;
-        const { receiptVoucher, totalAmount, sid, client, items, _id, status, dentistResponsible } = this.props.item;
-        const { onDetail, onCreateCalendar, onPayment, loading } = this.state;
+        let { sid, _id, createAt, dentistResponsible, items, status, receiptVoucher, totalAmount, client, discountAmount } = this.props.value;
 
+        const { onDetail, loading } = this.state;
         const debitAmount = receiptVoucher && receiptVoucher.length !== 0
             ? totalAmount - receiptVoucher.map(v => v.totalPayment).reduce((a, b) => a + b)
             : totalAmount;
+        discountAmount = discountAmount ? +discountAmount : 0;
 
-        if (onDetail) return <Redirect to={{ pathname: `/client/ticket/${item._id}` }} />
-        if (onCreateCalendar) return <Redirect to={{ pathname: `/client/ticket/${item._id}`, state: { ccl: true } }} />
-        if (onPayment) return <Redirect to={{ pathname: `/client/ticket/${item._id}`, state: { payment: true } }} />
+        if (onDetail) return <Redirect to={{ pathname: `/client/${client._id}/ticket/${_id}`, state: { from: { pathname: this.props.location.pathname } } }} />
         return (
             <Fragment>
                 <tr>
                     <td>
                         <div className="left-row-side" />
-                        <Link className="link" to={`/client/ticket/${_id}`}>
-                            {sid}
+                        <Link className="link" to={`/client/${client._id}/ticket/${_id}`}>
+                            {formatSID(sid)}
                         </Link>
                     </td>
                     <td>
-                        <Link className="link" to={`/client/${client._id}`}>
-                            {client.name}
-                        </Link>
+                        {new Date(createAt).toLocaleDateString('vi-VN')}
+                    </td>
+                    <td>
+                        {items.map((value, key) => {
+                            return <Fragment key={key}>• <strong>{value.service.name}{value.note ? ` - ${value.note}` : null}</strong> (x{value.qty} {value.service.unit})<br /></Fragment>
+                        })}
                     </td>
                     <td>
                         {dentistResponsible.name}
                     </td>
-                    <td>{items.map((value, key) => {
-                        return <Fragment key={key}>• {value.service.name} (x{value.qty} {value.service.unit})<br /></Fragment>
-                    })}</td>
                     <td>
                         <div className={`box-item ${status === 'WORKING' ? 'orange'
                             : status === 'DONE' ? 'green'
@@ -58,8 +56,13 @@ class ScreenDashboardTicketRow extends Component {
                             {convertTicketStatus(status)}
                         </div>
                     </td>
-                    <td>{debitAmount.toLocaleString('vi-VN')}đ</td>
-
+                    <td>
+                        {(debitAmount - discountAmount) > 0 ? <Fragment><strong className="text-warning">{(debitAmount - discountAmount).toLocaleString('vi-VN')}đ</strong> {discountAmount ? <Fragment> <br /> {`(-${(+discountAmount).toLocaleString('vi-VN')}đ)`}</Fragment> : null}</Fragment>
+                            : <span className="text-success">Đã thanh toán</span>}
+                    </td>
+                    {/* <td>
+                        {branchRegister.name}
+                    </td> */}
                     <td className="list-tools">
                         {loading ? <div className="loading-icon green" /> : null}
                         {!loading ? <button className="row-toggle-list-tools">
@@ -73,27 +76,31 @@ class ScreenDashboardTicketRow extends Component {
                                     <CpnSvg name="DATE" />
                                     Đặt lịch hẹn
                                 </div>
-                                {debitAmount !== 0 ? <div className="item" onClick={() => this.setState({ onPayment: true })}>
+                                {debitAmount !== 0 ? <div className="item" onClick={() => this.props.onPayment({
+                                    debitAmount: debitAmount - discountAmount,
+                                    clientId: client._id,
+                                    ticketId: _id,
+                                })}>
                                     <CpnSvg name="MONEY_CHECK" />
-                                    Thanh toán
+                                    Thu phí
                                 </div> : null}
 
-                                <div onClick={() => this.handleChangeStatus(_id, 'WORKING')} className="item">
+                                {status !== 'WORKING' ? <div onClick={() => this.handleChangeStatus(_id, 'WORKING')} className="item">
                                     <CpnSvg name="DATE" />
                                     C: Đang điều trị
-                                            </div>
-                                <div onClick={() => this.handleChangeStatus(_id, 'PENDING')} className="item">
+                                            </div> : null}
+
+                                {status !== 'PENDING' ? <div onClick={() => this.handleChangeStatus(_id, 'PENDING')} className="item">
                                     <CpnSvg name="DATE" />
                                     C: Tạm ngưng điều trị
-                                            </div>
-                                <div onClick={() => this.handleChangeStatus(_id, 'DONE')} className="item">
+                                            </div> : null}
+
+                                {status !== 'DONE' ? <div onClick={() => this.handleChangeStatus(_id, 'DONE')} className="item">
                                     <CpnSvg name="DATE" />
                                     C: Hoàn thành
-                                            </div>
+                                            </div> : null}
                             </div>
                         </button> : null}
-
-
                         <div className="right-row-side" />
                     </td>
                 </tr>
@@ -103,4 +110,4 @@ class ScreenDashboardTicketRow extends Component {
     }
 }
 
-export default ScreenDashboardTicketRow;
+export default withRouter(ScreenClientDetailTicketRow);

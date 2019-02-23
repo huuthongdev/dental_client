@@ -1,9 +1,9 @@
 import { Store, RequestService, AlertService, ClientService } from "../refs";
-import { SET_TICKETS, CREATE_TICKET, UPDATE_TICKET } from "../reducers/ticket.reducer";
+import { SET_TICKETS, UPDATE_TICKET } from "../reducers/ticket.reducer";
 import { SET_TICKET_DETAIL } from "../reducers/ticket.detail.reducer";
+import { SET_CLIENT_DETAIL } from "../reducers/client.detail.reducer";
 
 const { dispatch } = Store;
-
 export default class TicketService {
     static async set() {
         return RequestService.get('/ticket')
@@ -14,9 +14,8 @@ export default class TicketService {
     static async create(payload) {
         return RequestService.post('/ticket', payload)
             .then(async result => {
-                dispatch({ type: CREATE_TICKET, result });
-                await ClientService.getDetail(result.client._id);
-                AlertService.success(`Đã tạo phiếu cho khách hàng ${result.client.name}`);
+                dispatch({ type: SET_CLIENT_DETAIL, result });
+                AlertService.success(`Đã tạo phiếu cho khách hàng ${result.name}`);
                 return result;
             })
             .catch(error => {
@@ -25,30 +24,30 @@ export default class TicketService {
             })
     }
 
-    static async update(ticketId, items, dentistId) {
-        try {
-            await RequestService.put('/ticket/items/' + ticketId, { items });
-            await RequestService.put('/ticket/dentist-responsible/' + ticketId, { dentistId });
-            await this.getDetail(ticketId);
-            return true;
-
-        } catch (error) {
-            AlertService.error(error.message);
-            return;
-        }
-    }
-
-    static async getDetail(_id) {
-        return RequestService.get('/ticket/' + _id)
-            .then(result => {
-                dispatch({ type: SET_TICKET_DETAIL, result });
+    static async update(ticketId, dentistId, items, createAt, discountAmount) {
+        return RequestService.put('/ticket/' + ticketId, { dentistId, items, createAt, discountAmount })
+            .then(async result => {
+                dispatch({ type: SET_CLIENT_DETAIL, result });
+                AlertService.success(`Đã tạo phiếu cho khách hàng ${result.name}`);
                 return result;
             })
             .catch(error => {
                 AlertService.error(error.message);
                 return false;
-            });
+            })
     }
+
+    // static async getDetail(_id) {
+    //     return RequestService.get('/ticket/' + _id)
+    //         .then(result => {
+    //             dispatch({ type: SET_TICKET_DETAIL, result });
+    //             return result;
+    //         })
+    //         .catch(error => {
+    //             AlertService.error(error.message);
+    //             return false;
+    //         });
+    // }
 
     static async createCalendarForTicket(payload, clientName) {
         return await RequestService.post('/calendar-dentist', payload)
@@ -62,14 +61,11 @@ export default class TicketService {
             })
     }
 
-    static async payment(payload, clientId) {
+    static async payment(payload) {
         return RequestService.post('/receipt-voucher/ticket', payload)
-            .then(async () => {
-                this.getDetail(payload.ticketId);
-                this.set();
-                await ClientService.getDetail(clientId)
+            .then(result => {
                 AlertService.success(`Thanh toán thành công`);
-                return true;
+                return result;
             })
             .catch(error => {
                 AlertService.error(error.message);
@@ -77,12 +73,11 @@ export default class TicketService {
             });
     }
 
-    static async changeStatus(_id, status, clientId) {
+    static async changeStatus(_id, status) {
         return RequestService.put('/ticket/status/' + _id, { status })
-            .then(async (result) => {
-                await ClientService.getDetail(clientId);
-                AlertService.success(`Cập nhật hồ sơ: #${result.sid} thành công`);
-                dispatch({ type: UPDATE_TICKET, result });
+            .then(result => {
+                dispatch({ type: SET_CLIENT_DETAIL, result });
+                AlertService.success(`Cập nhật hồ sơ thành công`);
                 return result;
             })
             .catch(error => {

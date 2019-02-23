@@ -1,10 +1,19 @@
 export function effect() {
     // TOGGLE COLLAPSE SIDEBAR
     const body = document.getElementsByTagName('body')[0];
+
+    const check = localStorage.getItem("COLLAPSE_STATUS");
+    if (check) body.classList.add('sidebar-collapse-active');
+    else body.classList.remove('sidebar-collapse-active');
+
+    // TOGGLE COLLAPSE SIDEBAR
     const btnToggleCollapse = document.getElementById('toggle-extend-sidebar');
     if (btnToggleCollapse && body) {
         btnToggleCollapse.addEventListener('click', function () {
             body.classList.toggle('sidebar-collapse-active');
+            const check = body.classList.value;
+            if (check) localStorage.setItem("COLLAPSE_STATUS", 'true');
+            if (!check) localStorage.removeItem("COLLAPSE_STATUS", 'true');
         });
     }
     // CLOCK

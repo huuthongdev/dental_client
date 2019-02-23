@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
+import { CpnPopupWraper, convertToSave, CpnSvg, TicketService, CpnCurrencyInput, SubmitButtonsGroup, Store, ReceiptVoucherPrint } from '../../../../refs';
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
-import { CpnPopupWraper, CpnSvg, SubmitButtonsGroup, TicketService, convertToSave, ShortKeyService, CpnCurrencyInput } from '../../../../refs';
+import { SET_CLIENT_DETAIL } from '../../../../reducers/client.detail.reducer';
 
-class ScreenDashboardTicketDetailReceiptVoucherPopupAdd extends Component {
-    componentDidMount() {
-        ShortKeyService.esc(() => this.props.goBack());
+class ScreenClientDetailTicketPaymentPopup extends Component {
+    state = {
+        receiptVoucher: null
     }
- 
+
     render() {
-        const { debitAmount, clientId, ticketId } = this.props;
+        const { debitAmount, ticketId, clientId } = this.props;
+        const { receiptVoucher } = this.state;
         return (
             <CpnPopupWraper {...this.props} id="screen-dashboard-detail-receipt-voucher-popup-add">
+                {receiptVoucher ? <ReceiptVoucherPrint detail={receiptVoucher} autoPrint /> : null}
                 <div className="cpn-form">
                     <div className="cpn-popup-title mb-1">
                         <div className="container-fluid">
@@ -39,11 +42,14 @@ class ScreenDashboardTicketDetailReceiptVoucherPopupAdd extends Component {
                             totalPayment: Yup.number().required('Cần nhập số tiền').min(1000, 'Phí thu ít nhất 1,000 đồng').max(debitAmount, 'Vượt giới hạn thu')
                         })}
                         onSubmit={(values, { setSubmitting }) => {
-                            const payload = { ...values, clientId, ticketId };
-                            TicketService.payment(payload, clientId)
-                                .then(success => { 
+                            const payload = { ...values, ticketId, clientId };
+                            TicketService.payment(payload)
+                                .then((result) => {
                                     setSubmitting(false);
-                                    if (success) this.props.goBack();
+                                    if (!result) return;
+                                    const { receiptVoucher, client } = result;
+                                    this.setState({ receiptVoucher });
+                                    Store.dispatch({ type: SET_CLIENT_DETAIL, result: client });
                                 });
                         }}
                         render={props => {
@@ -82,4 +88,4 @@ class ScreenDashboardTicketDetailReceiptVoucherPopupAdd extends Component {
     }
 }
 
-export default ScreenDashboardTicketDetailReceiptVoucherPopupAdd;
+export default ScreenClientDetailTicketPaymentPopup;

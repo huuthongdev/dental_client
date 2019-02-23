@@ -5,7 +5,8 @@ import {
     ScreenLogin, ScreenNotMatch404, ScreenAuthentication, ScreenSelectBranch, ScreenDashboardBranch, ScreenDashboardMain,
     ScreenDashboardEmployee, ScreenDashboardService, ScreenDashboardProduct, ScreenDashboardClient, ScreenDashboardBranchCreate, ScreenDashboardBranchDetail,
     ScreenDashboardEmployeeCreate, ScreenDashboardEmployeeDetail, ScreenDashboardServiceDetail, ScreenDashboardProductDetail, ScreenDashboardClientCreate,
-    ScreenDashboardClientDetail, ScreenDashboardTicket, ScreenDashboardTicketCreate, ScreenDashboardTicketDetail, UserService, ScreenDashboardAccountant, Role, CheckRoleService, AlertService, ScreenForgotPassword
+    ScreenDashboardTicket, ScreenDashboardTicketCreate, ScreenDashboardTicketDetail, UserService, ScreenDashboardAccountant, Role,
+    CheckRoleService, AlertService, ScreenForgotPassword, ScreenClientDetailTicketCreate, ScreenClientDetail, ScreenClientDetailTicketDetail
 } from '../refs';
 import { ScreenDashboardServiceCreate, ScreenDashboardProductCreate } from '../refs';
 import { connect } from 'react-redux';
@@ -38,12 +39,9 @@ class Routes extends Component {
 
                         <MustBeUser path="/client" exact component={ScreenDashboardClient} />
                         <MustBeUser path="/client/new" exact component={ScreenDashboardClientCreate} />
-                        <MustBeUser path="/client/:_id" exact component={ScreenDashboardClientDetail} />
-
-                        <MustBeUser path="/client/ticket" exact component={ScreenDashboardTicket} />
-                        <MustBeUser path="/client/ticket/new" exact component={ScreenDashboardTicketCreate} />
-                        <MustBeUser path="/client/ticket/new/:idClient" exact component={ScreenDashboardTicketCreate} />
-                        <MustBeUser path="/client/ticket/:_id" exact component={ScreenDashboardTicketDetail} />
+                        <MustBeUser path="/client/:_id" exact component={ScreenClientDetail} />
+                        <MustBeUser path="/client/:_id/ticket/new" exact component={ScreenClientDetailTicketCreate} />
+                        <MustBeUser path="/client/:_id/ticket/:ticketId" exact component={ScreenClientDetailTicketDetail} />
 
                         <MustBeUser path="/accountant" exact component={ScreenDashboardAccountant} />
 

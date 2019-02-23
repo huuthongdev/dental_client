@@ -67,23 +67,28 @@ import ScreenDashboardProductDetailUpdate from './screens/dashboard/product/deta
 import ScreenDashboardClient from './screens/dashboard/client/ScreenDashboardClient';
 import ScreenDashboardClientCreate from './screens/dashboard/client/ScreenDashboardClientCreate';
 import ScreenDashboardClientRow from './screens/dashboard/client/ScreenDashboardClientRow';
-import ScreenDashboardClientDetailTickets from './screens/dashboard/client/detail/ScreenDashboardClientDetailTickets';
-import ScreenDashboardClientDetailTicketsRow from './screens/dashboard/client/detail/ScreenDashboardClientDetailTicketsRow';
+import ScreenClientDetailTicket from './screens/dashboard/client/detail/ScreenClientDetailTicket';
+import ScreenClientDetailTicketRow from './screens/dashboard/client/detail/ScreenClientDetailTicketRow';
 import ScreenDashboardClientReceiptVoucher from './screens/dashboard/client/detail/ScreenDashboardClientReceiptVoucher';
+import ScreenClientDetailTicketCreate from './screens/dashboard/client/detail/ScreenClientDetailTicketCreate';
+import ScreenClientDetailWraper from './screens/dashboard/client/detail/ScreenClientDetailWraper';
+import ScreenClientDetailTicketPaymentPopup from './screens/dashboard/client/detail/ScreenClientDetailTicketPaymentPopup';
 
-import ScreenDashboardClientDetail from './screens/dashboard/client/detail/ScreenDashboardClientDetail';
-import ScreenDashboardClientDetailUpdate from './screens/dashboard/client/detail/ScreenDashboardClientDetailUpdate';
+import ScreenClientDetail from './screens/dashboard/client/detail/ScreenClientDetail';
+import ScreenClientDetailUpdate from './screens/dashboard/client/detail/ScreenClientDetailUpdate';
+import ScreenClientDetailTicketDetail from './screens/dashboard/client/detail/ScreenClientDetailTicketDetail';
+import ScreenClientDetailListPayment from './screens/dashboard/client/detail/ScreenClientDetailListPayment';
 
-import ScreenDashboardTicket from './screens/dashboard/ticket/ScreenDashboardTicket';
-import ScreenDashboardTicketRow from './screens/dashboard/ticket/ScreenDashboardTicketRow';
-import ScreenDashboardTicketCreate from './screens/dashboard/ticket/ScreenDashboardTicketCreate';
-import ScreenDashboardTicketDetail from './screens/dashboard/ticket/detail/ScreenDashboardTicketDetail';
-import ScreenDashboardTicketDetailCalendar from './screens/dashboard/ticket/detail/ScreenDashboardTicketDetailCalendar';
-import ScreenDashboardTicketDetailCalendarPopupAdd from './screens/dashboard/ticket/detail/ScreenDashboardTicketDetailCalendarPopupAdd';
-import ScreenDashboardTicketDetailCalendarRow from './screens/dashboard/ticket/detail/ScreenDashboardTicketDetailCalendarRow';
-import ScreenDashboardTicketDetailReceiptVoucher from './screens/dashboard/ticket/detail/ScreenDashboardTicketDetailReceiptVoucher';
-import ScreenDashboardTicketDetailReceiptVoucherPopupAdd from './screens/dashboard/ticket/detail/ScreenDashboardTicketDetailReceiptVoucherPopupAdd';
-import ScreenDashboardTicketDetailServicesInfo from './screens/dashboard/ticket/detail/ScreenDashboardTicketDetailServicesInfo';
+// import ScreenDashboardTicket from './screens/dashboard/ticket/ScreenDashboardTicket';
+// import ScreenDashboardTicketRow from './screens/dashboard/ticket/ScreenDashboardTicketRow';
+// import ScreenDashboardTicketCreate from './screens/dashboard/ticket/ScreenDashboardTicketCreate';
+// import ScreenDashboardTicketDetail from './screens/dashboard/ticket/detail/ScreenDashboardTicketDetail';
+// import ScreenDashboardTicketDetailCalendar from './screens/dashboard/ticket/detail/ScreenDashboardTicketDetailCalendar';
+// import ScreenDashboardTicketDetailCalendarPopupAdd from './screens/dashboard/ticket/detail/ScreenDashboardTicketDetailCalendarPopupAdd';
+// import ScreenDashboardTicketDetailCalendarRow from './screens/dashboard/ticket/detail/ScreenDashboardTicketDetailCalendarRow';
+// import ScreenDashboardTicketDetailReceiptVoucher from './screens/dashboard/ticket/detail/ScreenDashboardTicketDetailReceiptVoucher';
+// import ScreenDashboardTicketDetailReceiptVoucherPopupAdd from './screens/dashboard/ticket/detail/ScreenDashboardTicketDetailReceiptVoucherPopupAdd';
+// import ScreenDashboardTicketDetailServicesInfo from './screens/dashboard/ticket/detail/ScreenDashboardTicketDetailServicesInfo';
 
 import ScreenDashboardAccountant from './screens/dashboard/accountant/ScreenDashboardAccountant';
 import ScreenDashboardAccountantReceiptVoucher from './screens/dashboard/accountant/receipt-voucher/ScreenDashboardAccountantReceiptVoucher';
@@ -112,6 +117,8 @@ import { convertGender } from './utils/convertGender';
 import { convertStatus } from './utils/convertStatus';
 import TimeUtils from './utils/time.util';
 import { formatPhoneNumber } from './utils/formatPhoneNumber.util';
+import { formatSID } from './utils/formatSID';
+import formMessage from './utils/formMessage';
 // Data
 import { VietNamPlaces } from './utils/vietnam-place';
 import medicalHistoryData from './utils/medical-historys';
@@ -171,16 +178,17 @@ export {
     ScreenDashboardProductDetailUpdate, ScreenDashboardProductRow
 }
 export {
-    ScreenDashboardClient, ScreenDashboardClientDetailUpdate, ScreenDashboardClientDetail,
-    ScreenDashboardClientCreate, ScreenDashboardClientRow, ScreenDashboardClientDetailTickets, ScreenDashboardClientDetailTicketsRow,
-    ScreenDashboardEmployeeDetailRoles, ScreenDashboardClientReceiptVoucher
+    ScreenDashboardClient, ScreenClientDetailUpdate, ScreenClientDetail, ScreenClientDetailTicketDetail, 
+    ScreenDashboardClientCreate, ScreenDashboardClientRow, ScreenClientDetailTicket, ScreenClientDetailTicketRow,
+    ScreenDashboardEmployeeDetailRoles, ScreenDashboardClientReceiptVoucher, ScreenClientDetailTicketCreate, ScreenClientDetailWraper,
+    ScreenClientDetailTicketPaymentPopup, ScreenClientDetailListPayment
 }
-export {
-    ScreenDashboardTicket, ScreenDashboardTicketRow, ScreenDashboardTicketCreate, ScreenDashboardTicketDetail,
-    ScreenDashboardTicketDetailCalendar, ScreenDashboardTicketDetailCalendarPopupAdd, ScreenDashboardTicketDetailCalendarRow,
-    ScreenDashboardTicketDetailReceiptVoucher, ScreenDashboardTicketDetailReceiptVoucherPopupAdd,
-    ScreenDashboardTicketDetailServicesInfo
-}
+// export {
+//     ScreenDashboardTicket, ScreenDashboardTicketRow, ScreenDashboardTicketCreate, ScreenDashboardTicketDetail,
+//     ScreenDashboardTicketDetailCalendar, ScreenDashboardTicketDetailCalendarPopupAdd, ScreenDashboardTicketDetailCalendarRow,
+//     ScreenDashboardTicketDetailReceiptVoucher, ScreenDashboardTicketDetailReceiptVoucherPopupAdd,
+//     ScreenDashboardTicketDetailServicesInfo
+// }
 export {
     ScreenDashboardAccountant, ScreenDashboardAccountantReceiptVoucher
 }
@@ -200,7 +208,7 @@ export {
     converErrorMessage, RequestService, Roles, GetRoleName,
     convertToSave, convertToSearch, pageNavigation, getLabelGender,
     convertTicketStatus, convertGender, convertStatus,
-    TimeUtils, formatPhoneNumber
+    TimeUtils, formatPhoneNumber, formatSID, formMessage
 }
 // Data
 export { VietNamPlaces, medicalHistoryData }
@@ -220,4 +228,4 @@ export { ConfirmService }
 export { CalendarDentistService }
 export { ShortKeyService }
 export { ReceiptVoucherService }
-export { CheckRoleService, Role }
+export { CheckRoleService, Role } 

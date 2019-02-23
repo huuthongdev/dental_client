@@ -17,4 +17,4 @@ export const URL_CLIENT = isDev ? 'http://localhost:3000' : 'https://app.nhakhoa
 export const URL_SERVER_API = isDev ? 'http://localhost:4000' : 'https://api-dental-baoan.herokuapp.com';
 
 // LAYOUT RELATED
-export const ITEMS_PER_PAGE = 10;
+export const ITEMS_PER_PAGE = 8;

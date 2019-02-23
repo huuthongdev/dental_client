@@ -22,7 +22,7 @@ class CpnCurrencyInput extends PureComponent {
         prefix = prefix ? prefix : '';
         subfix = subfix ? subfix : '';
         if (showNull && !value) return `0${subfix}`;
-        if (value) return `${prefix}${this.convertToCurrency(value).toLocaleString('vi-VN')}${subfix}`;
+        if (value) return `${prefix}${value < 0 ? '-' : ''}${this.convertToCurrency(value).toLocaleString('vi-VN')}${subfix}`;
         return '';
     };
 
@@ -47,7 +47,7 @@ class CpnCurrencyInput extends PureComponent {
     }
 
     render() {
-        const { onBlur, onFocus, style } = this.props;
+        const { onBlur, onFocus, style, className } = this.props;
 
         return <input
             onFocus={() => {
@@ -80,6 +80,7 @@ class CpnCurrencyInput extends PureComponent {
                 this.setState({ isFocus: false });
                 if (onBlur) onBlur();
             }}
+            className={`currency-input ${className ? className : ''}`}
             type="text"
             disabled={this.props.disabled}
             value={this.toShow(this.props.value)}

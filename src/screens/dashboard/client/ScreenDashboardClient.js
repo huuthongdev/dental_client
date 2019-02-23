@@ -3,47 +3,79 @@ import { connect } from 'react-redux';
 import Pagination from "react-js-pagination";
 import { Link } from 'react-router-dom';
 import {
-    convertToSearch, ITEMS_PER_PAGE, pageNavigation,
-    CpnFetchingData, CpnSvg, ScreenDashboardClientRow, ScreenDashboardWraper, CpnEmptyValue
+    ITEMS_PER_PAGE, CpnFetchingData, CpnSvg, ScreenDashboardClientRow,
+    ScreenDashboardWraper, CpnEmptyValue, ClientService
 } from '../../../refs';
 
 class ScreenDashboardClient extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            initFetching: true,
+            fetching: true,
+            count: null,
             currentPage: 1,
-            searchName: ''
+            data: [],
+            textSearch: ''
         }
-        this.searchNameInput = createRef();
+        this.textSearchInput = createRef();
+    }
+
+    async componentWillMount() {
+        await this.fetchData();
+        this.setState({ initFetching: false });
+    }
+
+    filterData = (textSearch) => {
+        this.fetchData(1, textSearch, true);
+    }
+
+    fetchData = (currentPage = this.state.currentPage, textSearch = this.state.textSearch, forceUpdate = false) => {
+        this.setState({ fetching: true });
+        const { client } = this.props;
+        // Check fetched
+        const check = client.pages.find(v => v.pageNumber === currentPage);
+        if (check && !forceUpdate) return this.setState({ fetching: false, data: check.data, count: client.count });
+        return ClientService.set((currentPage - 1) * ITEMS_PER_PAGE, currentPage, textSearch, forceUpdate)
+            .then(res => {
+                if (!res) return this.setState({ fetching: false });
+                return this.setState({ data: res.data, count: +res.count, fetching: false });
+            });
     }
 
     render() {
-        const { fetchDataStatus, client } = this.props;
-        const { currentPage, searchName } = this.state;
+        const { currentPage, data, count, fetching, initFetching, textSearch } = this.state;
 
-        let initData = client;
-
-        // Search
-        if (searchName) initData = initData.filter(v => convertToSearch(v.name).search(convertToSearch(searchName)) !== -1
-            || convertToSearch(v.phone).search(convertToSearch(searchName)) !== -1
-        );
-
-        const postsPage = pageNavigation(currentPage, ITEMS_PER_PAGE, initData);
-
+        if (initFetching) return <CpnFetchingData dashboardWraper />
         return (
             <ScreenDashboardWraper title="Khách hàng">
-                {!fetchDataStatus.client ? <CpnFetchingData /> : <Fragment >
+                <Fragment >
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-sm-6">
                                 <div className="cpn-table-tools">
                                     <div className="tool-search">
-                                        <input ref={this.searchNameInput} onChange={e => this.setState({ searchName: e.target.value })} type="text" placeholder="Tìm kiếm" />
+                                        <input
+                                            ref={this.textSearchInput}
+                                            value={this.state.textSearch}
+                                            onChange={e => {
+                                                const value = e.target.value;
+                                                this.setState({ textSearch: e.target.value });
+                                                setTimeout(() => {
+                                                    if (value !== this.state.textSearch) return;
+                                                    this.filterData(value);
+                                                }, 500);
+                                            }}
+                                            type="text"
+                                            placeholder="Tìm kiếm"
+                                        />
                                         <CpnSvg name="SEARCH" />
                                     </div>
                                     <div onClick={() => {
-                                        this.setState({ searchName: '' });
-                                        this.searchNameInput.current.value = '';
+                                        if (!textSearch) return;
+                                        this.setState({ textSearch: '' });
+                                        this.textSearchInput.current.value = '';
+                                        this.fetchData(1, '', true);
                                     }} className="tool-reset">Reset</div>
                                 </div>
                             </div>
@@ -59,49 +91,53 @@ class ScreenDashboardClient extends Component {
                                 </div>
                             </div>
 
-                            {client.length === 0 ? <div className="col-sm-12"><CpnEmptyValue message="Chưa có khách hàng nào" /></div> : <div className="col-sm-12">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            {/* <th className="sid">ID</th> */}
-                                            <th>Tên khách hàng</th>
-                                            <th>Điện thoại</th>
-                                            <th>Email</th>
-                                            <th>Sinh nhật</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {postsPage.map((v, i) => (
-                                            <ScreenDashboardClientRow item={v} key={i} />)
-                                        )}
-                                    </tbody>
-                                </table>
+                            <div className="col-sm-12">
+                                {fetching ? <CpnFetchingData message="Đang tìm kiếm..." /> : null}
+                                {!fetching && data.length === 0 ? <CpnEmptyValue message={`${textSearch ? `Không tìm thấy khách hàng với từ khoá "${textSearch}"` : 'Chưa có khách hàng nào'}`} /> : null}
+                                {!fetching && data.length > 0 ? <Fragment>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th className="sid">ID</th>
+                                                <th>Tên khách hàng</th>
+                                                <th>Điện thoại</th>
+                                                <th>Email</th>
+                                                <th>Địa chỉ</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {data.map((v, i) => (
+                                                <ScreenDashboardClientRow item={v} key={i} />)
+                                            )}
+                                        </tbody>
+                                    </table>
 
-                                {initData.length > ITEMS_PER_PAGE ? <Pagination
-                                    activePage={currentPage}
-                                    itemsCountPerPage={ITEMS_PER_PAGE}
-                                    totalItemsCount={initData.length}
-                                    pageRangeDisplayed={5}
-                                    onChange={currentPage => this.setState({ currentPage })}
-                                    activeClass="active"
-                                    activeLinkClass="active"
-                                /> : null}
-
-                            </div>}
+                                    {count > ITEMS_PER_PAGE ? <Pagination
+                                        activePage={currentPage}
+                                        itemsCountPerPage={ITEMS_PER_PAGE}
+                                        totalItemsCount={+count}
+                                        pageRangeDisplayed={5}
+                                        onChange={currentPage => {
+                                            this.setState({ currentPage });
+                                            this.fetchData(+currentPage);
+                                        }}
+                                        activeClass="active"
+                                        activeLinkClass="active"
+                                    /> : null}
+                                </Fragment> : null}
+                            </div>
                         </div>
                     </div>
-                </Fragment>}
-
+                </Fragment>
             </ScreenDashboardWraper>
-        );
+        )
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        client: state.client,
-        fetchDataStatus: state.fetchDataStatus
+        client: state.client
     };
 }
 export default connect(mapStateToProps)(ScreenDashboardClient);

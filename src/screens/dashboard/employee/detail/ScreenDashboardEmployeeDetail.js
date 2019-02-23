@@ -17,7 +17,7 @@ class ScreenDashboardEmployeeDetail extends Component {
 		employee: null,
 		goBack: false,
 		// INFO || ROLES
-		subMenuActive: "ROLES"
+		subMenuActive: "INFO"
 	};
 
 	changeSubMenu(menu) {

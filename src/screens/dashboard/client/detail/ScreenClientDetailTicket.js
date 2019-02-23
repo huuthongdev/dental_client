@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { ScreenDashboardClientDetailTicketsRow, CpnEmptyValue, ScreenDashboardTicketDetailReceiptVoucherPopupAdd } from '../../../../refs';
+import { ScreenClientDetailTicketRow, CpnEmptyValue, ScreenClientDetailTicketPaymentPopup } from '../../../../refs';
 
-class ScreenDashboardClientDetailTickets extends Component {
+class ScreenClientDetailTicket extends Component {
     state = {
         isPayment: false,
         payloadPayment: null
@@ -10,11 +10,10 @@ class ScreenDashboardClientDetailTickets extends Component {
     render() {
         const { isPayment } = this.state;
         const { tickets } = this.props.detail;
-        if (tickets.length === 0) return <div className="col-sm-12"><CpnEmptyValue message="Khách hàng chưa có hồ sơ điều trị" /></div>
+        if (tickets.length === 0) return <CpnEmptyValue message="Khách hàng chưa có hồ sơ điều trị" />
         return (
             <Fragment>
-                {isPayment ? <ScreenDashboardTicketDetailReceiptVoucherPopupAdd {...this.state.payloadPayment} goBack={() => this.setState({ isPayment: false })} /> : null}
-
+                {isPayment ? <ScreenClientDetailTicketPaymentPopup {...this.state.payloadPayment} goBack={() => this.setState({ isPayment: false })} /> : null}
                 <table>
                     <thead>
                         <tr>
@@ -30,7 +29,7 @@ class ScreenDashboardClientDetailTickets extends Component {
                     </thead>
                     <tbody>
                         {tickets.map((value, key) => {
-                            return <ScreenDashboardClientDetailTicketsRow onPayment={(payloadPayment) => this.setState({ isPayment: true, payloadPayment })} value={value} key={key} />
+                            return <ScreenClientDetailTicketRow onPayment={(payloadPayment) => this.setState({ isPayment: true, payloadPayment })} value={value} key={key} />
                         })}
                     </tbody>
                 </table>
@@ -39,4 +38,4 @@ class ScreenDashboardClientDetailTickets extends Component {
     }
 }
 
-export default ScreenDashboardClientDetailTickets;
+export default ScreenClientDetailTicket;

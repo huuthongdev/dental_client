@@ -1,4 +1,5 @@
-export function formatPhoneNumber(tel) {
+export function formatPhoneNumber(tel, empty = '') {
+    if (!tel) return empty;
     var C = tel.replace(/[^0-9xX]/g, "").replace(/[xX]/g, "x");
     var B = "";
     if (C.indexOf("x") > -1) {

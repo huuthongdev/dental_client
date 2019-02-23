@@ -2,10 +2,9 @@ import React, { Component, Fragment } from 'react';
 import ReactToPrint from "react-to-print";
 import './ReceiptVoucherPrint.scss';
 import { CpnSvg } from '../refs';
- 
+
 class ComponentToPrint extends React.Component {
     render() {
-        // const { } = this.props.ticket;
         if (!this.props.detail) return <Fragment></Fragment>
         const { client, ticket, totalPayment, _id, createAt, cashier } = this.props.detail;
         const totalBefore = ticket.receiptVoucher.filter(v => v._id !== _id && v.createAt < createAt).length === 0 ? 0 : ticket.receiptVoucher.filter(v => v._id !== _id).map(v => v.totalPayment).reduce((a, b) => a + b);
@@ -62,10 +61,11 @@ class ComponentToPrint extends React.Component {
                                     <td colSpan={3} className="text-right">Giảm giá</td>
                                     <td className="text-right"><span>-0đ</span></td>
                                 </tr>
-                                <tr>
+                                {totalBefore && totalBefore !== 0 ? <tr>
                                     <td colSpan={3} className="text-right">Đã thu trước</td>
                                     <td className="text-right"><span>{totalBefore.toLocaleString('en-GB')}đ</span></td>
-                                </tr>
+                                </tr> : null}
+
                                 <tr className="total">
                                     <td colSpan={3} className="text-right">Thanh toán</td>
                                     <td className="text-right"><span>{totalPayment.toLocaleString('en-GB')}đ</span></td>
@@ -76,10 +76,6 @@ class ComponentToPrint extends React.Component {
                                 </tr>
                             </tbody>
                         </table>
-
-                        {/* <div className="total">
-                            PHÍ THU <strong>1.000.000 VNĐ</strong>
-                        </div> */}
 
                         <div className="footer">
                             Thu ngân: <strong>{cashier.name}</strong> - Thời gian: <strong>{new Date(createAt).toLocaleDateString('en-GB')} - {new Date(createAt).toLocaleTimeString('en-GB')}</strong> <br />
@@ -93,11 +89,22 @@ class ComponentToPrint extends React.Component {
 }
 
 class ReceiptVoucherPrint extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {}
+    }
+
+    componentDidMount() {
+        if (!this.props.autoPrint) return;
+        const target = document.getElementById('print-ticket-payment');
+        target.click();
+    }
+
     render() {
         return (
             <Fragment>
                 <ReactToPrint
-                    trigger={() => <div>{this.props.children}</div>}
+                    trigger={() => <div id="print-ticket-payment">{this.props.children}</div>}
                     content={() => this.componentRef}
                 />
                 <div style={{ display: 'none' }}>

@@ -7,7 +7,7 @@ import Select from 'react-select';
 import DatePicker from "react-datepicker";
 import { VietNamPlaces, medicalHistoryData, SubmitButtonsGroup, ClientService, convertToSave, getLabelGender } from '../../../../refs';
 
-class ScreenDashboardClientDetailUpdate extends Component {
+class ScreenClientDetailUpdate extends Component {
     state = {
         goBack: false
     }
@@ -35,7 +35,7 @@ class ScreenDashboardClientDetailUpdate extends Component {
                             }}
                             validationSchema={Yup.object().shape({
                                 name: Yup.string().required('không được để trống'),
-                                phone: Yup.string().required('không được để trống').min(10, 'Số điện thoại không hợp lệ').max(10, 'Số điện thoại không hợp lệ'),
+                                phone: Yup.string().required('không được để trống'),
                                 email: Yup.string().email('định dạng email không đúng'),
                                 birthday: Yup.number(),
                                 medicalHistory: Yup.array(),
@@ -204,4 +204,4 @@ const mapStateToProps = (state) => {
         client: state.client
     };
 }
-export default connect(mapStateToProps)(ScreenDashboardClientDetailUpdate);
+export default connect(mapStateToProps)(ScreenClientDetailUpdate);
