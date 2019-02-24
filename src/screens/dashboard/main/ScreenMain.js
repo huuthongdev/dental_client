@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+// import Select from 'react-select';
 import {
     ScreenDashboardWraper, ScreenMainNumberReports, ScreenMainPaymentToday
 } from '../../../refs';
@@ -8,6 +9,16 @@ class ScreenMain extends Component {
         return (
             <Fragment>
                 <ScreenDashboardWraper title="Thông tin chung">
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col-sm-12">
+                                <div className="report-filter">
+                                    <label></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <ScreenMainNumberReports />
                     <div className="container-fluid mt-2">
                         <div className="row">

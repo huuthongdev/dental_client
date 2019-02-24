@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
-import { CpnFetchingData, formatSID, ReceiptVoucherPrint, CpnSvg } from '../../../refs';
+import { CpnFetchingData, formatSID, ReceiptVoucherPrint, CpnSvg, CpnEmptyValue } from '../../../refs';
 
 class ScreenMainPaymentToday extends Component {
     render() {
@@ -12,7 +12,11 @@ class ScreenMainPaymentToday extends Component {
                 <div className="box-title">
                     Danh sách phiếu thu trong ngày
                 </div>
+
                 {!fetchDataStatus.dashboardInfo ? <CpnFetchingData /> : null}
+                {fetchDataStatus.dashboardInfo && dashboardInfo.receiptVoucherToday.length === 0 ?
+                    <CpnEmptyValue message="Chưa có phiếu thu nào hôm nay"/>
+                    : null}
                 {fetchDataStatus.dashboardInfo && dashboardInfo.receiptVoucherToday.length !== 0 ? <table>
                     <thead>
                         <tr>
