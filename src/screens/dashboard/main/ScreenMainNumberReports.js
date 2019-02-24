@@ -5,7 +5,6 @@ class ScreenMainNumberReports extends Component {
     render() {
         const { main, fetchDataStatus } = this.props;
         const { dashboardInfo } = main;
-        console.log(dashboardInfo.numberReports);
 
         if (!fetchDataStatus.dashboardInfo) return <Fragment>
             <div className="container-fluid" id="digital-number-reports">

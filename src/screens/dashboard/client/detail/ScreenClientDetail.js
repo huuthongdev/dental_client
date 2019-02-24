@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { CpnSvg, ScreenDashboardClientReceiptVoucher, ScreenClientDetailUpdate, ScreenClientDetailTicket, ScreenClientDetailListPayment } from '../../../../refs';
+import { CpnSvg, ScreenClientDetailUpdate, ScreenClientDetailTicket, ScreenClientDetailListPayment } from '../../../../refs';
 import ScreenClientDetailWraper from './ScreenClientDetailWraper';
 
 class ScreenClientDetail extends Component {
