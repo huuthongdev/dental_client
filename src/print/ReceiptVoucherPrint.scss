@@ -28,6 +28,7 @@
 .receipt-voucher-print {
   position: relative;
   width: 100%;
+  min-height: 100vh;
   padding: 20px;
   border-radius: $borderRadius;
   background: $white;
@@ -82,21 +83,6 @@
       text-align: right !important;
     }
 
-    .footer {
-      border-top: 1px solid rgba($color: $dark, $alpha: 0.5);
-      width: 100%;
-      background: $white;
-      z-index: 200;
-      text-align: center;
-      color: $dark;
-      align-self: flex-end;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      padding: 10px;
-      line-height: 1.5rem;
-    }
-
     table {
       border-collapse: collapse;
       width: 100%;
@@ -145,5 +131,41 @@
         font-weight: 600;
       }
     }
+  }
+
+  .signature {
+    position: absolute;
+    width: 100%;
+    height: max-content;
+    background: $white;
+    color: $dark;
+    left: 0;
+    bottom: 55px;
+
+    .item {
+      text-align: center;
+      height: 140px;
+      width: 250px;
+      float: right;
+
+      p {
+        margin: 0px;
+      }
+    }
+  }
+
+  .footer {
+    border-top: 1px solid rgba($color: $dark, $alpha: 0.5);
+    width: 100%;
+    background: $white;
+    z-index: 200;
+    text-align: center;
+    color: $dark;
+    align-self: flex-end;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 5px;
+    line-height: 1.5rem;
   }
 }

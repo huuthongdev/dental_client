@@ -19,6 +19,7 @@ class ScreenDashboardClientCreate extends Component {
 
     render() {
         const { goBack } = this.state;
+        const { history } = this.props;
 
         if (goBack) return <Redirect to="/client" />;
         return (
@@ -68,10 +69,10 @@ class ScreenDashboardClientCreate extends Component {
                             })}
                             onSubmit={(values, { setSubmitting }) => {
                                 ClientService.create(values)
-                                    .then(success => {
+                                    .then(result => {
                                         setSubmitting(false);
-                                        if (!success) return;
-                                        this.setState({ goBack: true });
+                                        if (!result) return;
+                                        history.push(`/client/${result._id}`)
                                     })
                             }}
                             render={props => {

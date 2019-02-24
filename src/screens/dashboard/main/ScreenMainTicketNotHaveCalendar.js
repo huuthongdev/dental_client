@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { CpnFetchingData, CpnEmptyValue, ScreenDashboardMainTicketNotHaveCalendarRow } from '../../../refs';
+import { CpnFetchingData, CpnEmptyValue, ScreenMainTicketNotHaveCalendarRow } from '../../../refs';
 
-class ScreenDashboardMainTicketNotHaveCalendar extends Component {
+class ScreenMainTicketNotHaveCalendar extends Component {
     render() {
         const { fetchDataStatus, main } = this.props;
         const { dashboardInfo } = main;
@@ -27,7 +27,7 @@ class ScreenDashboardMainTicketNotHaveCalendar extends Component {
                     <tbody>
                         {dashboardInfo.ticketNotHaveCanlendar
                             ? dashboardInfo.ticketNotHaveCanlendar.map((value, key) => (
-                                <ScreenDashboardMainTicketNotHaveCalendarRow value={value} key={key} />
+                                <ScreenMainTicketNotHaveCalendarRow value={value} key={key} />
                             )) : null}
                     </tbody>
                 </table> : null}
@@ -42,4 +42,4 @@ const mapStateToProps = (state) => {
         fetchDataStatus: state.fetchDataStatus
     };
 }
-export default connect(mapStateToProps)(ScreenDashboardMainTicketNotHaveCalendar);
+export default connect(mapStateToProps)(ScreenMainTicketNotHaveCalendar);

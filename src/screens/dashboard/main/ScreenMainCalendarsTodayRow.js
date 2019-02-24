@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 import { TimeUtils, CalendarDentistService, CpnSvg } from '../../../refs';
 
-class ScreenDashboardCalendarsTodayRow extends Component {
+class ScreenMainCalendarsToday extends Component {
     state = {
         loading: false,
         redirectToTicketDetail: false
@@ -79,4 +79,4 @@ class ScreenDashboardCalendarsTodayRow extends Component {
     }
 }
 
-export default ScreenDashboardCalendarsTodayRow;
+export default ScreenMainCalendarsToday;

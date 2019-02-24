@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { CpnEmptyValue, ScreenDashboardCalendarsTodayRow } from '../../../refs';
+import { CpnEmptyValue, ScreenMainCalendarsTodayRow } from '../../../refs';
 
-class ScreenDashboardCalendarsToday extends Component {
+class ScreenMainCalendarsToday extends Component {
     render() {
         const { fetchDataStatus, main } = this.props;
         const { dashboardInfo } = main;
@@ -39,7 +39,7 @@ class ScreenDashboardCalendarsToday extends Component {
                     </thead>
                     <tbody>
                         {calendarsToday.map((value, key) => (
-                            <ScreenDashboardCalendarsTodayRow value={value} key={key} />
+                            <ScreenMainCalendarsTodayRow value={value} key={key} />
                         ))}
                     </tbody>
                 </table> : null}
@@ -55,4 +55,4 @@ const mapStateToProps = (state) => {
         fetchDataStatus: state.fetchDataStatus
     };
 }
-export default connect(mapStateToProps)(ScreenDashboardCalendarsToday);
+export default connect(mapStateToProps)(ScreenMainCalendarsToday);

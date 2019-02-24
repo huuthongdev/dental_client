@@ -2,11 +2,11 @@ import React, { Component, Fragment } from 'react';
 import { Route, BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
 // Import
 import {
-    ScreenLogin, ScreenNotMatch404, ScreenAuthentication, ScreenSelectBranch, ScreenDashboardBranch, ScreenDashboardMain,
+    ScreenLogin, ScreenNotMatch404, ScreenAuthentication, ScreenSelectBranch, ScreenDashboardBranch,
     ScreenDashboardEmployee, ScreenDashboardService, ScreenDashboardProduct, ScreenDashboardClient, ScreenDashboardBranchCreate, ScreenDashboardBranchDetail,
     ScreenDashboardEmployeeCreate, ScreenDashboardEmployeeDetail, ScreenDashboardServiceDetail, ScreenDashboardProductDetail, ScreenDashboardClientCreate,
-    ScreenDashboardTicket, ScreenDashboardTicketCreate, ScreenDashboardTicketDetail, UserService, ScreenDashboardAccountant, Role,
-    CheckRoleService, AlertService, ScreenForgotPassword, ScreenClientDetailTicketCreate, ScreenClientDetail, ScreenClientDetailTicketDetail
+    UserService, ScreenDashboardAccountant, Role, CheckRoleService, AlertService, ScreenForgotPassword, ScreenClientDetailTicketCreate,
+    ScreenClientDetail, ScreenClientDetailTicketDetail, ScreenMain
 } from '../refs';
 import { ScreenDashboardServiceCreate, ScreenDashboardProductCreate } from '../refs';
 import { connect } from 'react-redux';
@@ -18,8 +18,8 @@ class Routes extends Component {
             <Router>
                 <Fragment>
                     <Switch>
-                        <MustBeUser path="/" exact component={ScreenDashboardMain} />
-                        <MustBeUser path="/main" exact component={ScreenDashboardMain} />
+                        <MustBeUser path="/" exact component={ScreenMain} />
+                        <MustBeUser path="/main" exact component={ScreenMain} />
 
                         <MustBeUser mustHaveRoles={[Role.ADMIN]} path="/branch" exact component={ScreenDashboardBranch} />
                         <MustBeUser mustHaveRoles={[Role.ADMIN]} path="/branch/new" exact component={ScreenDashboardBranchCreate} />

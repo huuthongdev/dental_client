@@ -1,9 +1,17 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { CpnSvg, CpnEmptyValue, ReceiptVoucherPrint, CpnFetchingData } from '../../../../refs';
+import Pagination from "react-js-pagination";
+import { CpnSvg, CpnEmptyValue, ReceiptVoucherPrint, CpnFetchingData, ReceiptVoucherService, ITEMS_PER_PAGE } from '../../../../refs';
 
 class ScreenDashboardAccountantReceiptVoucher extends Component {
+    state = {
+        initFetching: true,
+        fetching: true,
+        count: null,
+        currentPage: 1,
+        data: [],
+    }
 
     convertTypeReceiptVoucher = (type) => {
         if (type === 'FOR_TICKET') return 'Thu phí dịch vụ';
@@ -11,20 +19,39 @@ class ScreenDashboardAccountantReceiptVoucher extends Component {
         return '--';
     }
 
-    render() {
-        const { receiptVoucher, fetchDataStatus } = this.props;
-        const isEmpty = receiptVoucher.length === 0;
+    async componentWillMount() {
+        await this.fetchData();
+        this.setState({ initFetching: false });
+    }
 
-        if (!fetchDataStatus.receiptVoucher) return <Fragment>
-            <div className="col-sm-12">
-                <CpnFetchingData />
-            </div>
-        </Fragment>
+    filterData = (textSearch) => {
+        this.fetchData(1, textSearch, true);
+    }
+
+    fetchData = (currentPage = this.state.currentPage, textSearch = this.state.textSearch, forceUpdate = false) => {
+        this.setState({ fetching: true });
+        const { receiptVoucher } = this.props;
+        // Check fetched
+        const check = receiptVoucher.pages.find(v => v.pageNumber === currentPage);
+        if (check && !forceUpdate) return this.setState({ fetching: false, data: check.data, count: receiptVoucher.count });
+        return ReceiptVoucherService.set((currentPage - 1) * ITEMS_PER_PAGE, currentPage, textSearch, forceUpdate)
+            .then(res => {
+                if (!res) return this.setState({ fetching: false });
+                return this.setState({ data: res.data, count: +res.count, fetching: false });
+            });
+    }
+
+    render() {
+        const { data, fetching, initFetching, currentPage, count } = this.state;
+
+        if (initFetching) return <CpnFetchingData />
 
         return (
             <Fragment>
                 <div className="col-sm-12">
-                    {isEmpty ? <CpnEmptyValue /> :
+                    {fetching ? <CpnFetchingData message="Đang nạp dữ liệu..." /> : null}
+                    {!fetching && data.length === 0 ? <CpnEmptyValue message={`Chưa có giao dịch nào`} /> : null}
+                    {!fetching && data.length > 0 ? <Fragment>
                         <table className="table">
                             <thead>
                                 <tr>
@@ -39,7 +66,7 @@ class ScreenDashboardAccountantReceiptVoucher extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {receiptVoucher.map((value, key) => {
+                                {data.map((value, key) => {
                                     const { cashier, totalPayment, content, type, sid, createAt, ticket } = value;
                                     return <Fragment key={key}>
                                         <tr>
@@ -84,7 +111,21 @@ class ScreenDashboardAccountantReceiptVoucher extends Component {
                                 })}
                             </tbody>
                         </table>
-                    }
+
+                        {count > ITEMS_PER_PAGE ? <Pagination
+                            activePage={currentPage}
+                            itemsCountPerPage={ITEMS_PER_PAGE}
+                            totalItemsCount={+count}
+                            pageRangeDisplayed={5}
+                            onChange={currentPage => {
+                                this.setState({ currentPage });
+                                this.fetchData(+currentPage);
+                            }}
+                            activeClass="active"
+                            activeLinkClass="active"
+                        /> : null}
+                    </Fragment>
+                        : null}
                 </div>
             </Fragment>
         );
@@ -93,8 +134,7 @@ class ScreenDashboardAccountantReceiptVoucher extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        receiptVoucher: state.receiptVoucher,
-        fetchDataStatus: state.fetchDataStatus
+        receiptVoucher: state.receiptVoucher
     };
 }
 export default connect(mapStateToProps)(ScreenDashboardAccountantReceiptVoucher);

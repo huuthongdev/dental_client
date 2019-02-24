@@ -1,5 +1,5 @@
-import { Store, RequestService, AlertService, ITEMS_PER_PAGE } from "../refs";
-import { SET_CLIENT, CREATE_CLIENT, UPDATE_CLIENT } from "../reducers/client.reducer";
+import { Store, RequestService, AlertService, ITEMS_PER_PAGE, MainService } from "../refs";
+import { SET_CLIENT } from "../reducers/client.reducer";
 import { SET_CLIENT_DETAIL } from "../reducers/client.detail.reducer";
 
 const { dispatch } = Store;
@@ -40,8 +40,9 @@ export default class ClientService {
 
     static async create(payload) {
         return RequestService.post('/client', payload)
-            .then(result => {
-                dispatch({ type: CREATE_CLIENT, result })
+            .then(async result => {
+                await this.set(0, 1, '', true);
+                MainService.getMainDashboadInfo();
                 AlertService.success(`Đã tạo khách hàng: ${result.name}`);
                 return result;
             })

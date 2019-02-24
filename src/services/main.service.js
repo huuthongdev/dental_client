@@ -27,12 +27,11 @@ export default class MainService {
         this.setTemp();
         this.getMainDashboadInfo();
         BranchService.set();
-        EmployeeService.set(); 
+        EmployeeService.set();
         ServiceService.set();
         ProductService.set();
-        // ClientService.set();
-        // TicketService.set();
-        // ReceiptVoucherService.set();
+        ClientService.set();
+        ReceiptVoucherService.set();
     }
 
     static async getMainDashboadInfo() {

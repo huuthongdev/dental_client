@@ -72,10 +72,10 @@ class ScreenClientDetailTicketRow extends Component {
                                     <CpnSvg name="INFO" />
                                     Chi tiết
                                 </div>
-                                <div className="item" onClick={() => this.setState({ onCreateCalendar: true })}>
+                                {/* <div className="item" onClick={() => this.setState({ onCreateCalendar: true })}>
                                     <CpnSvg name="DATE" />
                                     Đặt lịch hẹn
-                                </div>
+                                </div> */}
                                 {debitAmount !== 0 ? <div className="item" onClick={() => this.props.onPayment({
                                     debitAmount: debitAmount - discountAmount,
                                     clientId: client._id,

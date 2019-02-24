@@ -29,12 +29,13 @@ import ScreenDashboardSidebar from './screens/dashboard/ScreenDashboardSidebar';
 import ScreenDashboardHeader from './screens/dashboard/ScreenDashboardHeader';
 import ScreenDashboardWraper from './screens/dashboard/ScreenDashboardWraper';
 
-import ScreenDashboardMain from './screens/dashboard/main/ScreenDashboardMain';
-import ScreenDashboardMainNumberReports from './screens/dashboard/main/ScreenDashboardMainNumberReports';
-import ScreenDashboardCalendarsToday from './screens/dashboard/main/ScreenDashboardCalendarsToday';
-import ScreenDashboardCalendarsTodayRow from './screens/dashboard/main/ScreenDashboardCalendarsTodayRow';
-import ScreenDashboardMainTicketNotHaveCalendar from './screens/dashboard/main/ScreenDashboardMainTicketNotHaveCalendar';
-import ScreenDashboardMainTicketNotHaveCalendarRow from './screens/dashboard/main/ScreenDashboardMainTicketNotHaveCalendarRow';
+import ScreenMain from './screens/dashboard/main/ScreenMain';
+import ScreenMainNumberReports from './screens/dashboard/main/ScreenMainNumberReports';
+import ScreenMainCalendarsToday from './screens/dashboard/main/ScreenMainCalendarsToday';
+import ScreenMainCalendarsTodayRow from './screens/dashboard/main/ScreenMainCalendarsTodayRow';
+import ScreenMainTicketNotHaveCalendar from './screens/dashboard/main/ScreenMainTicketNotHaveCalendar';
+import ScreenMainTicketNotHaveCalendarRow from './screens/dashboard/main/ScreenMainTicketNotHaveCalendarRow';
+import ScreenMainPaymentToday from './screens/dashboard/main/ScreenMainPaymentToday';
 
 import ScreenDashboardBranch from './screens/dashboard/branch/ScreenDashboardBranch';
 import ScreenDashboardBranchCreate from './screens/dashboard/branch/ScreenDashboardBranchCreate';
@@ -158,8 +159,8 @@ export { ScreenForgotPassword }
 export { ScreenNotMatch404 }
 export { ScreenDashboardHeader, ScreenDashboardWraper, ScreenDashboardSidebar }
 export {
-    ScreenDashboardMain, ScreenDashboardMainNumberReports, ScreenDashboardCalendarsToday, ScreenDashboardCalendarsTodayRow,
-    ScreenDashboardMainTicketNotHaveCalendar, ScreenDashboardMainTicketNotHaveCalendarRow
+    ScreenMain, ScreenMainNumberReports, ScreenMainCalendarsToday, ScreenMainCalendarsTodayRow,
+    ScreenMainTicketNotHaveCalendar, ScreenMainTicketNotHaveCalendarRow, ScreenMainPaymentToday
 }
 export {
     ScreenDashboardBranch, ScreenDashboardBranchRow, ScreenDashboardBranchDetailEmployeeAdd, ScreenDashboardBranchDetail,

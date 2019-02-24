@@ -21,11 +21,11 @@ class ScreenClientDetailListPayment extends Component {
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Hồ sơ</th>
                             <th>Thời gian</th>
-                            <th>Thu ngân</th>
+                            <th>Hồ sơ</th>
                             <th>Phí thu</th>
                             <th>Ghi chú</th>
+                            <th>Thu ngân</th>
                             <th></th>
                         </tr>
                     </thead><tbody>
@@ -37,33 +37,29 @@ class ScreenClientDetailListPayment extends Component {
                                         <div className="left-row-side" />
                                         {formatSID(sid)}
                                     </td>
+                                    <td>
+                                        {new Date(createAt).toLocaleTimeString('en-GB')} | {new Date(createAt).toLocaleDateString('en-GB')}
+                                    </td>
                                     <td style={{ width: '70px' }}>
                                         {ticket ? <Link className="link" to={`/client/${client._id}/ticket/${ticket._id}`}>
                                             {formatSID(ticket.sid)}
                                         </Link> : null}
                                     </td>
-                                    <td>
-                                        {new Date(createAt).toLocaleTimeString('en-GB')} | {new Date(createAt).toLocaleDateString('en-GB')}
-                                    </td>
-                                    <td>{cashier.name}</td>
                                     <td className="text-success">
                                         <strong>+{totalPayment.toLocaleString()}đ</strong>
                                     </td>
                                     <td>
                                         {content}
                                     </td>
-                                    <td className="list-tools">
-                                        <button className="row-toggle-list-tools">
-                                            <CpnSvg name="ARROW_DOWN" />
-                                            <div className="row-list-tools">
-                                                <ReceiptVoucherPrint detail={value}>
-                                                    <div className="item">
-                                                        <CpnSvg name="PRINTER" />
-                                                        In hoá đơn
-                                                    </div>
-                                                </ReceiptVoucherPrint>
-                                            </div>
-                                        </button>
+                                    <td>
+                                        {cashier.name}
+                                    </td>
+                                    <td style={{ width: '60px' }}>
+                                        <ReceiptVoucherPrint detail={value}>
+                                            <button type="button" className="table-button-tool">
+                                                <CpnSvg name="PRINTER" />
+                                            </button>
+                                        </ReceiptVoucherPrint>
 
                                         <div className="right-row-side" />
                                     </td>

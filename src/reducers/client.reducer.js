@@ -4,7 +4,7 @@ export const SET_CLIENT = 'SET_CLIENT';
 export const CREATE_CLIENT = 'CREATE_CLIENT';
 export const UPDATE_CLIENT = 'UPDATE_CLIENT';
 
-const defaultState = {
+const defaultState = { 
     count: null,
     pages: []
 }

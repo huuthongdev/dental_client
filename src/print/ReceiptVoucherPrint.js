@@ -37,6 +37,7 @@ class ComponentToPrint extends React.Component {
                         <div className="tab-title">
                             Chi tiết hoá đơn
                         </div>
+
                         <table>
                             <tbody>
                                 <tr className="dashed-bottom">
@@ -76,11 +77,18 @@ class ComponentToPrint extends React.Component {
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
 
-                        <div className="footer">
-                            Thu ngân: <strong>{cashier.name}</strong> - Thời gian: <strong>{new Date(createAt).toLocaleDateString('en-GB')} - {new Date(createAt).toLocaleTimeString('en-GB')}</strong> <br />
-                            Hotline hỗ trợ: <strong>0908 508 136</strong>
+                    <div className="signature">
+                        <div className="item">
+                            <p>Khách hàng</p>
+                            <p><small>(Ký và ghi rõ họ tên)</small></p>
                         </div>
+                    </div>
+
+                    <div className="footer">
+                        Thu ngân: <strong>{cashier.name}</strong> - Thời gian: <strong>{new Date(createAt).toLocaleDateString('en-GB')} - {new Date(createAt).toLocaleTimeString('en-GB')}</strong> <br />
+                        Hotline hỗ trợ: <strong>0908 508 136</strong>
                     </div>
                 </div>
             </Fragment>

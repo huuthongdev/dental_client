@@ -1,16 +1,21 @@
 import React, { Component, Fragment } from 'react';
-import { ScreenClientDetailTicketRow, CpnEmptyValue, ScreenClientDetailTicketPaymentPopup } from '../../../../refs';
+import Pagination from "react-js-pagination";
+import { ScreenClientDetailTicketRow, CpnEmptyValue, ScreenClientDetailTicketPaymentPopup, pageNavigation, ITEMS_PER_PAGE } from '../../../../refs';
 
 class ScreenClientDetailTicket extends Component {
     state = {
         isPayment: false,
-        payloadPayment: null
+        payloadPayment: null,
+        currentPage: 1
     }
 
     render() {
         const { isPayment } = this.state;
         const { tickets } = this.props.detail;
         if (tickets.length === 0) return <CpnEmptyValue message="Khách hàng chưa có hồ sơ điều trị" />
+        const { currentPage } = this.state;
+        let initData = tickets;
+        const postsPage = pageNavigation(currentPage, ITEMS_PER_PAGE, initData);
         return (
             <Fragment>
                 {isPayment ? <ScreenClientDetailTicketPaymentPopup {...this.state.payloadPayment} goBack={() => this.setState({ isPayment: false })} /> : null}
@@ -28,11 +33,21 @@ class ScreenClientDetailTicket extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {tickets.map((value, key) => {
+                        {postsPage.map((value, key) => {
                             return <ScreenClientDetailTicketRow onPayment={(payloadPayment) => this.setState({ isPayment: true, payloadPayment })} value={value} key={key} />
                         })}
                     </tbody>
                 </table>
+
+                {initData.length > ITEMS_PER_PAGE ? <Pagination
+                    activePage={currentPage}
+                    itemsCountPerPage={ITEMS_PER_PAGE}
+                    totalItemsCount={initData.length}
+                    pageRangeDisplayed={5}
+                    onChange={currentPage => this.setState({ currentPage })}
+                    activeClass="active"
+                    activeLinkClass="active"
+                /> : null}
             </Fragment>
         );
     }

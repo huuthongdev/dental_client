@@ -49,7 +49,7 @@ class ScreenDashboardClient extends Component {
         if (initFetching) return <CpnFetchingData dashboardWraper />
         return (
             <ScreenDashboardWraper title="Khách hàng">
-                <Fragment >
+                <Fragment>
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-sm-6">
